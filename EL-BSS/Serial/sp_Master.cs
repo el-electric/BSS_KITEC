@@ -1,5 +1,4 @@
-﻿using DrakeUI.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -8,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace EL_BSS.Serial
 {
-    //메인보드 MM
-    //슬레이브 MS
-    public static class sp
+    public class sp_Master
     {
         static SerialPort serial;
         public static void Open(string PortName)
@@ -28,6 +25,8 @@ namespace EL_BSS.Serial
 
                 serial.DataReceived += Comport1_DataReceived;
                 serial.Open();
+
+                Model.isOpen_Master = true;
             }
             catch (Exception ex) { }
         }

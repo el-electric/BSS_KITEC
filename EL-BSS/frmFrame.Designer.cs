@@ -34,6 +34,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbl_time = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.bck_Protocol = new System.ComponentModel.BackgroundWorker();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +59,7 @@
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BackgroundImage = global::EL_BSS.Properties.Resources.bgTitle;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.lbl_time);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(3, 0);
@@ -91,6 +94,20 @@
             this.panel2.Size = new System.Drawing.Size(1021, 694);
             this.panel2.TabIndex = 4;
             // 
+            // bck_Protocol
+            // 
+            this.bck_Protocol.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Protocol_DoWork);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(365, 16);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -115,5 +132,7 @@
         private System.Windows.Forms.Panel panel1;
         private DrakeUI.Framework.DrakeUISymbolLabel lbl_time;
         private System.Windows.Forms.Panel panel2;
+        private System.ComponentModel.BackgroundWorker bck_Protocol;
+        private System.Windows.Forms.Button button1;
     }
 }

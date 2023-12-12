@@ -32,6 +32,11 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.drakeUIComboBox1 = new DrakeUI.Framework.DrakeUIComboBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.picDoor_7 = new System.Windows.Forms.PictureBox();
             this.picDoor_6 = new System.Windows.Forms.PictureBox();
             this.picDoor_5 = new System.Windows.Forms.PictureBox();
@@ -41,7 +46,8 @@
             this.picDoor_1 = new System.Windows.Forms.PictureBox();
             this.picDoor_0 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
+            this.lbl_soc3 = new System.Windows.Forms.Label();
+            this.lbl_soc7 = new System.Windows.Forms.Label();
             this.Battery_7 = new DrakeUI.Framework.DrakeUIBatteryBar();
             this.Battery_3 = new DrakeUI.Framework.DrakeUIBatteryBar();
             this.Battery_6 = new DrakeUI.Framework.DrakeUIBatteryBar();
@@ -51,21 +57,17 @@
             this.Battery_4 = new DrakeUI.Framework.DrakeUIBatteryBar();
             this.Battery_0 = new DrakeUI.Framework.DrakeUIBatteryBar();
             this.lbl_soc0 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.drakeUIComboBox1 = new DrakeUI.Framework.DrakeUIComboBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lbl_soc7 = new System.Windows.Forms.Label();
-            this.lbl_soc3 = new System.Windows.Forms.Label();
             this.lbl_soc4 = new System.Windows.Forms.Label();
             this.lbl_soc1 = new System.Windows.Forms.Label();
             this.lbl_soc5 = new System.Windows.Forms.Label();
             this.lbl_soc2 = new System.Windows.Forms.Label();
             this.lbl_soc6 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_5)).BeginInit();
@@ -75,7 +77,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitter1
@@ -124,6 +125,65 @@
             this.splitContainer1.Size = new System.Drawing.Size(1015, 694);
             this.splitContainer1.SplitterDistance = 654;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button4);
+            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.drakeUIComboBox1);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Location = new System.Drawing.Point(455, 26);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(196, 465);
+            this.panel1.TabIndex = 9;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(12, 63);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "z1";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // drakeUIComboBox1
+            // 
+            this.drakeUIComboBox1.FillColor = System.Drawing.Color.White;
+            this.drakeUIComboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.drakeUIComboBox1.Location = new System.Drawing.Point(94, 5);
+            this.drakeUIComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.drakeUIComboBox1.MinimumSize = new System.Drawing.Size(63, 0);
+            this.drakeUIComboBox1.Name = "drakeUIComboBox1";
+            this.drakeUIComboBox1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
+            this.drakeUIComboBox1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.drakeUIComboBox1.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.drakeUIComboBox1.Size = new System.Drawing.Size(98, 26);
+            this.drakeUIComboBox1.Style = DrakeUI.Framework.UIStyle.Green;
+            this.drakeUIComboBox1.TabIndex = 10;
+            this.drakeUIComboBox1.Text = "drakeUIComboBox1";
+            this.drakeUIComboBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(12, 5);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "포트오픈";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 34);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "c1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // picDoor_7
             // 
@@ -250,15 +310,33 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(357, 694);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
-            // button3
+            // lbl_soc3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 63);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "z1";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.lbl_soc3.AutoSize = true;
+            this.lbl_soc3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.lbl_soc3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc3.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_soc3.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc3.Location = new System.Drawing.Point(3, 631);
+            this.lbl_soc3.Name = "lbl_soc3";
+            this.lbl_soc3.Size = new System.Drawing.Size(172, 63);
+            this.lbl_soc3.TabIndex = 10;
+            this.lbl_soc3.Text = "???%";
+            this.lbl_soc3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_soc7
+            // 
+            this.lbl_soc7.AutoSize = true;
+            this.lbl_soc7.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.lbl_soc7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc7.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_soc7.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc7.Location = new System.Drawing.Point(181, 631);
+            this.lbl_soc7.Name = "lbl_soc7";
+            this.lbl_soc7.Size = new System.Drawing.Size(173, 63);
+            this.lbl_soc7.TabIndex = 9;
+            this.lbl_soc7.Text = "???%";
+            this.lbl_soc7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Battery_7
             // 
@@ -411,82 +489,6 @@
             this.lbl_soc0.Text = "???%";
             this.lbl_soc0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 34);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "c1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // drakeUIComboBox1
-            // 
-            this.drakeUIComboBox1.FillColor = System.Drawing.Color.White;
-            this.drakeUIComboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.drakeUIComboBox1.Location = new System.Drawing.Point(94, 5);
-            this.drakeUIComboBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.drakeUIComboBox1.MinimumSize = new System.Drawing.Size(63, 0);
-            this.drakeUIComboBox1.Name = "drakeUIComboBox1";
-            this.drakeUIComboBox1.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.drakeUIComboBox1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.drakeUIComboBox1.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.drakeUIComboBox1.Size = new System.Drawing.Size(98, 26);
-            this.drakeUIComboBox1.Style = DrakeUI.Framework.UIStyle.Green;
-            this.drakeUIComboBox1.TabIndex = 10;
-            this.drakeUIComboBox1.Text = "drakeUIComboBox1";
-            this.drakeUIComboBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(12, 5);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "포트오픈";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.drakeUIComboBox1);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(455, 26);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(196, 465);
-            this.panel1.TabIndex = 9;
-            // 
-            // lbl_soc7
-            // 
-            this.lbl_soc7.AutoSize = true;
-            this.lbl_soc7.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.lbl_soc7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc7.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lbl_soc7.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc7.Location = new System.Drawing.Point(181, 631);
-            this.lbl_soc7.Name = "lbl_soc7";
-            this.lbl_soc7.Size = new System.Drawing.Size(173, 63);
-            this.lbl_soc7.TabIndex = 9;
-            this.lbl_soc7.Text = "???%";
-            this.lbl_soc7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_soc3
-            // 
-            this.lbl_soc3.AutoSize = true;
-            this.lbl_soc3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.lbl_soc3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc3.Font = new System.Drawing.Font("굴림", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lbl_soc3.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc3.Location = new System.Drawing.Point(3, 631);
-            this.lbl_soc3.Name = "lbl_soc3";
-            this.lbl_soc3.Size = new System.Drawing.Size(172, 63);
-            this.lbl_soc3.TabIndex = 10;
-            this.lbl_soc3.Text = "???%";
-            this.lbl_soc3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lbl_soc4
             // 
             this.lbl_soc4.AutoSize = true;
@@ -557,6 +559,16 @@
             this.lbl_soc6.Text = "???%";
             this.lbl_soc6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(61, 221);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "도어오픈";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -574,6 +586,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_5)).EndInit();
@@ -584,7 +597,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -624,5 +636,6 @@
         private System.Windows.Forms.Label lbl_soc5;
         private System.Windows.Forms.Label lbl_soc2;
         private System.Windows.Forms.Label lbl_soc6;
+        private System.Windows.Forms.Button button4;
     }
 }
