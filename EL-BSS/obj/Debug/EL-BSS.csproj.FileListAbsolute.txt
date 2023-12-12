@@ -1,0 +1,13 @@
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\bin\Debug\EL-BSS.exe.config
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\bin\Debug\EL-BSS.exe
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\bin\Debug\EL-BSS.pdb
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Debug\EL-BSS.csproj.AssemblyReference.cache
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Debug\EL_BSS.frmFrame.resources
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Debug\EL_BSS.frmMain.resources
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Debug\EL_BSS.Properties.Resources.resources
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Debug\EL-BSS.csproj.GenerateResource.cache
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Debug\EL-BSS.csproj.CoreCompileInputs.cache
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Debug\EL-BSS.exe
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Debug\EL-BSS.pdb
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\bin\Debug\DrakeUI.Framework.dll
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Debug\EL-BSS.csproj.CopyComplete
