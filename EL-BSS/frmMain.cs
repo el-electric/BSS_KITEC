@@ -28,7 +28,7 @@ namespace EL_BSS
 
         public void InitForm()
         {
-            
+
         }
 
         public void UpdateForm(Model model)
@@ -49,7 +49,7 @@ namespace EL_BSS
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace EL_BSS
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            button1.Text = ((double)588 / 10).ToString();
         }
 
         private void BatteryInfoShow()
@@ -123,6 +123,11 @@ namespace EL_BSS
         private async void timer1_Tick(object sender, EventArgs e)
         {
             await Task.Run(() => BatteryInfoShow());
+        }
+
+        private void drakeUIButtonIcon1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

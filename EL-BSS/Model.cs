@@ -11,6 +11,8 @@ namespace EL_BSS
 {
     public class Model
     {
+
+        public int  Charging_Step; 
         public static bool isOpen_Master;
         public static bool isOpen_Slave;
         public int masterCount = 2;
@@ -170,11 +172,11 @@ namespace EL_BSS
 
             bytes[14] = 0;
 
-            if (list_SlaveSend[idx - 1].hmiManual)
+            if (list_SlaveSend[idx - 1].boardReset)
                 bytes[14] |= 0x80;
             if (list_SlaveSend[idx - 1].isFan)
                 bytes[14] |= 0x08;
-            if (list_SlaveSend[idx - 1].boardReset)
+            if (list_SlaveSend[idx - 1].hmiManual) 
                 bytes[14] |= 0x04;
 
             bytes[15] = 0;

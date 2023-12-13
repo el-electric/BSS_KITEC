@@ -70,20 +70,24 @@
             this.SOH_percent = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.gb_Slot = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.put_Battery_wattage = new System.Windows.Forms.TextBox();
+            this.put_Battery_voltage = new System.Windows.Forms.TextBox();
             this.vkey_on = new System.Windows.Forms.Button();
             this.vkey_off = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.manual_off = new System.Windows.Forms.Button();
+            this.manual_on = new System.Windows.Forms.Button();
             this.drakeUIContextMenuStrip1 = new DrakeUI.Framework.DrakeUIContextMenuStrip();
+            this.send_voltage_wattage = new System.Windows.Forms.Button();
             this.gb_Slot.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // DOOR_OPEN_Button
             // 
             this.DOOR_OPEN_Button.BackColor = System.Drawing.Color.White;
             this.DOOR_OPEN_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DOOR_OPEN_Button.Location = new System.Drawing.Point(550, 22);
+            this.DOOR_OPEN_Button.Location = new System.Drawing.Point(506, 20);
             this.DOOR_OPEN_Button.Name = "DOOR_OPEN_Button";
             this.DOOR_OPEN_Button.Size = new System.Drawing.Size(69, 51);
             this.DOOR_OPEN_Button.TabIndex = 2;
@@ -95,7 +99,7 @@
             // 
             this.DOOR_CLOSE_Button.BackColor = System.Drawing.Color.White;
             this.DOOR_CLOSE_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DOOR_CLOSE_Button.Location = new System.Drawing.Point(625, 22);
+            this.DOOR_CLOSE_Button.Location = new System.Drawing.Point(581, 20);
             this.DOOR_CLOSE_Button.Name = "DOOR_CLOSE_Button";
             this.DOOR_CLOSE_Button.Size = new System.Drawing.Size(69, 51);
             this.DOOR_CLOSE_Button.TabIndex = 3;
@@ -204,7 +208,7 @@
             // 
             this.label6.BackColor = System.Drawing.Color.White;
             this.label6.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label6.Location = new System.Drawing.Point(447, 22);
+            this.label6.Location = new System.Drawing.Point(410, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(84, 37);
             this.label6.TabIndex = 17;
@@ -545,8 +549,9 @@
             // 
             // gb_Slot
             // 
-            this.gb_Slot.Controls.Add(this.textBox2);
-            this.gb_Slot.Controls.Add(this.textBox1);
+            this.gb_Slot.Controls.Add(this.send_voltage_wattage);
+            this.gb_Slot.Controls.Add(this.put_Battery_wattage);
+            this.gb_Slot.Controls.Add(this.put_Battery_voltage);
             this.gb_Slot.Controls.Add(this.vkey_on);
             this.gb_Slot.Controls.Add(this.vkey_off);
             this.gb_Slot.Controls.Add(this.label5);
@@ -570,27 +575,27 @@
             this.gb_Slot.TabStop = false;
             this.gb_Slot.Text = "1번 슬롯";
             // 
-            // textBox2
+            // put_Battery_wattage
             // 
-            this.textBox2.Location = new System.Drawing.Point(618, 99);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ShortcutsEnabled = false;
-            this.textBox2.Size = new System.Drawing.Size(70, 37);
-            this.textBox2.TabIndex = 33;
-            this.textBox2.Text = "15";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.put_Battery_wattage.Location = new System.Drawing.Point(618, 99);
+            this.put_Battery_wattage.Multiline = true;
+            this.put_Battery_wattage.Name = "put_Battery_wattage";
+            this.put_Battery_wattage.ShortcutsEnabled = false;
+            this.put_Battery_wattage.Size = new System.Drawing.Size(70, 37);
+            this.put_Battery_wattage.TabIndex = 33;
+            this.put_Battery_wattage.Text = "15";
+            this.put_Battery_wattage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox1
+            // put_Battery_voltage
             // 
-            this.textBox1.Location = new System.Drawing.Point(500, 97);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ShortcutsEnabled = false;
-            this.textBox1.Size = new System.Drawing.Size(70, 37);
-            this.textBox1.TabIndex = 32;
-            this.textBox1.Text = "57.4";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.put_Battery_voltage.Location = new System.Drawing.Point(500, 97);
+            this.put_Battery_voltage.Multiline = true;
+            this.put_Battery_voltage.Name = "put_Battery_voltage";
+            this.put_Battery_voltage.ShortcutsEnabled = false;
+            this.put_Battery_voltage.Size = new System.Drawing.Size(70, 37);
+            this.put_Battery_voltage.TabIndex = 32;
+            this.put_Battery_voltage.Text = "57.4";
+            this.put_Battery_voltage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // vkey_on
             // 
@@ -614,6 +619,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.manual_off);
+            this.groupBox2.Controls.Add(this.manual_on);
             this.groupBox2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox2.Location = new System.Drawing.Point(12, 187);
             this.groupBox2.Name = "groupBox2";
@@ -622,11 +629,40 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "배터리";
             // 
+            // manual_off
+            // 
+            this.manual_off.Location = new System.Drawing.Point(592, 180);
+            this.manual_off.Name = "manual_off";
+            this.manual_off.Size = new System.Drawing.Size(109, 23);
+            this.manual_off.TabIndex = 1;
+            this.manual_off.Text = "매뉴얼OFF";
+            this.manual_off.UseVisualStyleBackColor = true;
+            this.manual_off.Click += new System.EventHandler(this.manual_off_Click);
+            // 
+            // manual_on
+            // 
+            this.manual_on.Location = new System.Drawing.Point(450, 180);
+            this.manual_on.Name = "manual_on";
+            this.manual_on.Size = new System.Drawing.Size(125, 23);
+            this.manual_on.TabIndex = 0;
+            this.manual_on.Text = "매뉴얼ON";
+            this.manual_on.UseVisualStyleBackColor = true;
+            this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
+            // 
             // drakeUIContextMenuStrip1
             // 
             this.drakeUIContextMenuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.drakeUIContextMenuStrip1.Name = "drakeUIContextMenuStrip1";
             this.drakeUIContextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // send_voltage_wattage
+            // 
+            this.send_voltage_wattage.Location = new System.Drawing.Point(656, 48);
+            this.send_voltage_wattage.Name = "send_voltage_wattage";
+            this.send_voltage_wattage.Size = new System.Drawing.Size(61, 20);
+            this.send_voltage_wattage.TabIndex = 34;
+            this.send_voltage_wattage.Text = "button1";
+            this.send_voltage_wattage.UseVisualStyleBackColor = true;
             // 
             // frmSubManual
             // 
@@ -668,6 +704,7 @@
             this.Load += new System.EventHandler(this.frmSubManual_Load);
             this.gb_Slot.ResumeLayout(false);
             this.gb_Slot.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -718,8 +755,11 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button vkey_off;
         private System.Windows.Forms.Button vkey_on;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox put_Battery_voltage;
+        private System.Windows.Forms.TextBox put_Battery_wattage;
         private DrakeUI.Framework.DrakeUIContextMenuStrip drakeUIContextMenuStrip1;
+        private System.Windows.Forms.Button manual_off;
+        private System.Windows.Forms.Button manual_on;
+        private System.Windows.Forms.Button send_voltage_wattage;
     }
 }

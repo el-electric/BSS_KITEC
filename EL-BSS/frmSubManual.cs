@@ -34,8 +34,8 @@ namespace EL_BSS
             if (Model.list_SlaveRecv.Count > 0)
             {
                 // 시간이 흐를때 마다 변경되는 내용을 넣어서 업데이트를 시킨다
-                SOC_percent.Text = Model.list_SlaveRecv[mSLot_Number - 1].SOC.ToString();
-                SOH_percent.Text = Model.list_SlaveRecv[mSLot_Number - 1].SOH.ToString();
+                SOC_percent.Text = Model.list_SlaveRecv[mSLot_Number - 1].SOC.ToString() + "%";
+                SOH_percent.Text = Model.list_SlaveRecv[mSLot_Number - 1].SOH.ToString() + "%";
                 if (Model.list_SlaveRecv[mSLot_Number - 1].PowerPackStatus)
                 {
                     Power_Pack_State.Text = "ON";
@@ -78,11 +78,11 @@ namespace EL_BSS
                 }
                 Process_State.Text = val;
 
-                Power_Pack_outvoltage.Text = Model.list_SlaveRecv[mSLot_Number - 1].PowerPackVoltage.ToString();
+                Power_Pack_outvoltage.Text = ((double)Model.list_SlaveRecv[mSLot_Number - 1].PowerPackVoltage / 10).ToString();
                 Power_Pack_Wattage.Text = Model.list_SlaveRecv[mSLot_Number - 1].PowerPackWattage.ToString();
-                Battery_get_Voltage.Text = Model.list_SlaveRecv[mSLot_Number - 1].BatteryRequestVoltage.ToString();
+                Battery_get_Voltage.Text = ((double)Model.list_SlaveRecv[mSLot_Number - 1].BatteryRequestVoltage / 10).ToString();
                 Battery_get_Wattage.Text = Model.list_SlaveRecv[mSLot_Number - 1].BatteryRequestWattage.ToString();
-                Battery_Current_Voltage.Text = Model.list_SlaveRecv[mSLot_Number - 1].BatteryCurrentVoltage.ToString();
+                Battery_Current_Voltage.Text = ((double)Model.list_SlaveRecv[mSLot_Number - 1].BatteryCurrentVoltage / 10).ToString();
                 Battery_Current_Wattage.Text = Model.list_SlaveRecv[mSLot_Number - 1].BatteryCurrentWattage.ToString();
                 Battery_Highest_temp.Text = Model.list_SlaveRecv[mSLot_Number - 1].BatteryMaxTemper.ToString();
                 Battery_Lowest_temp.Text = Model.list_SlaveRecv[mSLot_Number - 1].BatteryMinTemper.ToString();
@@ -97,7 +97,7 @@ namespace EL_BSS
 
         private void button1_Click(object sender, EventArgs e) // door open
         {
-            
+
             Model.list_SlaveSend[mSLot_Number - 1].doorOpen = true;
         }
 
@@ -193,6 +193,16 @@ namespace EL_BSS
         public void UpdateForm(string data, Model model)
         {
             throw new NotImplementedException();
+        }
+
+        private void manual_on_Click(object sender, EventArgs e)
+        {
+            Model.list_SlaveSend[mSLot_Number - 1].hmiManual = true;
+        }
+
+        private void manual_off_Click(object sender, EventArgs e)
+        {
+            Model.list_SlaveSend[mSLot_Number - 1].hmiManual = false;
         }
     }
 }

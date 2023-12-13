@@ -85,15 +85,26 @@ namespace EL_BSS
             panel2.Controls.Clear();
             frmManual.timer1.Enabled = false;
             frmMain.timer1.Enabled = false;
-
+            if (list_SlaveSend.Count > 0)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    Model.list_SlaveSend[i].hmiManual = false;
+                }
+            }
             switch (idx)
             {
                 case 0:
                     frmMain.timer1.Enabled = true;
+
                     panel2.Controls.Add(frmMain);
                     break;
                 case 1:
                     frmManual.timer1.Enabled = true;
+                    //for (int i = 0; i < 8; i++)
+                    //{
+                     //   Model.list_SlaveSend[i].hmiManual = true;
+                    //}
                     panel2.Controls.Add(frmManual);
                     break;
             }

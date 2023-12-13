@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cb_slave = new DrakeUI.Framework.DrakeUIComboBox();
+            this.cb_master = new DrakeUI.Framework.DrakeUIComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.Back_Main = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -42,9 +45,6 @@
             this.All_Door_Open = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.cb_master = new DrakeUI.Framework.DrakeUIComboBox();
-            this.cb_slave = new DrakeUI.Framework.DrakeUIComboBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -78,11 +78,57 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "전체충전전력변경";
             // 
+            // cb_slave
+            // 
+            this.cb_slave.DropDownStyle = DrakeUI.Framework.UIDropDownStyle.DropDownList;
+            this.cb_slave.FillColor = System.Drawing.Color.White;
+            this.cb_slave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.cb_slave.Location = new System.Drawing.Point(586, 16);
+            this.cb_slave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cb_slave.MinimumSize = new System.Drawing.Size(63, 0);
+            this.cb_slave.Name = "cb_slave";
+            this.cb_slave.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
+            this.cb_slave.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.cb_slave.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.cb_slave.Size = new System.Drawing.Size(119, 29);
+            this.cb_slave.Style = DrakeUI.Framework.UIStyle.Green;
+            this.cb_slave.TabIndex = 13;
+            this.cb_slave.Text = "Slave";
+            this.cb_slave.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cb_master
+            // 
+            this.cb_master.DropDownStyle = DrakeUI.Framework.UIDropDownStyle.DropDownList;
+            this.cb_master.FillColor = System.Drawing.Color.White;
+            this.cb_master.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.cb_master.Location = new System.Drawing.Point(459, 16);
+            this.cb_master.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cb_master.MinimumSize = new System.Drawing.Size(63, 0);
+            this.cb_master.Name = "cb_master";
+            this.cb_master.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
+            this.cb_master.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.cb_master.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.cb_master.Size = new System.Drawing.Size(119, 29);
+            this.cb_master.Style = DrakeUI.Framework.UIStyle.Green;
+            this.cb_master.TabIndex = 12;
+            this.cb_master.Text = "Master";
+            this.cb_master.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(605, 57);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 34);
+            this.button1.TabIndex = 31;
+            this.button1.Text = "저장";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Back_Main
             // 
             this.Back_Main.Location = new System.Drawing.Point(9, 66);
             this.Back_Main.Name = "Back_Main";
-            this.Back_Main.Size = new System.Drawing.Size(75, 23);
+            this.Back_Main.Size = new System.Drawing.Size(109, 23);
             this.Back_Main.TabIndex = 30;
             this.Back_Main.Text = "Back_Main";
             this.Back_Main.UseVisualStyleBackColor = true;
@@ -183,52 +229,6 @@
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1017, 586);
             this.flowLayoutPanel2.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(605, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 34);
-            this.button1.TabIndex = 31;
-            this.button1.Text = "저장";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // cb_master
-            // 
-            this.cb_master.DropDownStyle = DrakeUI.Framework.UIDropDownStyle.DropDownList;
-            this.cb_master.FillColor = System.Drawing.Color.White;
-            this.cb_master.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.cb_master.Location = new System.Drawing.Point(459, 16);
-            this.cb_master.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cb_master.MinimumSize = new System.Drawing.Size(63, 0);
-            this.cb_master.Name = "cb_master";
-            this.cb_master.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_master.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.cb_master.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.cb_master.Size = new System.Drawing.Size(119, 29);
-            this.cb_master.Style = DrakeUI.Framework.UIStyle.Green;
-            this.cb_master.TabIndex = 12;
-            this.cb_master.Text = "Master";
-            this.cb_master.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cb_slave
-            // 
-            this.cb_slave.DropDownStyle = DrakeUI.Framework.UIDropDownStyle.DropDownList;
-            this.cb_slave.FillColor = System.Drawing.Color.White;
-            this.cb_slave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.cb_slave.Location = new System.Drawing.Point(586, 16);
-            this.cb_slave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cb_slave.MinimumSize = new System.Drawing.Size(63, 0);
-            this.cb_slave.Name = "cb_slave";
-            this.cb_slave.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_slave.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.cb_slave.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.cb_slave.Size = new System.Drawing.Size(119, 29);
-            this.cb_slave.Style = DrakeUI.Framework.UIStyle.Green;
-            this.cb_slave.TabIndex = 13;
-            this.cb_slave.Text = "Slave";
-            this.cb_slave.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmManual
             // 

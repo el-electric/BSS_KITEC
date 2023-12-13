@@ -27,8 +27,6 @@ namespace EL_BSS
                 mLayouts[i - 1].Show();
             }
 
-
-
             updateView();
 
             string[] port = SerialPort.GetPortNames();
@@ -39,7 +37,6 @@ namespace EL_BSS
                 cb_master.Text = Model.Master_PortName;
             if (!Model.Slave_PortName.Equals(""))
                 cb_slave.Text = Model.Slave_PortName;
-
         }
 
         public void updateView()
@@ -48,7 +45,6 @@ namespace EL_BSS
             {
                 mLayouts[i - 1].updateView();
             }
-
         }
 
         private void label1_Click(object sender, EventArgs e)
