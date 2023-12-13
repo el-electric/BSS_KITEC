@@ -12,7 +12,7 @@ namespace EL_BSS.Serial
     {
         static SerialPort serial;
         private static List<byte> mReceive_Data = new List<byte>();
-        public static void Open(string PortName)
+        public static bool Open(string PortName)
         {
             try
             {
@@ -29,8 +29,9 @@ namespace EL_BSS.Serial
                 serial.Open();
 
                 Model.isOpen_Slave = true;
+                return true;
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { return false; }
         }
 
         private static void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -79,7 +80,7 @@ namespace EL_BSS.Serial
             //z1
             if (packet.Length == 71)
             {
-                
+
                 masterId = packet[4];
                 slaveId = packet[5];
 
@@ -88,10 +89,10 @@ namespace EL_BSS.Serial
                 else
                     idx = slaveId;
 
-                Model.list_SlaveRecv[idx-1].BatterArrive = EL_Manager_Conversion.getFlagByByteArray(packet[17], 7);
-                Model.list_SlaveRecv[idx-1].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);
+                Model.list_SlaveRecv[idx - 1].BatterArrive = EL_Manager_Conversion.getFlagByByteArray(packet[17], 7);
+                Model.list_SlaveRecv[idx - 1].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);
 
-                if (Model.list_SlaveRecv[idx-1].isDoor)
+                if (Model.list_SlaveRecv[idx - 1].isDoor)
                     Model.list_SlaveSend[idx - 1].doorOpen = false;
 
                 Model.list_SlaveRecv[idx - 1].SeqNum = packet[19];

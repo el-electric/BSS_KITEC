@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace EL_BSS
@@ -18,6 +19,8 @@ namespace EL_BSS
         public static List<SlaveSend> list_SlaveSend = new List<SlaveSend>();
         public static List<SlaveRecv> list_SlaveRecv = new List<SlaveRecv>();
 
+        public static string Master_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", "");
+        public static string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "");
 
         public class MasterSend
         {
@@ -80,7 +83,7 @@ namespace EL_BSS
             public int protocolVersion_Major;
             public int protocolVersion_Minor;
             public int protocolVersion_Patch;
-            public string BatteryType="";
+            public string BatteryType = "";
 
             //51
             public bool overCharging;

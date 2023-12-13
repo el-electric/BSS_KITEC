@@ -42,6 +42,12 @@ namespace EL_BSS
                 list_SlaveSend.Add(new SlaveSend());
                 list_SlaveRecv.Add(new SlaveRecv());
             }
+
+
+            if (!sp_Master.Open(Master_PortName))
+                MessageBox.Show("마스터 포트 오픈 실패");
+            if (!sp_Slave.Open(Model.Slave_PortName))
+                MessageBox.Show("슬레이브 포트 오픈 실패");
         }
 
         public static void deleMenuClick(int idx)

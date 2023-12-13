@@ -10,7 +10,7 @@ namespace EL_BSS.Serial
     public class sp_Master
     {
         static SerialPort serial;
-        public static void Open(string PortName)
+        public static bool Open(string PortName)
         {
             try
             {
@@ -27,8 +27,13 @@ namespace EL_BSS.Serial
                 serial.Open();
 
                 Model.isOpen_Master = true;
+
+                return true;
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         private static void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)

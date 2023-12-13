@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,27 +12,34 @@ using System.Windows.Forms;
 
 namespace EL_BSS
 {
-    public partial class frmManual : Form,IObserver
+    public partial class frmManual : Form, IObserver
     {
         protected frmSubManual[] mLayouts = new frmSubManual[8];
         public frmManual()
         {
             InitializeComponent();
 
-             for (int i = 1; i < 9; i++)
+            for (int i = 1; i < 9; i++)
             {
                 mLayouts[i - 1] = new frmSubManual(i);  // 하나씩 래이아웃에 집어넣음
                 mLayouts[i - 1].TopLevel = false;  // topLevel를 false로                
                 flowLayoutPanel2.Controls.Add(mLayouts[i - 1]);
-                mLayouts[i-1].Show();
+                mLayouts[i - 1].Show();
             }
 
 
 
             updateView();
 
-            timer1.Enabled = true;
-            timer1.Start();
+            string[] port = SerialPort.GetPortNames();
+            cb_master.Items.AddRange(port);
+            cb_slave.Items.AddRange(port);
+
+            if (!Model.Master_PortName.Equals(""))
+                cb_master.Text = Model.Master_PortName;
+            if (!Model.Slave_PortName.Equals(""))
+                cb_slave.Text = Model.Slave_PortName;
+
         }
 
         public void updateView()
@@ -40,7 +48,7 @@ namespace EL_BSS
             {
                 mLayouts[i - 1].updateView();
             }
-            
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -61,7 +69,7 @@ namespace EL_BSS
 
         public void UpdateForm(Model model)
         {
-         
+
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -79,12 +87,18 @@ namespace EL_BSS
 
         private void All_Door_Close_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Back_Main_Click(object sender, EventArgs e)
         {
             frmFrame.deleMenuClick(0);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", cb_master.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", cb_slave.Text);
         }
     }
 }

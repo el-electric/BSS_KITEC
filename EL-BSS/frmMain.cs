@@ -28,8 +28,7 @@ namespace EL_BSS
 
         public void InitForm()
         {
-            string[] port = SerialPort.GetPortNames();
-            drakeUIComboBox1.Items.AddRange(port);
+            
         }
 
         public void UpdateForm(Model model)
@@ -50,7 +49,7 @@ namespace EL_BSS
 
         private void button2_Click(object sender, EventArgs e)
         {
-            sp_Slave.Open(drakeUIComboBox1.Text);
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
