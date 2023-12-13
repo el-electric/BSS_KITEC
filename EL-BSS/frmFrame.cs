@@ -13,13 +13,17 @@ using static EL_BSS.Model;
 
 namespace EL_BSS
 {
-    public partial class frmFrame : Form
+    public partial class frmFrame : Form, IObserver
     {
+
+        public delegate void ClickEvent(int idx);
+        public static event ClickEvent MenuClick;
+
         private List<IObserver> _observers = new List<IObserver>();
         private Model.SlaveSend slaveSend;
         private Model model = new Model();
-
         frmMain frmMain = new frmMain();
+        frmManual frmManual = new frmManual();
         public frmFrame()
         {
             InitializeComponent();
@@ -40,35 +44,51 @@ namespace EL_BSS
             }
         }
 
+        public static void deleMenuClick(int idx)
+        {
+            MenuClick(idx);
+        }
+        private void FrmFrame_MenuClick(int idx)
+        {
+            viewForm(idx);
+        }
+
         private void initForm()
         {
             if (!bck_Protocol.IsBusy)
                 bck_Protocol.RunWorkerAsync();
 
+            MenuClick += FrmFrame_MenuClick;
+
             _observers.Add(frmMain);
+            _observers.Add(frmManual);
 
             frmMain.TopLevel = false;
+            frmManual.TopLevel = false;
             frmMain.Show();
-
+            frmManual.Show();
 
             foreach (IObserver observer in _observers)
             {
                 observer.InitForm();
             }
-
-
-
-
         }
 
-        private void viewForm(int idx)
+        public void viewForm(int idx)
         {
             panel2.Controls.Clear();
+            frmManual.timer1.Enabled = false;
+            frmMain.timer1.Enabled = false;
 
             switch (idx)
             {
                 case 0:
+                    frmMain.timer1.Enabled = true;
                     panel2.Controls.Add(frmMain);
+                    break;
+                case 1:
+                    frmManual.timer1.Enabled = true;
+                    panel2.Controls.Add(frmManual);
                     break;
             }
         }
@@ -77,7 +97,6 @@ namespace EL_BSS
         {
             lbl_time.Text = DateTime.Now.ToString();
         }
-
         int masterIdx = 1;
         int slaveIdx = 1;
         private void bck_Protocol_DoWork(object sender, DoWorkEventArgs e)
@@ -112,6 +131,21 @@ namespace EL_BSS
             byte[] a = model.makeSlavePacket(1);
 
             sp_Slave.Write(a);
+        }
+
+        public void InitForm()
+        {
+
+        }
+
+        public void UpdateForm(Model model)
+        {
+
+        }
+
+        private void lbl_time_DoubleClick(object sender, EventArgs e)
+        {
+
         }
     }
 }

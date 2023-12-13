@@ -10,6 +10,6 @@ namespace EL_BSS
     public interface IObserver
     {
         void InitForm();
-        void UpdateForm(string data, Model model);
+        void UpdateForm(Model model);
     }
 }

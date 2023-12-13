@@ -31,11 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.ui_timer_500ms = new System.Windows.Forms.Timer(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lbl_time = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.bck_Protocol = new System.ComponentModel.BackgroundWorker();
-            this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_time = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,12 +53,24 @@
             this.ui_timer_500ms.Interval = 500;
             this.ui_timer_500ms.Tick += new System.EventHandler(this.ui_timer_500ms_Tick);
             // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 74);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1021, 694);
+            this.panel2.TabIndex = 4;
+            // 
+            // bck_Protocol
+            // 
+            this.bck_Protocol.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Protocol_DoWork);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BackgroundImage = global::EL_BSS.Properties.Resources.bgTitle;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.lbl_time);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(3, 0);
@@ -84,29 +95,7 @@
             this.lbl_time.TabIndex = 0;
             this.lbl_time.Text = "drakeUISymbolLabel1";
             this.lbl_time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panel2
-            // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 74);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1021, 694);
-            this.panel2.TabIndex = 4;
-            // 
-            // bck_Protocol
-            // 
-            this.bck_Protocol.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Protocol_DoWork);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(365, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.lbl_time.DoubleClick += new System.EventHandler(this.lbl_time_DoubleClick);
             // 
             // frmFrame
             // 
@@ -133,6 +122,5 @@
         private DrakeUI.Framework.DrakeUISymbolLabel lbl_time;
         private System.Windows.Forms.Panel panel2;
         private System.ComponentModel.BackgroundWorker bck_Protocol;
-        private System.Windows.Forms.Button button1;
     }
 }

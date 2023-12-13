@@ -80,7 +80,7 @@ namespace EL_BSS
             public int protocolVersion_Major;
             public int protocolVersion_Minor;
             public int protocolVersion_Patch;
-            public string BatteryType;
+            public string BatteryType="";
 
             //51
             public bool overCharging;

@@ -63,17 +63,36 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmManual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmManual.Designer.cs">
+      <DependentUpon>frmManual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSubManual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSubManual.Designer.cs">
+      <DependentUpon>frmSubManual.cs</DependentUpon>
+    </Compile>
     <Compile Include="IObserver.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serial\sp_Master.cs" />
     <Compile Include="Serial\sp_Slave.cs" />
+    <Compile Include="Vkeyvoard.cs" />
     <EmbeddedResource Include="frmFrame.resx">
       <DependentUpon>frmFrame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmManual.resx">
+      <DependentUpon>frmManual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSubManual.resx">
+      <DependentUpon>frmSubManual.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -79,41 +79,46 @@ namespace EL_BSS.Serial
             //z1
             if (packet.Length == 71)
             {
-                slaveId = packet[4];
-                masterId = packet[5];
+                
+                masterId = packet[4];
+                slaveId = packet[5];
 
                 if (masterId == 2)
                     idx = slaveId + 4;
                 else
                     idx = slaveId;
 
-                Model.list_SlaveRecv[idx].BatterArrive = EL_Manager_Conversion.getFlagByByteArray(packet[17], 7);
-                Model.list_SlaveRecv[idx].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);
-                Model.list_SlaveRecv[idx].SeqNum = packet[19];
-                Model.list_SlaveRecv[idx].PowerPackStatus = EL_Manager_Conversion.getFlagByByteArray(packet[20], 7);
-                Model.list_SlaveRecv[idx].PowerPackVoltage = EL_Manager_Conversion.getInt_2Byte(packet[21], packet[22]);
-                Model.list_SlaveRecv[idx].PowerPackWattage = EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]);
-                Model.list_SlaveRecv[idx].BatteryCurrentVoltage = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
-                Model.list_SlaveRecv[idx].BatteryCurrentWattage = EL_Manager_Conversion.getInt_2Byte(packet[27], packet[28]);
-                Model.list_SlaveRecv[idx].BatteryRequestVoltage = EL_Manager_Conversion.getInt_2Byte(packet[29], packet[30]);
-                Model.list_SlaveRecv[idx].BatteryRequestWattage = EL_Manager_Conversion.getInt_2Byte(packet[31], packet[32]);
-                Model.list_SlaveRecv[idx].BatteryMaxTemper = EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]);
-                Model.list_SlaveRecv[idx].BatteryMinTemper = EL_Manager_Conversion.getInt_2Byte(packet[34], packet[35]);
-                Model.list_SlaveRecv[idx].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
-                Model.list_SlaveRecv[idx].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
-                Model.list_SlaveRecv[idx].SOC = EL_Manager_Conversion.getInt(packet[40]);
-                Model.list_SlaveRecv[idx].SOH = EL_Manager_Conversion.getInt(packet[41]);
+                Model.list_SlaveRecv[idx-1].BatterArrive = EL_Manager_Conversion.getFlagByByteArray(packet[17], 7);
+                Model.list_SlaveRecv[idx-1].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);
+
+                if (Model.list_SlaveRecv[idx-1].isDoor)
+                    Model.list_SlaveSend[idx - 1].doorOpen = false;
+
+                Model.list_SlaveRecv[idx - 1].SeqNum = packet[19];
+                Model.list_SlaveRecv[idx - 1].PowerPackStatus = EL_Manager_Conversion.getFlagByByteArray(packet[20], 7);
+                Model.list_SlaveRecv[idx - 1].PowerPackVoltage = EL_Manager_Conversion.getInt_2Byte(packet[21], packet[22]);
+                Model.list_SlaveRecv[idx - 1].PowerPackWattage = EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]);
+                Model.list_SlaveRecv[idx - 1].BatteryCurrentVoltage = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
+                Model.list_SlaveRecv[idx - 1].BatteryCurrentWattage = EL_Manager_Conversion.getInt_2Byte(packet[27], packet[28]);
+                Model.list_SlaveRecv[idx - 1].BatteryRequestVoltage = EL_Manager_Conversion.getInt_2Byte(packet[29], packet[30]);
+                Model.list_SlaveRecv[idx - 1].BatteryRequestWattage = EL_Manager_Conversion.getInt_2Byte(packet[31], packet[32]);
+                Model.list_SlaveRecv[idx - 1].BatteryMaxTemper = EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]);
+                Model.list_SlaveRecv[idx - 1].BatteryMinTemper = EL_Manager_Conversion.getInt_2Byte(packet[34], packet[35]);
+                Model.list_SlaveRecv[idx - 1].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
+                Model.list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
+                Model.list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
+                Model.list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
 
                 temp[0] = packet[50];
                 temp[1] = packet[51];
-                Model.list_SlaveRecv[idx].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
+                Model.list_SlaveRecv[idx - 1].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
 
 
 
 
 
             }
-            
+
         }
 
         public static void Write(byte[] bytes)
