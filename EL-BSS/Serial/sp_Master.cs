@@ -35,7 +35,10 @@ namespace EL_BSS.Serial
                 return false;
             }
         }
-
+        public static void Close()
+        {
+            serial.Close();
+        }
         private static void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             Console.WriteLine(serial.ReadExisting());

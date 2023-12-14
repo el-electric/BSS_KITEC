@@ -73,11 +73,12 @@
             this.send_voltage_wattage = new System.Windows.Forms.Button();
             this.put_Battery_wattage = new System.Windows.Forms.TextBox();
             this.put_Battery_voltage = new System.Windows.Forms.TextBox();
+            this.vkey_on = new System.Windows.Forms.Button();
+            this.vkey_off = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.manual_off = new System.Windows.Forms.Button();
             this.manual_on = new System.Windows.Forms.Button();
             this.drakeUIContextMenuStrip1 = new DrakeUI.Framework.DrakeUIContextMenuStrip();
-            this.button1 = new System.Windows.Forms.Button();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -548,10 +549,11 @@
             // 
             // gb_Slot
             // 
-            this.gb_Slot.Controls.Add(this.button1);
             this.gb_Slot.Controls.Add(this.send_voltage_wattage);
             this.gb_Slot.Controls.Add(this.put_Battery_wattage);
             this.gb_Slot.Controls.Add(this.put_Battery_voltage);
+            this.gb_Slot.Controls.Add(this.vkey_on);
+            this.gb_Slot.Controls.Add(this.vkey_off);
             this.gb_Slot.Controls.Add(this.label5);
             this.gb_Slot.Controls.Add(this.button3);
             this.gb_Slot.Controls.Add(this.label4);
@@ -575,13 +577,12 @@
             // 
             // send_voltage_wattage
             // 
-            this.send_voltage_wattage.Location = new System.Drawing.Point(500, 142);
+            this.send_voltage_wattage.Location = new System.Drawing.Point(656, 48);
             this.send_voltage_wattage.Name = "send_voltage_wattage";
-            this.send_voltage_wattage.Size = new System.Drawing.Size(112, 20);
+            this.send_voltage_wattage.Size = new System.Drawing.Size(61, 20);
             this.send_voltage_wattage.TabIndex = 34;
-            this.send_voltage_wattage.Text = "전압전류 전송";
+            this.send_voltage_wattage.Text = "button1";
             this.send_voltage_wattage.UseVisualStyleBackColor = true;
-            this.send_voltage_wattage.Click += new System.EventHandler(this.send_voltage_wattage_Click);
             // 
             // put_Battery_wattage
             // 
@@ -604,6 +605,26 @@
             this.put_Battery_voltage.TabIndex = 32;
             this.put_Battery_voltage.Text = "57.4";
             this.put_Battery_voltage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // vkey_on
+            // 
+            this.vkey_on.Location = new System.Drawing.Point(503, 140);
+            this.vkey_on.Name = "vkey_on";
+            this.vkey_on.Size = new System.Drawing.Size(106, 23);
+            this.vkey_on.TabIndex = 31;
+            this.vkey_on.Text = "화상 키보드 ON";
+            this.vkey_on.UseVisualStyleBackColor = true;
+            this.vkey_on.Click += new System.EventHandler(this.vkey_on_Click);
+            // 
+            // vkey_off
+            // 
+            this.vkey_off.Location = new System.Drawing.Point(613, 140);
+            this.vkey_off.Name = "vkey_off";
+            this.vkey_off.Size = new System.Drawing.Size(106, 23);
+            this.vkey_off.TabIndex = 30;
+            this.vkey_off.Text = "화상 키보드 OFF";
+            this.vkey_off.UseVisualStyleBackColor = true;
+            this.vkey_off.Click += new System.EventHandler(this.vkey_off_Click);
             // 
             // groupBox2
             // 
@@ -642,18 +663,6 @@
             this.drakeUIContextMenuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.drakeUIContextMenuStrip1.Name = "drakeUIContextMenuStrip1";
             this.drakeUIContextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(654, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 51);
-            this.button1.TabIndex = 35;
-            this.button1.Text = "저장";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // frmSubManual
             // 
@@ -744,12 +753,13 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.GroupBox gb_Slot;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button vkey_off;
+        private System.Windows.Forms.Button vkey_on;
         private System.Windows.Forms.TextBox put_Battery_voltage;
         private System.Windows.Forms.TextBox put_Battery_wattage;
         private DrakeUI.Framework.DrakeUIContextMenuStrip drakeUIContextMenuStrip1;
         private System.Windows.Forms.Button manual_off;
         private System.Windows.Forms.Button manual_on;
         private System.Windows.Forms.Button send_voltage_wattage;
-        private System.Windows.Forms.Button button1;
     }
 }

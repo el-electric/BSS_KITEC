@@ -45,8 +45,7 @@
             this.All_Door_Open = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.Vkey_ON_Button = new System.Windows.Forms.Button();
-            this.Vkey_OFF_Button = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -64,8 +63,6 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox1.Controls.Add(this.Vkey_OFF_Button);
-            this.groupBox1.Controls.Add(this.Vkey_ON_Button);
             this.groupBox1.Controls.Add(this.cb_slave);
             this.groupBox1.Controls.Add(this.cb_master);
             this.groupBox1.Controls.Add(this.button1);
@@ -193,6 +190,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.All_Door_Close);
             this.groupBox2.Controls.Add(this.All_Door_Open);
             this.groupBox2.Location = new System.Drawing.Point(721, 3);
@@ -204,9 +202,9 @@
             // 
             // All_Door_Close
             // 
-            this.All_Door_Close.Location = new System.Drawing.Point(166, 32);
+            this.All_Door_Close.Location = new System.Drawing.Point(102, 20);
             this.All_Door_Close.Name = "All_Door_Close";
-            this.All_Door_Close.Size = new System.Drawing.Size(112, 41);
+            this.All_Door_Close.Size = new System.Drawing.Size(90, 41);
             this.All_Door_Close.TabIndex = 1;
             this.All_Door_Close.Text = "닫힘";
             this.All_Door_Close.UseVisualStyleBackColor = true;
@@ -214,9 +212,9 @@
             // 
             // All_Door_Open
             // 
-            this.All_Door_Open.Location = new System.Drawing.Point(34, 32);
+            this.All_Door_Open.Location = new System.Drawing.Point(6, 20);
             this.All_Door_Open.Name = "All_Door_Open";
-            this.All_Door_Open.Size = new System.Drawing.Size(112, 41);
+            this.All_Door_Open.Size = new System.Drawing.Size(90, 41);
             this.All_Door_Open.TabIndex = 0;
             this.All_Door_Open.Text = "열림";
             this.All_Door_Open.UseVisualStyleBackColor = true;
@@ -234,25 +232,15 @@
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1017, 586);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
-            // Vkey_ON_Button
+            // button2
             // 
-            this.Vkey_ON_Button.Location = new System.Drawing.Point(141, 65);
-            this.Vkey_ON_Button.Name = "Vkey_ON_Button";
-            this.Vkey_ON_Button.Size = new System.Drawing.Size(111, 23);
-            this.Vkey_ON_Button.TabIndex = 32;
-            this.Vkey_ON_Button.Text = "화상키보드 ON";
-            this.Vkey_ON_Button.UseVisualStyleBackColor = true;
-            this.Vkey_ON_Button.Click += new System.EventHandler(this.Vkey_ON_Button_Click);
-            // 
-            // Vkey_OFF_Button
-            // 
-            this.Vkey_OFF_Button.Location = new System.Drawing.Point(258, 64);
-            this.Vkey_OFF_Button.Name = "Vkey_OFF_Button";
-            this.Vkey_OFF_Button.Size = new System.Drawing.Size(112, 23);
-            this.Vkey_OFF_Button.TabIndex = 33;
-            this.Vkey_OFF_Button.Text = "화상키보드 OFF";
-            this.Vkey_OFF_Button.UseVisualStyleBackColor = true;
-            this.Vkey_OFF_Button.Click += new System.EventHandler(this.Vkey_OFF_Button_Click);
+            this.button2.Location = new System.Drawing.Point(223, 47);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(73, 50);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "프로그램 종료";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // frmManual
             // 
@@ -291,7 +279,6 @@
         private System.Windows.Forms.Button button1;
         private DrakeUI.Framework.DrakeUIComboBox cb_slave;
         private DrakeUI.Framework.DrakeUIComboBox cb_master;
-        private System.Windows.Forms.Button Vkey_OFF_Button;
-        private System.Windows.Forms.Button Vkey_ON_Button;
+        private System.Windows.Forms.Button button2;
     }
 }

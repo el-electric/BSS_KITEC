@@ -15,8 +15,6 @@ namespace EL_BSS
     public partial class frmManual : Form, IObserver
     {
         protected frmSubManual[] mLayouts = new frmSubManual[8];
-
-        Vkeyvoard VKeyboard = new Vkeyvoard();
         public frmManual()
         {
             InitializeComponent();
@@ -40,12 +38,23 @@ namespace EL_BSS
             if (!Model.Slave_PortName.Equals(""))
                 cb_slave.Text = Model.Slave_PortName;
         }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+                return cp;
+            }
+        }
 
-        public void updateView()
+        public async void updateView()
         {
             for (int i = 1; i < 9; i++)
             {
-                mLayouts[i - 1].updateView();
+                //await Task.Run(() => mLayouts[i - 1].updateView());
+                await Task.Run(() => mLayouts[i - 1].updateView());
+                //mLayouts[i - 1].updateView();
             }
         }
 
@@ -70,9 +79,9 @@ namespace EL_BSS
 
         }
 
-        private async  void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            await Task.Run(() => updateView());
+            updateView();
         }
 
         private void All_Door_Open_Click(object sender, EventArgs e)
@@ -99,16 +108,9 @@ namespace EL_BSS
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", cb_slave.Text);
         }
 
-        private void Vkey_ON_Button_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            Vkeyvoard VKeyboard = new Vkeyvoard();
-            VKeyboard.showKeyboard();
-            VKeyboard.moveWindow(0, 0, 250, 100);
-        }
-
-        private void Vkey_OFF_Button_Click(object sender, EventArgs e)
-        {
-            VKeyboard.hideKeyboard();
+            frmFrame.deleMenuClick(10);
         }
     }
 }
