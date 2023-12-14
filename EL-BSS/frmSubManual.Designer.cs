@@ -573,12 +573,13 @@
             // 
             // send_voltage_wattage
             // 
-            this.send_voltage_wattage.Location = new System.Drawing.Point(656, 48);
+            this.send_voltage_wattage.Location = new System.Drawing.Point(506, 142);
             this.send_voltage_wattage.Name = "send_voltage_wattage";
-            this.send_voltage_wattage.Size = new System.Drawing.Size(61, 20);
+            this.send_voltage_wattage.Size = new System.Drawing.Size(106, 20);
             this.send_voltage_wattage.TabIndex = 34;
-            this.send_voltage_wattage.Text = "button1";
+            this.send_voltage_wattage.Text = "전압 전류 설정";
             this.send_voltage_wattage.UseVisualStyleBackColor = true;
+            this.send_voltage_wattage.Click += new System.EventHandler(this.send_voltage_wattage_Click_1);
             // 
             // put_Battery_wattage
             // 

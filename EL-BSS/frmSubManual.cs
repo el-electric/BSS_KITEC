@@ -201,5 +201,11 @@ namespace EL_BSS
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "VOLT" + mSLot_Number, (Convert.ToInt32(put_Battery_voltage.Text) * 10));
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "WATT" + mSLot_Number, (Convert.ToInt32(put_Battery_wattage.Text) * 10));
         }
+
+        private void send_voltage_wattage_Click_1(object sender, EventArgs e)
+        {
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "VOLT" + mSLot_Number, (Convert.ToInt32(put_Battery_voltage.Text) * 10));
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "WATT" + mSLot_Number, (Convert.ToInt32(put_Battery_wattage.Text) * 10));
+        }
     }
 }
