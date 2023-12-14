@@ -5,6 +5,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace EL_BSS.Serial
 {
@@ -34,6 +35,10 @@ namespace EL_BSS.Serial
             catch (Exception ex) { return false; }
         }
 
+        public static void Close()
+        {
+            serial.Close();
+        }
         private static void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             int bytesToRead = serial.BytesToRead;

@@ -38,12 +38,23 @@ namespace EL_BSS
             if (!Model.Slave_PortName.Equals(""))
                 cb_slave.Text = Model.Slave_PortName;
         }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+                return cp;
+            }
+        }
 
-        public void updateView()
+        public async void updateView()
         {
             for (int i = 1; i < 9; i++)
             {
-                mLayouts[i - 1].updateView();
+                //await Task.Run(() => mLayouts[i - 1].updateView());
+                await Task.Run(() => mLayouts[i - 1].updateView());
+                //mLayouts[i - 1].updateView();
             }
         }
 
@@ -95,6 +106,11 @@ namespace EL_BSS
         {
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", cb_master.Text);
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", cb_slave.Text);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            frmFrame.deleMenuClick(10);
         }
     }
 }

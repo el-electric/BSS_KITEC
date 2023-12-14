@@ -45,6 +45,7 @@
             this.All_Door_Open = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -189,6 +190,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.All_Door_Close);
             this.groupBox2.Controls.Add(this.All_Door_Open);
             this.groupBox2.Location = new System.Drawing.Point(721, 3);
@@ -200,9 +202,9 @@
             // 
             // All_Door_Close
             // 
-            this.All_Door_Close.Location = new System.Drawing.Point(166, 32);
+            this.All_Door_Close.Location = new System.Drawing.Point(102, 20);
             this.All_Door_Close.Name = "All_Door_Close";
-            this.All_Door_Close.Size = new System.Drawing.Size(112, 41);
+            this.All_Door_Close.Size = new System.Drawing.Size(90, 41);
             this.All_Door_Close.TabIndex = 1;
             this.All_Door_Close.Text = "닫힘";
             this.All_Door_Close.UseVisualStyleBackColor = true;
@@ -210,9 +212,9 @@
             // 
             // All_Door_Open
             // 
-            this.All_Door_Open.Location = new System.Drawing.Point(34, 32);
+            this.All_Door_Open.Location = new System.Drawing.Point(6, 20);
             this.All_Door_Open.Name = "All_Door_Open";
-            this.All_Door_Open.Size = new System.Drawing.Size(112, 41);
+            this.All_Door_Open.Size = new System.Drawing.Size(90, 41);
             this.All_Door_Open.TabIndex = 0;
             this.All_Door_Open.Text = "열림";
             this.All_Door_Open.UseVisualStyleBackColor = true;
@@ -229,6 +231,16 @@
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1017, 586);
             this.flowLayoutPanel2.TabIndex = 1;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(223, 47);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(73, 50);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "프로그램 종료";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // frmManual
             // 
@@ -267,5 +279,6 @@
         private System.Windows.Forms.Button button1;
         private DrakeUI.Framework.DrakeUIComboBox cb_slave;
         private DrakeUI.Framework.DrakeUIComboBox cb_master;
+        private System.Windows.Forms.Button button2;
     }
 }

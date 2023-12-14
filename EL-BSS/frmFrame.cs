@@ -16,8 +16,11 @@ namespace EL_BSS
     public partial class frmFrame : Form, IObserver
     {
 
+        
         public delegate void ClickEvent(int idx);
         public static event ClickEvent MenuClick;
+        private bool ThreadRun = true;
+
 
         private List<IObserver> _observers = new List<IObserver>();
         private Model.SlaveSend slaveSend;
@@ -27,8 +30,17 @@ namespace EL_BSS
         public frmFrame()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
         }
-
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+                return cp;
+            }
+        }
 
 
 
@@ -80,7 +92,7 @@ namespace EL_BSS
             }
         }
 
-        public void viewForm(int idx)
+        public async void viewForm(int idx)
         {
             panel2.Controls.Clear();
             frmManual.timer1.Enabled = false;
@@ -101,11 +113,16 @@ namespace EL_BSS
                     break;
                 case 1:
                     frmManual.timer1.Enabled = true;
-                    //for (int i = 0; i < 8; i++)
-                    //{
-                     //   Model.list_SlaveSend[i].hmiManual = true;
-                    //}
                     panel2.Controls.Add(frmManual);
+                    break;
+
+                case 10:
+
+                    ThreadRun = false;
+                    await Task.Delay(500);
+                    sp_Master.Close();
+                    sp_Slave.Close();
+                    Application.Exit();
                     break;
             }
         }
@@ -118,7 +135,7 @@ namespace EL_BSS
         int slaveIdx = 1;
         private void bck_Protocol_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (true)
+            while (ThreadRun)
             {
                 if (isOpen_Master)
                 {

@@ -70,6 +70,7 @@
             this.SOH_percent = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.gb_Slot = new System.Windows.Forms.GroupBox();
+            this.send_voltage_wattage = new System.Windows.Forms.Button();
             this.put_Battery_wattage = new System.Windows.Forms.TextBox();
             this.put_Battery_voltage = new System.Windows.Forms.TextBox();
             this.vkey_on = new System.Windows.Forms.Button();
@@ -78,7 +79,6 @@
             this.manual_off = new System.Windows.Forms.Button();
             this.manual_on = new System.Windows.Forms.Button();
             this.drakeUIContextMenuStrip1 = new DrakeUI.Framework.DrakeUIContextMenuStrip();
-            this.send_voltage_wattage = new System.Windows.Forms.Button();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -575,6 +575,15 @@
             this.gb_Slot.TabStop = false;
             this.gb_Slot.Text = "1번 슬롯";
             // 
+            // send_voltage_wattage
+            // 
+            this.send_voltage_wattage.Location = new System.Drawing.Point(656, 48);
+            this.send_voltage_wattage.Name = "send_voltage_wattage";
+            this.send_voltage_wattage.Size = new System.Drawing.Size(61, 20);
+            this.send_voltage_wattage.TabIndex = 34;
+            this.send_voltage_wattage.Text = "button1";
+            this.send_voltage_wattage.UseVisualStyleBackColor = true;
+            // 
             // put_Battery_wattage
             // 
             this.put_Battery_wattage.Location = new System.Drawing.Point(618, 99);
@@ -654,15 +663,6 @@
             this.drakeUIContextMenuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.drakeUIContextMenuStrip1.Name = "drakeUIContextMenuStrip1";
             this.drakeUIContextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // send_voltage_wattage
-            // 
-            this.send_voltage_wattage.Location = new System.Drawing.Point(656, 48);
-            this.send_voltage_wattage.Name = "send_voltage_wattage";
-            this.send_voltage_wattage.Size = new System.Drawing.Size(61, 20);
-            this.send_voltage_wattage.TabIndex = 34;
-            this.send_voltage_wattage.Text = "button1";
-            this.send_voltage_wattage.UseVisualStyleBackColor = true;
             // 
             // frmSubManual
             // 
