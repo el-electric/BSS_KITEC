@@ -41,11 +41,13 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.All_Door_Close = new System.Windows.Forms.Button();
             this.All_Door_Open = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.Vkey_ON_button = new System.Windows.Forms.Button();
+            this.Vkey_OFF_button = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -63,6 +65,8 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox1.Controls.Add(this.Vkey_OFF_button);
+            this.groupBox1.Controls.Add(this.Vkey_ON_button);
             this.groupBox1.Controls.Add(this.cb_slave);
             this.groupBox1.Controls.Add(this.cb_master);
             this.groupBox1.Controls.Add(this.button1);
@@ -200,6 +204,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "전체도어";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(223, 47);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(73, 50);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "프로그램 종료";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // All_Door_Close
             // 
             this.All_Door_Close.Location = new System.Drawing.Point(102, 20);
@@ -232,15 +246,25 @@
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1017, 586);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
-            // button2
+            // Vkey_ON_button
             // 
-            this.button2.Location = new System.Drawing.Point(223, 47);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(73, 50);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "프로그램 종료";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.Vkey_ON_button.Location = new System.Drawing.Point(239, 65);
+            this.Vkey_ON_button.Name = "Vkey_ON_button";
+            this.Vkey_ON_button.Size = new System.Drawing.Size(106, 23);
+            this.Vkey_ON_button.TabIndex = 32;
+            this.Vkey_ON_button.Text = "화상키보드 ON";
+            this.Vkey_ON_button.UseVisualStyleBackColor = true;
+            this.Vkey_ON_button.Click += new System.EventHandler(this.Vkey_ON_button_Click);
+            // 
+            // Vkey_OFF_button
+            // 
+            this.Vkey_OFF_button.Location = new System.Drawing.Point(351, 64);
+            this.Vkey_OFF_button.Name = "Vkey_OFF_button";
+            this.Vkey_OFF_button.Size = new System.Drawing.Size(117, 23);
+            this.Vkey_OFF_button.TabIndex = 33;
+            this.Vkey_OFF_button.Text = "화상키보드 OFF";
+            this.Vkey_OFF_button.UseVisualStyleBackColor = true;
+            this.Vkey_OFF_button.Click += new System.EventHandler(this.Vkey_OFF_button_Click);
             // 
             // frmManual
             // 
@@ -280,5 +304,7 @@
         private DrakeUI.Framework.DrakeUIComboBox cb_slave;
         private DrakeUI.Framework.DrakeUIComboBox cb_master;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Vkey_OFF_button;
+        private System.Windows.Forms.Button Vkey_ON_button;
     }
 }

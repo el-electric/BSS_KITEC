@@ -15,6 +15,8 @@ namespace EL_BSS
     public partial class frmManual : Form, IObserver
     {
         protected frmSubManual[] mLayouts = new frmSubManual[8];
+
+        Vkeyvoard VKeyboard = new Vkeyvoard();
         public frmManual()
         {
             InitializeComponent();
@@ -111,6 +113,18 @@ namespace EL_BSS
         private void button2_Click(object sender, EventArgs e)
         {
             frmFrame.deleMenuClick(10);
+        }
+
+        private void Vkey_ON_button_Click(object sender, EventArgs e)
+        {
+            Vkeyvoard VKeyboard = new Vkeyvoard();
+            VKeyboard.showKeyboard();
+            VKeyboard.moveWindow(0, 0, 250, 100);
+        }
+
+        private void Vkey_OFF_button_Click(object sender, EventArgs e)
+        {
+            VKeyboard.hideKeyboard();
         }
     }
 }

@@ -73,8 +73,6 @@
             this.send_voltage_wattage = new System.Windows.Forms.Button();
             this.put_Battery_wattage = new System.Windows.Forms.TextBox();
             this.put_Battery_voltage = new System.Windows.Forms.TextBox();
-            this.vkey_on = new System.Windows.Forms.Button();
-            this.vkey_off = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.manual_off = new System.Windows.Forms.Button();
             this.manual_on = new System.Windows.Forms.Button();
@@ -552,8 +550,6 @@
             this.gb_Slot.Controls.Add(this.send_voltage_wattage);
             this.gb_Slot.Controls.Add(this.put_Battery_wattage);
             this.gb_Slot.Controls.Add(this.put_Battery_voltage);
-            this.gb_Slot.Controls.Add(this.vkey_on);
-            this.gb_Slot.Controls.Add(this.vkey_off);
             this.gb_Slot.Controls.Add(this.label5);
             this.gb_Slot.Controls.Add(this.button3);
             this.gb_Slot.Controls.Add(this.label4);
@@ -605,26 +601,6 @@
             this.put_Battery_voltage.TabIndex = 32;
             this.put_Battery_voltage.Text = "57.4";
             this.put_Battery_voltage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // vkey_on
-            // 
-            this.vkey_on.Location = new System.Drawing.Point(503, 140);
-            this.vkey_on.Name = "vkey_on";
-            this.vkey_on.Size = new System.Drawing.Size(106, 23);
-            this.vkey_on.TabIndex = 31;
-            this.vkey_on.Text = "화상 키보드 ON";
-            this.vkey_on.UseVisualStyleBackColor = true;
-            this.vkey_on.Click += new System.EventHandler(this.vkey_on_Click);
-            // 
-            // vkey_off
-            // 
-            this.vkey_off.Location = new System.Drawing.Point(613, 140);
-            this.vkey_off.Name = "vkey_off";
-            this.vkey_off.Size = new System.Drawing.Size(106, 23);
-            this.vkey_off.TabIndex = 30;
-            this.vkey_off.Text = "화상 키보드 OFF";
-            this.vkey_off.UseVisualStyleBackColor = true;
-            this.vkey_off.Click += new System.EventHandler(this.vkey_off_Click);
             // 
             // groupBox2
             // 
@@ -753,8 +729,6 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.GroupBox gb_Slot;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button vkey_off;
-        private System.Windows.Forms.Button vkey_on;
         private System.Windows.Forms.TextBox put_Battery_voltage;
         private System.Windows.Forms.TextBox put_Battery_wattage;
         private DrakeUI.Framework.DrakeUIContextMenuStrip drakeUIContextMenuStrip1;
