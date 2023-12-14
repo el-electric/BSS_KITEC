@@ -60,7 +60,7 @@ namespace EL_BSS
             public SlaveSend(int request_Voltage, int request_Wattage)
             {
                 this.request_Voltage = request_Voltage;
-                this.request_Wattage = request_Wattage;
+                this.request_Wattage = request_Wattage; 
             }
         }
         public class SlaveRecv
