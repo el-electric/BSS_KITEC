@@ -76,7 +76,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.manual_off = new System.Windows.Forms.Button();
             this.manual_on = new System.Windows.Forms.Button();
-            this.drakeUIContextMenuStrip1 = new DrakeUI.Framework.DrakeUIContextMenuStrip();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -635,12 +634,6 @@
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
             // 
-            // drakeUIContextMenuStrip1
-            // 
-            this.drakeUIContextMenuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.drakeUIContextMenuStrip1.Name = "drakeUIContextMenuStrip1";
-            this.drakeUIContextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // frmSubManual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -732,7 +725,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox put_Battery_voltage;
         private System.Windows.Forms.TextBox put_Battery_wattage;
-        private DrakeUI.Framework.DrakeUIContextMenuStrip drakeUIContextMenuStrip1;
         private System.Windows.Forms.Button manual_off;
         private System.Windows.Forms.Button manual_on;
         private System.Windows.Forms.Button send_voltage_wattage;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
@@ -92,11 +93,32 @@ namespace EL_BSS
                         if (!foundBattery && control.Name == "Battery_" + i)
                         {
                             ((DrakeUIBatteryBar)control).Power = Model.list_SlaveRecv[i].SOC;
+
+                            if (Model.list_SlaveRecv[i].SOC.ToString().Equals("0"))
+                            {
+                                ((DrakeUIBatteryBar)control).MultiColor = false;
+                                ((DrakeUIBatteryBar)control).FillColor = Color.Transparent;
+                            }
+                            else
+                            {
+                                ((DrakeUIBatteryBar)control).FillColor = Color.Transparent;
+                                ((DrakeUIBatteryBar)control).MultiColor = true;
+                            }
+
                             foundBattery = true;
                         }
                         if (!foundLabel && control.Name == "lbl_soc" + i)
                         {
-                            control.Text = Model.list_SlaveRecv[i].SOC.ToString() + "%";
+                            if (Model.list_SlaveRecv[i].SOC.ToString().Equals("0"))
+                            {
+                                control.ForeColor = Color.Gray;
+                                control.Text = "Empty";
+                            }
+                            else
+                            {
+                                control.Text = Model.list_SlaveRecv[i].SOC.ToString() + "%";
+                                control.ForeColor = Color.Black;
+                            }
                             foundLabel = true;
                         }
                         if (foundBattery && foundLabel)

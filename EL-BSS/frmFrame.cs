@@ -16,7 +16,7 @@ namespace EL_BSS
     public partial class frmFrame : Form, IObserver
     {
 
-        
+
         public delegate void ClickEvent(int idx);
         public static event ClickEvent MenuClick;
         private bool ThreadRun = true;
@@ -179,7 +179,7 @@ namespace EL_BSS
 
         private void lbl_time_DoubleClick(object sender, EventArgs e)
         {
-
+            frmFrame.deleMenuClick(1);
         }
     }
 }

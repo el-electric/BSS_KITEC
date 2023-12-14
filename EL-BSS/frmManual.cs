@@ -50,13 +50,11 @@ namespace EL_BSS
             }
         }
 
-        public async void updateView()
+        public void updateView()
         {
             for (int i = 1; i < 9; i++)
             {
-                //await Task.Run(() => mLayouts[i - 1].updateView());
-                await Task.Run(() => mLayouts[i - 1].updateView());
-                //mLayouts[i - 1].updateView();
+                mLayouts[i - 1].updateView();
             }
         }
 
@@ -81,9 +79,9 @@ namespace EL_BSS
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private async void timer1_Tick(object sender, EventArgs e)
         {
-            updateView();
+            await Task.Run(() => updateView());
         }
 
         private void All_Door_Open_Click(object sender, EventArgs e)
