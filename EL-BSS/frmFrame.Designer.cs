@@ -35,6 +35,7 @@
             this.lbl_time = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.bck_Sequnce = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,6 +99,10 @@
             this.panel2.Size = new System.Drawing.Size(1021, 694);
             this.panel2.TabIndex = 5;
             // 
+            // bck_Sequnce
+            // 
+            this.bck_Sequnce.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Sequnce_DoWork);
+            // 
             // frmFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -124,5 +129,6 @@
         private DrakeUI.Framework.DrakeUISymbolLabel lbl_time;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.ComponentModel.BackgroundWorker bck_Sequnce;
     }
 }

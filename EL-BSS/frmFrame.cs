@@ -53,6 +53,7 @@ namespace EL_BSS
             {
                 list_SlaveSend.Add(new SlaveSend(int.Parse(CsUtil.IniReadValue(model.DefaultPath, "CONFIG", "VOLT" + i + 1, "0")), int.Parse(CsUtil.IniReadValue(model.DefaultPath, "CONFIG", "WATT" + i + 1, "0"))));
                 list_SlaveRecv.Add(new SlaveRecv());
+                list_DataRecvDatetime.Add(new DateTime());
             }
 
 
@@ -75,6 +76,9 @@ namespace EL_BSS
         {
             if (!bck_Protocol.IsBusy)
                 bck_Protocol.RunWorkerAsync();
+
+            if (!bck_Sequnce.IsBusy)
+                bck_Sequnce.RunWorkerAsync();
 
             MenuClick += FrmFrame_MenuClick;
 
@@ -180,6 +184,30 @@ namespace EL_BSS
         private void lbl_time_DoubleClick(object sender, EventArgs e)
         {
             frmFrame.deleMenuClick(1);
+        }
+
+        int step = 0;
+        private void bck_Sequnce_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                switch (step)
+                {
+                    case 0:
+                        //sdfsdfds
+                        step++;
+                        break;
+                    case 1:
+                        //sdfsdsdf
+                        step++;
+                        break;
+                    case 2:
+                        break;
+
+                }
+
+                Thread.Sleep(1);
+            }
         }
     }
 }

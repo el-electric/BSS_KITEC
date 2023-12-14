@@ -134,10 +134,16 @@ namespace EL_BSS.Serial
             masterId = packet[4];
             slaveId = packet[5];
 
+
+
+
+
             if (masterId == 2)
                 idx = slaveId + 4;
             else
                 idx = slaveId;
+
+            Model.list_DataRecvDatetime[idx - 1] = DateTime.Now;
 
             Model.list_SlaveRecv[idx - 1].BatterArrive = EL_Manager_Conversion.getFlagByByteArray(packet[17], 7);
             Model.list_SlaveRecv[idx - 1].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);

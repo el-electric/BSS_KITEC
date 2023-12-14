@@ -145,6 +145,19 @@ namespace EL_BSS
                         if (foundDoor)
                             break;
                     }
+
+                    foreach (Control control in tableLayoutPanel2.Controls)
+                    {
+                        if (control.Name == "lamp" + i)
+                        {                            
+                            if (Model.list_DataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
+                                ((DrakeUILampLED)control).On = true;
+                            else
+                                ((DrakeUILampLED)control).On = false;
+
+                            break;
+                        }
+                    }
                 }
             }));
 

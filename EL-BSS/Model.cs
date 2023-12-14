@@ -23,6 +23,9 @@ namespace EL_BSS
         public static List<SlaveSend> list_SlaveSend = new List<SlaveSend>();
         public static List<SlaveRecv> list_SlaveRecv = new List<SlaveRecv>();
 
+        //데이터 받는지 표시
+        public static List<DateTime> list_DataRecvDatetime = new List<DateTime>();
+
         public static string Master_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", "");
         public static string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "");
 
@@ -60,7 +63,7 @@ namespace EL_BSS
             public SlaveSend(int request_Voltage, int request_Wattage)
             {
                 this.request_Voltage = request_Voltage;
-                this.request_Wattage = request_Wattage; 
+                this.request_Wattage = request_Wattage;
             }
         }
         public class SlaveRecv

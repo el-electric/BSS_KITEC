@@ -65,6 +65,15 @@
             this.lbl_soc6 = new System.Windows.Forms.Label();
             this.drakeUIButtonIcon1 = new DrakeUI.Framework.DrakeUIButtonIcon();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lamp0 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp4 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp1 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp5 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp2 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp6 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp3 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp7 = new DrakeUI.Framework.DrakeUILampLED();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -79,6 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitter1
@@ -112,6 +122,7 @@
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.splitContainer1.Panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("splitContainer1.Panel1.BackgroundImage")));
             this.splitContainer1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
             this.splitContainer1.Panel1.Controls.Add(this.picDoor_7);
             this.splitContainer1.Panel1.Controls.Add(this.picDoor_6);
@@ -596,6 +607,101 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.lamp7, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.lamp3, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.lamp6, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lamp2, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lamp5, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lamp1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lamp4, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lamp0, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(607, 610);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(44, 81);
+            this.tableLayoutPanel2.TabIndex = 10;
+            // 
+            // lamp0
+            // 
+            this.lamp0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp0.Location = new System.Drawing.Point(3, 3);
+            this.lamp0.Name = "lamp0";
+            this.lamp0.Size = new System.Drawing.Size(16, 14);
+            this.lamp0.TabIndex = 0;
+            this.lamp0.Text = "drakeUILampLED1";
+            // 
+            // lamp4
+            // 
+            this.lamp4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp4.Location = new System.Drawing.Point(25, 3);
+            this.lamp4.Name = "lamp4";
+            this.lamp4.Size = new System.Drawing.Size(16, 14);
+            this.lamp4.TabIndex = 1;
+            this.lamp4.Text = "drakeUILampLED2";
+            // 
+            // lamp1
+            // 
+            this.lamp1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp1.Location = new System.Drawing.Point(3, 23);
+            this.lamp1.Name = "lamp1";
+            this.lamp1.Size = new System.Drawing.Size(16, 14);
+            this.lamp1.TabIndex = 2;
+            this.lamp1.Text = "drakeUILampLED3";
+            // 
+            // lamp5
+            // 
+            this.lamp5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp5.Location = new System.Drawing.Point(25, 23);
+            this.lamp5.Name = "lamp5";
+            this.lamp5.Size = new System.Drawing.Size(16, 14);
+            this.lamp5.TabIndex = 3;
+            this.lamp5.Text = "drakeUILampLED4";
+            // 
+            // lamp2
+            // 
+            this.lamp2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp2.Location = new System.Drawing.Point(3, 43);
+            this.lamp2.Name = "lamp2";
+            this.lamp2.Size = new System.Drawing.Size(16, 14);
+            this.lamp2.TabIndex = 4;
+            this.lamp2.Text = "drakeUILampLED5";
+            // 
+            // lamp6
+            // 
+            this.lamp6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp6.Location = new System.Drawing.Point(25, 43);
+            this.lamp6.Name = "lamp6";
+            this.lamp6.Size = new System.Drawing.Size(16, 14);
+            this.lamp6.TabIndex = 5;
+            this.lamp6.Text = "drakeUILampLED6";
+            // 
+            // lamp3
+            // 
+            this.lamp3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp3.Location = new System.Drawing.Point(3, 63);
+            this.lamp3.Name = "lamp3";
+            this.lamp3.Size = new System.Drawing.Size(16, 15);
+            this.lamp3.TabIndex = 6;
+            this.lamp3.Text = "drakeUILampLED7";
+            // 
+            // lamp7
+            // 
+            this.lamp7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp7.Location = new System.Drawing.Point(25, 63);
+            this.lamp7.Name = "lamp7";
+            this.lamp7.Size = new System.Drawing.Size(16, 15);
+            this.lamp7.TabIndex = 7;
+            this.lamp7.Text = "drakeUILampLED8";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -625,6 +731,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -666,5 +773,14 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private DrakeUI.Framework.DrakeUILampLED lamp7;
+        private DrakeUI.Framework.DrakeUILampLED lamp3;
+        private DrakeUI.Framework.DrakeUILampLED lamp6;
+        private DrakeUI.Framework.DrakeUILampLED lamp2;
+        private DrakeUI.Framework.DrakeUILampLED lamp5;
+        private DrakeUI.Framework.DrakeUILampLED lamp1;
+        private DrakeUI.Framework.DrakeUILampLED lamp4;
+        private DrakeUI.Framework.DrakeUILampLED lamp0;
     }
 }
