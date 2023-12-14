@@ -197,7 +197,7 @@
             // 
             this.picDoor_6.BackColor = System.Drawing.Color.Transparent;
             this.picDoor_6.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_6.Image")));
-            this.picDoor_6.Location = new System.Drawing.Point(305, 404);
+            this.picDoor_6.Location = new System.Drawing.Point(304, 404);
             this.picDoor_6.Name = "picDoor_6";
             this.picDoor_6.Size = new System.Drawing.Size(95, 87);
             this.picDoor_6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -209,7 +209,7 @@
             // 
             this.picDoor_5.BackColor = System.Drawing.Color.Transparent;
             this.picDoor_5.Image = global::EL_BSS.Properties.Resources._6;
-            this.picDoor_5.Location = new System.Drawing.Point(309, 301);
+            this.picDoor_5.Location = new System.Drawing.Point(310, 301);
             this.picDoor_5.Name = "picDoor_5";
             this.picDoor_5.Size = new System.Drawing.Size(95, 87);
             this.picDoor_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -221,9 +221,9 @@
             // 
             this.picDoor_4.BackColor = System.Drawing.Color.Transparent;
             this.picDoor_4.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_4.Image")));
-            this.picDoor_4.Location = new System.Drawing.Point(309, 194);
+            this.picDoor_4.Location = new System.Drawing.Point(313, 190);
             this.picDoor_4.Name = "picDoor_4";
-            this.picDoor_4.Size = new System.Drawing.Size(95, 87);
+            this.picDoor_4.Size = new System.Drawing.Size(99, 98);
             this.picDoor_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picDoor_4.TabIndex = 5;
             this.picDoor_4.TabStop = false;
@@ -245,7 +245,7 @@
             // 
             this.picDoor_2.BackColor = System.Drawing.Color.Transparent;
             this.picDoor_2.Image = global::EL_BSS.Properties.Resources._31;
-            this.picDoor_2.Location = new System.Drawing.Point(170, 376);
+            this.picDoor_2.Location = new System.Drawing.Point(170, 377);
             this.picDoor_2.Name = "picDoor_2";
             this.picDoor_2.Size = new System.Drawing.Size(88, 97);
             this.picDoor_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -257,7 +257,7 @@
             // 
             this.picDoor_1.BackColor = System.Drawing.Color.Transparent;
             this.picDoor_1.Image = global::EL_BSS.Properties.Resources._2;
-            this.picDoor_1.Location = new System.Drawing.Point(170, 282);
+            this.picDoor_1.Location = new System.Drawing.Point(170, 281);
             this.picDoor_1.Name = "picDoor_1";
             this.picDoor_1.Size = new System.Drawing.Size(88, 88);
             this.picDoor_1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -269,7 +269,7 @@
             // 
             this.picDoor_0.BackColor = System.Drawing.Color.Transparent;
             this.picDoor_0.Image = global::EL_BSS.Properties.Resources._1_1;
-            this.picDoor_0.Location = new System.Drawing.Point(170, 184);
+            this.picDoor_0.Location = new System.Drawing.Point(171, 183);
             this.picDoor_0.Name = "picDoor_0";
             this.picDoor_0.Size = new System.Drawing.Size(88, 83);
             this.picDoor_0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
