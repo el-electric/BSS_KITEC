@@ -12,11 +12,13 @@ namespace EL_BSS
     public class Model
     {
 
-        public int  Charging_Step; 
+        public int Charging_Step;
         public static bool isOpen_Master;
         public static bool isOpen_Slave;
         public int masterCount = 2;
         public int slaveCount = 8;
+
+        public string DefaultPath = "Application.StartupPath + @\"\\Config.ini\"";
 
         public static List<SlaveSend> list_SlaveSend = new List<SlaveSend>();
         public static List<SlaveRecv> list_SlaveRecv = new List<SlaveRecv>();
@@ -53,9 +55,13 @@ namespace EL_BSS
             public bool Output;
 
             public int request_Voltage;
-            public int request_Wattage = 150;
+            public int request_Wattage;
 
-
+            public SlaveSend(int request_Voltage, int request_Wattage)
+            {
+                this.request_Voltage = request_Voltage;
+                this.request_Wattage = request_Wattage;
+            }
         }
         public class SlaveRecv
         {
@@ -176,7 +182,7 @@ namespace EL_BSS
                 bytes[14] |= 0x80;
             if (list_SlaveSend[idx - 1].isFan)
                 bytes[14] |= 0x08;
-            if (list_SlaveSend[idx - 1].hmiManual) 
+            if (list_SlaveSend[idx - 1].hmiManual)
                 bytes[14] |= 0x04;
 
             bytes[15] = 0;

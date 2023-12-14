@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EL_BSS.Serial;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,8 +20,6 @@ namespace EL_BSS
         }
 
         protected int mSLot_Number = 0;
-
-        Vkeyvoard VKeyboard = new Vkeyvoard();
 
         public frmSubManual(int Slot_Number) : this()
         {
@@ -158,20 +157,6 @@ namespace EL_BSS
             { Model.list_SlaveSend[mSLot_Number - 1].LED_Red = false; }
         }
 
-
-
-        private void vkey_on_Click(object sender, EventArgs e)
-        {
-            Vkeyvoard VKeyboard = new Vkeyvoard();
-            VKeyboard.showKeyboard();
-            VKeyboard.moveWindow(0, 0, 250, 100);
-        }
-
-        private void vkey_off_Click(object sender, EventArgs e)
-        {
-            VKeyboard.hideKeyboard();
-        }
-
         private void DOOR_CLOSE_Button_Click(object sender, EventArgs e) // door close
         {
             Model.list_SlaveSend[mSLot_Number - 1].doorOpen = false;
@@ -203,6 +188,18 @@ namespace EL_BSS
         private void manual_off_Click(object sender, EventArgs e)
         {
             Model.list_SlaveSend[mSLot_Number - 1].hmiManual = false;
+        }
+
+        private void send_voltage_wattage_Click(object sender, EventArgs e)
+        {
+            Model.list_SlaveSend[mSLot_Number - 1].request_Voltage = (Convert.ToInt32(put_Battery_voltage.Text) * 10);
+            Model.list_SlaveSend[mSLot_Number - 1].request_Wattage = (Convert.ToInt32(put_Battery_wattage.Text) * 10);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "VOLT" + mSLot_Number, (Convert.ToInt32(put_Battery_voltage.Text) * 10));
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "WATT" + mSLot_Number, (Convert.ToInt32(put_Battery_wattage.Text) * 10));
         }
     }
 }

@@ -15,6 +15,8 @@ namespace EL_BSS
     public partial class frmManual : Form, IObserver
     {
         protected frmSubManual[] mLayouts = new frmSubManual[8];
+
+        Vkeyvoard VKeyboard = new Vkeyvoard();
         public frmManual()
         {
             InitializeComponent();
@@ -68,9 +70,9 @@ namespace EL_BSS
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private async  void timer1_Tick(object sender, EventArgs e)
         {
-            updateView();
+            await Task.Run(() => updateView());
         }
 
         private void All_Door_Open_Click(object sender, EventArgs e)
@@ -95,6 +97,18 @@ namespace EL_BSS
         {
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", cb_master.Text);
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", cb_slave.Text);
+        }
+
+        private void Vkey_ON_Button_Click(object sender, EventArgs e)
+        {
+            Vkeyvoard VKeyboard = new Vkeyvoard();
+            VKeyboard.showKeyboard();
+            VKeyboard.moveWindow(0, 0, 250, 100);
+        }
+
+        private void Vkey_OFF_Button_Click(object sender, EventArgs e)
+        {
+            VKeyboard.hideKeyboard();
         }
     }
 }

@@ -39,7 +39,7 @@ namespace EL_BSS
 
             for (int i = 0; i < model.slaveCount; i++)
             {
-                list_SlaveSend.Add(new SlaveSend());
+                list_SlaveSend.Add(new SlaveSend(int.Parse(CsUtil.IniReadValue(model.DefaultPath, "CONFIG", "VOLT" + i + 1, "0")), int.Parse(CsUtil.IniReadValue(model.DefaultPath, "CONFIG", "WATT" + i + 1, "0"))));
                 list_SlaveRecv.Add(new SlaveRecv());
             }
 
@@ -103,7 +103,7 @@ namespace EL_BSS
                     frmManual.timer1.Enabled = true;
                     //for (int i = 0; i < 8; i++)
                     //{
-                     //   Model.list_SlaveSend[i].hmiManual = true;
+                    //   Model.list_SlaveSend[i].hmiManual = true;
                     //}
                     panel2.Controls.Add(frmManual);
                     break;
