@@ -2,19 +2,39 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace EL_BSS
 {
     public class Model
     {
 
+        public frmFrame frmFrame;
+
         public int Charging_Step;
         public static bool isOpen_Master;
         public static bool isOpen_Slave;
+
+        public static byte[] binFile;
+        public static List<byte[]> binFileBuffer = new List<byte[]>();
+        public static int binBufferCount = 0;
+
+
+        public static bool masterFirmwareUpdate;
+        public static int masterFirmwareUpdate_step = 0;
+        public static bool masterFirmWareisAck;
+        public static bool masterFirmWareisNck;
+        public static int slaveFirmwareUpdate_step = 0;
+
+
+        public static bool slaveFirmwareUpdate;
+
         public int masterCount = 2;
         public int slaveCount = 8;
 
@@ -59,6 +79,7 @@ namespace EL_BSS
 
             public int request_Voltage;
             public int request_Wattage;
+
 
             public SlaveSend(int request_Voltage, int request_Wattage)
             {
@@ -232,5 +253,73 @@ namespace EL_BSS
             return bytes;
         }
 
+        public static void makeFirmwareupdate()
+        {
+
+            byte[] f1 = make_f1();
+
+            byte[] bytes = new byte[9 + f1.Length + 3];
+            bytes[0] = 0xfe;
+
+            bytes[1] = 1; //가변
+            bytes[2] = 1; //가변            
+            bytes[3] = (byte)'M';
+            bytes[4] = (byte)'S';
+            bytes[5] = (byte)'f';
+            bytes[6] = (byte)'1';
+
+            bytes[7] = (byte)((f1.Length >> 8) & 0x000000ff); //시퀀스
+            bytes[8] = (byte)((f1.Length) & 0x000000ff);
+            ////////////////////////            
+
+            Array.Copy(f1, 0, bytes, 9, f1.Length);
+
+            byte[] temp;
+            temp = CsUtil.getCRC16_CCITT(bytes, 0, bytes.Length);
+
+            bytes[9 + f1.Length] = temp[0];
+            bytes[9 + f1.Length + 1] = temp[1];
+            bytes[bytes.Length - 1] = 0xff;
+
+            sp_Master.Write(bytes);
+        }
+        public static byte[] make_f1()
+        {
+
+
+            byte[] bytes = new byte[12 + binFileBuffer[binBufferCount].Length + 1];
+
+            bytes[0] = 1;
+            bytes[1] = 1;
+            bytes[2] = 1;
+            if (binFileBuffer[binBufferCount++].Length < 200)
+            {
+                bytes[3] = 0;
+                masterFirmwareUpdate = false;
+            }
+            else
+                bytes[3] = 1;
+
+            bytes[4] = 0;
+            bytes[5] = 0;
+            bytes[6] = 0;
+
+            bytes[7] = (byte)((binBufferCount >> 8) & 0x000000ff); //시퀀스
+            bytes[8] = (byte)((binBufferCount) & 0x000000ff);
+
+            byte[] temp;
+            temp = CsUtil.getCRC16_CCITT(binFileBuffer[binBufferCount - 1], 0, binFileBuffer[binBufferCount - 1].Length);
+
+            bytes[9] = temp[0];
+            bytes[10] = temp[1];
+
+            bytes[11] = (byte)((binFileBuffer[binBufferCount - 1].Length >> 8) & 0x000000ff); //길이
+            bytes[12] = (byte)((binFileBuffer[binBufferCount - 1].Length) & 0x000000ff);
+
+            Array.Copy(binFileBuffer[binBufferCount - 1], 0, bytes, 13, binFileBuffer[binBufferCount - 1].Length);
+
+            return bytes;
+
+        }
     }
 }

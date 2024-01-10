@@ -74,6 +74,8 @@ namespace EL_BSS
 
         private void initForm()
         {
+            model.frmFrame = this;
+
             if (!bck_Protocol.IsBusy)
                 bck_Protocol.RunWorkerAsync();
 
@@ -160,6 +162,47 @@ namespace EL_BSS
                     }
                 }
 
+                if (masterFirmwareUpdate)
+                {
+                    switch (masterFirmwareUpdate_step)
+                    {
+                        case 0:
+                            Model.masterFirmWareisAck = false;
+                            Model.masterFirmWareisNck = false;
+
+                            Model.makeFirmwareupdate();
+                            masterFirmwareUpdate_step++;
+                            break;
+                        case 1:
+
+                            if (masterFirmWareisAck)
+                                masterFirmwareUpdate_step = 0;
+                            else if (masterFirmWareisNck)
+                            {
+                                masterFirmwareUpdate = false;
+                            }
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+
+                    }
+                }
+
+
+                if (slaveFirmwareUpdate)
+                {
+
+                }
+
+
                 Thread.Sleep(50);
             }
         }
@@ -186,7 +229,7 @@ namespace EL_BSS
             frmFrame.deleMenuClick(1);
         }
 
-        int step = 0;
+        public int step = 0;
         private void bck_Sequnce_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
@@ -194,7 +237,6 @@ namespace EL_BSS
                 switch (step)
                 {
                     case 0:
-                        //sdfsdfds
                         step++;
                         break;
                     case 1:

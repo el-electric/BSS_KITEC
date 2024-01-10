@@ -1,8 +1,11 @@
-﻿using System;
+﻿using DrakeUI.Framework;
+using EL_BSS.Serial;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -52,6 +55,8 @@ namespace EL_BSS
 
         public void updateView()
         {
+            lbl_test.Text = Model.binBufferCount.ToString() + " / " + Model.binFileBuffer.Count;
+
             for (int i = 1; i < 9; i++)
             {
                 mLayouts[i - 1].updateView();
@@ -123,6 +128,53 @@ namespace EL_BSS
         private void Vkey_OFF_button_Click(object sender, EventArgs e)
         {
             VKeyboard.hideKeyboard();
+        }
+
+        private async void btn_firmup1_Click(object sender, EventArgs e)
+        {
+            Model.masterFirmwareUpdate_step = 0;
+
+            Model.binBufferCount = 0;
+            Model.binFileBuffer.Clear();
+            Model.isOpen_Master = false;
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "펌웨어 업데이트";
+            ofd.FileName = "";
+            ofd.Filter = "bin파일 (*.bin) | *.bin; | 모든 파일 (*.*) | *.*";
+
+            DialogResult dr = ofd.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                string fileFullName = ofd.FileName;
+
+                Model.binFile = File.ReadAllBytes(fileFullName);
+                Console.WriteLine($"Read {Model.binFile.Length} bytes");
+
+
+                //string hexString = BitConverter.ToString(fileData).Replace("-", " ");                
+
+
+                int chunkSize = 200;
+                for (int i = 0; i < Model.binFile.Length; i += chunkSize)
+                {
+                    // 현재 위치에서부터 chunkSize만큼 또는 배열의 끝까지의 길이를 계산
+                    int length = Math.Min(chunkSize, Model.binFile.Length - i);
+                    byte[] chunk = new byte[length];
+                    Array.Copy(Model.binFile, i, chunk, 0, length);
+                    Model.binFileBuffer.Add(chunk);
+                }
+
+                await Task.Delay(500);
+                
+                Model.masterFirmwareUpdate = true;
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Model.makeFirmwareupdate();
         }
     }
 }

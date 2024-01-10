@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.btn_firmup1 = new System.Windows.Forms.Button();
+            this.Vkey_OFF_button = new System.Windows.Forms.Button();
+            this.Vkey_ON_button = new System.Windows.Forms.Button();
             this.cb_slave = new DrakeUI.Framework.DrakeUIComboBox();
             this.cb_master = new DrakeUI.Framework.DrakeUIComboBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -46,8 +50,8 @@
             this.All_Door_Open = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.Vkey_ON_button = new System.Windows.Forms.Button();
-            this.Vkey_OFF_button = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.lbl_test = new DrakeUI.Framework.DrakeUILabel();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -65,6 +69,9 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox1.Controls.Add(this.lbl_test);
+            this.groupBox1.Controls.Add(this.button5);
+            this.groupBox1.Controls.Add(this.btn_firmup1);
             this.groupBox1.Controls.Add(this.Vkey_OFF_button);
             this.groupBox1.Controls.Add(this.Vkey_ON_button);
             this.groupBox1.Controls.Add(this.cb_slave);
@@ -82,6 +89,46 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "전체충전전력변경";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(474, 74);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 35;
+            this.button5.Text = "firmup2";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // btn_firmup1
+            // 
+            this.btn_firmup1.Location = new System.Drawing.Point(474, 53);
+            this.btn_firmup1.Name = "btn_firmup1";
+            this.btn_firmup1.Size = new System.Drawing.Size(75, 23);
+            this.btn_firmup1.TabIndex = 34;
+            this.btn_firmup1.Text = "firmup1";
+            this.btn_firmup1.UseVisualStyleBackColor = true;
+            this.btn_firmup1.Click += new System.EventHandler(this.btn_firmup1_Click);
+            // 
+            // Vkey_OFF_button
+            // 
+            this.Vkey_OFF_button.Location = new System.Drawing.Point(351, 64);
+            this.Vkey_OFF_button.Name = "Vkey_OFF_button";
+            this.Vkey_OFF_button.Size = new System.Drawing.Size(117, 23);
+            this.Vkey_OFF_button.TabIndex = 33;
+            this.Vkey_OFF_button.Text = "화상키보드 OFF";
+            this.Vkey_OFF_button.UseVisualStyleBackColor = true;
+            this.Vkey_OFF_button.Click += new System.EventHandler(this.Vkey_OFF_button_Click);
+            // 
+            // Vkey_ON_button
+            // 
+            this.Vkey_ON_button.Location = new System.Drawing.Point(239, 65);
+            this.Vkey_ON_button.Name = "Vkey_ON_button";
+            this.Vkey_ON_button.Size = new System.Drawing.Size(106, 23);
+            this.Vkey_ON_button.TabIndex = 32;
+            this.Vkey_ON_button.Text = "화상키보드 ON";
+            this.Vkey_ON_button.UseVisualStyleBackColor = true;
+            this.Vkey_ON_button.Click += new System.EventHandler(this.Vkey_ON_button_Click);
             // 
             // cb_slave
             // 
@@ -246,25 +293,19 @@
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1017, 586);
             this.flowLayoutPanel2.TabIndex = 1;
             // 
-            // Vkey_ON_button
+            // openFileDialog1
             // 
-            this.Vkey_ON_button.Location = new System.Drawing.Point(239, 65);
-            this.Vkey_ON_button.Name = "Vkey_ON_button";
-            this.Vkey_ON_button.Size = new System.Drawing.Size(106, 23);
-            this.Vkey_ON_button.TabIndex = 32;
-            this.Vkey_ON_button.Text = "화상키보드 ON";
-            this.Vkey_ON_button.UseVisualStyleBackColor = true;
-            this.Vkey_ON_button.Click += new System.EventHandler(this.Vkey_ON_button_Click);
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // Vkey_OFF_button
+            // lbl_test
             // 
-            this.Vkey_OFF_button.Location = new System.Drawing.Point(351, 64);
-            this.Vkey_OFF_button.Name = "Vkey_OFF_button";
-            this.Vkey_OFF_button.Size = new System.Drawing.Size(117, 23);
-            this.Vkey_OFF_button.TabIndex = 33;
-            this.Vkey_OFF_button.Text = "화상키보드 OFF";
-            this.Vkey_OFF_button.UseVisualStyleBackColor = true;
-            this.Vkey_OFF_button.Click += new System.EventHandler(this.Vkey_OFF_button_Click);
+            this.lbl_test.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbl_test.Location = new System.Drawing.Point(366, 20);
+            this.lbl_test.Name = "lbl_test";
+            this.lbl_test.Size = new System.Drawing.Size(100, 23);
+            this.lbl_test.TabIndex = 36;
+            this.lbl_test.Text = "0/0";
+            this.lbl_test.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmManual
             // 
@@ -306,5 +347,9 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button Vkey_OFF_button;
         private System.Windows.Forms.Button Vkey_ON_button;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btn_firmup1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private DrakeUI.Framework.DrakeUILabel lbl_test;
     }
 }
