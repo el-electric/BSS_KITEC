@@ -33,6 +33,15 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lamp7 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp3 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp6 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp2 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp5 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp1 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp4 = new DrakeUI.Framework.DrakeUILampLED();
+            this.lamp0 = new DrakeUI.Framework.DrakeUILampLED();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -65,19 +74,14 @@
             this.lbl_soc6 = new System.Windows.Forms.Label();
             this.drakeUIButtonIcon1 = new DrakeUI.Framework.DrakeUIButtonIcon();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.lamp0 = new DrakeUI.Framework.DrakeUILampLED();
-            this.lamp4 = new DrakeUI.Framework.DrakeUILampLED();
-            this.lamp1 = new DrakeUI.Framework.DrakeUILampLED();
-            this.lamp5 = new DrakeUI.Framework.DrakeUILampLED();
-            this.lamp2 = new DrakeUI.Framework.DrakeUILampLED();
-            this.lamp6 = new DrakeUI.Framework.DrakeUILampLED();
-            this.lamp3 = new DrakeUI.Framework.DrakeUILampLED();
-            this.lamp7 = new DrakeUI.Framework.DrakeUILampLED();
+            this.master_lamp0 = new DrakeUI.Framework.DrakeUILampLED();
+            this.master_lamp1 = new DrakeUI.Framework.DrakeUILampLED();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_6)).BeginInit();
@@ -88,7 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitter1
@@ -122,6 +126,7 @@
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.splitContainer1.Panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("splitContainer1.Panel1.BackgroundImage")));
             this.splitContainer1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel3);
             this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
             this.splitContainer1.Panel1.Controls.Add(this.picDoor_7);
@@ -139,6 +144,102 @@
             this.splitContainer1.Size = new System.Drawing.Size(1018, 694);
             this.splitContainer1.SplitterDistance = 655;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.lamp7, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.lamp3, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.lamp6, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lamp2, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lamp5, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lamp1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lamp4, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lamp0, 0, 0);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(607, 610);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(44, 81);
+            this.tableLayoutPanel2.TabIndex = 10;
+            // 
+            // lamp7
+            // 
+            this.lamp7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp7.Location = new System.Drawing.Point(25, 63);
+            this.lamp7.Name = "lamp7";
+            this.lamp7.Size = new System.Drawing.Size(16, 15);
+            this.lamp7.TabIndex = 7;
+            this.lamp7.Text = "drakeUILampLED8";
+            // 
+            // lamp3
+            // 
+            this.lamp3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp3.Location = new System.Drawing.Point(3, 63);
+            this.lamp3.Name = "lamp3";
+            this.lamp3.Size = new System.Drawing.Size(16, 15);
+            this.lamp3.TabIndex = 6;
+            this.lamp3.Text = "drakeUILampLED7";
+            // 
+            // lamp6
+            // 
+            this.lamp6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp6.Location = new System.Drawing.Point(25, 43);
+            this.lamp6.Name = "lamp6";
+            this.lamp6.Size = new System.Drawing.Size(16, 14);
+            this.lamp6.TabIndex = 5;
+            this.lamp6.Text = "drakeUILampLED6";
+            // 
+            // lamp2
+            // 
+            this.lamp2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp2.Location = new System.Drawing.Point(3, 43);
+            this.lamp2.Name = "lamp2";
+            this.lamp2.Size = new System.Drawing.Size(16, 14);
+            this.lamp2.TabIndex = 4;
+            this.lamp2.Text = "drakeUILampLED5";
+            // 
+            // lamp5
+            // 
+            this.lamp5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp5.Location = new System.Drawing.Point(25, 23);
+            this.lamp5.Name = "lamp5";
+            this.lamp5.Size = new System.Drawing.Size(16, 14);
+            this.lamp5.TabIndex = 3;
+            this.lamp5.Text = "drakeUILampLED4";
+            // 
+            // lamp1
+            // 
+            this.lamp1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp1.Location = new System.Drawing.Point(3, 23);
+            this.lamp1.Name = "lamp1";
+            this.lamp1.Size = new System.Drawing.Size(16, 14);
+            this.lamp1.TabIndex = 2;
+            this.lamp1.Text = "drakeUILampLED3";
+            // 
+            // lamp4
+            // 
+            this.lamp4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp4.Location = new System.Drawing.Point(25, 3);
+            this.lamp4.Name = "lamp4";
+            this.lamp4.Size = new System.Drawing.Size(16, 14);
+            this.lamp4.TabIndex = 1;
+            this.lamp4.Text = "drakeUILampLED2";
+            // 
+            // lamp0
+            // 
+            this.lamp0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp0.Location = new System.Drawing.Point(3, 3);
+            this.lamp0.Name = "lamp0";
+            this.lamp0.Size = new System.Drawing.Size(16, 14);
+            this.lamp0.TabIndex = 0;
+            this.lamp0.Text = "drakeUILampLED1";
             // 
             // panel1
             // 
@@ -361,7 +462,7 @@
             this.Battery_7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Battery_7.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
             this.Battery_7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_7.FillColor = System.Drawing.Color.Transparent;
+            this.Battery_7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
             this.Battery_7.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.Battery_7.Location = new System.Drawing.Point(180, 538);
             this.Battery_7.Name = "Battery_7";
@@ -380,7 +481,7 @@
             this.Battery_3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Battery_3.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
             this.Battery_3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_3.FillColor = System.Drawing.Color.Transparent;
+            this.Battery_3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
             this.Battery_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.Battery_3.Location = new System.Drawing.Point(3, 538);
             this.Battery_3.Name = "Battery_3";
@@ -399,7 +500,7 @@
             this.Battery_6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Battery_6.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
             this.Battery_6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_6.FillColor = System.Drawing.Color.Transparent;
+            this.Battery_6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
             this.Battery_6.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.Battery_6.Location = new System.Drawing.Point(180, 393);
             this.Battery_6.Name = "Battery_6";
@@ -418,7 +519,7 @@
             this.Battery_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Battery_2.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
             this.Battery_2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_2.FillColor = System.Drawing.Color.Transparent;
+            this.Battery_2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
             this.Battery_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.Battery_2.Location = new System.Drawing.Point(3, 393);
             this.Battery_2.Name = "Battery_2";
@@ -437,7 +538,7 @@
             this.Battery_5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Battery_5.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
             this.Battery_5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_5.FillColor = System.Drawing.Color.Transparent;
+            this.Battery_5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
             this.Battery_5.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.Battery_5.Location = new System.Drawing.Point(180, 248);
             this.Battery_5.Name = "Battery_5";
@@ -456,7 +557,7 @@
             this.Battery_1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Battery_1.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
             this.Battery_1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_1.FillColor = System.Drawing.Color.Transparent;
+            this.Battery_1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
             this.Battery_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.Battery_1.Location = new System.Drawing.Point(3, 248);
             this.Battery_1.Name = "Battery_1";
@@ -474,7 +575,7 @@
             this.Battery_4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Battery_4.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
             this.Battery_4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_4.FillColor = System.Drawing.Color.Transparent;
+            this.Battery_4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
             this.Battery_4.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.Battery_4.Location = new System.Drawing.Point(180, 103);
             this.Battery_4.Name = "Battery_4";
@@ -493,7 +594,7 @@
             this.Battery_0.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Battery_0.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
             this.Battery_0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_0.FillColor = System.Drawing.Color.Transparent;
+            this.Battery_0.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
             this.Battery_0.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
             this.Battery_0.Location = new System.Drawing.Point(3, 103);
             this.Battery_0.Name = "Battery_0";
@@ -607,100 +708,38 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // tableLayoutPanel2
+            // master_lamp0
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.lamp7, 1, 3);
-            this.tableLayoutPanel2.Controls.Add(this.lamp3, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.lamp6, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.lamp2, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.lamp5, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lamp1, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lamp4, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.lamp0, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(607, 610);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(44, 81);
-            this.tableLayoutPanel2.TabIndex = 10;
+            this.master_lamp0.Location = new System.Drawing.Point(3, 3);
+            this.master_lamp0.Name = "master_lamp0";
+            this.master_lamp0.Size = new System.Drawing.Size(13, 14);
+            this.master_lamp0.TabIndex = 11;
+            this.master_lamp0.Text = "drakeUILampLED1";
             // 
-            // lamp0
+            // master_lamp1
             // 
-            this.lamp0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp0.Location = new System.Drawing.Point(3, 3);
-            this.lamp0.Name = "lamp0";
-            this.lamp0.Size = new System.Drawing.Size(16, 14);
-            this.lamp0.TabIndex = 0;
-            this.lamp0.Text = "drakeUILampLED1";
+            this.master_lamp1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.master_lamp1.Enabled = false;
+            this.master_lamp1.Location = new System.Drawing.Point(22, 3);
+            this.master_lamp1.Name = "master_lamp1";
+            this.master_lamp1.Size = new System.Drawing.Size(13, 14);
+            this.master_lamp1.TabIndex = 12;
+            this.master_lamp1.Text = "drakeUILampLED2";
             // 
-            // lamp4
+            // tableLayoutPanel3
             // 
-            this.lamp4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp4.Location = new System.Drawing.Point(25, 3);
-            this.lamp4.Name = "lamp4";
-            this.lamp4.Size = new System.Drawing.Size(16, 14);
-            this.lamp4.TabIndex = 1;
-            this.lamp4.Text = "drakeUILampLED2";
-            // 
-            // lamp1
-            // 
-            this.lamp1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp1.Location = new System.Drawing.Point(3, 23);
-            this.lamp1.Name = "lamp1";
-            this.lamp1.Size = new System.Drawing.Size(16, 14);
-            this.lamp1.TabIndex = 2;
-            this.lamp1.Text = "drakeUILampLED3";
-            // 
-            // lamp5
-            // 
-            this.lamp5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp5.Location = new System.Drawing.Point(25, 23);
-            this.lamp5.Name = "lamp5";
-            this.lamp5.Size = new System.Drawing.Size(16, 14);
-            this.lamp5.TabIndex = 3;
-            this.lamp5.Text = "drakeUILampLED4";
-            // 
-            // lamp2
-            // 
-            this.lamp2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp2.Location = new System.Drawing.Point(3, 43);
-            this.lamp2.Name = "lamp2";
-            this.lamp2.Size = new System.Drawing.Size(16, 14);
-            this.lamp2.TabIndex = 4;
-            this.lamp2.Text = "drakeUILampLED5";
-            // 
-            // lamp6
-            // 
-            this.lamp6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp6.Location = new System.Drawing.Point(25, 43);
-            this.lamp6.Name = "lamp6";
-            this.lamp6.Size = new System.Drawing.Size(16, 14);
-            this.lamp6.TabIndex = 5;
-            this.lamp6.Text = "drakeUILampLED6";
-            // 
-            // lamp3
-            // 
-            this.lamp3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp3.Location = new System.Drawing.Point(3, 63);
-            this.lamp3.Name = "lamp3";
-            this.lamp3.Size = new System.Drawing.Size(16, 15);
-            this.lamp3.TabIndex = 6;
-            this.lamp3.Text = "drakeUILampLED7";
-            // 
-            // lamp7
-            // 
-            this.lamp7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp7.Location = new System.Drawing.Point(25, 63);
-            this.lamp7.Name = "lamp7";
-            this.lamp7.Size = new System.Drawing.Size(16, 15);
-            this.lamp7.TabIndex = 7;
-            this.lamp7.Text = "drakeUILampLED8";
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.master_lamp0, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.master_lamp1, 1, 0);
+            this.tableLayoutPanel3.Enabled = false;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(607, 575);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(38, 20);
+            this.tableLayoutPanel3.TabIndex = 13;
             // 
             // frmMain
             // 
@@ -720,6 +759,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_6)).EndInit();
@@ -731,7 +771,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -782,5 +822,8 @@
         private DrakeUI.Framework.DrakeUILampLED lamp1;
         private DrakeUI.Framework.DrakeUILampLED lamp4;
         private DrakeUI.Framework.DrakeUILampLED lamp0;
+        private DrakeUI.Framework.DrakeUILampLED master_lamp0;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private DrakeUI.Framework.DrakeUILampLED master_lamp1;
     }
 }

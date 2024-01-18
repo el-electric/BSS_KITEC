@@ -76,6 +76,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.manual_off = new System.Windows.Forms.Button();
             this.manual_on = new System.Windows.Forms.Button();
+            this.send_board_Reset = new System.Windows.Forms.Button();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -84,9 +85,9 @@
             // 
             this.DOOR_OPEN_Button.BackColor = System.Drawing.Color.White;
             this.DOOR_OPEN_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DOOR_OPEN_Button.Location = new System.Drawing.Point(506, 20);
+            this.DOOR_OPEN_Button.Location = new System.Drawing.Point(500, 20);
             this.DOOR_OPEN_Button.Name = "DOOR_OPEN_Button";
-            this.DOOR_OPEN_Button.Size = new System.Drawing.Size(69, 51);
+            this.DOOR_OPEN_Button.Size = new System.Drawing.Size(57, 39);
             this.DOOR_OPEN_Button.TabIndex = 2;
             this.DOOR_OPEN_Button.Text = "열기";
             this.DOOR_OPEN_Button.UseVisualStyleBackColor = false;
@@ -96,9 +97,9 @@
             // 
             this.DOOR_CLOSE_Button.BackColor = System.Drawing.Color.White;
             this.DOOR_CLOSE_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DOOR_CLOSE_Button.Location = new System.Drawing.Point(581, 20);
+            this.DOOR_CLOSE_Button.Location = new System.Drawing.Point(565, 20);
             this.DOOR_CLOSE_Button.Name = "DOOR_CLOSE_Button";
-            this.DOOR_CLOSE_Button.Size = new System.Drawing.Size(69, 51);
+            this.DOOR_CLOSE_Button.Size = new System.Drawing.Size(57, 39);
             this.DOOR_CLOSE_Button.TabIndex = 3;
             this.DOOR_CLOSE_Button.Text = "닫기";
             this.DOOR_CLOSE_Button.UseVisualStyleBackColor = false;
@@ -546,6 +547,7 @@
             // 
             // gb_Slot
             // 
+            this.gb_Slot.Controls.Add(this.send_board_Reset);
             this.gb_Slot.Controls.Add(this.send_voltage_wattage);
             this.gb_Slot.Controls.Add(this.put_Battery_wattage);
             this.gb_Slot.Controls.Add(this.put_Battery_voltage);
@@ -616,7 +618,7 @@
             // 
             // manual_off
             // 
-            this.manual_off.Location = new System.Drawing.Point(592, 180);
+            this.manual_off.Location = new System.Drawing.Point(585, 135);
             this.manual_off.Name = "manual_off";
             this.manual_off.Size = new System.Drawing.Size(109, 23);
             this.manual_off.TabIndex = 1;
@@ -626,13 +628,25 @@
             // 
             // manual_on
             // 
-            this.manual_on.Location = new System.Drawing.Point(450, 180);
+            this.manual_on.Location = new System.Drawing.Point(450, 135);
             this.manual_on.Name = "manual_on";
             this.manual_on.Size = new System.Drawing.Size(125, 23);
             this.manual_on.TabIndex = 0;
             this.manual_on.Text = "매뉴얼ON";
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
+            // 
+            // send_board_Reset
+            // 
+            this.send_board_Reset.BackColor = System.Drawing.Color.White;
+            this.send_board_Reset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.send_board_Reset.Location = new System.Drawing.Point(650, 21);
+            this.send_board_Reset.Name = "send_board_Reset";
+            this.send_board_Reset.Size = new System.Drawing.Size(67, 36);
+            this.send_board_Reset.TabIndex = 35;
+            this.send_board_Reset.Text = "보드리셋";
+            this.send_board_Reset.UseVisualStyleBackColor = false;
+            this.send_board_Reset.Click += new System.EventHandler(this.send_board_Reset_Click);
             // 
             // frmSubManual
             // 
@@ -728,5 +742,6 @@
         private System.Windows.Forms.Button manual_off;
         private System.Windows.Forms.Button manual_on;
         private System.Windows.Forms.Button send_voltage_wattage;
+        private System.Windows.Forms.Button send_board_Reset;
     }
 }

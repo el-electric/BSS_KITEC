@@ -215,5 +215,10 @@ namespace EL_BSS
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "VOLT" + mSLot_Number, (Convert.ToDouble(put_Battery_voltage.Text) * 10));
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "WATT" + mSLot_Number, (Convert.ToDouble(put_Battery_wattage.Text) * 10));
         }
+
+        private void send_board_Reset_Click(object sender, EventArgs e)
+        {
+            Model.list_SlaveSend[mSLot_Number - 1].boardReset = true;
+        }
     }
 }

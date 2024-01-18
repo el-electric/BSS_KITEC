@@ -34,6 +34,7 @@
             this.bck_Protocol = new System.ComponentModel.BackgroundWorker();
             this.lbl_time = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbl_Notify_Tv = new DrakeUI.Framework.DrakeUILabel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.bck_Sequnce = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
@@ -81,6 +82,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(182)))), ((int)(((byte)(176)))));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.lbl_Notify_Tv);
             this.panel1.Controls.Add(this.lbl_time);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(3, 0);
@@ -88,6 +90,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1021, 74);
             this.panel1.TabIndex = 3;
+            // 
+            // lbl_Notify_Tv
+            // 
+            this.lbl_Notify_Tv.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_Notify_Tv.ForeColor = System.Drawing.Color.White;
+            this.lbl_Notify_Tv.Location = new System.Drawing.Point(3, 33);
+            this.lbl_Notify_Tv.Name = "lbl_Notify_Tv";
+            this.lbl_Notify_Tv.Size = new System.Drawing.Size(1018, 41);
+            this.lbl_Notify_Tv.TabIndex = 1;
+            this.lbl_Notify_Tv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
@@ -130,5 +142,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.ComponentModel.BackgroundWorker bck_Sequnce;
+        private DrakeUI.Framework.DrakeUILabel lbl_Notify_Tv;
     }
 }

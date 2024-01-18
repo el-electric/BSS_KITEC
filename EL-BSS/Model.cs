@@ -25,42 +25,88 @@ namespace EL_BSS
         public static List<byte[]> binFileBuffer = new List<byte[]>();
         public static int binBufferCount = 0;
 
+        public static int Download_APP = 1;
+        public static int Jump_APP = 1;
+        public static int Read_Version = 1;
+        public static int PWUpdate_Send_Flag;
+        public static int Binary_Data_Seq;
+        public static int PWUpdate_New_Version_Major = 1;
+        public static int PWUpdate_New_Version_Minor = 1;
+        public static int PWUpdate_New_Version_Patch = 1;
+
+        public static int boot_Version_Major;
+        public static int boot_Version_Minor;
+        public static int boot_Version_Patch;
+        public static int app1_Version_Major;
+        public static int app1_Version_Minor;
+        public static int app1_Version_Patch;
+        public static int app2_Version_Major;
+        public static int app2_Version_Minor;
+        public static int app2_Version_Patch;
+
+
 
         public static bool masterFirmwareUpdate;
+        public static bool masterFirmwareUpdate_Check_Finish = false;
+        public static bool masterFirmware_f0 = false;
         public static int masterFirmwareUpdate_step = 0;
         public static bool masterFirmWareisAck;
         public static bool masterFirmWareisNck;
-        public static int slaveFirmwareUpdate_step = 0;
+        public static int PWUpdate_MasterID;
 
 
         public static bool slaveFirmwareUpdate;
+        public static int slaveFirmwareUpdate_step = 0;
+        public static bool slaveFirmWareisAck;
+        public static bool slaveFirmWareisNck;
+        public static int PWUpdate_SlaveID;
+
 
         public int masterCount = 2;
         public int slaveCount = 8;
 
         public string DefaultPath = "Application.StartupPath + @\"\\Config.ini\"";
 
+        // 처음으로 사용자가 반납하기 버튼을 누른 시간
+        public static Nullable<DateTime> dt_First_ClickStartButton_Time = null;
+
+        public static List<MasterSend> list_MasterSend = new List<MasterSend>();
+        public static List<MasterRecv> list_MasterRecv = new List<MasterRecv>();
+
         public static List<SlaveSend> list_SlaveSend = new List<SlaveSend>();
         public static List<SlaveRecv> list_SlaveRecv = new List<SlaveRecv>();
 
         //데이터 받는지 표시
-        public static List<DateTime> list_DataRecvDatetime = new List<DateTime>();
+        public static List<DateTime> list_SlaveDataRecvDatetime = new List<DateTime>();
+        public static List<DateTime> list_MasterDataRecvDatetime = new List<DateTime>();
 
         public static string Master_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", "");
         public static string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "");
 
+        public static bool Start_Return_Button = false;
+
         public class MasterSend
         {
-            bool hmiManual;
+            public bool boardReset;
+            public bool isFan;
+            public bool hmiManual;
         }
         public class MasterRecv
         {
-            //진동경고
-            bool vibrationWarning;
+            //진동 경고
+            public bool vibrationWarning;
             //침수 위험
-            bool floodingDanger;
+            public bool floodingDanger;
             //침수 경고
-            bool floodingWarning;
+            public bool floodingWarning;
+
+            public int DIP_Switch_Chaeck;
+            public int Charger_UpperTemper;
+            public int Charger_LowerTemper;
+            public int Charger_Humidity;
+            public int Charger_WaveSensor;
+            public int Charger_LightSensor;
+
         }
         public class SlaveSend
         {
@@ -79,7 +125,6 @@ namespace EL_BSS
 
             public int request_Voltage;
             public int request_Wattage;
-
 
             public SlaveSend(int request_Voltage, int request_Wattage)
             {
@@ -144,19 +189,84 @@ namespace EL_BSS
             public bool highVoltageProtection;
             public bool lowVoltageProtection;
 
+            // 최초 안착 신호 들어온 시간
+            public Nullable<DateTime> dt_First_BatterArrive_Time = null;
+
+            // 배터리 타입 구분
+            public string Check_BatteryVoltage_Type = null;
+
             ////////////
 
             /////C1/////
 
             ////////////
+
         }
 
 
-        public void makeMaserPacket(int idx)
+        public byte[] makeMaserPacket(int idx)
         {
+            byte[] bytes = new byte[22];
 
+            bytes[0] = 0xfe;
 
+            bytes[1] = 0;
+            bytes[2] = 0;
+            bytes[3] = 0;
 
+            if (idx == 1)
+            {
+                //master 
+                bytes[4] = 1;
+                //slave
+                bytes[5] = 0;
+            }
+            else if (idx == 2)
+            {
+                //master 
+                bytes[4] = 2;
+                //slave
+                bytes[5] = 0;
+            }
+
+            bytes[6] = (byte)'M';
+            bytes[7] = (byte)'M';
+
+            bytes[8] = (byte)'z';
+            bytes[9] = (byte)'1';
+
+            bytes[10] = 0;
+            //데이터길이
+            bytes[11] = 7;
+
+            bytes[12] = 0;
+            bytes[13] = 1;
+
+            bytes[14] = 0;
+            if (list_MasterSend[idx - 1].boardReset)
+            {
+                bytes[14] |= 0x80;
+                list_MasterSend[idx - 1].boardReset = false;
+            }
+            if (list_MasterSend[idx - 1].isFan)
+                bytes[14] |= 0x08;
+            if (list_MasterSend[idx - 1].hmiManual)
+                bytes[14] |= 0x04;
+
+            bytes[15] = 0;
+            bytes[16] = 1;
+
+            bytes[17] = 0;
+
+            bytes[18] = 0;
+
+            byte[] temp;
+            temp = CsUtil.getCRC16_CCITT(bytes, 0, bytes.Length);
+            bytes[19] = temp[0];
+            bytes[20] = temp[1];
+            bytes[21] = 0xff;
+
+            return bytes;
         }
         public byte[] makeSlavePacket(int idx)
         {
@@ -203,7 +313,11 @@ namespace EL_BSS
             bytes[14] = 0;
 
             if (list_SlaveSend[idx - 1].boardReset)
+            {
                 bytes[14] |= 0x80;
+                list_SlaveSend[idx - 1].boardReset = false;
+            }
+
             if (list_SlaveSend[idx - 1].isFan)
                 bytes[14] |= 0x08;
             if (list_SlaveSend[idx - 1].hmiManual)
@@ -253,7 +367,7 @@ namespace EL_BSS
             return bytes;
         }
 
-        public static void makeFirmwareupdate()
+        public static void makeFirmwareupdate(int masterid, int slaveid)
         {
 
             byte[] f1 = make_f1();
@@ -261,10 +375,15 @@ namespace EL_BSS
             byte[] bytes = new byte[9 + f1.Length + 3];
             bytes[0] = 0xfe;
 
-            bytes[1] = 1; //가변
-            bytes[2] = 1; //가변            
+            bytes[1] = (byte)masterid; //가변
+            bytes[2] = (byte)slaveid; //가변
+
             bytes[3] = (byte)'M';
-            bytes[4] = (byte)'S';
+            if (slaveid == 0)
+            { bytes[4] = (byte)'M'; }
+            else
+            { bytes[4] = (byte)'S'; }
+
             bytes[5] = (byte)'f';
             bytes[6] = (byte)'1';
 
@@ -272,7 +391,7 @@ namespace EL_BSS
             bytes[8] = (byte)((f1.Length) & 0x000000ff);
             ////////////////////////            
 
-            Array.Copy(f1, 0, bytes, 9, f1.Length);
+            Array.Copy(f1, 0, bytes, 9, f1.Length); // make_f1()
 
             byte[] temp;
             temp = CsUtil.getCRC16_CCITT(bytes, 0, bytes.Length);
@@ -281,18 +400,19 @@ namespace EL_BSS
             bytes[9 + f1.Length + 1] = temp[1];
             bytes[bytes.Length - 1] = 0xff;
 
-            sp_Master.Write(bytes);
+            if (slaveid == 0)
+            { sp_Master.Write(bytes); }
+            else
+            { sp_Slave.Write(bytes); }
         }
         public static byte[] make_f1()
         {
-
-
             byte[] bytes = new byte[12 + binFileBuffer[binBufferCount].Length + 1];
 
-            bytes[0] = 1;
-            bytes[1] = 1;
-            bytes[2] = 1;
-            if (binFileBuffer[binBufferCount++].Length < 200)
+            bytes[0] = (byte)PWUpdate_New_Version_Major;    // 9
+            bytes[1] = (byte)PWUpdate_New_Version_Minor;    // 10
+            bytes[2] = (byte)PWUpdate_New_Version_Patch;    // 11
+            if (binFileBuffer[binBufferCount++].Length < 200)  // 12
             {
                 bytes[3] = 0;
                 masterFirmwareUpdate = false;
@@ -300,26 +420,59 @@ namespace EL_BSS
             else
                 bytes[3] = 1;
 
-            bytes[4] = 0;
-            bytes[5] = 0;
-            bytes[6] = 0;
+            bytes[4] = (byte)Download_APP;    //13
+            bytes[5] = (byte)Jump_APP;   // 14
+            bytes[6] = 0;    //15
 
-            bytes[7] = (byte)((binBufferCount >> 8) & 0x000000ff); //시퀀스
-            bytes[8] = (byte)((binBufferCount) & 0x000000ff);
+            bytes[7] = (byte)((binBufferCount >> 8) & 0x000000ff); //시퀀스    //16
+            bytes[8] = (byte)((binBufferCount) & 0x000000ff);    // 17
 
             byte[] temp;
             temp = CsUtil.getCRC16_CCITT(binFileBuffer[binBufferCount - 1], 0, binFileBuffer[binBufferCount - 1].Length);
 
-            bytes[9] = temp[0];
-            bytes[10] = temp[1];
+            bytes[9] = temp[0];     // 18
+            bytes[10] = temp[1];    // 19
 
-            bytes[11] = (byte)((binFileBuffer[binBufferCount - 1].Length >> 8) & 0x000000ff); //길이
-            bytes[12] = (byte)((binFileBuffer[binBufferCount - 1].Length) & 0x000000ff);
+            bytes[11] = (byte)((binFileBuffer[binBufferCount - 1].Length >> 8) & 0x000000ff); //길이     //20
+            bytes[12] = (byte)((binFileBuffer[binBufferCount - 1].Length) & 0x000000ff);      // 21
 
-            Array.Copy(binFileBuffer[binBufferCount - 1], 0, bytes, 13, binFileBuffer[binBufferCount - 1].Length);
+            Array.Copy(binFileBuffer[binBufferCount - 1], 0, bytes, 13, binFileBuffer[binBufferCount - 1].Length);  // 바이트를 쪼갠 파일, 쪼갠 파일의 시작 인덱스 , 붙일 파일 , 붙일 파일의 마지막 인덱스 , 바이트를 쪼갠 파일의 길이
 
             return bytes;
 
+        }
+
+        public static void makeFirmwareF0(int masterid, int slaveid)
+        {
+            byte[] bytes = new byte[12];
+            bytes[0] = 0xfe;
+
+            bytes[1] = (byte)masterid; //가변
+            bytes[2] = (byte)slaveid; //가변            
+            bytes[3] = (byte)'M';
+            if (slaveid == 0)
+            { bytes[4] = (byte)'M'; }
+            else
+            { bytes[4] = (byte)'S'; }
+            bytes[5] = (byte)'f';
+            bytes[6] = (byte)'0';
+
+            bytes[7] = 0;
+            bytes[8] = 1;
+
+            bytes[9] = (byte)Read_Version;
+
+            byte[] temp;
+            temp = CsUtil.getCRC16_CCITT(bytes, 0, bytes.Length);
+            bytes[10] = temp[0];
+            bytes[11] = temp[1];
+
+            bytes[12] = 0xff;
+
+            if (slaveid == 0)
+            { sp_Master.Write(bytes); }
+            else
+            { sp_Slave.Write(bytes); }
         }
     }
 }

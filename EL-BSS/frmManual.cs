@@ -130,7 +130,7 @@ namespace EL_BSS
             VKeyboard.hideKeyboard();
         }
 
-        private async void btn_firmup1_Click(object sender, EventArgs e)
+        private async void btn_firmup1_Click(object sender, EventArgs e)   // 파일을 선택하는 버튼
         {
             Model.masterFirmwareUpdate_step = 0;
 
@@ -174,7 +174,12 @@ namespace EL_BSS
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Model.makeFirmwareupdate();
+            Model.makeFirmwareupdate(1,1);
+        }
+
+        private void Chage_To_FW_Click(object sender, EventArgs e)
+        {
+            frmFrame.deleMenuClick(2);
         }
     }
 }

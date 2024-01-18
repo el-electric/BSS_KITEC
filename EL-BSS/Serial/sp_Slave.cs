@@ -58,65 +58,74 @@ namespace EL_BSS.Serial
             while (true)
             {
                 int startIndex = mReceive_Data.IndexOf(0xfe); // STX
-                int endIndex = mReceive_Data.IndexOf(0xff); // ETX
-
-                int endIndexlast = mReceive_Data.LastIndexOf(0xff);
-
-                // 완전한 패킷이 수신될 때까지 기다림
-                if (startIndex != -1 && endIndex != -1 && endIndex - startIndex == 70)
+                if (!Model.masterFirmwareUpdate_Check_Finish)
                 {
-                    byte[] packet = mReceive_Data.GetRange(startIndex, 71).ToArray();
+                    int packetLength = 71; // 패킷의 길이
 
-                    // 패킷 처리
-                    HandlePacket(packet);
-
-                    // 처리된 데이터 제거
-                    mReceive_Data.RemoveRange(0, endIndex + 1);
-
-                    // 버퍼에 더 이상 데이터가 없으면 반복 중단
-                    if (mReceive_Data.Count == 0)
+                    // STX가 있고, 충분한 길이의 데이터가 있는지 확인
+                    if (startIndex != -1 && mReceive_Data.Count >= startIndex + packetLength)
                     {
+                        if (mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
+                        {
+                            byte[] packet = mReceive_Data.GetRange(startIndex, packetLength).ToArray();
+
+                            // 패킷 처리
+                            HandlePacket(packet);
+
+                            // 처리된 데이터 제거
+                            mReceive_Data.RemoveRange(0, startIndex + packetLength);
+
+
+                            // 버퍼에 더 이상 데이터가 없으면 반복 중단
+                            if (mReceive_Data.Count == 0)
+                            {
+                                break;
+                            }
+                        }
+                        else if (!mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
+                        {
+                            mReceive_Data.RemoveRange(0, startIndex + packetLength);
+                        }
+                    }
+                    else
+                    {
+                        // 완전한 패킷이 아직 도착하지 않았으면, 루프 탈출
                         break;
                     }
                 }
-                else if (startIndex != -1 && endIndex != -1 && endIndex - startIndex != 70)
+                else if (Model.masterFirmwareUpdate_Check_Finish)
                 {
-                    // 처리된 데이터 제거
-                    mReceive_Data.RemoveRange(0, endIndex + 1);
+                    int packetLength = 20; // 패킷의 길이
 
-                    // 버퍼에 더 이상 데이터가 없으면 반복 중단
-                    if (mReceive_Data.Count == 0)
+                    // STX가 있고, 충분한 길이의 데이터가 있는지 확인
+                    if (startIndex != -1 && mReceive_Data.Count >= startIndex + packetLength)
                     {
+                        if (mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
+                        {
+                            byte[] packet = mReceive_Data.GetRange(startIndex, packetLength).ToArray();
+
+                            // 패킷 처리
+                            HandlePacket_f1(packet);
+
+                            // 처리된 데이터 제거
+                            mReceive_Data.RemoveRange(0, startIndex + packetLength);
+
+                            // 버퍼에 더 이상 데이터가 없으면 반복 중단
+                            if (mReceive_Data.Count == 0)
+                            {
+                                break;
+                            }
+                        }
+                        else if (!mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
+                        {
+                            mReceive_Data.RemoveRange(0, startIndex + packetLength);
+                        }
+                    }
+                    else
+                    {
+                        // 완전한 패킷이 아직 도착하지 않았으면, 루프 탈출
                         break;
                     }
-                }
-                else if (startIndex != -1 && (endIndex < startIndex || endIndex == -1))
-                {
-                    // 완전한 패킷이 아직 도착하지 않았으면, 루프 탈출
-                    break;
-                }
-                else if (startIndex == -1 && endIndex != -1)
-                {
-                    // 유효하지 않은 데이터 제거
-                    mReceive_Data.RemoveRange(0, endIndexlast + 1);
-                    if (mReceive_Data.Count == 0)
-                    {
-                        break;
-                    }
-                }
-                else if (startIndex == -1 && endIndex == -1)
-                {
-                    // 유효하지 않은 데이터 제거
-                    mReceive_Data.RemoveRange(0, mReceive_Data.Count);
-                    if (mReceive_Data.Count == 0)
-                    {
-                        break;
-                    }
-                }
-                else
-                {
-                    // 유효한 패킷이 없으면 루프 탈출
-                    break;
                 }
             }
         }
@@ -127,7 +136,7 @@ namespace EL_BSS.Serial
         static byte[] temp = new byte[2];
         private static void HandlePacket(byte[] packet)
         {
-            Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);
+            //Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);
 
 
 
@@ -135,15 +144,12 @@ namespace EL_BSS.Serial
             slaveId = packet[5];
 
 
-
-
-
             if (masterId == 2)
                 idx = slaveId + 4;
             else
                 idx = slaveId;
 
-            Model.list_DataRecvDatetime[idx - 1] = DateTime.Now;
+            Model.list_SlaveDataRecvDatetime[idx - 1] = DateTime.Now;
 
             Model.list_SlaveRecv[idx - 1].BatterArrive = EL_Manager_Conversion.getFlagByByteArray(packet[17], 7);
             Model.list_SlaveRecv[idx - 1].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);
@@ -158,6 +164,16 @@ namespace EL_BSS.Serial
             Model.list_SlaveRecv[idx - 1].BatteryCurrentVoltage = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
             Model.list_SlaveRecv[idx - 1].BatteryCurrentWattage = EL_Manager_Conversion.getInt_2Byte(packet[27], packet[28]);
             Model.list_SlaveRecv[idx - 1].BatteryRequestVoltage = EL_Manager_Conversion.getInt_2Byte(packet[29], packet[30]);
+            if (Model.list_SlaveRecv[idx - 1].BatteryRequestVoltage == 0)
+            { }
+            else if ((Model.list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) > 65)
+            {
+                Model.list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = " 72V";
+            }
+            else if ((Model.list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) < 65)
+            {
+                Model.list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = " 48V";
+            }
             Model.list_SlaveRecv[idx - 1].BatteryRequestWattage = EL_Manager_Conversion.getInt_2Byte(packet[31], packet[32]);
             Model.list_SlaveRecv[idx - 1].BatteryMaxTemper = EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]);
             Model.list_SlaveRecv[idx - 1].BatteryMinTemper = EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]);
@@ -171,6 +187,35 @@ namespace EL_BSS.Serial
             Model.list_SlaveRecv[idx - 1].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
 
 
+        }
+
+        private static void HandlePacket_f1(byte[] packet)
+        {
+            int JMT = 0;
+            /*Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);*/
+
+            Model.PWUpdate_Send_Flag = packet[9];
+
+            if (Model.PWUpdate_Send_Flag == 2)
+            {
+                JMT = 2;
+                Console.WriteLine("JMT is 2");
+                Model.masterFirmwareUpdate_Check_Finish = false;
+            }
+            else if (Model.PWUpdate_Send_Flag == 1)
+            {
+                JMT = 1;
+                Console.WriteLine("JMT is 1");
+            }
+            Model.Binary_Data_Seq = EL_Manager_Conversion.getInt_2Byte(packet[14], packet[15]);
+            if (packet[16] == 0x06)
+            {
+                Model.masterFirmWareisAck = true;
+            }
+            else if (packet[16] == 0x15)
+            {
+                Model.masterFirmWareisNck = true;
+            }
         }
 
         public static void Write(byte[] bytes)

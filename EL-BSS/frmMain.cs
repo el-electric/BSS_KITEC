@@ -116,7 +116,7 @@ namespace EL_BSS
                             }
                             else
                             {
-                                control.Text = Model.list_SlaveRecv[i].SOC.ToString() + "%";
+                                control.Text = Model.list_SlaveRecv[i].SOC.ToString() + "%" + Model.list_SlaveRecv[i].Check_BatteryVoltage_Type;
                                 control.ForeColor = Color.Black;
                             }
                             foundLabel = true;
@@ -150,7 +150,22 @@ namespace EL_BSS
                     {
                         if (control.Name == "lamp" + i)
                         {                            
-                            if (Model.list_DataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
+                            if (Model.list_SlaveDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
+                                ((DrakeUILampLED)control).On = true;
+                            else
+                                ((DrakeUILampLED)control).On = false;
+
+                            break;
+                        }
+                    }
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    foreach (Control control in tableLayoutPanel3.Controls)
+                    {
+                        if (control.Name == "master_lamp" + i)
+                        {
+                            if (Model.list_MasterDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
                                 ((DrakeUILampLED)control).On = true;
                             else
                                 ((DrakeUILampLED)control).On = false;

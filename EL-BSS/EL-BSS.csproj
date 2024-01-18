@@ -51,6 +51,12 @@
   <ItemGroup>
     <Compile Include="CsUtil.cs" />
     <Compile Include="EL_Manager_Conversion.cs" />
+    <Compile Include="FWupdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FWupdate.Designer.cs">
+      <DependentUpon>FWupdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmFrame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,11 +88,15 @@
     <Compile Include="Serial\sp_Master.cs" />
     <Compile Include="Serial\sp_Slave.cs" />
     <Compile Include="Vkeyvoard.cs" />
+    <EmbeddedResource Include="FWupdate.resx">
+      <DependentUpon>FWupdate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmFrame.resx">
       <DependentUpon>frmFrame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmManual.resx">
       <DependentUpon>frmManual.cs</DependentUpon>
