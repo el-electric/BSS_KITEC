@@ -161,49 +161,77 @@ namespace EL_BSS
         {
             while (ThreadRun)
             {
-                if (masterFirmwareUpdate)  // 파일을 선택하고 나면
+                if (FirmwareUpdate)  // 파일을 선택하고 나면
                 {
-                    switch (masterFirmwareUpdate_step)
+                    switch (FirmwareUpdate_step)
                     {
-                        case 0:
-                            Model.masterFirmWareisAck = false; //성공함
-                            Model.masterFirmWareisNck = false; // 실패함
+                        case 0:  // 업데이트 패킷을 보내고 
+                            Model.FirmWareisAck = false; //성공함
+                            Model.FirmWareisNck = false; // 실패함
 
                             Model.makeFirmwareupdate(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID);  // 마스터 보드에 패킷을 쏘는것도 포함
-                            masterFirmwareUpdate_step++;
+                            FirmwareUpdate_step++;
                             break;
-                        case 1:
 
-                            if (masterFirmWareisAck)
-                                masterFirmwareUpdate_step = 0;
-                            else if (masterFirmWareisNck)
+                        case 1:  // 보드에서 업데이트가 되었는지 확인
+
+                            if (FirmWareisAck)
+                                FirmwareUpdate_step = 0;
+                            else if (FirmWareisNck)
                             {
-                                masterFirmwareUpdate = false;
+                                FirmwareUpdate = false;
                             }
                             break;
-                        case 2:
+
+                        case 2: // 처음에 업데이트 버튼을 누르면
                             if (Model.PWUpdate_SlaveID > 0)   // 업데이트 할 보드가 master인지 slave 인지 구분
                             {
                                 Model.list_SlaveSend[Model.PWUpdate_SlaveID - 1].boardReset = true;// 업데이트 하기전 슬래이브 보드를 한번 리셋시켜준다
                                 byte[] bytes = model.makeSlavePacket(Model.PWUpdate_SlaveID);
                                 sp_Slave.Write(bytes);
-                                Thread.Sleep(3000);
+                                Thread.Sleep(2000);
                             }
                             else
                             {
                                 Model.list_MasterSend[Model.PWUpdate_MasterID - 1].boardReset = true;  // 업데이트 하기전 마스터 보드를 한번 리셋시켜준다  
                                 byte[] bytes = model.makeMaserPacket(Model.PWUpdate_MasterID);
                                 sp_Master.Write(bytes);
-                                Thread.Sleep(3000);
+                                Thread.Sleep(2000);
                             }
-                            masterFirmwareUpdate_step = 0;
-                            break;
-                        case 3:
-                            Model.makeFirmwareF0(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID);
-                            if (Model.masterFirmware_f0)
+
+                            if (Model.Download_APP == Model.Jump_APP)
                             {
-                                Model.masterFirmware_f0 = false;
-                                masterFirmwareUpdate_step = 0;
+                                FirmwareUpdate_step = 0;
+                            }
+                            else if (Model.Download_APP != Model.Jump_APP)
+                            {
+                                Model.makeFirmwaref1_without_Binary(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID);
+                                FirmwareUpdate_step = 4;
+                            }
+                            break;
+
+                        case 3:  // f0 패킷을 보냄
+                            if (Model.PWUpdate_SlaveID > 0)   // 업데이트 할 보드가 master인지 slave 인지 구분
+                            {
+                                Model.list_SlaveSend[Model.PWUpdate_SlaveID - 1].boardReset = true;// 업데이트 하기전 슬래이브 보드를 한번 리셋시켜준다
+                                byte[] bytes = model.makeSlavePacket(Model.PWUpdate_SlaveID);
+                                sp_Slave.Write(bytes);
+                                Thread.Sleep(2000);
+                            }
+                            else
+                            {
+                                Model.list_MasterSend[Model.PWUpdate_MasterID - 1].boardReset = true;  // 업데이트 하기전 마스터 보드를 한번 리셋시켜준다  
+                                byte[] bytes = model.makeMaserPacket(Model.PWUpdate_MasterID);
+                                sp_Master.Write(bytes);
+                                Thread.Sleep(2000);
+                            }
+                            Model.makeFirmwareF0(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID);
+                            Model.FirmwareUpdate = false;
+                            break;
+                        case 4:
+                            if (Model.PWUpdate_Jump_Flag == 1 || Model.PWUpdate_Jump_Flag == 2)
+                            {
+                                Model.FirmwareUpdate = false;
                             }
                             break;
                     }
@@ -230,13 +258,6 @@ namespace EL_BSS
                     }
 
                 }
-
-
-                if (slaveFirmwareUpdate)
-                {
-
-                }
-
 
                 Thread.Sleep(50);
             }

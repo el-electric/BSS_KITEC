@@ -132,7 +132,7 @@ namespace EL_BSS
 
         private async void btn_firmup1_Click(object sender, EventArgs e)   // 파일을 선택하는 버튼
         {
-            Model.masterFirmwareUpdate_step = 0;
+            Model.FirmwareUpdate_step = 0;
 
             Model.binBufferCount = 0;
             Model.binFileBuffer.Clear();
@@ -168,7 +168,7 @@ namespace EL_BSS
 
                 await Task.Delay(500);
                 
-                Model.masterFirmwareUpdate = true;
+                Model.FirmwareUpdate = true;
             }
         }
 

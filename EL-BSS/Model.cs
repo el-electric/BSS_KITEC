@@ -25,10 +25,11 @@ namespace EL_BSS
         public static List<byte[]> binFileBuffer = new List<byte[]>();
         public static int binBufferCount = 0;
 
-        public static int Download_APP = 1;
-        public static int Jump_APP = 1;
+        public static int Download_APP = 0;
+        public static int Jump_APP = 0;
         public static int Read_Version = 1;
         public static int PWUpdate_Send_Flag;
+        public static int PWUpdate_Jump_Flag;
         public static int Binary_Data_Seq;
         public static int PWUpdate_New_Version_Major = 1;
         public static int PWUpdate_New_Version_Minor = 1;
@@ -46,19 +47,19 @@ namespace EL_BSS
 
 
 
-        public static bool masterFirmwareUpdate;
-        public static bool masterFirmwareUpdate_Check_Finish = false;
-        public static bool masterFirmware_f0 = false;
-        public static int masterFirmwareUpdate_step = 0;
-        public static bool masterFirmWareisAck;
-        public static bool masterFirmWareisNck;
+        public static bool FirmwareUpdate;
+        public static bool FirmwareUpdate_Check_Finish = false;
+        public static bool Firmware_f0 = false;
+        public static int FirmwareUpdate_step = 0;
+        public static bool FirmWareisAck;
+        public static bool FirmWareisNck;
         public static int PWUpdate_MasterID;
 
 
-        public static bool slaveFirmwareUpdate;
+        /*public static bool slaveFirmwareUpdate;
         public static int slaveFirmwareUpdate_step = 0;
         public static bool slaveFirmWareisAck;
-        public static bool slaveFirmWareisNck;
+        public static bool slaveFirmWareisNck;*/
         public static int PWUpdate_SlaveID;
 
 
@@ -369,7 +370,6 @@ namespace EL_BSS
 
         public static void makeFirmwareupdate(int masterid, int slaveid)
         {
-
             byte[] f1 = make_f1();
 
             byte[] bytes = new byte[9 + f1.Length + 3];
@@ -414,8 +414,8 @@ namespace EL_BSS
             bytes[2] = (byte)PWUpdate_New_Version_Patch;    // 11
             if (binFileBuffer[binBufferCount++].Length < 200)  // 12
             {
-                bytes[3] = 0;
-                masterFirmwareUpdate = false;
+                bytes[3] = 2;
+                FirmwareUpdate = false;
             }
             else
                 bytes[3] = 1;
@@ -428,7 +428,9 @@ namespace EL_BSS
             bytes[8] = (byte)((binBufferCount) & 0x000000ff);    // 17
 
             byte[] temp;
-            temp = CsUtil.getCRC16_CCITT(binFileBuffer[binBufferCount - 1], 0, binFileBuffer[binBufferCount - 1].Length);
+            /*temp = CsUtil.getCRC16_CCITT(binFileBuffer[binBufferCount - 1], 0, binFileBuffer[binBufferCount - 1].Length);*/
+
+            temp = CsUtil.getCRC16_CCITT(Model.binFile, 0, Model.binFile.Length + 3);
 
             bytes[9] = temp[0];     // 18
             bytes[10] = temp[1];    // 19
@@ -442,9 +444,45 @@ namespace EL_BSS
 
         }
 
+        public static void makeFirmwaref1_without_Binary(int masterid, int slaveid)
+        {
+            byte[] bytes = new byte[25];
+            bytes[0] = 0xfe;
+
+            bytes[1] = (byte)masterid; //가변
+            bytes[2] = (byte)slaveid; //가변
+
+            bytes[3] = (byte)'M';
+            if (slaveid == 0)
+            { bytes[4] = (byte)'M'; }
+            else
+            { bytes[4] = (byte)'S'; }
+
+            bytes[5] = (byte)'f';
+            bytes[6] = (byte)'1';
+
+            bytes[7] = 0;
+            bytes[8] = 13;
+            ////////////////////////            
+            bytes[13] = (byte)Download_APP;
+            bytes[14] = (byte)Jump_APP;
+
+            byte[] temp;
+            temp = CsUtil.getCRC16_CCITT(bytes, 0, bytes.Length);
+
+            bytes[22] = temp[0];
+            bytes[23] = temp[1];
+            bytes[24] = 0xff;
+
+            if (slaveid == 0)
+            { sp_Master.Write(bytes); }
+            else
+            { sp_Slave.Write(bytes); }
+        }
+
         public static void makeFirmwareF0(int masterid, int slaveid)
         {
-            byte[] bytes = new byte[12];
+            byte[] bytes = new byte[13];
             bytes[0] = 0xfe;
 
             bytes[1] = (byte)masterid; //가변

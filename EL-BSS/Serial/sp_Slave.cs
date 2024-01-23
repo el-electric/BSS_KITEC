@@ -58,7 +58,7 @@ namespace EL_BSS.Serial
             while (true)
             {
                 int startIndex = mReceive_Data.IndexOf(0xfe); // STX
-                if (!Model.masterFirmwareUpdate_Check_Finish)
+                if (!Model.FirmwareUpdate_Check_Finish)
                 {
                     int packetLength = 71; // 패킷의 길이
 
@@ -93,12 +93,12 @@ namespace EL_BSS.Serial
                         break;
                     }
                 }
-                else if (Model.masterFirmwareUpdate_Check_Finish)
+                else if (Model.FirmwareUpdate_Check_Finish)
                 {
                     int packetLength = 20; // 패킷의 길이
 
                     // STX가 있고, 충분한 길이의 데이터가 있는지 확인
-                    if (startIndex != -1 && mReceive_Data.Count >= startIndex + packetLength)
+                    if (startIndex != -1 && mReceive_Data.Count >= startIndex + 20)  // f1을 받을때
                     {
                         if (mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
                         {
@@ -118,7 +118,30 @@ namespace EL_BSS.Serial
                         }
                         else if (!mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
                         {
-                            mReceive_Data.RemoveRange(0, startIndex + packetLength);
+                            packetLength = 27;
+                             if (startIndex != -1 && mReceive_Data.Count >= startIndex + 27)  // f0를 받을때
+                             {
+                                if (mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
+                                {
+                                    byte[] packet = mReceive_Data.GetRange(startIndex, packetLength).ToArray();
+
+                                    // 패킷 처리
+                                    HandlePacket_f0(packet);
+
+                                    // 처리된 데이터 제거
+                                    mReceive_Data.RemoveRange(0, startIndex + packetLength);
+
+                                    // 버퍼에 더 이상 데이터가 없으면 반복 중단
+                                    if (mReceive_Data.Count == 0)
+                                    {
+                                        break;
+                                    }
+                                }
+                                else if (!mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
+                                {
+                                    mReceive_Data.RemoveRange(0, startIndex + packetLength);
+                                }
+                             }
                         }
                     }
                     else
@@ -193,29 +216,50 @@ namespace EL_BSS.Serial
         {
             int JMT = 0;
             /*Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);*/
-
+            
             Model.PWUpdate_Send_Flag = packet[9];
 
             if (Model.PWUpdate_Send_Flag == 2)
             {
                 JMT = 2;
-                Console.WriteLine("JMT is 2");
-                Model.masterFirmwareUpdate_Check_Finish = false;
+                Console.WriteLine("SlaveJMT is 2");
+                Model.FirmwareUpdate_Check_Finish = false;
             }
             else if (Model.PWUpdate_Send_Flag == 1)
             {
                 JMT = 1;
-                Console.WriteLine("JMT is 1");
+                Console.WriteLine("SlaveJMT is 1");
             }
-            Model.Binary_Data_Seq = EL_Manager_Conversion.getInt_2Byte(packet[14], packet[15]);
+
+            Model.PWUpdate_Jump_Flag = packet[10];
+
+             Model.Binary_Data_Seq = EL_Manager_Conversion.getInt_2Byte(packet[14], packet[15]);
+
             if (packet[16] == 0x06)
             {
-                Model.masterFirmWareisAck = true;
+                Model.FirmWareisAck = true;
             }
             else if (packet[16] == 0x15)
             {
-                Model.masterFirmWareisNck = true;
+                Model.FirmWareisNck = true;
             }
+        }
+
+        private static void HandlePacket_f0(byte[] packet)
+        {
+            Model.boot_Version_Major = packet[9];
+            Model.boot_Version_Minor = packet[10];
+            Model.boot_Version_Patch = packet[11];
+            
+            Model.app1_Version_Major = packet[12];
+            Model.app1_Version_Minor = packet[13];
+            Model.app1_Version_Patch = packet[14];
+
+            Model.app2_Version_Major = packet[15];
+            Model.app2_Version_Minor = packet[16];
+            Model.app2_Version_Patch = packet[17];
+
+            Model.FirmwareUpdate_Check_Finish = false;
         }
 
         public static void Write(byte[] bytes)
