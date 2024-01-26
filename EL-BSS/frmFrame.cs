@@ -16,11 +16,9 @@ namespace EL_BSS
     public partial class frmFrame : Form, IObserver
     {
 
-
         public delegate void ClickEvent(int idx);
         public static event ClickEvent MenuClick;
         private bool ThreadRun = true;
-
 
         private List<IObserver> _observers = new List<IObserver>();
         private Model.SlaveSend slaveSend;
@@ -165,73 +163,82 @@ namespace EL_BSS
                 {
                     switch (FirmwareUpdate_step)
                     {
-                        case 0:  // 업데이트 패킷을 보내고 
-                            Model.FirmWareisAck = false; //성공함
-                            Model.FirmWareisNck = false; // 실패함
+                        case 0: // 처음에 업데이트 버튼을 누르면                            
+                            FirmWareisNck_Count = 0;
+                            if (Model.PWUpdate_SlaveID > 0)   // 업데이트 할 보드가 master인지 slave 인지 구분
+                            {
+                                Model.list_SlaveSend[Model.PWUpdate_SlaveID - 1].boardReset = true;// 업데이트 하기전 슬래이브 보드를 한번 리셋시켜준다
+                                byte[] bytes = model.makeSlavePacket(Model.PWUpdate_SlaveID);
+                                sp_Slave.Write(bytes);
+                                Thread.Sleep(2000);
+                            }
+                            else
+                            {
+                                Model.list_MasterSend[Model.PWUpdate_MasterID - 1].boardReset = true;  // 업데이트 하기전 마스터 보드를 한번 리셋시켜준다  
+                                byte[] bytes = model.makeMaserPacket(Model.PWUpdate_MasterID);
+                                sp_Master.Write(bytes);
+                                Thread.Sleep(2000);
+                            }
 
-                            Model.makeFirmwareupdate(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID);  // 마스터 보드에 패킷을 쏘는것도 포함
-                            FirmwareUpdate_step++;
+                            FirmwareUpdate_step = 1;
                             break;
 
-                        case 1:  // 보드에서 업데이트가 되었는지 확인
+                        case 1:  // 업데이트 패킷을 보내고 
+                            Model.FirmWareisAck = false; //성공함
+                            Model.FirmWareisNak = false; // 실패함
 
-                            if (FirmWareisAck)
-                                FirmwareUpdate_step = 0;
-                            else if (FirmWareisNck)
+                            if (Model.f0_OR_f1Update_OR_f1Jump == 1)
+                            {
+                                Model.makeFirmwareF0(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID);  // 마스터 보드에 패킷을 쏘는것도 포함
+                            }
+                            else if (Model.f0_OR_f1Update_OR_f1Jump == 2)
+                            {
+                                Model.makeFirmwareupdate(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID);  // 마스터 보드에 패킷을 쏘는것도 포함
+                                Model.Send_FWUpdate_Packet_Time = DateTime.Now;
+                                FirmwareUpdate_step = 2;
+                            }
+                            else if (Model.f0_OR_f1Update_OR_f1Jump == 3)
+                            {
+                                Model.makeFirmwaref1_without_Binary(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID, Model.Jump_APP);
+                                FirmwareUpdate_step = 3;
+                            }
+                            break;
+
+                        case 2:  // 보드에서 업데이트가 되었는지 확인
+                            if (FirmWareisAck)   // 업데이트 성공하였다고 받았다면
+                            {
+                                FirmwareUpdate_step = 1;
+                            }
+                            else if (FirmWareisNak)  // 업데이트가 실패하였다고 받았다면
+                            {
+                                if (FirmWareisNck_Count < 3)  // 업데이트를 3번 미만 실패하였다면
+                                {
+                                    binBufferCount = 0;
+                                    FirmWareisNck_Count++;  // 카운트를 센다
+                                    FirmwareUpdate_step = 1;
+                                    FirmwareUpdate = true;
+                                }
+                                else if (FirmWareisNck_Count == 3) // 업데이트가 3번 실패하였다면
+                                {
+                                    Model.Jump_APP = (Model.Jump_APP == 1) ? 2 : 1;  // 만약 Jump_APP가 1인 조건의 참이면 2로 아니면 1로
+
+                                    Model.f0_OR_f1Update_OR_f1Jump = 3; // 점프를 시킨다
+                                    FirmwareUpdate_step = 1;
+                                }
+                            }
+
+                            if (Send_FWUpdate_Packet_Time != null && Send_FWUpdate_Packet_Time.Value.AddSeconds(2) < DateTime.Now && binBufferCount != 0)
+                            {
+                                binBufferCount--;
+                                FirmwareUpdate_step = 1;
+                            }
+
+                            break;
+
+                        case 3:  // 점프용 f1패킷
+                            if (Model.PWUpdate_Jump_Flag == 1 || Model.PWUpdate_Jump_Flag == 2)  //첨프용 f1패킷의 답장을 받으면 1 = 점프 성공 2 = 점프 실패 
                             {
                                 FirmwareUpdate = false;
-                            }
-                            break;
-
-                        case 2: // 처음에 업데이트 버튼을 누르면
-                            if (Model.PWUpdate_SlaveID > 0)   // 업데이트 할 보드가 master인지 slave 인지 구분
-                            {
-                                Model.list_SlaveSend[Model.PWUpdate_SlaveID - 1].boardReset = true;// 업데이트 하기전 슬래이브 보드를 한번 리셋시켜준다
-                                byte[] bytes = model.makeSlavePacket(Model.PWUpdate_SlaveID);
-                                sp_Slave.Write(bytes);
-                                Thread.Sleep(2000);
-                            }
-                            else
-                            {
-                                Model.list_MasterSend[Model.PWUpdate_MasterID - 1].boardReset = true;  // 업데이트 하기전 마스터 보드를 한번 리셋시켜준다  
-                                byte[] bytes = model.makeMaserPacket(Model.PWUpdate_MasterID);
-                                sp_Master.Write(bytes);
-                                Thread.Sleep(2000);
-                            }
-
-                            if (Model.Download_APP == Model.Jump_APP)
-                            {
-                                FirmwareUpdate_step = 0;
-                            }
-                            else if (Model.Download_APP != Model.Jump_APP)
-                            {
-                                Model.makeFirmwaref1_without_Binary(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID);
-                                FirmwareUpdate_step = 4;
-                            }
-                            break;
-
-                        case 3:  // f0 패킷을 보냄
-                            if (Model.PWUpdate_SlaveID > 0)   // 업데이트 할 보드가 master인지 slave 인지 구분
-                            {
-                                Model.list_SlaveSend[Model.PWUpdate_SlaveID - 1].boardReset = true;// 업데이트 하기전 슬래이브 보드를 한번 리셋시켜준다
-                                byte[] bytes = model.makeSlavePacket(Model.PWUpdate_SlaveID);
-                                sp_Slave.Write(bytes);
-                                Thread.Sleep(2000);
-                            }
-                            else
-                            {
-                                Model.list_MasterSend[Model.PWUpdate_MasterID - 1].boardReset = true;  // 업데이트 하기전 마스터 보드를 한번 리셋시켜준다  
-                                byte[] bytes = model.makeMaserPacket(Model.PWUpdate_MasterID);
-                                sp_Master.Write(bytes);
-                                Thread.Sleep(2000);
-                            }
-                            Model.makeFirmwareF0(Model.PWUpdate_MasterID, Model.PWUpdate_SlaveID);
-                            Model.FirmwareUpdate = false;
-                            break;
-                        case 4:
-                            if (Model.PWUpdate_Jump_Flag == 1 || Model.PWUpdate_Jump_Flag == 2)
-                            {
-                                Model.FirmwareUpdate = false;
                             }
                             break;
                     }
@@ -262,14 +269,6 @@ namespace EL_BSS
                 Thread.Sleep(50);
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            byte[] a = model.makeSlavePacket(1);
-
-            sp_Slave.Write(a);
-        }
-
         public void InitForm()
         {
 

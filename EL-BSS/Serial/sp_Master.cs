@@ -61,7 +61,7 @@ namespace EL_BSS.Serial
             while (true)
             {
                 int startIndex = mReceive_Data.IndexOf(0xfe); // STX
-                if (!Model.FirmwareUpdate_Check_Finish)
+                if (!Model.FirmwareUpdate)
                 {
                     int packetLength = 41; // 패킷의 길이
 
@@ -95,12 +95,12 @@ namespace EL_BSS.Serial
                         break;
                     }
                 }
-                else if (Model.FirmwareUpdate_Check_Finish)
+                else if (Model.FirmwareUpdate)
                 {
                     int packetLength = 20; // 패킷의 길이
 
                     // STX가 있고, 충분한 길이의 데이터가 있는지 확인
-                    if (startIndex != -1 && mReceive_Data.Count >= startIndex + packetLength)
+                    if (startIndex != -1 && mReceive_Data.Count >= startIndex + 20)  // f1을 받을때
                     {
                         if (mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
                         {
@@ -182,19 +182,36 @@ namespace EL_BSS.Serial
         {
             // Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);
 
+            Model.PWUpdate_Receive_MasterID = packet[1];
+            Model.PWUpdate_Receive_SlaveID = packet[2];
+
             int JMT = 0;
             Model.PWUpdate_Send_Flag = packet[9];
 
             if (Model.PWUpdate_Send_Flag == 2)
             {
-                JMT = 2;
-                Console.WriteLine("JMT is 2");
-                Model.FirmwareUpdate_Check_Finish = false;
+                if (Model.Auto_Update)
+                {
+                    if (Model.PWUpdate_Receive_MasterID == 1)
+                    { 
+                        Model.PWUpdate_SlaveID = 1; 
+                    }
+                    else if (Model.PWUpdate_Receive_MasterID == 2)
+                    {
+                        Model.PWUpdate_SlaveID = 1;
+                    }
+                }
+                else
+                {
+                    JMT = 2;
+                    Console.WriteLine("SlaveJMT is 2");
+                    Model.FirmwareUpdate = false;
+                }
             }
             else if (Model.PWUpdate_Send_Flag == 1)
             {
                 JMT = 1;
-                Console.WriteLine("JMT is 1");
+                Console.WriteLine("SlaveJMT is 1");
             }
 
             Model.PWUpdate_Jump_Flag = packet[10];
@@ -206,7 +223,7 @@ namespace EL_BSS.Serial
             }
             else if (packet[16] == 0x15)
             {
-                Model.FirmWareisNck = true;
+                Model.FirmWareisNak = true;
             }
         }
 
@@ -224,7 +241,7 @@ namespace EL_BSS.Serial
             Model.app2_Version_Minor = packet[16];
             Model.app2_Version_Patch = packet[17];
 
-            Model.FirmwareUpdate_Check_Finish = false;
+            Model.FirmwareUpdate = false;
         }
         public static void Write(byte[] bytes)
         {

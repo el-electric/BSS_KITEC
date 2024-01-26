@@ -10,20 +10,23 @@ using System.Windows.Forms;
 using System.IO;
 using System.IO.Ports;
 using EL_BSS.Serial;
+using DrakeUI.Framework;
 
 namespace EL_BSS
 {
-    public partial class FWupdate : Form  , IObserver
+    public partial class FWupdate : Form, IObserver
     {
-        
+        public bool APP1_Exist = false;
+        public bool APP2_Exist = false;
+
         public FWupdate()
         {
             InitializeComponent();
 
         }
-        public  void InitForm()
+        public void InitForm()
         {
-            
+
         }
         public void UpdateForm(Model model)
         {
@@ -32,178 +35,140 @@ namespace EL_BSS
 
         public void updateform()
         {
-            FW_Update_Progress.Text = Model.binBufferCount.ToString() + " / " + Model.binFileBuffer.Count;
-            Receive_Send_Flag.Text = Model.PWUpdate_Send_Flag.ToString();
+            FW_Update_Progress.Text = Model.binBufferCount.ToString() + " / " + Model.binFileBuffer.Count;   // 업데이트 값 
+            FW_Update_Progress_Bar.Value = Model.binBufferCount;  // process bar 값 확인
+            Receive_Send_Flag.Text = Model.PWUpdate_Send_Flag.ToString();  // 전송 플래그 확인
 
-            Boot_Version_Text.Text = Model.boot_Version_Major.ToString() + "." +  Model.boot_Version_Minor.ToString() + "." + Model.boot_Version_Patch.ToString();
-            if (Model.app1_Version_Major == 255)
-            { APP1_Version_Text.Text = "파일이 없음"; }
-            else
-            { APP1_Version_Text.Text = Model.app1_Version_Major.ToString() + "." + Model.app1_Version_Minor.ToString() + "." + Model.app1_Version_Patch.ToString(); }
-
-            if (Model.app2_Version_Major == 255)
-            { APP2_Version_Text.Text = "파일이 없음"; }
-            else
-            { APP2_Version_Text.Text = Model.app2_Version_Major.ToString() + "." + Model.app2_Version_Minor.ToString() + "." + Model.app2_Version_Patch.ToString(); }
-            FW_Update_Progress_Bar.Value = Model.binBufferCount;
-
-            if (Model.PWUpdate_Jump_Flag == 1)
+            if (Model.PWUpdate_Send_Flag == 1 || Model.PWUpdate_Send_Flag == 2)   // 업데이트 성공 유무 확인
             {
-                Model.FirmwareUpdate = false;
-                Model.FirmwareUpdate_Check_Finish = false;
-                Model.PWUpdate_Jump_Flag = 0;
-                // show_Notify("주소 점프 성공");
-                jump_flag_text.Text = "주소 점프 성공"; 
+                string temp = "없음";
+
+                if (Model.FirmWareisNck_Count== 3)
+                {
+                    temp = "실패";
+                }
+                else if (Model.PWUpdate_Send_Flag == 2)
+                {
+                    temp = "성공";
+                }
+                
+
+                Model.PWUpdate_Send_Flag = 0;
+                Model.FirmWareisNck_Count = 0;
+
+                this.Invoke(new MethodInvoker(delegate ()
+                {
+                    show_Notify("업데이트 " + temp);
+                }));
             }
-            else if (Model.PWUpdate_Jump_Flag == 2)
+
+            Boot_Version_Text.Text = Model.boot_Version_Major.ToString() + "." + Model.boot_Version_Minor.ToString() + "." + Model.boot_Version_Patch.ToString();  //f0 패킷 보내고 값 확인
+            if (Model.app1_Version_Major == 255 && Model.app1_Version_Minor == 255 && Model.app1_Version_Patch == 255)
             {
-                Model.FirmwareUpdate = false;
-                Model.FirmwareUpdate_Check_Finish = false;
-                Model.PWUpdate_Jump_Flag = 0;
-                // show_Notify("주소 점프 실패");
-                jump_flag_text.Text = "주소 점프 실패";
+                APP1_Exist = false;
+                APP1_Version_Text.Text = "없음";
             }
+            else
+            {
+                APP1_Exist = true;
+                APP1_Version_Text.Text = Model.app1_Version_Major.ToString() + "." + Model.app1_Version_Minor.ToString() + "." + Model.app1_Version_Patch.ToString();
+            }
+
+            if (Model.app2_Version_Major == 255 && Model.app2_Version_Minor == 255 && Model.app2_Version_Patch == 255)
+            {
+                APP2_Exist = false;
+                APP2_Version_Text.Text = "없음";
+            }
+            else
+            {
+                APP2_Exist = true;
+                APP2_Version_Text.Text = Model.app2_Version_Major.ToString() + "." + Model.app2_Version_Minor.ToString() + "." + Model.app2_Version_Patch.ToString();
+            }
+
+
+            if (Model.PWUpdate_Jump_Flag == 1 || Model.PWUpdate_Jump_Flag == 2)  // 점프 확인
+            {
+                string temp = "없음";
+
+                if (Model.PWUpdate_Jump_Flag == 1)
+                { 
+                    temp = "성공"; 
+                }
+                else if (Model.PWUpdate_Jump_Flag == 2)
+                {
+                    temp = "실패"; 
+                }
+
+                Model.PWUpdate_Jump_Flag = 0;
+
+                this.Invoke(new MethodInvoker(delegate ()
+                {
+                    show_Notify("주소 점프 " + temp);
+                }));
+            }
+
         }
 
         private async void Select_File_Click(object sender, EventArgs e)
         {
-                Model.PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
-                Model.PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
+            Model.FirmwareUpdate_step = 0;
 
-                Model.FirmwareUpdate_step = 0;
+            Model.binBufferCount = 0;
+            Model.binFileBuffer.Clear();
 
-                Model.binBufferCount = 0;
-                Model.binFileBuffer.Clear();
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "펌웨어 업데이트";
+            ofd.FileName = "";
+            ofd.Filter = "bin파일 (*.bin) | *.bin; | 모든 파일 (*.*) | *.*";
 
-                OpenFileDialog ofd = new OpenFileDialog();
-                ofd.Title = "펌웨어 업데이트";
-                ofd.FileName = "";
-                ofd.Filter = "bin파일 (*.bin) | *.bin; | 모든 파일 (*.*) | *.*";
+            DialogResult dr = ofd.ShowDialog();
 
-                DialogResult dr = ofd.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                string fileFullName = ofd.FileName;
+                Model.PWUpdate_New_Version_Major = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 9, 1));
+                Model.PWUpdate_New_Version_Minor = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 7, 1));
+                Model.PWUpdate_New_Version_Patch = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 5, 1));
 
-                if (dr == DialogResult.OK)
+
+                Model.binFile = File.ReadAllBytes(fileFullName);
+
+                Console.WriteLine($"Read {Model.binFile.Length} bytes");
+                //string hexString = BitConverter.ToString(fileData).Replace("-", " ");                
+
+
+                int chunkSize = 200;
+                for (int i = 0; i < Model.binFile.Length; i += chunkSize)
                 {
-                    string fileFullName = ofd.FileName;
-                    Model.PWUpdate_New_Version_Major = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 9, 1));
-                    Model.PWUpdate_New_Version_Minor = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 7, 1));
-                    Model.PWUpdate_New_Version_Patch = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 5, 1));
-
-
-                    Model.binFile = File.ReadAllBytes(fileFullName);
-
-                    Console.WriteLine($"Read {Model.binFile.Length} bytes");
-                    //string hexString = BitConverter.ToString(fileData).Replace("-", " ");                
-
-
-                    int chunkSize = 200;
-                    for (int i = 0; i < Model.binFile.Length; i += chunkSize)
-                    {
-                        // 현재 위치에서부터 chunkSize만큼 또는 배열의 끝까지의 길이를 계산
-                        int length = Math.Min(chunkSize, Model.binFile.Length - i);
-                        byte[] chunk = new byte[length];
-                        Array.Copy(Model.binFile, i, chunk, 0, length);
-                        Model.binFileBuffer.Add(chunk);
-                    }
-
-                    await Task.Delay(500);
-
-                    /* Model.masterFirmwareUpdate = true;*/
-
-                    FW_Update_Progress_Bar.Maximum = Convert.ToInt32(Model.binFileBuffer.Count);
+                    // 현재 위치에서부터 chunkSize만큼 또는 배열의 끝까지의 길이를 계산
+                    int length = Math.Min(chunkSize, Model.binFile.Length - i);
+                    byte[] chunk = new byte[length];
+                    Array.Copy(Model.binFile, i, chunk, 0, length);
+                    Model.binFileBuffer.Add(chunk);
                 }
+
+                await Task.Delay(500);
+
+                /* Model.masterFirmwareUpdate = true;*/
+
+                FW_Update_Progress_Bar.Maximum = Convert.ToInt32(Model.binFileBuffer.Count);
+            }
         }
 
         private void Update_FW_Click(object sender, EventArgs e)
         {
-            Model.PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
-            Model.PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
-
-            if (Model.Download_APP != Model.Jump_APP  )
+            if (Setting_Master_Id_CB.Text == "MASTER" || Setting_Slave_Id_CB.Text == "SLAVE")
             {
-                if (Model.Download_APP == 0)
-                {
-                    Model.FirmwareUpdate = true;
-                    Model.FirmwareUpdate_Check_Finish = true;
-                    Model.FirmwareUpdate_step = 2;
-                }
-                else
-                {
-                    show_Notify("다운로드 주소와 점프 주소는 다를수 없습니다");
-                }
+                show_Notify("마스터 아이디와 슬래이브 아이디를 입력하여 주세요");
             }
-            else if (Model.Download_APP == Model.Jump_APP)
+            else
             {
-                if (Model.Download_APP == 0)
-                {
-                    show_Notify("점프주소는 0이 될수 없습니다.");
-                }
-                else 
-                {
-                    Model.FirmwareUpdate = true;
-                    Model.FirmwareUpdate_Check_Finish = true;
-                    Model.FirmwareUpdate_step = 2;
-                }
-            }
-        }
-
-        private void Download_APP_Set_1_Click(object sender, EventArgs e)
-        {
-            if (Download_APP_Set_1.FillColor == Color.FromArgb(30, 136, 229))
-            {
-                Model.Download_APP = 1;
-                Download_APP_Set_1.FillColor = Color.Blue;
-                Download_APP_Set_2.FillColor = Color.FromArgb(30, 136, 229);
-            }
-            else if (Download_APP_Set_1.FillColor == Color.Blue)
-            {
-                Model.Download_APP = 0;
-                Download_APP_Set_1.FillColor = Color.FromArgb(30, 136, 229);
-            }
-        }
-
-        private void Download_APP_Set_2_Click(object sender, EventArgs e)
-        {
-            if (Download_APP_Set_2.FillColor == Color.FromArgb(30, 136, 229)) // 누른적이 없으면
-            {
-                Model.Download_APP = 2;
-                Download_APP_Set_1.FillColor = Color.FromArgb(30, 136, 229);
-                Download_APP_Set_2.FillColor = Color.Blue;
-            }
-            else if (Download_APP_Set_2.FillColor == Color.Blue) // 눌려저 있으면
-            {
-                Model.Download_APP = 0;
-                Download_APP_Set_2.FillColor = Color.FromArgb(30, 136, 229);
-            }
-        }
-
-        private void Jump_APP_Set_1_Click(object sender, EventArgs e)
-        {
-            if (Jump_APP_Set_1.FillColor == Color.FromArgb(30, 136, 229))
-            {
-                Model.Jump_APP = 1;
-                Jump_APP_Set_1.FillColor = Color.Blue;
-                Jump_APP_Set_2.FillColor = Color.FromArgb(30, 136, 229);
-            }
-            else if (Jump_APP_Set_1.FillColor == Color.Blue)
-            {
-                Model.Jump_APP = 0;
-                Jump_APP_Set_1.FillColor = Color.FromArgb(30, 136, 229);
-            }
-        }
-
-        private void Jump_APP_Set_2_Click(object sender, EventArgs e)
-        {
-            if (Jump_APP_Set_2.FillColor == Color.FromArgb(30, 136, 229)) // 누른적이 없으면
-            {
-                Model.Jump_APP = 2;
-                Jump_APP_Set_1.FillColor = Color.FromArgb(30, 136, 229);
-                Jump_APP_Set_2.FillColor = Color.Blue;
-            }
-            else if (Jump_APP_Set_2.FillColor == Color.Blue) // 눌려저 있으면
-            {
-                Model.Jump_APP = 0;
-                Jump_APP_Set_2.FillColor = Color.FromArgb(30, 136, 229);
+                Model.f0_OR_f1Update_OR_f1Jump = 2;
+                Model.PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
+                Model.PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
+                Model.Jump_APP = Convert.ToInt32(Jump_APP_CB_Box.Text);
+                Model.FirmwareUpdate = true;
+                Model.FirmwareUpdate_step = 0;
             }
         }
 
@@ -220,11 +185,18 @@ namespace EL_BSS
 
         private void Send_f0_start_Click(object sender, EventArgs e)
         {
-            Model.FirmwareUpdate_Check_Finish = true;
-            Model.PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
-            Model.PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
-            Model.FirmwareUpdate = true;
-            Model.FirmwareUpdate_step = 3;
+            if (Setting_Master_Id_CB.Text == "MASTER" || Setting_Slave_Id_CB.Text == "SLAVE")
+            {
+                show_Notify("마스터 아이디와 슬래이브 아이디를 입력하여 주세요");
+            }
+            else
+            {
+                Model.PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
+                Model.PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
+                Model.FirmwareUpdate = true;
+                Model.FirmwareUpdate_step = 0;
+                Model.f0_OR_f1Update_OR_f1Jump = 1;
+            }
         }
 
         private void test_2_button_Click(object sender, EventArgs e)
@@ -237,6 +209,93 @@ namespace EL_BSS
             notify_table_layout.Visible = true;
             notify_table_layout.Location = new Point(194, 130);
             notify_table_layout.BringToFront();
+        }
+
+        private void Auto_Update_CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Auto_Update_CheckBox.Checked)
+                Model.Auto_Update = true;
+            else
+                Model.Auto_Update = false;
+        }
+
+        private void Test_popup_Click(object sender, EventArgs e)
+        {
+            frmPopup frm = new frmPopup();
+
+            frm.ShowDialog();
+
+        }
+
+        private void Jump_Packet_Button_Click(object sender, EventArgs e)
+        {
+            if (Setting_Master_Id_CB.Text == "MASTER" || Setting_Slave_Id_CB.Text == "SLAVE")
+            {
+                show_Notify("마스터 아이디와 슬래이브 아이디를 입력하여 주세요");
+            }
+            else
+            {
+                Model.PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
+                Model.PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
+                Model.Jump_APP = Convert.ToInt32(cb_jumpid.Text);
+
+                if (Model.Jump_APP == 1 && APP1_Exist == true)
+                {
+                    Model.FirmwareUpdate = true;
+                    Model.FirmwareUpdate_step = 0;
+                    Model.f0_OR_f1Update_OR_f1Jump = 3;
+                }
+                else if (Model.Jump_APP == 2 && APP2_Exist == true)
+                {
+                    Model.FirmwareUpdate = true;
+                    Model.FirmwareUpdate_step = 0;
+                    Model.f0_OR_f1Update_OR_f1Jump = 3;
+                }
+                else
+                {
+                    show_Notify("해당주소에는 프로그램이 없어 점프할수 없습니다");
+                }
+            }
+            // Model.makeFirmwaref1_without_Binary(int.Parse(Setting_Master_Id_CB.Text), int.Parse(Setting_Slave_Id_CB.Text), int.Parse(cb_jumpid.Text));
+        }
+
+        public void Show_Update_State(int master , int slave , int send_flag)
+        {
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+                if (slave < 0)
+                {
+                    foreach (Control control in tableLayoutPanel1.Controls)
+                    {
+                        if (control.Name == "Master_" + master)
+                        {
+                            if (send_flag == 1)
+                                ((DrakeUILabel)control).Text = "진행중";
+                            else if (send_flag == 2)
+                                ((DrakeUILabel)control).Text = "완료";
+                            else if(send_flag == 3)
+                                ((DrakeUILabel)control).Text = "실패";
+                            break;
+                        }
+                    }
+                }
+                else if (slave > 0)
+                {
+                    foreach (Control control in tableLayoutPanel1.Controls)
+                    {
+                        if (control.Name == "Slave_" + slave)
+                        {
+                            if (send_flag == 1)
+                                ((DrakeUILabel)control).Text = "진행중";
+                            else if (send_flag == 2)
+                                ((DrakeUILabel)control).Text = "완료";
+                            else if (send_flag == 3)
+                                ((DrakeUILabel)control).Text = "실패";
+                            break;
+                        }
+                    }
+                }
+            }));
         }
     }
 }

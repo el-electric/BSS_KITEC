@@ -25,7 +25,6 @@ namespace EL_BSS
         public static List<byte[]> binFileBuffer = new List<byte[]>();
         public static int binBufferCount = 0;
 
-        public static int Download_APP = 0;
         public static int Jump_APP = 0;
         public static int Read_Version = 1;
         public static int PWUpdate_Send_Flag;
@@ -34,6 +33,7 @@ namespace EL_BSS
         public static int PWUpdate_New_Version_Major = 1;
         public static int PWUpdate_New_Version_Minor = 1;
         public static int PWUpdate_New_Version_Patch = 1;
+        public static bool Auto_Update = false;
 
         public static int boot_Version_Major;
         public static int boot_Version_Minor;
@@ -48,12 +48,13 @@ namespace EL_BSS
 
 
         public static bool FirmwareUpdate;
-        public static bool FirmwareUpdate_Check_Finish = false;
-        public static bool Firmware_f0 = false;
+        public static int f0_OR_f1Update_OR_f1Jump = 0; // 1 = f0 , 2 = f1 업데이트 패킷  3 = f1 점프용 패킷
         public static int FirmwareUpdate_step = 0;
         public static bool FirmWareisAck;
-        public static bool FirmWareisNck;
+        public static bool FirmWareisNak;
+        public static int FirmWareisNck_Count = 0;
         public static int PWUpdate_MasterID;
+        public static int PWUpdate_Receive_MasterID = 1;
 
 
         /*public static bool slaveFirmwareUpdate;
@@ -61,6 +62,7 @@ namespace EL_BSS
         public static bool slaveFirmWareisAck;
         public static bool slaveFirmWareisNck;*/
         public static int PWUpdate_SlaveID;
+        public static int PWUpdate_Receive_SlaveID = 1;
 
 
         public int masterCount = 2;
@@ -70,6 +72,7 @@ namespace EL_BSS
 
         // 처음으로 사용자가 반납하기 버튼을 누른 시간
         public static Nullable<DateTime> dt_First_ClickStartButton_Time = null;
+        public static Nullable<DateTime> Send_FWUpdate_Packet_Time = null;
 
         public static List<MasterSend> list_MasterSend = new List<MasterSend>();
         public static List<MasterRecv> list_MasterRecv = new List<MasterRecv>();
@@ -203,7 +206,6 @@ namespace EL_BSS
             ////////////
 
         }
-
 
         public byte[] makeMaserPacket(int idx)
         {
@@ -400,6 +402,9 @@ namespace EL_BSS
             bytes[9 + f1.Length + 1] = temp[1];
             bytes[bytes.Length - 1] = 0xff;
 
+            // CsUtil.IniWriteValue(System.Windows.Forms.Application.StartupPath + @"\Byte_Test", "packet", Model.binBufferCount.ToString(), );
+
+
             if (slaveid == 0)
             { sp_Master.Write(bytes); }
             else
@@ -412,15 +417,12 @@ namespace EL_BSS
             bytes[0] = (byte)PWUpdate_New_Version_Major;    // 9
             bytes[1] = (byte)PWUpdate_New_Version_Minor;    // 10
             bytes[2] = (byte)PWUpdate_New_Version_Patch;    // 11
-            if (binFileBuffer[binBufferCount++].Length < 200)  // 12
-            {
+            if (binFileBuffer[binBufferCount++].Length < 200)  // 12            
                 bytes[3] = 2;
-                FirmwareUpdate = false;
-            }
             else
                 bytes[3] = 1;
 
-            bytes[4] = (byte)Download_APP;    //13
+            bytes[4] = (byte)Jump_APP;    //13
             bytes[5] = (byte)Jump_APP;   // 14
             bytes[6] = 0;    //15
 
@@ -428,12 +430,15 @@ namespace EL_BSS
             bytes[8] = (byte)((binBufferCount) & 0x000000ff);    // 17
 
             byte[] temp;
-            /*temp = CsUtil.getCRC16_CCITT(binFileBuffer[binBufferCount - 1], 0, binFileBuffer[binBufferCount - 1].Length);*/
 
             temp = CsUtil.getCRC16_CCITT(Model.binFile, 0, Model.binFile.Length + 3);
 
-            bytes[9] = temp[0];     // 18
-            bytes[10] = temp[1];    // 19
+            /*bytes[9] = temp[0];     // 18
+            bytes[10] = temp[1];    // 19*/
+
+            bytes[9] = temp[1];     // 18 비정상 패킷
+            bytes[10] = temp[0];
+            
 
             bytes[11] = (byte)((binFileBuffer[binBufferCount - 1].Length >> 8) & 0x000000ff); //길이     //20
             bytes[12] = (byte)((binFileBuffer[binBufferCount - 1].Length) & 0x000000ff);      // 21
@@ -444,7 +449,7 @@ namespace EL_BSS
 
         }
 
-        public static void makeFirmwaref1_without_Binary(int masterid, int slaveid)
+        public static void makeFirmwaref1_without_Binary(int masterid, int slaveid, int jumpId)
         {
             byte[] bytes = new byte[25];
             bytes[0] = 0xfe;
@@ -464,8 +469,8 @@ namespace EL_BSS
             bytes[7] = 0;
             bytes[8] = 13;
             ////////////////////////            
-            bytes[13] = (byte)Download_APP;
-            bytes[14] = (byte)Jump_APP;
+            bytes[13] = 0;
+            bytes[14] = (byte)jumpId;
 
             byte[] temp;
             temp = CsUtil.getCRC16_CCITT(bytes, 0, bytes.Length);
