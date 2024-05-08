@@ -1,0 +1,15 @@
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\bin\Debug\24_BSS_KTC.exe.config
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\bin\Debug\24_BSS_KTC.exe
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\bin\Debug\24_BSS_KTC.pdb
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\24_BSS_KTC.csproj.AssemblyReference.cache
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\MainWindow.g.cs
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\App.g.cs
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\24_BSS_KTC_MarkupCompile.cache
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\24_BSS_KTC_MarkupCompile.lref
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\MainWindow.baml
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\24_BSS_KTC.g.resources
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\_24_BSS_KTC.Properties.Resources.resources
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\24_BSS_KTC.csproj.GenerateResource.cache
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\24_BSS_KTC.csproj.CoreCompileInputs.cache
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\24_BSS_KTC.exe
+C:\Users\hs\source\repos\24_BSS_KTC\24_BSS_KTC\obj\Debug\24_BSS_KTC.pdb
