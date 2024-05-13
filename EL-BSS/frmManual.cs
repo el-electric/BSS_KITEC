@@ -18,11 +18,14 @@ namespace EL_BSS
     public partial class frmManual : Form, IObserver
     {
         protected frmSubManual[] mLayouts = new frmSubManual[8];
-
+        public System.Timers.Timer timer = new System.Timers.Timer();
         Vkeyvoard VKeyboard = new Vkeyvoard();
         public frmManual()
         {
             InitializeComponent();
+
+            timer.Interval = 100;
+            timer.Elapsed += Timer_Elapsed;
 
             for (int i = 1; i < 9; i++)
             {
@@ -43,6 +46,18 @@ namespace EL_BSS
             if (!Model.Slave_PortName.Equals(""))
                 cb_slave.Text = Model.Slave_PortName;
         }
+
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+                for (int i = 1; i < 9; i++)
+                {
+                    mLayouts[i - 1].updateView();
+                }
+            }));
+        }
+
         protected override CreateParams CreateParams
         {
             get
@@ -55,12 +70,7 @@ namespace EL_BSS
 
         public void updateView()
         {
-            lbl_test.Text = Model.binBufferCount.ToString() + " / " + Model.binFileBuffer.Count;
 
-            for (int i = 1; i < 9; i++)
-            {
-                mLayouts[i - 1].updateView();
-            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -86,7 +96,7 @@ namespace EL_BSS
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            await Task.Run(() => updateView());
+            //await Task.Run(() => updateView());
         }
 
         private void All_Door_Open_Click(object sender, EventArgs e)
@@ -167,14 +177,14 @@ namespace EL_BSS
                 }
 
                 await Task.Delay(500);
-                
+
                 Model.FirmwareUpdate = true;
             }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Model.makeFirmwareupdate(1,1);
+            Model.makeFirmwareupdate(1, 1);
         }
 
         private void Chage_To_FW_Click(object sender, EventArgs e)

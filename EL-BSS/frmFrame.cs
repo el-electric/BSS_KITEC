@@ -107,7 +107,8 @@ namespace EL_BSS
         public async void viewForm(int idx)
         {
             panel2.Controls.Clear();
-            frmManual.timer1.Enabled = false;
+            //frmManual.timer1.Enabled = false;
+            frmManual.timer.Stop();
             frmMain.timer1.Enabled = false;
             FWupdate.timer1.Enabled = false;
             if (list_SlaveSend.Count > 0)
@@ -124,7 +125,8 @@ namespace EL_BSS
                     panel2.Controls.Add(frmMain);
                     break;
                 case 1:
-                    frmManual.timer1.Enabled = true;
+                    frmManual.timer.Start();
+                    //frmManual.timer1.Enabled = true;
                     panel2.Controls.Add(frmManual);
                     break;
                 case 2:

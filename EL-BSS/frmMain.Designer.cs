@@ -33,6 +33,9 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.master_lamp0 = new DrakeUI.Framework.DrakeUILampLED();
+            this.master_lamp1 = new DrakeUI.Framework.DrakeUILampLED();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lamp7 = new DrakeUI.Framework.DrakeUILampLED();
             this.lamp3 = new DrakeUI.Framework.DrakeUILampLED();
@@ -47,14 +50,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.picDoor_7 = new System.Windows.Forms.PictureBox();
-            this.picDoor_6 = new System.Windows.Forms.PictureBox();
-            this.picDoor_5 = new System.Windows.Forms.PictureBox();
-            this.picDoor_4 = new System.Windows.Forms.PictureBox();
-            this.picDoor_3 = new System.Windows.Forms.PictureBox();
-            this.picDoor_2 = new System.Windows.Forms.PictureBox();
-            this.picDoor_1 = new System.Windows.Forms.PictureBox();
-            this.picDoor_0 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_soc3 = new System.Windows.Forms.Label();
             this.lbl_soc7 = new System.Windows.Forms.Label();
@@ -72,27 +67,31 @@
             this.lbl_soc5 = new System.Windows.Forms.Label();
             this.lbl_soc2 = new System.Windows.Forms.Label();
             this.lbl_soc6 = new System.Windows.Forms.Label();
-            this.drakeUIButtonIcon1 = new DrakeUI.Framework.DrakeUIButtonIcon();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.master_lamp0 = new DrakeUI.Framework.DrakeUILampLED();
-            this.master_lamp1 = new DrakeUI.Framework.DrakeUILampLED();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.picDoor_3 = new System.Windows.Forms.PictureBox();
+            this.picDoor_7 = new System.Windows.Forms.PictureBox();
+            this.picDoor_6 = new System.Windows.Forms.PictureBox();
+            this.picDoor_2 = new System.Windows.Forms.PictureBox();
+            this.picDoor_5 = new System.Windows.Forms.PictureBox();
+            this.picDoor_1 = new System.Windows.Forms.PictureBox();
+            this.picDoor_0 = new System.Windows.Forms.PictureBox();
+            this.picDoor_4 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).BeginInit();
             this.SuspendLayout();
             // 
             // splitter1
@@ -144,6 +143,39 @@
             this.splitContainer1.Size = new System.Drawing.Size(1018, 694);
             this.splitContainer1.SplitterDistance = 655;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.master_lamp0, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.master_lamp1, 1, 0);
+            this.tableLayoutPanel3.Enabled = false;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(607, 575);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(38, 20);
+            this.tableLayoutPanel3.TabIndex = 13;
+            // 
+            // master_lamp0
+            // 
+            this.master_lamp0.Location = new System.Drawing.Point(3, 3);
+            this.master_lamp0.Name = "master_lamp0";
+            this.master_lamp0.Size = new System.Drawing.Size(13, 14);
+            this.master_lamp0.TabIndex = 11;
+            this.master_lamp0.Text = "drakeUILampLED1";
+            // 
+            // master_lamp1
+            // 
+            this.master_lamp1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.master_lamp1.Enabled = false;
+            this.master_lamp1.Location = new System.Drawing.Point(22, 3);
+            this.master_lamp1.Name = "master_lamp1";
+            this.master_lamp1.Size = new System.Drawing.Size(13, 14);
+            this.master_lamp1.TabIndex = 12;
+            this.master_lamp1.Text = "drakeUILampLED2";
             // 
             // tableLayoutPanel2
             // 
@@ -293,6 +325,317 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.lbl_soc3, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_soc7, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.Battery_7, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.Battery_3, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.Battery_6, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.Battery_2, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.Battery_5, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.Battery_1, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.Battery_4, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.Battery_0, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_soc0, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_soc4, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_soc1, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_soc5, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_soc2, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_soc6, 1, 6);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 0, 5, 10);
+            this.tableLayoutPanel1.RowCount = 9;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(359, 694);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // lbl_soc3
+            // 
+            this.lbl_soc3.AutoSize = true;
+            this.lbl_soc3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbl_soc3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc3.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
+            this.lbl_soc3.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc3.Location = new System.Drawing.Point(3, 638);
+            this.lbl_soc3.Name = "lbl_soc3";
+            this.lbl_soc3.Size = new System.Drawing.Size(171, 46);
+            this.lbl_soc3.TabIndex = 10;
+            this.lbl_soc3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_soc7
+            // 
+            this.lbl_soc7.AutoSize = true;
+            this.lbl_soc7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbl_soc7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc7.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
+            this.lbl_soc7.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc7.Location = new System.Drawing.Point(180, 638);
+            this.lbl_soc7.Name = "lbl_soc7";
+            this.lbl_soc7.Size = new System.Drawing.Size(171, 46);
+            this.lbl_soc7.TabIndex = 9;
+            this.lbl_soc7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Battery_7
+            // 
+            this.Battery_7.BackColor = System.Drawing.Color.Transparent;
+            this.Battery_7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_7.BackgroundImage")));
+            this.Battery_7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Battery_7.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.Battery_7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Battery_7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
+            this.Battery_7.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.Battery_7.Location = new System.Drawing.Point(180, 552);
+            this.Battery_7.Name = "Battery_7";
+            this.Battery_7.Power = 0;
+            this.Battery_7.Radius = 20;
+            this.Battery_7.Size = new System.Drawing.Size(171, 83);
+            this.Battery_7.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.Battery_7.SymbolSize = 64;
+            this.Battery_7.TabIndex = 7;
+            this.Battery_7.Text = "drakeUIBatteryBar8";
+            // 
+            // Battery_3
+            // 
+            this.Battery_3.BackColor = System.Drawing.Color.Transparent;
+            this.Battery_3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_3.BackgroundImage")));
+            this.Battery_3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Battery_3.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.Battery_3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Battery_3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
+            this.Battery_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.Battery_3.Location = new System.Drawing.Point(3, 552);
+            this.Battery_3.Name = "Battery_3";
+            this.Battery_3.Power = 0;
+            this.Battery_3.Radius = 20;
+            this.Battery_3.Size = new System.Drawing.Size(171, 83);
+            this.Battery_3.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.Battery_3.SymbolSize = 64;
+            this.Battery_3.TabIndex = 6;
+            this.Battery_3.Text = "drakeUIBatteryBar7";
+            // 
+            // Battery_6
+            // 
+            this.Battery_6.BackColor = System.Drawing.Color.Transparent;
+            this.Battery_6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_6.BackgroundImage")));
+            this.Battery_6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Battery_6.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.Battery_6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Battery_6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
+            this.Battery_6.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.Battery_6.Location = new System.Drawing.Point(180, 419);
+            this.Battery_6.Name = "Battery_6";
+            this.Battery_6.Power = 0;
+            this.Battery_6.Radius = 20;
+            this.Battery_6.Size = new System.Drawing.Size(171, 83);
+            this.Battery_6.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.Battery_6.SymbolSize = 64;
+            this.Battery_6.TabIndex = 5;
+            this.Battery_6.Text = "drakeUIBatteryBar6";
+            // 
+            // Battery_2
+            // 
+            this.Battery_2.BackColor = System.Drawing.Color.Transparent;
+            this.Battery_2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_2.BackgroundImage")));
+            this.Battery_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Battery_2.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.Battery_2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Battery_2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
+            this.Battery_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.Battery_2.Location = new System.Drawing.Point(3, 419);
+            this.Battery_2.Name = "Battery_2";
+            this.Battery_2.Power = 0;
+            this.Battery_2.Radius = 20;
+            this.Battery_2.Size = new System.Drawing.Size(171, 83);
+            this.Battery_2.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.Battery_2.SymbolSize = 64;
+            this.Battery_2.TabIndex = 4;
+            this.Battery_2.Text = "drakeUIBatteryBar5";
+            // 
+            // Battery_5
+            // 
+            this.Battery_5.BackColor = System.Drawing.Color.Transparent;
+            this.Battery_5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_5.BackgroundImage")));
+            this.Battery_5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Battery_5.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.Battery_5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Battery_5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
+            this.Battery_5.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.Battery_5.Location = new System.Drawing.Point(180, 286);
+            this.Battery_5.Name = "Battery_5";
+            this.Battery_5.Power = 0;
+            this.Battery_5.Radius = 20;
+            this.Battery_5.Size = new System.Drawing.Size(171, 83);
+            this.Battery_5.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.Battery_5.SymbolSize = 64;
+            this.Battery_5.TabIndex = 3;
+            this.Battery_5.Text = "drakeUIBatteryBar4";
+            // 
+            // Battery_1
+            // 
+            this.Battery_1.BackColor = System.Drawing.Color.Transparent;
+            this.Battery_1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_1.BackgroundImage")));
+            this.Battery_1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Battery_1.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.Battery_1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Battery_1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
+            this.Battery_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.Battery_1.Location = new System.Drawing.Point(3, 286);
+            this.Battery_1.Name = "Battery_1";
+            this.Battery_1.Radius = 20;
+            this.Battery_1.Size = new System.Drawing.Size(171, 83);
+            this.Battery_1.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.Battery_1.SymbolSize = 64;
+            this.Battery_1.TabIndex = 2;
+            this.Battery_1.Text = "drakeUIBatteryBar3";
+            // 
+            // Battery_4
+            // 
+            this.Battery_4.BackColor = System.Drawing.Color.Transparent;
+            this.Battery_4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_4.BackgroundImage")));
+            this.Battery_4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Battery_4.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.Battery_4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Battery_4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
+            this.Battery_4.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.Battery_4.Location = new System.Drawing.Point(180, 153);
+            this.Battery_4.Name = "Battery_4";
+            this.Battery_4.Power = 1;
+            this.Battery_4.Radius = 20;
+            this.Battery_4.Size = new System.Drawing.Size(171, 83);
+            this.Battery_4.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.Battery_4.SymbolSize = 64;
+            this.Battery_4.TabIndex = 1;
+            this.Battery_4.Text = "drakeUIBatteryBar2";
+            // 
+            // Battery_0
+            // 
+            this.Battery_0.BackColor = System.Drawing.Color.Transparent;
+            this.Battery_0.BackgroundImage = global::EL_BSS.Properties.Resources.bgTitle;
+            this.Battery_0.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Battery_0.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.Battery_0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Battery_0.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
+            this.Battery_0.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
+            this.Battery_0.Location = new System.Drawing.Point(3, 153);
+            this.Battery_0.Name = "Battery_0";
+            this.Battery_0.Power = 22;
+            this.Battery_0.Radius = 20;
+            this.Battery_0.Size = new System.Drawing.Size(171, 83);
+            this.Battery_0.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.Battery_0.SymbolSize = 64;
+            this.Battery_0.TabIndex = 0;
+            this.Battery_0.Text = "123";
+            // 
+            // lbl_soc0
+            // 
+            this.lbl_soc0.AutoSize = true;
+            this.lbl_soc0.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbl_soc0.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc0.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
+            this.lbl_soc0.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc0.Location = new System.Drawing.Point(3, 239);
+            this.lbl_soc0.Name = "lbl_soc0";
+            this.lbl_soc0.Size = new System.Drawing.Size(171, 44);
+            this.lbl_soc0.TabIndex = 8;
+            this.lbl_soc0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_soc4
+            // 
+            this.lbl_soc4.AutoSize = true;
+            this.lbl_soc4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbl_soc4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc4.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
+            this.lbl_soc4.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc4.Location = new System.Drawing.Point(180, 239);
+            this.lbl_soc4.Name = "lbl_soc4";
+            this.lbl_soc4.Size = new System.Drawing.Size(171, 44);
+            this.lbl_soc4.TabIndex = 8;
+            this.lbl_soc4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_soc1
+            // 
+            this.lbl_soc1.AutoSize = true;
+            this.lbl_soc1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbl_soc1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc1.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
+            this.lbl_soc1.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc1.Location = new System.Drawing.Point(3, 372);
+            this.lbl_soc1.Name = "lbl_soc1";
+            this.lbl_soc1.Size = new System.Drawing.Size(171, 44);
+            this.lbl_soc1.TabIndex = 8;
+            this.lbl_soc1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_soc5
+            // 
+            this.lbl_soc5.AutoSize = true;
+            this.lbl_soc5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbl_soc5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc5.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
+            this.lbl_soc5.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc5.Location = new System.Drawing.Point(180, 372);
+            this.lbl_soc5.Name = "lbl_soc5";
+            this.lbl_soc5.Size = new System.Drawing.Size(171, 44);
+            this.lbl_soc5.TabIndex = 8;
+            this.lbl_soc5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_soc2
+            // 
+            this.lbl_soc2.AutoSize = true;
+            this.lbl_soc2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbl_soc2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc2.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
+            this.lbl_soc2.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc2.Location = new System.Drawing.Point(3, 505);
+            this.lbl_soc2.Name = "lbl_soc2";
+            this.lbl_soc2.Size = new System.Drawing.Size(171, 44);
+            this.lbl_soc2.TabIndex = 8;
+            this.lbl_soc2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_soc6
+            // 
+            this.lbl_soc6.AutoSize = true;
+            this.lbl_soc6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbl_soc6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_soc6.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
+            this.lbl_soc6.ForeColor = System.Drawing.Color.Black;
+            this.lbl_soc6.Location = new System.Drawing.Point(180, 505);
+            this.lbl_soc6.Name = "lbl_soc6";
+            this.lbl_soc6.Size = new System.Drawing.Size(171, 44);
+            this.lbl_soc6.TabIndex = 8;
+            this.lbl_soc6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // picDoor_3
+            // 
+            this.picDoor_3.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_3.Image = global::EL_BSS.Properties.Resources._31;
+            this.picDoor_3.Location = new System.Drawing.Point(170, 479);
+            this.picDoor_3.Name = "picDoor_3";
+            this.picDoor_3.Size = new System.Drawing.Size(88, 97);
+            this.picDoor_3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_3.TabIndex = 4;
+            this.picDoor_3.TabStop = false;
+            this.picDoor_3.Visible = false;
+            // 
             // picDoor_7
             // 
             this.picDoor_7.BackColor = System.Drawing.Color.Transparent;
@@ -317,42 +660,6 @@
             this.picDoor_6.TabStop = false;
             this.picDoor_6.Visible = false;
             // 
-            // picDoor_5
-            // 
-            this.picDoor_5.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_5.Image = global::EL_BSS.Properties.Resources._6;
-            this.picDoor_5.Location = new System.Drawing.Point(310, 301);
-            this.picDoor_5.Name = "picDoor_5";
-            this.picDoor_5.Size = new System.Drawing.Size(95, 87);
-            this.picDoor_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_5.TabIndex = 6;
-            this.picDoor_5.TabStop = false;
-            this.picDoor_5.Visible = false;
-            // 
-            // picDoor_4
-            // 
-            this.picDoor_4.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_4.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_4.Image")));
-            this.picDoor_4.Location = new System.Drawing.Point(313, 190);
-            this.picDoor_4.Name = "picDoor_4";
-            this.picDoor_4.Size = new System.Drawing.Size(99, 98);
-            this.picDoor_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_4.TabIndex = 5;
-            this.picDoor_4.TabStop = false;
-            this.picDoor_4.Visible = false;
-            // 
-            // picDoor_3
-            // 
-            this.picDoor_3.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_3.Image = global::EL_BSS.Properties.Resources._31;
-            this.picDoor_3.Location = new System.Drawing.Point(170, 479);
-            this.picDoor_3.Name = "picDoor_3";
-            this.picDoor_3.Size = new System.Drawing.Size(88, 97);
-            this.picDoor_3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_3.TabIndex = 4;
-            this.picDoor_3.TabStop = false;
-            this.picDoor_3.Visible = false;
-            // 
             // picDoor_2
             // 
             this.picDoor_2.BackColor = System.Drawing.Color.Transparent;
@@ -364,6 +671,18 @@
             this.picDoor_2.TabIndex = 3;
             this.picDoor_2.TabStop = false;
             this.picDoor_2.Visible = false;
+            // 
+            // picDoor_5
+            // 
+            this.picDoor_5.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_5.Image = global::EL_BSS.Properties.Resources._6;
+            this.picDoor_5.Location = new System.Drawing.Point(310, 301);
+            this.picDoor_5.Name = "picDoor_5";
+            this.picDoor_5.Size = new System.Drawing.Size(95, 87);
+            this.picDoor_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_5.TabIndex = 6;
+            this.picDoor_5.TabStop = false;
+            this.picDoor_5.Visible = false;
             // 
             // picDoor_1
             // 
@@ -389,357 +708,17 @@
             this.picDoor_0.TabStop = false;
             this.picDoor_0.Visible = false;
             // 
-            // tableLayoutPanel1
+            // picDoor_4
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.lbl_soc3, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_soc7, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.Battery_7, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.Battery_3, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.Battery_6, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.Battery_2, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.Battery_5, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.Battery_1, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.Battery_4, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.Battery_0, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_soc0, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_soc4, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_soc1, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_soc5, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_soc2, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_soc6, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.drakeUIButtonIcon1, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(0, 0, 5, 10);
-            this.tableLayoutPanel1.RowCount = 9;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(359, 694);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // lbl_soc3
-            // 
-            this.lbl_soc3.AutoSize = true;
-            this.lbl_soc3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lbl_soc3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc3.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_soc3.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc3.Location = new System.Drawing.Point(3, 632);
-            this.lbl_soc3.Name = "lbl_soc3";
-            this.lbl_soc3.Size = new System.Drawing.Size(171, 52);
-            this.lbl_soc3.TabIndex = 10;
-            this.lbl_soc3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_soc7
-            // 
-            this.lbl_soc7.AutoSize = true;
-            this.lbl_soc7.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lbl_soc7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc7.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_soc7.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc7.Location = new System.Drawing.Point(180, 632);
-            this.lbl_soc7.Name = "lbl_soc7";
-            this.lbl_soc7.Size = new System.Drawing.Size(171, 52);
-            this.lbl_soc7.TabIndex = 9;
-            this.lbl_soc7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Battery_7
-            // 
-            this.Battery_7.BackColor = System.Drawing.Color.Transparent;
-            this.Battery_7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_7.BackgroundImage")));
-            this.Battery_7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Battery_7.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.Battery_7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
-            this.Battery_7.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.Battery_7.Location = new System.Drawing.Point(180, 538);
-            this.Battery_7.Name = "Battery_7";
-            this.Battery_7.Power = 0;
-            this.Battery_7.Radius = 20;
-            this.Battery_7.Size = new System.Drawing.Size(171, 91);
-            this.Battery_7.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.Battery_7.SymbolSize = 64;
-            this.Battery_7.TabIndex = 7;
-            this.Battery_7.Text = "drakeUIBatteryBar8";
-            // 
-            // Battery_3
-            // 
-            this.Battery_3.BackColor = System.Drawing.Color.Transparent;
-            this.Battery_3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_3.BackgroundImage")));
-            this.Battery_3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Battery_3.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.Battery_3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
-            this.Battery_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.Battery_3.Location = new System.Drawing.Point(3, 538);
-            this.Battery_3.Name = "Battery_3";
-            this.Battery_3.Power = 0;
-            this.Battery_3.Radius = 20;
-            this.Battery_3.Size = new System.Drawing.Size(171, 91);
-            this.Battery_3.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.Battery_3.SymbolSize = 64;
-            this.Battery_3.TabIndex = 6;
-            this.Battery_3.Text = "drakeUIBatteryBar7";
-            // 
-            // Battery_6
-            // 
-            this.Battery_6.BackColor = System.Drawing.Color.Transparent;
-            this.Battery_6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_6.BackgroundImage")));
-            this.Battery_6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Battery_6.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.Battery_6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
-            this.Battery_6.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.Battery_6.Location = new System.Drawing.Point(180, 393);
-            this.Battery_6.Name = "Battery_6";
-            this.Battery_6.Power = 0;
-            this.Battery_6.Radius = 20;
-            this.Battery_6.Size = new System.Drawing.Size(171, 91);
-            this.Battery_6.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.Battery_6.SymbolSize = 64;
-            this.Battery_6.TabIndex = 5;
-            this.Battery_6.Text = "drakeUIBatteryBar6";
-            // 
-            // Battery_2
-            // 
-            this.Battery_2.BackColor = System.Drawing.Color.Transparent;
-            this.Battery_2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_2.BackgroundImage")));
-            this.Battery_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Battery_2.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.Battery_2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
-            this.Battery_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.Battery_2.Location = new System.Drawing.Point(3, 393);
-            this.Battery_2.Name = "Battery_2";
-            this.Battery_2.Power = 0;
-            this.Battery_2.Radius = 20;
-            this.Battery_2.Size = new System.Drawing.Size(171, 91);
-            this.Battery_2.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.Battery_2.SymbolSize = 64;
-            this.Battery_2.TabIndex = 4;
-            this.Battery_2.Text = "drakeUIBatteryBar5";
-            // 
-            // Battery_5
-            // 
-            this.Battery_5.BackColor = System.Drawing.Color.Transparent;
-            this.Battery_5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_5.BackgroundImage")));
-            this.Battery_5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Battery_5.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.Battery_5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
-            this.Battery_5.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.Battery_5.Location = new System.Drawing.Point(180, 248);
-            this.Battery_5.Name = "Battery_5";
-            this.Battery_5.Power = 0;
-            this.Battery_5.Radius = 20;
-            this.Battery_5.Size = new System.Drawing.Size(171, 91);
-            this.Battery_5.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.Battery_5.SymbolSize = 64;
-            this.Battery_5.TabIndex = 3;
-            this.Battery_5.Text = "drakeUIBatteryBar4";
-            // 
-            // Battery_1
-            // 
-            this.Battery_1.BackColor = System.Drawing.Color.Transparent;
-            this.Battery_1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_1.BackgroundImage")));
-            this.Battery_1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Battery_1.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.Battery_1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
-            this.Battery_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.Battery_1.Location = new System.Drawing.Point(3, 248);
-            this.Battery_1.Name = "Battery_1";
-            this.Battery_1.Radius = 20;
-            this.Battery_1.Size = new System.Drawing.Size(171, 91);
-            this.Battery_1.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.Battery_1.SymbolSize = 64;
-            this.Battery_1.TabIndex = 2;
-            this.Battery_1.Text = "drakeUIBatteryBar3";
-            // 
-            // Battery_4
-            // 
-            this.Battery_4.BackColor = System.Drawing.Color.Transparent;
-            this.Battery_4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Battery_4.BackgroundImage")));
-            this.Battery_4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Battery_4.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.Battery_4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
-            this.Battery_4.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.Battery_4.Location = new System.Drawing.Point(180, 103);
-            this.Battery_4.Name = "Battery_4";
-            this.Battery_4.Power = 1;
-            this.Battery_4.Radius = 20;
-            this.Battery_4.Size = new System.Drawing.Size(171, 91);
-            this.Battery_4.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.Battery_4.SymbolSize = 64;
-            this.Battery_4.TabIndex = 1;
-            this.Battery_4.Text = "drakeUIBatteryBar2";
-            // 
-            // Battery_0
-            // 
-            this.Battery_0.BackColor = System.Drawing.Color.Transparent;
-            this.Battery_0.BackgroundImage = global::EL_BSS.Properties.Resources.bgTitle;
-            this.Battery_0.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Battery_0.ColorSafe = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.Battery_0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Battery_0.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(245)))), ((int)(((byte)(254)))));
-            this.Battery_0.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F);
-            this.Battery_0.Location = new System.Drawing.Point(3, 103);
-            this.Battery_0.Name = "Battery_0";
-            this.Battery_0.Power = 22;
-            this.Battery_0.Radius = 20;
-            this.Battery_0.Size = new System.Drawing.Size(171, 91);
-            this.Battery_0.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.Battery_0.SymbolSize = 64;
-            this.Battery_0.TabIndex = 0;
-            this.Battery_0.Text = "123";
-            // 
-            // lbl_soc0
-            // 
-            this.lbl_soc0.AutoSize = true;
-            this.lbl_soc0.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lbl_soc0.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc0.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_soc0.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc0.Location = new System.Drawing.Point(3, 197);
-            this.lbl_soc0.Name = "lbl_soc0";
-            this.lbl_soc0.Size = new System.Drawing.Size(171, 48);
-            this.lbl_soc0.TabIndex = 8;
-            this.lbl_soc0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_soc4
-            // 
-            this.lbl_soc4.AutoSize = true;
-            this.lbl_soc4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lbl_soc4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc4.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_soc4.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc4.Location = new System.Drawing.Point(180, 197);
-            this.lbl_soc4.Name = "lbl_soc4";
-            this.lbl_soc4.Size = new System.Drawing.Size(171, 48);
-            this.lbl_soc4.TabIndex = 8;
-            this.lbl_soc4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_soc1
-            // 
-            this.lbl_soc1.AutoSize = true;
-            this.lbl_soc1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lbl_soc1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc1.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_soc1.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc1.Location = new System.Drawing.Point(3, 342);
-            this.lbl_soc1.Name = "lbl_soc1";
-            this.lbl_soc1.Size = new System.Drawing.Size(171, 48);
-            this.lbl_soc1.TabIndex = 8;
-            this.lbl_soc1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_soc5
-            // 
-            this.lbl_soc5.AutoSize = true;
-            this.lbl_soc5.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lbl_soc5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc5.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_soc5.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc5.Location = new System.Drawing.Point(180, 342);
-            this.lbl_soc5.Name = "lbl_soc5";
-            this.lbl_soc5.Size = new System.Drawing.Size(171, 48);
-            this.lbl_soc5.TabIndex = 8;
-            this.lbl_soc5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_soc2
-            // 
-            this.lbl_soc2.AutoSize = true;
-            this.lbl_soc2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lbl_soc2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc2.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_soc2.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc2.Location = new System.Drawing.Point(3, 487);
-            this.lbl_soc2.Name = "lbl_soc2";
-            this.lbl_soc2.Size = new System.Drawing.Size(171, 48);
-            this.lbl_soc2.TabIndex = 8;
-            this.lbl_soc2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_soc6
-            // 
-            this.lbl_soc6.AutoSize = true;
-            this.lbl_soc6.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.lbl_soc6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_soc6.Font = new System.Drawing.Font("굴림", 14F, System.Drawing.FontStyle.Bold);
-            this.lbl_soc6.ForeColor = System.Drawing.Color.Black;
-            this.lbl_soc6.Location = new System.Drawing.Point(180, 487);
-            this.lbl_soc6.Name = "lbl_soc6";
-            this.lbl_soc6.Size = new System.Drawing.Size(171, 48);
-            this.lbl_soc6.TabIndex = 8;
-            this.lbl_soc6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // drakeUIButtonIcon1
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.drakeUIButtonIcon1, 2);
-            this.drakeUIButtonIcon1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.drakeUIButtonIcon1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUIButtonIcon1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(182)))), ((int)(((byte)(176)))));
-            this.drakeUIButtonIcon1.Font = new System.Drawing.Font("맑은 고딕", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.drakeUIButtonIcon1.Location = new System.Drawing.Point(7, 7);
-            this.drakeUIButtonIcon1.Margin = new System.Windows.Forms.Padding(7);
-            this.drakeUIButtonIcon1.Name = "drakeUIButtonIcon1";
-            this.drakeUIButtonIcon1.RectColor = System.Drawing.Color.Black;
-            this.drakeUIButtonIcon1.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.drakeUIButtonIcon1.Size = new System.Drawing.Size(340, 86);
-            this.drakeUIButtonIcon1.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.drakeUIButtonIcon1.Symbol = 61515;
-            this.drakeUIButtonIcon1.TabIndex = 11;
-            this.drakeUIButtonIcon1.Text = "반납하기";
-            this.drakeUIButtonIcon1.Click += new System.EventHandler(this.drakeUIButtonIcon1_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 500;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // master_lamp0
-            // 
-            this.master_lamp0.Location = new System.Drawing.Point(3, 3);
-            this.master_lamp0.Name = "master_lamp0";
-            this.master_lamp0.Size = new System.Drawing.Size(13, 14);
-            this.master_lamp0.TabIndex = 11;
-            this.master_lamp0.Text = "drakeUILampLED1";
-            // 
-            // master_lamp1
-            // 
-            this.master_lamp1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.master_lamp1.Enabled = false;
-            this.master_lamp1.Location = new System.Drawing.Point(22, 3);
-            this.master_lamp1.Name = "master_lamp1";
-            this.master_lamp1.Size = new System.Drawing.Size(13, 14);
-            this.master_lamp1.TabIndex = 12;
-            this.master_lamp1.Text = "drakeUILampLED2";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.master_lamp0, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.master_lamp1, 1, 0);
-            this.tableLayoutPanel3.Enabled = false;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(607, 575);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(38, 20);
-            this.tableLayoutPanel3.TabIndex = 13;
+            this.picDoor_4.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_4.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_4.Image")));
+            this.picDoor_4.Location = new System.Drawing.Point(313, 190);
+            this.picDoor_4.Name = "picDoor_4";
+            this.picDoor_4.Size = new System.Drawing.Size(99, 98);
+            this.picDoor_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_4.TabIndex = 5;
+            this.picDoor_4.TabStop = false;
+            this.picDoor_4.Visible = false;
             // 
             // frmMain
             // 
@@ -759,19 +738,19 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -781,13 +760,6 @@
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Splitter splitter2;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.PictureBox picDoor_2;
-        private System.Windows.Forms.PictureBox picDoor_1;
-        private System.Windows.Forms.PictureBox picDoor_3;
-        private System.Windows.Forms.PictureBox picDoor_6;
-        private System.Windows.Forms.PictureBox picDoor_5;
-        private System.Windows.Forms.PictureBox picDoor_4;
-        private System.Windows.Forms.PictureBox picDoor_7;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lbl_soc3;
         private System.Windows.Forms.Label lbl_soc7;
@@ -805,9 +777,7 @@
         private System.Windows.Forms.Label lbl_soc5;
         private System.Windows.Forms.Label lbl_soc2;
         private System.Windows.Forms.Label lbl_soc6;
-        private System.Windows.Forms.PictureBox picDoor_0;
         public System.Windows.Forms.Timer timer1;
-        private DrakeUI.Framework.DrakeUIButtonIcon drakeUIButtonIcon1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
@@ -825,5 +795,13 @@
         private DrakeUI.Framework.DrakeUILampLED master_lamp0;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private DrakeUI.Framework.DrakeUILampLED master_lamp1;
+        private System.Windows.Forms.PictureBox picDoor_7;
+        private System.Windows.Forms.PictureBox picDoor_6;
+        private System.Windows.Forms.PictureBox picDoor_5;
+        private System.Windows.Forms.PictureBox picDoor_4;
+        private System.Windows.Forms.PictureBox picDoor_3;
+        private System.Windows.Forms.PictureBox picDoor_2;
+        private System.Windows.Forms.PictureBox picDoor_1;
+        private System.Windows.Forms.PictureBox picDoor_0;
     }
 }

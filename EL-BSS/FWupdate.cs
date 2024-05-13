@@ -221,9 +221,9 @@ namespace EL_BSS
 
         private void Test_popup_Click(object sender, EventArgs e)
         {
-            frmPopup frm = new frmPopup();
+            //frmPopup frm = new frmPopup();
 
-            frm.ShowDialog();
+ 
 
         }
 

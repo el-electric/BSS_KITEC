@@ -32,7 +32,6 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Chage_To_FW = new System.Windows.Forms.Button();
-            this.lbl_test = new DrakeUI.Framework.DrakeUILabel();
             this.Vkey_OFF_button = new System.Windows.Forms.Button();
             this.Vkey_ON_button = new System.Windows.Forms.Button();
             this.cb_slave = new DrakeUI.Framework.DrakeUIComboBox();
@@ -51,6 +50,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.drakeUITextBox1 = new DrakeUI.Framework.DrakeUITextBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -68,8 +68,8 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox1.Controls.Add(this.drakeUITextBox1);
             this.groupBox1.Controls.Add(this.Chage_To_FW);
-            this.groupBox1.Controls.Add(this.lbl_test);
             this.groupBox1.Controls.Add(this.Vkey_OFF_button);
             this.groupBox1.Controls.Add(this.Vkey_ON_button);
             this.groupBox1.Controls.Add(this.cb_slave);
@@ -90,23 +90,13 @@
             // 
             // Chage_To_FW
             // 
-            this.Chage_To_FW.Location = new System.Drawing.Point(445, 53);
+            this.Chage_To_FW.Location = new System.Drawing.Point(365, 58);
             this.Chage_To_FW.Name = "Chage_To_FW";
             this.Chage_To_FW.Size = new System.Drawing.Size(94, 32);
             this.Chage_To_FW.TabIndex = 3;
             this.Chage_To_FW.Text = "펌웨어 \n업데이트 창";
             this.Chage_To_FW.UseVisualStyleBackColor = true;
             this.Chage_To_FW.Click += new System.EventHandler(this.Chage_To_FW_Click);
-            // 
-            // lbl_test
-            // 
-            this.lbl_test.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbl_test.Location = new System.Drawing.Point(352, 16);
-            this.lbl_test.Name = "lbl_test";
-            this.lbl_test.Size = new System.Drawing.Size(100, 23);
-            this.lbl_test.TabIndex = 36;
-            this.lbl_test.Text = "0/0";
-            this.lbl_test.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Vkey_OFF_button
             // 
@@ -133,14 +123,14 @@
             this.cb_slave.DropDownStyle = DrakeUI.Framework.UIDropDownStyle.DropDownList;
             this.cb_slave.FillColor = System.Drawing.Color.White;
             this.cb_slave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.cb_slave.Location = new System.Drawing.Point(586, 16);
+            this.cb_slave.Location = new System.Drawing.Point(492, 17);
             this.cb_slave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cb_slave.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_slave.Name = "cb_slave";
             this.cb_slave.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
             this.cb_slave.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
             this.cb_slave.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.cb_slave.Size = new System.Drawing.Size(119, 29);
+            this.cb_slave.Size = new System.Drawing.Size(133, 29);
             this.cb_slave.Style = DrakeUI.Framework.UIStyle.Green;
             this.cb_slave.TabIndex = 13;
             this.cb_slave.Text = "Slave";
@@ -151,7 +141,7 @@
             this.cb_master.DropDownStyle = DrakeUI.Framework.UIDropDownStyle.DropDownList;
             this.cb_master.FillColor = System.Drawing.Color.White;
             this.cb_master.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.cb_master.Location = new System.Drawing.Point(459, 16);
+            this.cb_master.Location = new System.Drawing.Point(365, 17);
             this.cb_master.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cb_master.MinimumSize = new System.Drawing.Size(63, 0);
             this.cb_master.Name = "cb_master";
@@ -166,9 +156,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(605, 57);
+            this.button1.Location = new System.Drawing.Point(632, 17);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 34);
+            this.button1.Size = new System.Drawing.Size(74, 68);
             this.button1.TabIndex = 31;
             this.button1.Text = "저장";
             this.button1.UseVisualStyleBackColor = true;
@@ -295,6 +285,24 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // drakeUITextBox1
+            // 
+            this.drakeUITextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.drakeUITextBox1.FillColor = System.Drawing.Color.White;
+            this.drakeUITextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.drakeUITextBox1.Location = new System.Drawing.Point(466, 56);
+            this.drakeUITextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.drakeUITextBox1.Maximum = 2147483647D;
+            this.drakeUITextBox1.Minimum = -2147483648D;
+            this.drakeUITextBox1.Name = "drakeUITextBox1";
+            this.drakeUITextBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.drakeUITextBox1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.drakeUITextBox1.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.drakeUITextBox1.Size = new System.Drawing.Size(159, 26);
+            this.drakeUITextBox1.Style = DrakeUI.Framework.UIStyle.Green;
+            this.drakeUITextBox1.TabIndex = 34;
+            this.drakeUITextBox1.Text = "drakeUITextBox1";
+            // 
             // frmManual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 12F);
@@ -336,7 +344,7 @@
         private System.Windows.Forms.Button Vkey_OFF_button;
         private System.Windows.Forms.Button Vkey_ON_button;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private DrakeUI.Framework.DrakeUILabel lbl_test;
         private System.Windows.Forms.Button Chage_To_FW;
+        private DrakeUI.Framework.DrakeUITextBox drakeUITextBox1;
     }
 }
