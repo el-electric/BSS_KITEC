@@ -1,4 +1,8 @@
-﻿using EL_BSS.Serial;
+﻿using BatteryChangeCharger.OCPP.database;
+using BatteryChangeCharger.OCPP;
+using EL_BSS.Serial;
+using EL_DC_Charger.ocpp.ver16.comm;
+using EL_DC_Charger.ocpp.ver16.database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +92,14 @@ namespace EL_BSS
         public static string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "");
 
         public static bool Start_Return_Button = false;
+
+
+        public SQLiteConnection connection;
+        public OCPP_Manager_Table_Setting oCPP_Manager_Table_Setting;
+        public OCPP_Comm_Manager oCPP_Comm_Manager;
+        public OCPP_Comm_SendMgr oCPP_Comm_SendMgr;
+        public OCPP_AuthCache oCPP_AuthCache;
+        public OCPP_TransactionInfo oCPP_TransactionInfo;
 
         public class MasterSend
         {

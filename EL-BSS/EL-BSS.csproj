@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,8 +39,24 @@
     <Reference Include="DrakeUI.Framework, Version=1.3.5.0, Culture=neutral, PublicKeyToken=32bd1f5d97424e1c, processorArchitecture=MSIL">
       <HintPath>..\packages\DrakeUI.Framework.1.3.5\lib\net45\DrakeUI.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.118.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.118.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -83,6 +102,116 @@
     </Compile>
     <Compile Include="IObserver.cs" />
     <Compile Include="Model.cs" />
+    <Compile Include="OCPP\database\CONST_INDEX_OCPP_Setting.cs" />
+    <Compile Include="OCPP\database\OCPP_AuthCache.cs" />
+    <Compile Include="OCPP\database\OCPP_Manager_Table_Setting.cs" />
+    <Compile Include="OCPP\database\OCPP_TransactionInfo.cs" />
+    <Compile Include="OCPP\datatype\AuthorizationData.cs" />
+    <Compile Include="OCPP\datatype\AuthorizationStatus.cs" />
+    <Compile Include="OCPP\datatype\AvailabilityStatus.cs" />
+    <Compile Include="OCPP\datatype\AvailabilityType.cs" />
+    <Compile Include="OCPP\datatype\CancelReservationStatus.cs" />
+    <Compile Include="OCPP\datatype\ChargePointErrorCode.cs" />
+    <Compile Include="OCPP\datatype\ChargePointStatus.cs" />
+    <Compile Include="OCPP\datatype\ChargingProfile.cs" />
+    <Compile Include="OCPP\datatype\ChargingProfileKindType.cs" />
+    <Compile Include="OCPP\datatype\ChargingProfilePurposeType.cs" />
+    <Compile Include="OCPP\datatype\ChargingProfileStatus.cs" />
+    <Compile Include="OCPP\datatype\ChargingRateUnitType.cs" />
+    <Compile Include="OCPP\datatype\ChargingSchedule.cs" />
+    <Compile Include="OCPP\datatype\ChargingSchedulePeriod.cs" />
+    <Compile Include="OCPP\datatype\ClearCacheStatus.cs" />
+    <Compile Include="OCPP\datatype\ClearChargingProfileStatus.cs" />
+    <Compile Include="OCPP\datatype\ConfigurationStatus.cs" />
+    <Compile Include="OCPP\datatype\ConnectorType.cs" />
+    <Compile Include="OCPP\datatype\CSL_ConnectorPhaseRotation.cs" />
+    <Compile Include="OCPP\datatype\DataTransferStatus.cs" />
+    <Compile Include="OCPP\datatype\DiagnosticsStatus.cs" />
+    <Compile Include="OCPP\datatype\FirmwareStatus.cs" />
+    <Compile Include="OCPP\datatype\GetCompositeScheduleStatus.cs" />
+    <Compile Include="OCPP\datatype\IdTagInfo.cs" />
+    <Compile Include="OCPP\datatype\KeyValue.cs" />
+    <Compile Include="OCPP\datatype\Location.cs" />
+    <Compile Include="OCPP\datatype\Measurand.cs" />
+    <Compile Include="OCPP\datatype\MessageTrigger.cs" />
+    <Compile Include="OCPP\datatype\MeterValue.cs" />
+    <Compile Include="OCPP\datatype\Phase.cs" />
+    <Compile Include="OCPP\datatype\ReadingContext.cs" />
+    <Compile Include="OCPP\datatype\Reason.cs" />
+    <Compile Include="OCPP\datatype\RecurrencyKindType.cs" />
+    <Compile Include="OCPP\datatype\RegistrationStatus.cs" />
+    <Compile Include="OCPP\datatype\RemoteStartStopStatus.cs" />
+    <Compile Include="OCPP\datatype\ReservationStatus.cs" />
+    <Compile Include="OCPP\datatype\ResetStatus.cs" />
+    <Compile Include="OCPP\datatype\ResetType.cs" />
+    <Compile Include="OCPP\datatype\SampledValue.cs" />
+    <Compile Include="OCPP\datatype\TriggerMessageStatus.cs" />
+    <Compile Include="OCPP\datatype\UnitOfMeasure.cs" />
+    <Compile Include="OCPP\datatype\UnlockStatus.cs" />
+    <Compile Include="OCPP\datatype\UpdateStatus.cs" />
+    <Compile Include="OCPP\datatype\UpdateType.cs" />
+    <Compile Include="OCPP\datatype\ValueFormat.cs" />
+    <Compile Include="OCPP\EOCPP_Action_CP_Call.cs" />
+    <Compile Include="OCPP\EOCPP_Action_CSMS_Call.cs" />
+    <Compile Include="OCPP\Logger.cs" />
+    <Compile Include="OCPP\OCPP_Comm_Manager.cs" />
+    <Compile Include="OCPP\OCPP_Comm_SendMgr.cs" />
+    <Compile Include="OCPP\packet\common_action\Conf_DataTransfer.cs" />
+    <Compile Include="OCPP\packet\common_action\Req_DataTransfer.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Conf_Authorize.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Conf_BootNotification.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Conf_Heartbeat.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Conf_MeterValues.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Conf_StartTransaction.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Conf_StatusNotification.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Conf_StopTransaction.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_Authorize.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_Battery_Info.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_BootNotification.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_DiagnosticsStatusNotification.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_FirmwareStatusNotification.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_Heartbeat.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_MeterValues.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_StartTransaction.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_StatusNotification.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_StopTransaction.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_CancelReservation.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_ChangeAvailability.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_ChangeConfiguration.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_ClearCache.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_ClearChargingProfile.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_GetCompositeSchedule.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_GetConfiguration.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_GetDiagnostics.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_GetLocalListVersion.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_RemoteStartTransaction.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_RemoteStopTransaction.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_ReserveNow.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_Reset.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_SendLocalList.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_SetChargingProfile.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_TriggerMessage.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_UnlockConnector.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Conf_UpdateFirmware.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_CancelReservation.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_ChangeAvailability.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_ChangeConfiguration.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_ClearCache.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_ClearChargingProfile.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_GetCompositeSchedule.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_GetConfiguration.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_GetDiagnostics.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_GetLocalListVersion.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_RemoteStartTransaction.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_RemoteStopTransaction.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_ReserveNow.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_Reset.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_SendLocalList.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_SetChargingProfile.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_TriggerMessage.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_UnlockConnector.cs" />
+    <Compile Include="OCPP\packet\csms2cp\Req_UpdateFirmware.cs" />
+    <Compile Include="OCPP\packet\EL_OCPP_Packet_Wrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serial\sp_Master.cs" />
@@ -165,4 +294,14 @@
     <None Include="Resources\empty.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>이 프로젝트는 이 컴퓨터에 없는 NuGet 패키지를 참조합니다. 해당 패키지를 다운로드하려면 NuGet 패키지 복원을 사용하십시오. 자세한 내용은 http://go.microsoft.com/fwlink/?LinkID=322105를 참조하십시오. 누락된 파일은 {0}입니다.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
 </Project>

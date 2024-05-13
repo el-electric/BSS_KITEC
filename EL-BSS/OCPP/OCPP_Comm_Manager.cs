@@ -13,6 +13,7 @@ using EL_DC_Charger.ocpp.ver16.comm;
 using BatteryChangeCharger.Applications;
 using System.Diagnostics;
 using RestSharp.Extensions;
+using EL_BSS;
 
 namespace BatteryChangeCharger.OCPP
 {
