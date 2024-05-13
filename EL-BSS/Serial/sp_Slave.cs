@@ -30,7 +30,7 @@ namespace EL_BSS.Serial
                 serial.DataReceived += Comport1_DataReceived;
                 serial.Open();
 
-                Model.isOpen_Slave = true;
+                Model.getInstance().isOpen_Slave = true;
                 return true;
             }
             catch (Exception ex) { return false; }
@@ -59,7 +59,7 @@ namespace EL_BSS.Serial
             while (true)
             {
                 int startIndex = mReceive_Data.IndexOf(0xfe); // STX
-                if (!Model.FirmwareUpdate)
+                if (!Model.getInstance().FirmwareUpdate)
                 {
                     int packetLength = 71; // 패킷의 길이
 
@@ -94,7 +94,7 @@ namespace EL_BSS.Serial
                         break;
                     }
                 }
-                else if (Model.FirmwareUpdate)
+                else if (Model.getInstance().FirmwareUpdate)
                 {
                     int packetLength = 20; // 패킷의 길이
 
@@ -173,130 +173,128 @@ namespace EL_BSS.Serial
             else
                 idx = slaveId;
 
-            Model.list_SlaveDataRecvDatetime[idx - 1] = DateTime.Now;
+            Model.getInstance().list_SlaveDataRecvDatetime[idx - 1] = DateTime.Now;
 
-            Model.list_SlaveRecv[idx - 1].BatterArrive = EL_Manager_Conversion.getFlagByByteArray(packet[17], 7);
-            Model.list_SlaveRecv[idx - 1].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatterArrive = EL_Manager_Conversion.getFlagByByteArray(packet[17], 7);
+            Model.getInstance().list_SlaveRecv[idx - 1].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);
 
-            if (Model.list_SlaveRecv[idx - 1].isDoor)
-                Model.list_SlaveSend[idx - 1].doorOpen = false;
+            if (Model.getInstance().list_SlaveRecv[idx - 1].isDoor)
+                Model.getInstance().list_SlaveSend[idx - 1].doorOpen = false;
 
-            Model.list_SlaveRecv[idx - 1].SeqNum = packet[19];
-            Model.list_SlaveRecv[idx - 1].PowerPackStatus = EL_Manager_Conversion.getFlagByByteArray(packet[20], 7);
-            Model.list_SlaveRecv[idx - 1].PowerPackVoltage = EL_Manager_Conversion.getInt_2Byte(packet[21], packet[22]);
-            Model.list_SlaveRecv[idx - 1].PowerPackWattage = EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]);
-            Model.list_SlaveRecv[idx - 1].BatteryCurrentVoltage = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
-            Model.list_SlaveRecv[idx - 1].BatteryCurrentWattage = EL_Manager_Conversion.getInt_2Byte(packet[27], packet[28]);
-            Model.list_SlaveRecv[idx - 1].BatteryRequestVoltage = EL_Manager_Conversion.getInt_2Byte(packet[29], packet[30]);
-            if (Model.list_SlaveRecv[idx - 1].BatteryRequestVoltage == 0)
+            Model.getInstance().list_SlaveRecv[idx - 1].SeqNum = packet[19];
+            Model.getInstance().list_SlaveRecv[idx - 1].PowerPackStatus = EL_Manager_Conversion.getFlagByByteArray(packet[20], 7);
+            Model.getInstance().list_SlaveRecv[idx - 1].PowerPackVoltage = EL_Manager_Conversion.getInt_2Byte(packet[21], packet[22]);
+            Model.getInstance().list_SlaveRecv[idx - 1].PowerPackWattage = EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryCurrentVoltage = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryCurrentWattage = EL_Manager_Conversion.getInt_2Byte(packet[27], packet[28]);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage = EL_Manager_Conversion.getInt_2Byte(packet[29], packet[30]);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage == 0)
             { }
-            else if ((Model.list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) > 65)
+            else if ((Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) > 65)
             {
-                Model.list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = " 72V";
+                Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = " 72V";
             }
-            else if ((Model.list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) < 65)
+            else if ((Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) < 65)
             {
-                Model.list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = " 48V";
+                Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = " 48V";
             }
-            Model.list_SlaveRecv[idx - 1].BatteryRequestWattage = EL_Manager_Conversion.getInt_2Byte(packet[31], packet[32]);
-            Model.list_SlaveRecv[idx - 1].BatteryMaxTemper = EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]);
-            Model.list_SlaveRecv[idx - 1].BatteryMinTemper = EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]);
-            Model.list_SlaveRecv[idx - 1].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
-            Model.list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
-            Model.list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
-            Model.list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestWattage = EL_Manager_Conversion.getInt_2Byte(packet[31], packet[32]);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]);
+            Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
+            Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
+            Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
+            Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
 
             temp[0] = packet[50];
             temp[1] = packet[51];
-            Model.list_SlaveRecv[idx - 1].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
 
 
         }
 
         private static void HandlePacket_f1(byte[] packet)
-        {
-            Model model = new Model();
-
-            Model.PWUpdate_Receive_MasterID = packet[1];
-            Model.PWUpdate_Receive_SlaveID = packet[2];
+        {           
+            Model.getInstance().PWUpdate_Receive_MasterID = packet[1];
+            Model.getInstance().PWUpdate_Receive_SlaveID = packet[2];
             int JMT = 0;
             /*Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);*/
 
-            Model.PWUpdate_Send_Flag = packet[9];
-    
-            if(Model.PWUpdate_Send_Flag == 2)
+            Model.getInstance().PWUpdate_Send_Flag = packet[9];
+
+            if (Model.getInstance().PWUpdate_Send_Flag == 2)
             {
-                if (Model.Auto_Update)
+                if (Model.getInstance().Auto_Update)
                 {
-                    if (Model.PWUpdate_Receive_MasterID == 1)
+                    if (Model.getInstance().PWUpdate_Receive_MasterID == 1)
                     {
-                        if (Model.PWUpdate_Receive_SlaveID < 5)
+                        if (Model.getInstance().PWUpdate_Receive_SlaveID < 5)
                         {
-                            Model.PWUpdate_SlaveID++;
+                            Model.getInstance().PWUpdate_SlaveID++;
                         }
                         else
                         {
-                            Model.PWUpdate_MasterID = 2;
-                            Model.PWUpdate_SlaveID = 0;
+                            Model.getInstance().PWUpdate_MasterID = 2;
+                            Model.getInstance().PWUpdate_SlaveID = 0;
                         }
                     }
-                    else if (Model.PWUpdate_Receive_MasterID == 2)
+                    else if (Model.getInstance().PWUpdate_Receive_MasterID == 2)
                     {
-                        if (Model.PWUpdate_Receive_SlaveID < 5)
+                        if (Model.getInstance().PWUpdate_Receive_SlaveID < 5)
                         {
-                            Model.PWUpdate_SlaveID++;
+                            Model.getInstance().PWUpdate_SlaveID++;
                         }
                         else
                         {
-                            Model.FirmwareUpdate = false;
+                            Model.getInstance().FirmwareUpdate = false;
                         }
                     }
 
-                    byte[] bytes = model.makeMaserPacket(1);
+                    byte[] bytes = Model.getInstance().makeMaserPacket(1);
                     sp_Master.Write(bytes);
                 }
                 else
                 {
                     JMT = 2;
                     Console.WriteLine("SlaveJMT is 2");
-                    Model.FirmwareUpdate = false;
+                    Model.getInstance().FirmwareUpdate = false;
                 }
             }
-            else if (Model.PWUpdate_Send_Flag == 1)
+            else if (Model.getInstance().PWUpdate_Send_Flag == 1)
             {
                 JMT = 1;
                 Console.WriteLine("SlaveJMT is 1");
             }
 
-            Model.PWUpdate_Jump_Flag = packet[10];
+            Model.getInstance().PWUpdate_Jump_Flag = packet[10];
 
-            Model.Binary_Data_Seq = EL_Manager_Conversion.getInt_2Byte(packet[14], packet[15]);
+            Model.getInstance().Binary_Data_Seq = EL_Manager_Conversion.getInt_2Byte(packet[14], packet[15]);
 
             if (packet[16] == 0x06)
             {
-                Model.FirmWareisAck = true;
+                Model.getInstance().FirmWareisAck = true;
             }
             else if (packet[16] == 0x15)
             {
-                Model.FirmWareisNak = true;
+                Model.getInstance().FirmWareisNak = true;
             }
         }
 
         private static void HandlePacket_f0(byte[] packet)
         {
-            Model.boot_Version_Major = packet[9];
-            Model.boot_Version_Minor = packet[10];
-            Model.boot_Version_Patch = packet[11];
+            Model.getInstance().boot_Version_Major = packet[9];
+            Model.getInstance().boot_Version_Minor = packet[10];
+            Model.getInstance().boot_Version_Patch = packet[11];
 
-            Model.app1_Version_Major = packet[12];
-            Model.app1_Version_Minor = packet[13];
-            Model.app1_Version_Patch = packet[14];
+            Model.getInstance().app1_Version_Major = packet[12];
+            Model.getInstance().app1_Version_Minor = packet[13];
+            Model.getInstance().app1_Version_Patch = packet[14];
 
-            Model.app2_Version_Major = packet[15];
-            Model.app2_Version_Minor = packet[16];
-            Model.app2_Version_Patch = packet[17];
+            Model.getInstance().app2_Version_Major = packet[15];
+            Model.getInstance().app2_Version_Minor = packet[16];
+            Model.getInstance().app2_Version_Patch = packet[17];
 
-            Model.FirmwareUpdate = false;
+            Model.getInstance().FirmwareUpdate = false;
         }
 
         public static void Write(byte[] bytes)

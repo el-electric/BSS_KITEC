@@ -76,6 +76,7 @@
             this.picDoor_1 = new System.Windows.Forms.PictureBox();
             this.picDoor_0 = new System.Windows.Forms.PictureBox();
             this.picDoor_4 = new System.Windows.Forms.PictureBox();
+            this.pb_qr = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -92,6 +93,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_qr)).BeginInit();
             this.SuspendLayout();
             // 
             // splitter1
@@ -156,14 +158,15 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(38, 20);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(44, 20);
             this.tableLayoutPanel3.TabIndex = 13;
             // 
             // master_lamp0
             // 
+            this.master_lamp0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.master_lamp0.Location = new System.Drawing.Point(3, 3);
             this.master_lamp0.Name = "master_lamp0";
-            this.master_lamp0.Size = new System.Drawing.Size(13, 14);
+            this.master_lamp0.Size = new System.Drawing.Size(16, 14);
             this.master_lamp0.TabIndex = 11;
             this.master_lamp0.Text = "drakeUILampLED1";
             // 
@@ -171,9 +174,9 @@
             // 
             this.master_lamp1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.master_lamp1.Enabled = false;
-            this.master_lamp1.Location = new System.Drawing.Point(22, 3);
+            this.master_lamp1.Location = new System.Drawing.Point(25, 3);
             this.master_lamp1.Name = "master_lamp1";
-            this.master_lamp1.Size = new System.Drawing.Size(13, 14);
+            this.master_lamp1.Size = new System.Drawing.Size(16, 14);
             this.master_lamp1.TabIndex = 12;
             this.master_lamp1.Text = "drakeUILampLED2";
             // 
@@ -347,6 +350,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lbl_soc5, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.lbl_soc2, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.lbl_soc6, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.pb_qr, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -720,6 +724,16 @@
             this.picDoor_4.TabStop = false;
             this.picDoor_4.Visible = false;
             // 
+            // pb_qr
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.pb_qr, 2);
+            this.pb_qr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pb_qr.Location = new System.Drawing.Point(3, 3);
+            this.pb_qr.Name = "pb_qr";
+            this.pb_qr.Size = new System.Drawing.Size(348, 144);
+            this.pb_qr.TabIndex = 11;
+            this.pb_qr.TabStop = false;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -734,6 +748,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmMain";
             this.Text = "frmMain";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -751,6 +766,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb_qr)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -803,5 +819,6 @@
         private System.Windows.Forms.PictureBox picDoor_2;
         private System.Windows.Forms.PictureBox picDoor_1;
         private System.Windows.Forms.PictureBox picDoor_0;
+        private System.Windows.Forms.PictureBox pb_qr;
     }
 }

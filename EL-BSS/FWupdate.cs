@@ -35,26 +35,26 @@ namespace EL_BSS
 
         public void updateform()
         {
-            FW_Update_Progress.Text = Model.binBufferCount.ToString() + " / " + Model.binFileBuffer.Count;   // 업데이트 값 
-            FW_Update_Progress_Bar.Value = Model.binBufferCount;  // process bar 값 확인
-            Receive_Send_Flag.Text = Model.PWUpdate_Send_Flag.ToString();  // 전송 플래그 확인
+            FW_Update_Progress.Text = Model.getInstance().binBufferCount.ToString() + " / " + Model.getInstance().binFileBuffer.Count;   // 업데이트 값 
+            FW_Update_Progress_Bar.Value = Model.getInstance().binBufferCount;  // process bar 값 확인
+            Receive_Send_Flag.Text = Model.getInstance().PWUpdate_Send_Flag.ToString();  // 전송 플래그 확인
 
-            if (Model.PWUpdate_Send_Flag == 1 || Model.PWUpdate_Send_Flag == 2)   // 업데이트 성공 유무 확인
+            if (Model.getInstance().PWUpdate_Send_Flag == 1 || Model.getInstance().PWUpdate_Send_Flag == 2)   // 업데이트 성공 유무 확인
             {
                 string temp = "없음";
 
-                if (Model.FirmWareisNck_Count== 3)
+                if (Model.getInstance().FirmWareisNck_Count == 3)
                 {
                     temp = "실패";
                 }
-                else if (Model.PWUpdate_Send_Flag == 2)
+                else if (Model.getInstance().PWUpdate_Send_Flag == 2)
                 {
                     temp = "성공";
                 }
-                
 
-                Model.PWUpdate_Send_Flag = 0;
-                Model.FirmWareisNck_Count = 0;
+
+                Model.getInstance().PWUpdate_Send_Flag = 0;
+                Model.getInstance().FirmWareisNck_Count = 0;
 
                 this.Invoke(new MethodInvoker(delegate ()
                 {
@@ -62,8 +62,8 @@ namespace EL_BSS
                 }));
             }
 
-            Boot_Version_Text.Text = Model.boot_Version_Major.ToString() + "." + Model.boot_Version_Minor.ToString() + "." + Model.boot_Version_Patch.ToString();  //f0 패킷 보내고 값 확인
-            if (Model.app1_Version_Major == 255 && Model.app1_Version_Minor == 255 && Model.app1_Version_Patch == 255)
+            Boot_Version_Text.Text = Model.getInstance().boot_Version_Major.ToString() + "." + Model.getInstance().boot_Version_Minor.ToString() + "." + Model.getInstance().boot_Version_Patch.ToString();  //f0 패킷 보내고 값 확인
+            if (Model.getInstance().app1_Version_Major == 255 && Model.getInstance().app1_Version_Minor == 255 && Model.getInstance().app1_Version_Patch == 255)
             {
                 APP1_Exist = false;
                 APP1_Version_Text.Text = "없음";
@@ -71,10 +71,10 @@ namespace EL_BSS
             else
             {
                 APP1_Exist = true;
-                APP1_Version_Text.Text = Model.app1_Version_Major.ToString() + "." + Model.app1_Version_Minor.ToString() + "." + Model.app1_Version_Patch.ToString();
+                APP1_Version_Text.Text = Model.getInstance().app1_Version_Major.ToString() + "." + Model.getInstance().app1_Version_Minor.ToString() + "." + Model.getInstance().app1_Version_Patch.ToString();
             }
 
-            if (Model.app2_Version_Major == 255 && Model.app2_Version_Minor == 255 && Model.app2_Version_Patch == 255)
+            if (Model.getInstance().app2_Version_Major == 255 && Model.getInstance().app2_Version_Minor == 255 && Model.getInstance().app2_Version_Patch == 255)
             {
                 APP2_Exist = false;
                 APP2_Version_Text.Text = "없음";
@@ -82,24 +82,24 @@ namespace EL_BSS
             else
             {
                 APP2_Exist = true;
-                APP2_Version_Text.Text = Model.app2_Version_Major.ToString() + "." + Model.app2_Version_Minor.ToString() + "." + Model.app2_Version_Patch.ToString();
+                APP2_Version_Text.Text = Model.getInstance().app2_Version_Major.ToString() + "." + Model.getInstance().app2_Version_Minor.ToString() + "." + Model.getInstance().app2_Version_Patch.ToString();
             }
 
 
-            if (Model.PWUpdate_Jump_Flag == 1 || Model.PWUpdate_Jump_Flag == 2)  // 점프 확인
+            if (Model.getInstance().PWUpdate_Jump_Flag == 1 || Model.getInstance().PWUpdate_Jump_Flag == 2)  // 점프 확인
             {
                 string temp = "없음";
 
-                if (Model.PWUpdate_Jump_Flag == 1)
-                { 
-                    temp = "성공"; 
-                }
-                else if (Model.PWUpdate_Jump_Flag == 2)
+                if (Model.getInstance().PWUpdate_Jump_Flag == 1)
                 {
-                    temp = "실패"; 
+                    temp = "성공";
+                }
+                else if (Model.getInstance().PWUpdate_Jump_Flag == 2)
+                {
+                    temp = "실패";
                 }
 
-                Model.PWUpdate_Jump_Flag = 0;
+                Model.getInstance().PWUpdate_Jump_Flag = 0;
 
                 this.Invoke(new MethodInvoker(delegate ()
                 {
@@ -111,10 +111,10 @@ namespace EL_BSS
 
         private async void Select_File_Click(object sender, EventArgs e)
         {
-            Model.FirmwareUpdate_step = 0;
+            Model.getInstance().FirmwareUpdate_step = 0;
 
-            Model.binBufferCount = 0;
-            Model.binFileBuffer.Clear();
+            Model.getInstance().binBufferCount = 0;
+            Model.getInstance().binFileBuffer.Clear();
 
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "펌웨어 업데이트";
@@ -126,32 +126,32 @@ namespace EL_BSS
             if (dr == DialogResult.OK)
             {
                 string fileFullName = ofd.FileName;
-                Model.PWUpdate_New_Version_Major = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 9, 1));
-                Model.PWUpdate_New_Version_Minor = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 7, 1));
-                Model.PWUpdate_New_Version_Patch = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 5, 1));
+                Model.getInstance().PWUpdate_New_Version_Major = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 9, 1));
+                Model.getInstance().PWUpdate_New_Version_Minor = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 7, 1));
+                Model.getInstance().PWUpdate_New_Version_Patch = Convert.ToInt32(fileFullName.Substring(fileFullName.Length - 5, 1));
 
 
-                Model.binFile = File.ReadAllBytes(fileFullName);
+                Model.getInstance().binFile = File.ReadAllBytes(fileFullName);
 
-                Console.WriteLine($"Read {Model.binFile.Length} bytes");
+                Console.WriteLine($"Read {Model.getInstance().binFile.Length} bytes");
                 //string hexString = BitConverter.ToString(fileData).Replace("-", " ");                
 
 
                 int chunkSize = 200;
-                for (int i = 0; i < Model.binFile.Length; i += chunkSize)
+                for (int i = 0; i < Model.getInstance().binFile.Length; i += chunkSize)
                 {
                     // 현재 위치에서부터 chunkSize만큼 또는 배열의 끝까지의 길이를 계산
-                    int length = Math.Min(chunkSize, Model.binFile.Length - i);
+                    int length = Math.Min(chunkSize, Model.getInstance().binFile.Length - i);
                     byte[] chunk = new byte[length];
-                    Array.Copy(Model.binFile, i, chunk, 0, length);
-                    Model.binFileBuffer.Add(chunk);
+                    Array.Copy(Model    .getInstance().binFile, i, chunk, 0, length);
+                    Model.getInstance().binFileBuffer.Add(chunk);
                 }
 
                 await Task.Delay(500);
 
                 /* Model.masterFirmwareUpdate = true;*/
 
-                FW_Update_Progress_Bar.Maximum = Convert.ToInt32(Model.binFileBuffer.Count);
+                FW_Update_Progress_Bar.Maximum = Convert.ToInt32(Model.getInstance().binFileBuffer.Count);
             }
         }
 
@@ -163,12 +163,12 @@ namespace EL_BSS
             }
             else
             {
-                Model.f0_OR_f1Update_OR_f1Jump = 2;
-                Model.PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
-                Model.PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
-                Model.Jump_APP = Convert.ToInt32(Jump_APP_CB_Box.Text);
-                Model.FirmwareUpdate = true;
-                Model.FirmwareUpdate_step = 0;
+                Model.getInstance().f0_OR_f1Update_OR_f1Jump = 2;
+                Model.getInstance().PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
+                Model.getInstance().PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
+                Model.getInstance().Jump_APP = Convert.ToInt32(Jump_APP_CB_Box.Text);
+                Model.getInstance().FirmwareUpdate = true;
+                Model.getInstance().FirmwareUpdate_step = 0;
             }
         }
 
@@ -179,7 +179,7 @@ namespace EL_BSS
 
         private void Back_To_Main_Click(object sender, EventArgs e)
         {
-            Model.FirmwareUpdate = false;
+            Model.getInstance().FirmwareUpdate = false;
             frmFrame.deleMenuClick(0);
         }
 
@@ -191,11 +191,11 @@ namespace EL_BSS
             }
             else
             {
-                Model.PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
-                Model.PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
-                Model.FirmwareUpdate = true;
-                Model.FirmwareUpdate_step = 0;
-                Model.f0_OR_f1Update_OR_f1Jump = 1;
+                Model.getInstance().PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
+                Model.getInstance().PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
+                Model.getInstance().FirmwareUpdate = true;
+                Model.getInstance().FirmwareUpdate_step = 0;
+                Model.getInstance().f0_OR_f1Update_OR_f1Jump = 1;
             }
         }
 
@@ -214,16 +214,16 @@ namespace EL_BSS
         private void Auto_Update_CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (Auto_Update_CheckBox.Checked)
-                Model.Auto_Update = true;
+                Model.getInstance().Auto_Update = true;
             else
-                Model.Auto_Update = false;
+                Model.getInstance().Auto_Update = false;
         }
 
         private void Test_popup_Click(object sender, EventArgs e)
         {
             //frmPopup frm = new frmPopup();
 
- 
+
 
         }
 
@@ -235,21 +235,21 @@ namespace EL_BSS
             }
             else
             {
-                Model.PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
-                Model.PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
-                Model.Jump_APP = Convert.ToInt32(cb_jumpid.Text);
+                Model.getInstance().PWUpdate_MasterID = Convert.ToInt32(Setting_Master_Id_CB.Text);
+                Model.getInstance().PWUpdate_SlaveID = Convert.ToInt32(Setting_Slave_Id_CB.Text);
+                Model.getInstance().Jump_APP = Convert.ToInt32(cb_jumpid.Text);
 
-                if (Model.Jump_APP == 1 && APP1_Exist == true)
+                if (Model.getInstance().Jump_APP == 1 && APP1_Exist == true)
                 {
-                    Model.FirmwareUpdate = true;
-                    Model.FirmwareUpdate_step = 0;
-                    Model.f0_OR_f1Update_OR_f1Jump = 3;
+                    Model.getInstance().FirmwareUpdate = true;
+                    Model.getInstance().FirmwareUpdate_step = 0;
+                    Model.getInstance().f0_OR_f1Update_OR_f1Jump = 3;
                 }
-                else if (Model.Jump_APP == 2 && APP2_Exist == true)
+                else if (Model.getInstance().Jump_APP == 2 && APP2_Exist == true)
                 {
-                    Model.FirmwareUpdate = true;
-                    Model.FirmwareUpdate_step = 0;
-                    Model.f0_OR_f1Update_OR_f1Jump = 3;
+                    Model.getInstance().FirmwareUpdate = true;
+                    Model.getInstance().FirmwareUpdate_step = 0;
+                    Model.getInstance().f0_OR_f1Update_OR_f1Jump = 3;
                 }
                 else
                 {
@@ -259,7 +259,7 @@ namespace EL_BSS
             // Model.makeFirmwaref1_without_Binary(int.Parse(Setting_Master_Id_CB.Text), int.Parse(Setting_Slave_Id_CB.Text), int.Parse(cb_jumpid.Text));
         }
 
-        public void Show_Update_State(int master , int slave , int send_flag)
+        public void Show_Update_State(int master, int slave, int send_flag)
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
@@ -273,7 +273,7 @@ namespace EL_BSS
                                 ((DrakeUILabel)control).Text = "진행중";
                             else if (send_flag == 2)
                                 ((DrakeUILabel)control).Text = "완료";
-                            else if(send_flag == 3)
+                            else if (send_flag == 3)
                                 ((DrakeUILabel)control).Text = "실패";
                             break;
                         }
@@ -296,6 +296,11 @@ namespace EL_BSS
                     }
                 }
             }));
+        }
+
+        public void UpdateForm(string data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

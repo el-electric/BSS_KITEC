@@ -1,4 +1,4 @@
-﻿using BatteryChangeCharger.Manager;
+﻿
 using EL_DC_Charger.ocpp.ver16.datatype;
 using System;
 using System.Collections.Generic;

@@ -50,7 +50,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.drakeUITextBox1 = new DrakeUI.Framework.DrakeUITextBox();
+            this.tb_stationId = new DrakeUI.Framework.DrakeUITextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -68,7 +69,8 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox1.Controls.Add(this.drakeUITextBox1);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.tb_stationId);
             this.groupBox1.Controls.Add(this.Chage_To_FW);
             this.groupBox1.Controls.Add(this.Vkey_OFF_button);
             this.groupBox1.Controls.Add(this.Vkey_ON_button);
@@ -90,9 +92,9 @@
             // 
             // Chage_To_FW
             // 
-            this.Chage_To_FW.Location = new System.Drawing.Point(365, 58);
+            this.Chage_To_FW.Location = new System.Drawing.Point(252, 53);
             this.Chage_To_FW.Name = "Chage_To_FW";
-            this.Chage_To_FW.Size = new System.Drawing.Size(94, 32);
+            this.Chage_To_FW.Size = new System.Drawing.Size(94, 38);
             this.Chage_To_FW.TabIndex = 3;
             this.Chage_To_FW.Text = "펌웨어 \n업데이트 창";
             this.Chage_To_FW.UseVisualStyleBackColor = true;
@@ -100,9 +102,9 @@
             // 
             // Vkey_OFF_button
             // 
-            this.Vkey_OFF_button.Location = new System.Drawing.Point(242, 66);
+            this.Vkey_OFF_button.Location = new System.Drawing.Point(164, 52);
             this.Vkey_OFF_button.Name = "Vkey_OFF_button";
-            this.Vkey_OFF_button.Size = new System.Drawing.Size(117, 23);
+            this.Vkey_OFF_button.Size = new System.Drawing.Size(82, 38);
             this.Vkey_OFF_button.TabIndex = 33;
             this.Vkey_OFF_button.Text = "화상키보드 OFF";
             this.Vkey_OFF_button.UseVisualStyleBackColor = true;
@@ -110,9 +112,9 @@
             // 
             // Vkey_ON_button
             // 
-            this.Vkey_ON_button.Location = new System.Drawing.Point(130, 66);
+            this.Vkey_ON_button.Location = new System.Drawing.Point(79, 49);
             this.Vkey_ON_button.Name = "Vkey_ON_button";
-            this.Vkey_ON_button.Size = new System.Drawing.Size(106, 23);
+            this.Vkey_ON_button.Size = new System.Drawing.Size(79, 41);
             this.Vkey_ON_button.TabIndex = 32;
             this.Vkey_ON_button.Text = "화상키보드 ON";
             this.Vkey_ON_button.UseVisualStyleBackColor = true;
@@ -166,19 +168,19 @@
             // 
             // Back_Main
             // 
-            this.Back_Main.Location = new System.Drawing.Point(9, 66);
+            this.Back_Main.Location = new System.Drawing.Point(6, 49);
             this.Back_Main.Name = "Back_Main";
-            this.Back_Main.Size = new System.Drawing.Size(109, 23);
+            this.Back_Main.Size = new System.Drawing.Size(67, 41);
             this.Back_Main.TabIndex = 30;
-            this.Back_Main.Text = "매인화면으로";
+            this.Back_Main.Text = "매인";
             this.Back_Main.UseVisualStyleBackColor = true;
             this.Back_Main.Click += new System.EventHandler(this.Back_Main_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(245, 13);
+            this.button3.Location = new System.Drawing.Point(252, 13);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(101, 41);
+            this.button3.Size = new System.Drawing.Size(94, 33);
             this.button3.TabIndex = 29;
             this.button3.Text = "적용";
             this.button3.UseVisualStyleBackColor = true;
@@ -189,7 +191,7 @@
             this.label10.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label10.Location = new System.Drawing.Point(200, 17);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(36, 37);
+            this.label10.Size = new System.Drawing.Size(36, 29);
             this.label10.TabIndex = 28;
             this.label10.Text = "A";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -200,7 +202,7 @@
             this.label11.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label11.Location = new System.Drawing.Point(82, 17);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(36, 37);
+            this.label11.Size = new System.Drawing.Size(36, 29);
             this.label11.TabIndex = 27;
             this.label11.Text = "V";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -211,7 +213,7 @@
             this.label12.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label12.Location = new System.Drawing.Point(124, 17);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(70, 37);
+            this.label12.Size = new System.Drawing.Size(70, 29);
             this.label12.TabIndex = 26;
             this.label12.Text = "15";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -222,7 +224,7 @@
             this.label13.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label13.Location = new System.Drawing.Point(6, 17);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(70, 37);
+            this.label13.Size = new System.Drawing.Size(70, 29);
             this.label13.TabIndex = 25;
             this.label13.Text = "57.4";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -285,23 +287,33 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // drakeUITextBox1
+            // tb_stationId
             // 
-            this.drakeUITextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.drakeUITextBox1.FillColor = System.Drawing.Color.White;
-            this.drakeUITextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.drakeUITextBox1.Location = new System.Drawing.Point(466, 56);
-            this.drakeUITextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.drakeUITextBox1.Maximum = 2147483647D;
-            this.drakeUITextBox1.Minimum = -2147483648D;
-            this.drakeUITextBox1.Name = "drakeUITextBox1";
-            this.drakeUITextBox1.Padding = new System.Windows.Forms.Padding(5);
-            this.drakeUITextBox1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.drakeUITextBox1.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.drakeUITextBox1.Size = new System.Drawing.Size(159, 26);
-            this.drakeUITextBox1.Style = DrakeUI.Framework.UIStyle.Green;
-            this.drakeUITextBox1.TabIndex = 34;
-            this.drakeUITextBox1.Text = "drakeUITextBox1";
+            this.tb_stationId.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tb_stationId.FillColor = System.Drawing.Color.White;
+            this.tb_stationId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.tb_stationId.Location = new System.Drawing.Point(465, 59);
+            this.tb_stationId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tb_stationId.Maximum = 2147483647D;
+            this.tb_stationId.Minimum = -2147483648D;
+            this.tb_stationId.Name = "tb_stationId";
+            this.tb_stationId.Padding = new System.Windows.Forms.Padding(5);
+            this.tb_stationId.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
+            this.tb_stationId.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.tb_stationId.Size = new System.Drawing.Size(160, 26);
+            this.tb_stationId.Style = DrakeUI.Framework.UIStyle.Green;
+            this.tb_stationId.TabIndex = 34;
+            this.tb_stationId.Text = "drakeUITextBox1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("돋움", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(352, 64);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(111, 16);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "STATION ID :";
             // 
             // frmManual
             // 
@@ -317,6 +329,7 @@
             this.Load += new System.EventHandler(this.frmManual_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -345,6 +358,7 @@
         private System.Windows.Forms.Button Vkey_ON_button;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button Chage_To_FW;
-        private DrakeUI.Framework.DrakeUITextBox drakeUITextBox1;
+        private System.Windows.Forms.Label label1;
+        private DrakeUI.Framework.DrakeUITextBox tb_stationId;
     }
 }

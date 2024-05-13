@@ -44,12 +44,7 @@ namespace EL_BSS
         {
 
         }
-
-        public void UpdateForm(string data, Model model)
-        {
-
-
-        }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -92,9 +87,9 @@ namespace EL_BSS
                     {
                         if (!foundBattery && control.Name == "Battery_" + i)
                         {
-                            ((DrakeUIBatteryBar)control).Power = Model.list_SlaveRecv[i].SOC;
+                            ((DrakeUIBatteryBar)control).Power = Model.getInstance().list_SlaveRecv[i].SOC;
 
-                            if (Model.list_SlaveRecv[i].SOC.ToString().Equals("0"))
+                            if (Model.getInstance().list_SlaveRecv[i].SOC.ToString().Equals("0"))
                             {
                                 ((DrakeUIBatteryBar)control).MultiColor = false;
                                 ((DrakeUIBatteryBar)control).FillColor = Color.Transparent;
@@ -109,14 +104,14 @@ namespace EL_BSS
                         }
                         if (!foundLabel && control.Name == "lbl_soc" + i)
                         {
-                            if (Model.list_SlaveRecv[i].SOC.ToString().Equals("0"))
+                            if (Model.getInstance().list_SlaveRecv[i].SOC.ToString().Equals("0"))
                             {
                                 control.ForeColor = Color.Gray;
                                 control.Text = "Empty";
                             }
                             else
                             {
-                                control.Text = Model.list_SlaveRecv[i].SOC.ToString() + "%" + Model.list_SlaveRecv[i].Check_BatteryVoltage_Type;
+                                control.Text = Model.getInstance().list_SlaveRecv[i].SOC.ToString() + "%" + Model.getInstance().list_SlaveRecv[i].Check_BatteryVoltage_Type;
                                 control.ForeColor = Color.Black;
                             }
                             foundLabel = true;
@@ -130,11 +125,11 @@ namespace EL_BSS
                     {
                         if (!foundDoor && control.Name == "picDoor_" + i)
                         {
-                            if (Model.list_SlaveRecv[i].isDoor)
+                            if (Model.getInstance().list_SlaveRecv[i].isDoor)
                             {
                                 ((PictureBox)control).Visible = true;
                             }
-                            else if (!Model.list_SlaveRecv[i].isDoor)
+                            else if (!Model.getInstance().list_SlaveRecv[i].isDoor)
                             {
                                 ((PictureBox)control).Visible = false;
                             }
@@ -149,8 +144,8 @@ namespace EL_BSS
                     foreach (Control control in tableLayoutPanel2.Controls)
                     {
                         if (control.Name == "lamp" + i)
-                        {                            
-                            if (Model.list_SlaveDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
+                        {
+                            if (Model.getInstance().list_SlaveDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
                                 ((DrakeUILampLED)control).On = true;
                             else
                                 ((DrakeUILampLED)control).On = false;
@@ -165,7 +160,7 @@ namespace EL_BSS
                     {
                         if (control.Name == "master_lamp" + i)
                         {
-                            if (Model.list_MasterDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
+                            if (Model.getInstance().list_MasterDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
                                 ((DrakeUILampLED)control).On = true;
                             else
                                 ((DrakeUILampLED)control).On = false;
@@ -186,6 +181,23 @@ namespace EL_BSS
         private void drakeUIButtonIcon1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
+            barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
+
+            barcodeWriter.Options.Width = pb_qr.Width;
+            barcodeWriter.Options.Height = pb_qr.Height;
+            pb_qr.SizeMode = PictureBoxSizeMode.Zoom;
+            string qr_data = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "STATION", "ID");
+            if (qr_data != "")
+                this.pb_qr.Image = barcodeWriter.Write(qr_data);
+        }
+
+        public void UpdateForm(string data)
+        {            
         }
     }
 }

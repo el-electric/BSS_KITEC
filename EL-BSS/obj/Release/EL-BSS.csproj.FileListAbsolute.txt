@@ -1,0 +1,15 @@
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\bin\Release\EL-BSS.exe.config
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\bin\Release\EL-BSS.exe
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\bin\Release\EL-BSS.pdb
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\bin\Release\DrakeUI.Framework.dll
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL-BSS.csproj.AssemblyReference.cache
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL_BSS.frmFrame.resources
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL_BSS.frmMain.resources
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL_BSS.frmManual.resources
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL_BSS.frmSubManual.resources
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL_BSS.Properties.Resources.resources
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL-BSS.csproj.GenerateResource.cache
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL-BSS.csproj.CoreCompileInputs.cache
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL-BSS.csproj.CopyComplete
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL-BSS.exe
+C:\Users\hs\source\repos\EL-BSS\EL-BSS\obj\Release\EL-BSS.pdb

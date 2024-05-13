@@ -1,8 +1,7 @@
-﻿using BatteryChangeCharger.OCPP.database;
+﻿
 using BatteryChangeCharger.OCPP;
 using EL_BSS.Serial;
 using EL_DC_Charger.ocpp.ver16.comm;
-using EL_DC_Charger.ocpp.ver16.database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,60 +12,78 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using System.Data.SQLite;
+using Newtonsoft.Json;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace EL_BSS
 {
     public class Model
     {
+        private static Model instance;
+
+        Model()
+        {
+            mJsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            mJsonSerializerSettings.Formatting = Formatting.None;
+            mJsonSerializerSettings.StringEscapeHandling = StringEscapeHandling.EscapeNonAscii;
+        }
+
+        public static Model getInstance()
+        {
+            if (instance == null)
+                instance = new Model();
+            return instance;
+        }
 
         public frmFrame frmFrame;
 
         public int Charging_Step;
-        public static bool isOpen_Master;
-        public static bool isOpen_Slave;
+        public bool isOpen_Master;
+        public bool isOpen_Slave;
 
-        public static byte[] binFile;
-        public static List<byte[]> binFileBuffer = new List<byte[]>();
-        public static int binBufferCount = 0;
+        public byte[] binFile;
+        public List<byte[]> binFileBuffer = new List<byte[]>();
+        public int binBufferCount = 0;
 
-        public static int Jump_APP = 0;
-        public static int Read_Version = 1;
-        public static int PWUpdate_Send_Flag;
-        public static int PWUpdate_Jump_Flag;
-        public static int Binary_Data_Seq;
-        public static int PWUpdate_New_Version_Major = 1;
-        public static int PWUpdate_New_Version_Minor = 1;
-        public static int PWUpdate_New_Version_Patch = 1;
-        public static bool Auto_Update = false;
+        public int Jump_APP = 0;
+        public int Read_Version = 1;
+        public int PWUpdate_Send_Flag;
+        public int PWUpdate_Jump_Flag;
+        public int Binary_Data_Seq;
+        public int PWUpdate_New_Version_Major = 1;
+        public int PWUpdate_New_Version_Minor = 1;
+        public int PWUpdate_New_Version_Patch = 1;
+        public bool Auto_Update = false;
 
-        public static int boot_Version_Major;
-        public static int boot_Version_Minor;
-        public static int boot_Version_Patch;
-        public static int app1_Version_Major;
-        public static int app1_Version_Minor;
-        public static int app1_Version_Patch;
-        public static int app2_Version_Major;
-        public static int app2_Version_Minor;
-        public static int app2_Version_Patch;
-
-
-
-        public static bool FirmwareUpdate;
-        public static int f0_OR_f1Update_OR_f1Jump = 0; // 1 = f0 , 2 = f1 업데이트 패킷  3 = f1 점프용 패킷
-        public static int FirmwareUpdate_step = 0;
-        public static bool FirmWareisAck;
-        public static bool FirmWareisNak;
-        public static int FirmWareisNck_Count = 0;
-        public static int PWUpdate_MasterID;
-        public static int PWUpdate_Receive_MasterID = 1;
+        public int boot_Version_Major;
+        public int boot_Version_Minor;
+        public int boot_Version_Patch;
+        public int app1_Version_Major;
+        public int app1_Version_Minor;
+        public int app1_Version_Patch;
+        public int app2_Version_Major;
+        public int app2_Version_Minor;
+        public int app2_Version_Patch;
 
 
-        /*public static bool slaveFirmwareUpdate;
-        public static int slaveFirmwareUpdate_step = 0;
-        public static bool slaveFirmWareisAck;
-        public static bool slaveFirmWareisNck;*/
-        public static int PWUpdate_SlaveID;
-        public static int PWUpdate_Receive_SlaveID = 1;
+
+        public bool FirmwareUpdate;
+        public int f0_OR_f1Update_OR_f1Jump = 0; // 1 = f0 , 2 = f1 업데이트 패킷  3 = f1 점프용 패킷
+        public int FirmwareUpdate_step = 0;
+        public bool FirmWareisAck;
+        public bool FirmWareisNak;
+        public int FirmWareisNck_Count = 0;
+        public int PWUpdate_MasterID;
+        public int PWUpdate_Receive_MasterID = 1;
+
+
+        /*public bool slaveFirmwareUpdate;
+        public int slaveFirmwareUpdate_step = 0;
+        public bool slaveFirmWareisAck;
+        public bool slaveFirmWareisNck;*/
+        public int PWUpdate_SlaveID;
+        public int PWUpdate_Receive_SlaveID = 1;
 
 
         public int masterCount = 2;
@@ -75,32 +92,30 @@ namespace EL_BSS
         public string DefaultPath = "Application.StartupPath + @\"\\Config.ini\"";
 
         // 처음으로 사용자가 반납하기 버튼을 누른 시간
-        public static Nullable<DateTime> dt_First_ClickStartButton_Time = null;
-        public static Nullable<DateTime> Send_FWUpdate_Packet_Time = null;
+        public Nullable<DateTime> dt_First_ClickStartButton_Time = null;
+        public Nullable<DateTime> Send_FWUpdate_Packet_Time = null;
 
-        public static List<MasterSend> list_MasterSend = new List<MasterSend>();
-        public static List<MasterRecv> list_MasterRecv = new List<MasterRecv>();
+        public List<MasterSend> list_MasterSend = new List<MasterSend>();
+        public List<MasterRecv> list_MasterRecv = new List<MasterRecv>();
 
-        public static List<SlaveSend> list_SlaveSend = new List<SlaveSend>();
-        public static List<SlaveRecv> list_SlaveRecv = new List<SlaveRecv>();
+        public List<SlaveSend> list_SlaveSend = new List<SlaveSend>();
+        public List<SlaveRecv> list_SlaveRecv = new List<SlaveRecv>();
 
         //데이터 받는지 표시
-        public static List<DateTime> list_SlaveDataRecvDatetime = new List<DateTime>();
-        public static List<DateTime> list_MasterDataRecvDatetime = new List<DateTime>();
+        public List<DateTime> list_SlaveDataRecvDatetime = new List<DateTime>();
+        public List<DateTime> list_MasterDataRecvDatetime = new List<DateTime>();
 
-        public static string Master_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", "");
-        public static string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "");
+        public string Master_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", "");
+        public string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "");
 
-        public static bool Start_Return_Button = false;
+        public bool Start_Return_Button = false;
 
 
-        public SQLiteConnection connection;
-        public OCPP_Manager_Table_Setting oCPP_Manager_Table_Setting;
+        public SQLiteConnection connection;        
         public OCPP_Comm_Manager oCPP_Comm_Manager;
-        public OCPP_Comm_SendMgr oCPP_Comm_SendMgr;
-        public OCPP_AuthCache oCPP_AuthCache;
-        public OCPP_TransactionInfo oCPP_TransactionInfo;
-
+        public OCPP_Comm_SendMgr oCPP_Comm_SendMgr;                
+        public JsonSerializerSettings mJsonSerializerSettings = new JsonSerializerSettings();
+        public int HeartBeatInterval = 60;
         public class MasterSend
         {
             public bool boardReset;
@@ -424,38 +439,38 @@ namespace EL_BSS
         }
         public static byte[] make_f1()
         {
-            byte[] bytes = new byte[12 + binFileBuffer[binBufferCount].Length + 1];
+            byte[] bytes = new byte[12 + getInstance().binFileBuffer[getInstance().binBufferCount].Length + 1];
 
-            bytes[0] = (byte)PWUpdate_New_Version_Major;    // 9
-            bytes[1] = (byte)PWUpdate_New_Version_Minor;    // 10
-            bytes[2] = (byte)PWUpdate_New_Version_Patch;    // 11
-            if (binFileBuffer[binBufferCount++].Length < 200)  // 12            
+            bytes[0] = (byte)getInstance().PWUpdate_New_Version_Major;    // 9
+            bytes[1] = (byte)getInstance().PWUpdate_New_Version_Minor;    // 10
+            bytes[2] = (byte)getInstance().PWUpdate_New_Version_Patch;    // 11
+            if (getInstance().binFileBuffer[getInstance().binBufferCount++].Length < 200)  // 12            
                 bytes[3] = 2;
             else
                 bytes[3] = 1;
 
-            bytes[4] = (byte)Jump_APP;    //13
-            bytes[5] = (byte)Jump_APP;   // 14
+            bytes[4] = (byte)getInstance().Jump_APP;    //13
+            bytes[5] = (byte)getInstance().Jump_APP;   // 14
             bytes[6] = 0;    //15
 
-            bytes[7] = (byte)((binBufferCount >> 8) & 0x000000ff); //시퀀스    //16
-            bytes[8] = (byte)((binBufferCount) & 0x000000ff);    // 17
+            bytes[7] = (byte)((getInstance().binBufferCount >> 8) & 0x000000ff); //시퀀스    //16
+            bytes[8] = (byte)((getInstance().binBufferCount) & 0x000000ff);    // 17
 
             byte[] temp;
 
-            temp = CsUtil.getCRC16_CCITT(Model.binFile, 0, Model.binFile.Length + 3);
+            temp = CsUtil.getCRC16_CCITT(Model.getInstance().binFile, 0, Model.getInstance().binFile.Length + 3);
 
             /*bytes[9] = temp[0];     // 18
             bytes[10] = temp[1];    // 19*/
 
             bytes[9] = temp[1];     // 18 비정상 패킷
             bytes[10] = temp[0];
-            
 
-            bytes[11] = (byte)((binFileBuffer[binBufferCount - 1].Length >> 8) & 0x000000ff); //길이     //20
-            bytes[12] = (byte)((binFileBuffer[binBufferCount - 1].Length) & 0x000000ff);      // 21
 
-            Array.Copy(binFileBuffer[binBufferCount - 1], 0, bytes, 13, binFileBuffer[binBufferCount - 1].Length);  // 바이트를 쪼갠 파일, 쪼갠 파일의 시작 인덱스 , 붙일 파일 , 붙일 파일의 마지막 인덱스 , 바이트를 쪼갠 파일의 길이
+            bytes[11] = (byte)((getInstance().binFileBuffer[getInstance().binBufferCount - 1].Length >> 8) & 0x000000ff); //길이     //20
+            bytes[12] = (byte)((getInstance().binFileBuffer[getInstance().binBufferCount - 1].Length) & 0x000000ff);      // 21
+
+            Array.Copy(getInstance().binFileBuffer[getInstance().binBufferCount - 1], 0, bytes, 13, getInstance().binFileBuffer[getInstance().binBufferCount - 1].Length);  // 바이트를 쪼갠 파일, 쪼갠 파일의 시작 인덱스 , 붙일 파일 , 붙일 파일의 마지막 인덱스 , 바이트를 쪼갠 파일의 길이
 
             return bytes;
 
@@ -515,7 +530,7 @@ namespace EL_BSS
             bytes[7] = 0;
             bytes[8] = 1;
 
-            bytes[9] = (byte)Read_Version;
+            bytes[9] = (byte)getInstance().Read_Version;
 
             byte[] temp;
             temp = CsUtil.getCRC16_CCITT(bytes, 0, bytes.Length);

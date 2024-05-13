@@ -29,7 +29,7 @@ namespace EL_BSS.Serial
                 serial.DataReceived += Comport1_DataReceived;
                 serial.Open();
 
-                Model.isOpen_Master = true;
+                Model.getInstance().isOpen_Master = true;
 
                 return true;
             }
@@ -61,7 +61,7 @@ namespace EL_BSS.Serial
             while (true)
             {
                 int startIndex = mReceive_Data.IndexOf(0xfe); // STX
-                if (!Model.FirmwareUpdate)
+                if (!Model.getInstance().FirmwareUpdate)
                 {
                     int packetLength = 41; // 패킷의 길이
 
@@ -95,7 +95,7 @@ namespace EL_BSS.Serial
                         break;
                     }
                 }
-                else if (Model.FirmwareUpdate)
+                else if (Model.getInstance().FirmwareUpdate)
                 {
                     int packetLength = 20; // 패킷의 길이
 
@@ -164,84 +164,83 @@ namespace EL_BSS.Serial
             masterId = packet[4];
             slaveId = packet[5];
 
-            Model.list_MasterDataRecvDatetime[masterId - 1] = DateTime.Now;
+            Model.getInstance().list_MasterDataRecvDatetime[masterId - 1] = DateTime.Now;
 
-            Model.list_MasterRecv[masterId - 1].vibrationWarning = EL_Manager_Conversion.getFlagByByteArray(packet[20], 0);
-            Model.list_MasterRecv[masterId - 1].floodingWarning = EL_Manager_Conversion.getFlagByByteArray(packet[20], 6);
-            Model.list_MasterRecv[masterId - 1].floodingDanger = EL_Manager_Conversion.getFlagByByteArray(packet[20], 6);
-
-            Model.list_MasterRecv[masterId - 1].DIP_Switch_Chaeck = packet[22];
-            Model.list_MasterRecv[masterId - 1].Charger_UpperTemper = EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]);
-            Model.list_MasterRecv[masterId - 1].Charger_UpperTemper = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
-            Model.list_MasterRecv[masterId - 1].Charger_Humidity = packet[27];
-            Model.list_MasterRecv[masterId - 1].Charger_WaveSensor = EL_Manager_Conversion.getInt_2Byte(packet[28], packet[29]);
-            Model.list_MasterRecv[masterId - 1].Charger_LightSensor = EL_Manager_Conversion.getInt_2Byte(packet[30], packet[31]);
+            Model.getInstance().list_MasterRecv[masterId - 1].vibrationWarning = EL_Manager_Conversion.getFlagByByteArray(packet[20], 0);
+            Model.getInstance().list_MasterRecv[masterId - 1].floodingWarning = EL_Manager_Conversion.getFlagByByteArray(packet[20], 6);
+            Model.getInstance().list_MasterRecv[masterId - 1].floodingDanger = EL_Manager_Conversion.getFlagByByteArray(packet[20], 6);
+            Model.getInstance().list_MasterRecv[masterId - 1].DIP_Switch_Chaeck = packet[22];
+            Model.getInstance().list_MasterRecv[masterId - 1].Charger_UpperTemper = EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]);
+            Model.getInstance().list_MasterRecv[masterId - 1].Charger_UpperTemper = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
+            Model.getInstance().list_MasterRecv[masterId - 1].Charger_Humidity = packet[27];
+            Model.getInstance().list_MasterRecv[masterId - 1].Charger_WaveSensor = EL_Manager_Conversion.getInt_2Byte(packet[28], packet[29]);
+            Model.getInstance().list_MasterRecv[masterId - 1].Charger_LightSensor = EL_Manager_Conversion.getInt_2Byte(packet[30], packet[31]);
         }
 
         private static void HandlePacket_f1(byte[] packet)
         {
             // Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);
 
-            Model.PWUpdate_Receive_MasterID = packet[1];
-            Model.PWUpdate_Receive_SlaveID = packet[2];
+            Model.getInstance().PWUpdate_Receive_MasterID = packet[1];
+            Model.getInstance().PWUpdate_Receive_SlaveID = packet[2];
 
             int JMT = 0;
-            Model.PWUpdate_Send_Flag = packet[9];
+            Model.getInstance().PWUpdate_Send_Flag = packet[9];
 
-            if (Model.PWUpdate_Send_Flag == 2)
+            if (Model.getInstance().PWUpdate_Send_Flag == 2)
             {
-                if (Model.Auto_Update)
+                if (Model.getInstance().Auto_Update)
                 {
-                    if (Model.PWUpdate_Receive_MasterID == 1)
-                    { 
-                        Model.PWUpdate_SlaveID = 1; 
-                    }
-                    else if (Model.PWUpdate_Receive_MasterID == 2)
+                    if (Model.getInstance().PWUpdate_Receive_MasterID == 1)
                     {
-                        Model.PWUpdate_SlaveID = 1;
+                        Model.getInstance().PWUpdate_SlaveID = 1;
+                    }
+                    else if (Model.getInstance().PWUpdate_Receive_MasterID == 2)
+                    {
+                        Model.getInstance().PWUpdate_SlaveID = 1;
                     }
                 }
                 else
                 {
                     JMT = 2;
                     Console.WriteLine("SlaveJMT is 2");
-                    Model.FirmwareUpdate = false;
+                    Model.getInstance().FirmwareUpdate = false;
                 }
             }
-            else if (Model.PWUpdate_Send_Flag == 1)
+            else if (Model.getInstance().PWUpdate_Send_Flag == 1)
             {
                 JMT = 1;
                 Console.WriteLine("SlaveJMT is 1");
             }
 
-            Model.PWUpdate_Jump_Flag = packet[10];
+            Model.getInstance().PWUpdate_Jump_Flag = packet[10];
 
-            Model.Binary_Data_Seq = EL_Manager_Conversion.getInt_2Byte(packet[14], packet[15]);
+            Model.getInstance().Binary_Data_Seq = EL_Manager_Conversion.getInt_2Byte(packet[14], packet[15]);
             if (packet[16] == 0x06)
             {
-                Model.FirmWareisAck = true;
+                Model.getInstance().FirmWareisAck = true;
             }
             else if (packet[16] == 0x15)
             {
-                Model.FirmWareisNak = true;
+                Model.getInstance().FirmWareisNak = true;
             }
         }
 
         private static void HandlePacket_f0(byte[] packet)
         {
-            Model.boot_Version_Major = packet[9];
-            Model.boot_Version_Minor = packet[10];
-            Model.boot_Version_Patch = packet[11];
+            Model.getInstance().boot_Version_Major = packet[9];
+            Model.getInstance().boot_Version_Minor = packet[10];
+            Model.getInstance().boot_Version_Patch = packet[11];
 
-            Model.app1_Version_Major = packet[12];
-            Model.app1_Version_Minor = packet[13];
-            Model.app1_Version_Patch = packet[14];
+            Model.getInstance().app1_Version_Major = packet[12];
+            Model.getInstance().app1_Version_Minor = packet[13];
+            Model.getInstance().app1_Version_Patch = packet[14];
 
-            Model.app2_Version_Major = packet[15];
-            Model.app2_Version_Minor = packet[16];
-            Model.app2_Version_Patch = packet[17];
+            Model.getInstance().app2_Version_Major = packet[15];
+            Model.getInstance().app2_Version_Minor = packet[16];
+            Model.getInstance().app2_Version_Patch = packet[17];
 
-            Model.FirmwareUpdate = false;
+            Model.getInstance().FirmwareUpdate = false;
         }
         public static void Write(byte[] bytes)
         {

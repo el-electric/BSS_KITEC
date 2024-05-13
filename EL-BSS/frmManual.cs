@@ -41,10 +41,10 @@ namespace EL_BSS
             cb_master.Items.AddRange(port);
             cb_slave.Items.AddRange(port);
 
-            if (!Model.Master_PortName.Equals(""))
-                cb_master.Text = Model.Master_PortName;
-            if (!Model.Slave_PortName.Equals(""))
-                cb_slave.Text = Model.Slave_PortName;
+            if (!Model.getInstance().Master_PortName.Equals(""))
+                cb_master.Text = Model.getInstance().Master_PortName;
+            if (!Model.getInstance().Slave_PortName.Equals(""))
+                cb_slave.Text = Model.getInstance().Slave_PortName;
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -103,7 +103,7 @@ namespace EL_BSS
         {
             for (int i = 1; i < 9; i++)
             {
-                Model.list_SlaveSend[i - 1].doorOpen = true;
+                Model.getInstance().list_SlaveSend[i - 1].doorOpen = true;
             }
         }
 
@@ -121,6 +121,7 @@ namespace EL_BSS
         {
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", cb_master.Text);
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", cb_slave.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "STATION", "ID", tb_stationId.Text);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -130,23 +131,33 @@ namespace EL_BSS
 
         private void Vkey_ON_button_Click(object sender, EventArgs e)
         {
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+
             Vkeyvoard VKeyboard = new Vkeyvoard();
             VKeyboard.showKeyboard();
-            VKeyboard.moveWindow(0, 0, 250, 100);
+
+            int keyboardWidth = 250;  // 키보드의 너비
+            int keyboardHeight = 100; // 키보드의 높이
+            VKeyboard.moveWindow(0, screenHeight - keyboardHeight, keyboardWidth, keyboardHeight);
         }
 
         private void Vkey_OFF_button_Click(object sender, EventArgs e)
         {
-            VKeyboard.hideKeyboard();
+            try
+            {
+                VKeyboard.hideKeyboard();
+            }
+            catch { }
         }
 
         private async void btn_firmup1_Click(object sender, EventArgs e)   // 파일을 선택하는 버튼
         {
-            Model.FirmwareUpdate_step = 0;
+            Model.getInstance().FirmwareUpdate_step = 0;
 
-            Model.binBufferCount = 0;
-            Model.binFileBuffer.Clear();
-            Model.isOpen_Master = false;
+            Model.getInstance().binBufferCount = 0;
+            Model.getInstance().binFileBuffer.Clear();
+            Model.getInstance().isOpen_Master = false;
 
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "펌웨어 업데이트";
@@ -159,26 +170,26 @@ namespace EL_BSS
             {
                 string fileFullName = ofd.FileName;
 
-                Model.binFile = File.ReadAllBytes(fileFullName);
-                Console.WriteLine($"Read {Model.binFile.Length} bytes");
+                Model.getInstance().binFile = File.ReadAllBytes(fileFullName);
+                Console.WriteLine($"Read {Model.getInstance().binFile.Length} bytes");
 
 
                 //string hexString = BitConverter.ToString(fileData).Replace("-", " ");                
 
 
                 int chunkSize = 200;
-                for (int i = 0; i < Model.binFile.Length; i += chunkSize)
+                for (int i = 0; i < Model.getInstance().binFile.Length; i += chunkSize)
                 {
                     // 현재 위치에서부터 chunkSize만큼 또는 배열의 끝까지의 길이를 계산
-                    int length = Math.Min(chunkSize, Model.binFile.Length - i);
+                    int length = Math.Min(chunkSize, Model.getInstance().binFile.Length - i);
                     byte[] chunk = new byte[length];
-                    Array.Copy(Model.binFile, i, chunk, 0, length);
-                    Model.binFileBuffer.Add(chunk);
+                    Array.Copy(Model.getInstance().binFile, i, chunk, 0, length);
+                    Model.getInstance().binFileBuffer.Add(chunk);
                 }
 
                 await Task.Delay(500);
 
-                Model.FirmwareUpdate = true;
+                Model.getInstance().FirmwareUpdate = true;
             }
         }
 
@@ -190,6 +201,11 @@ namespace EL_BSS
         private void Chage_To_FW_Click(object sender, EventArgs e)
         {
             frmFrame.deleMenuClick(2);
+        }
+
+        public void UpdateForm(string data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

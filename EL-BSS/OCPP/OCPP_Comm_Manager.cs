@@ -1,4 +1,4 @@
-﻿using BatteryChangeCharger.BatteryChange_Charger.Controller;
+﻿
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System;
@@ -10,9 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EL_DC_Charger.ocpp.ver16.comm;
-using BatteryChangeCharger.Applications;
 using System.Diagnostics;
-using RestSharp.Extensions;
 using EL_BSS;
 
 namespace BatteryChangeCharger.OCPP
@@ -38,11 +36,11 @@ namespace BatteryChangeCharger.OCPP
                 Console.WriteLine("재접속");
                 //await Reconnect(url);
             }
-            if (webSocket.State == WebSocketState.Open && !MyApplication.getInstance().is_offline)
+            if (webSocket.State == WebSocketState.Open /*&& !Model.getInstance().is_offline*/)
             {
-                for (int i = 0; i < MyApplication.getInstance().oCPP_Comm_SendMgr.list_packet.Count; i++)
+                for (int i = 0; i < Model.getInstance().oCPP_Comm_SendMgr.list_packet.Count; i++)
                 {
-                    await SendMessageAsync(MyApplication.getInstance().oCPP_Comm_SendMgr.list_packet[i].mPacket.ToString());
+                    await SendMessageAsync(Model.getInstance().oCPP_Comm_SendMgr.list_packet[i].mPacket.ToString());
                 }
             }
         }
@@ -56,7 +54,7 @@ namespace BatteryChangeCharger.OCPP
                 if (result.MessageType == WebSocketMessageType.Text)
                 {
                     string receivedMessage = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    MyApplication.getInstance().oCPP_Comm_SendMgr.ReceivedPacket(receivedMessage);
+                    Model.getInstance().oCPP_Comm_SendMgr.ReceivedPacket(receivedMessage);
                     Console.WriteLine("Received: " + receivedMessage);
                 }
                 else if (result.MessageType == WebSocketMessageType.Close)

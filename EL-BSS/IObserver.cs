@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 namespace EL_BSS
 {
     public interface IObserver
-    {
+    {        
         void InitForm();
         void UpdateForm(Model model);
+
+        void UpdateForm(string data);
     }
 }

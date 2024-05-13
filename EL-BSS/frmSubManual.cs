@@ -38,21 +38,21 @@ namespace EL_BSS
         public void updateView()
         {
 
-            if (Model.list_SlaveRecv.Count > 0)
+            if (Model.getInstance().list_SlaveRecv.Count > 0)
             {
                 // 시간이 흐를때 마다 변경되는 내용을 넣어서 업데이트를 시킨다
-                SOC_percent.Text = Model.list_SlaveRecv[mSLot_Number - 1].SOC.ToString() + "%";
-                SOH_percent.Text = Model.list_SlaveRecv[mSLot_Number - 1].SOH.ToString() + "%";
-                if (Model.list_SlaveRecv[mSLot_Number - 1].PowerPackStatus)
+                SOC_percent.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].SOC.ToString() + "%";
+                SOH_percent.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].SOH.ToString() + "%";
+                if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].PowerPackStatus)
                 {
                     Power_Pack_State.Text = "ON";
                 }
-                else if (!Model.list_SlaveRecv[mSLot_Number - 1].PowerPackStatus)
+                else if (!Model.getInstance().list_SlaveRecv[mSLot_Number - 1].PowerPackStatus)
                 {
                     Power_Pack_State.Text = "OFF";
                 }
 
-                switch (Model.list_SlaveRecv[mSLot_Number - 1].ProcessStatus.ToString())
+                switch (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].ProcessStatus.ToString())
                 {
 
                     case "1":
@@ -85,16 +85,16 @@ namespace EL_BSS
                 }
                 Process_State.Text = val;
 
-                Power_Pack_outvoltage.Text = ((double)Model.list_SlaveRecv[mSLot_Number - 1].PowerPackVoltage / 10).ToString();
-                Power_Pack_Wattage.Text = ((double)Model.list_SlaveRecv[mSLot_Number - 1].PowerPackWattage / 10).ToString();
-                Battery_get_Voltage.Text = ((double)Model.list_SlaveRecv[mSLot_Number - 1].BatteryRequestVoltage / 10).ToString();
-                Battery_get_Wattage.Text = ((double)Model.list_SlaveRecv[mSLot_Number - 1].BatteryRequestWattage / 10).ToString();
-                Battery_Current_Voltage.Text = ((double)Model.list_SlaveRecv[mSLot_Number - 1].BatteryCurrentVoltage / 10).ToString();
-                Battery_Current_Wattage.Text = ((double)Model.list_SlaveRecv[mSLot_Number - 1].BatteryCurrentWattage / 10).ToString();
-                Battery_Highest_temp.Text = Model.list_SlaveRecv[mSLot_Number - 1].BatteryMaxTemper.ToString();
-                Battery_Lowest_temp.Text = Model.list_SlaveRecv[mSLot_Number - 1].BatteryMinTemper.ToString();
+                Power_Pack_outvoltage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].PowerPackVoltage / 10).ToString();
+                Power_Pack_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].PowerPackWattage / 10).ToString();
+                Battery_get_Voltage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryRequestVoltage / 10).ToString();
+                Battery_get_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryRequestWattage / 10).ToString();
+                Battery_Current_Voltage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryCurrentVoltage / 10).ToString();
+                Battery_Current_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryCurrentWattage / 10).ToString();
+                Battery_Highest_temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMaxTemper.ToString();
+                Battery_Lowest_temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMinTemper.ToString();
 
-                Bettery_Type.Text = Model.list_SlaveRecv[mSLot_Number - 1].BatteryType.ToString();
+                Bettery_Type.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryType.ToString();
 
             }
 
@@ -105,7 +105,7 @@ namespace EL_BSS
         private void button1_Click(object sender, EventArgs e) // door open
         {
 
-            Model.list_SlaveSend[mSLot_Number - 1].doorOpen = true;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].doorOpen = true;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -125,57 +125,57 @@ namespace EL_BSS
 
         private void button11_Click(object sender, EventArgs e)  // 출력 없음
         {
-            Model.list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
-            Model.list_SlaveSend[mSLot_Number - 1].Output = false;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
         }
 
         private void button10_Click(object sender, EventArgs e) // 출력(배터리 연동)
         {
-            Model.list_SlaveSend[mSLot_Number - 1].BatteryOutput = true;
-            Model.list_SlaveSend[mSLot_Number - 1].Output = false;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = true;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            if (Model.list_SlaveSend[mSLot_Number - 1].LED_Blue == false)
-            { Model.list_SlaveSend[mSLot_Number - 1].LED_Blue = true; }
-            else if (Model.list_SlaveSend[mSLot_Number - 1].LED_Blue == true)
-            { Model.list_SlaveSend[mSLot_Number - 1].LED_Blue = false; }
+            if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Blue == false)
+            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Blue = true; }
+            else if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Blue == true)
+            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Blue = false; }
         }
 
         private void button9_Click(object sender, EventArgs e) // 출력(배터리 연동 없음)
         {
-            Model.list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
-            Model.list_SlaveSend[mSLot_Number - 1].Output = true;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = true;
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (Model.list_SlaveSend[mSLot_Number - 1].LED_Green == false)
-            { Model.list_SlaveSend[mSLot_Number - 1].LED_Green = true; }
-            else if (Model.list_SlaveSend[mSLot_Number - 1].LED_Green == true)
-            { Model.list_SlaveSend[mSLot_Number - 1].LED_Green = false; }
+            if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Green == false)
+            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Green = true; }
+            else if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Green == true)
+            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Green = false; }
         }
 
         private void button8_Click(object sender, EventArgs e) // Led_red
         {
-            if (Model.list_SlaveSend[mSLot_Number - 1].LED_Red == false)
-            { Model.list_SlaveSend[mSLot_Number - 1].LED_Red = true; }
-            else if (Model.list_SlaveSend[mSLot_Number - 1].LED_Red == true)
-            { Model.list_SlaveSend[mSLot_Number - 1].LED_Red = false; }
+            if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Red == false)
+            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Red = true; }
+            else if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Red == true)
+            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].LED_Red = false; }
         }
 
         private void DOOR_CLOSE_Button_Click(object sender, EventArgs e) // door close
         {
-            Model.list_SlaveSend[mSLot_Number - 1].doorOpen = false;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].doorOpen = false;
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            if (Model.list_SlaveSend[mSLot_Number - 1].BatteryWakeup == false)
-            { Model.list_SlaveSend[mSLot_Number - 1].BatteryWakeup = true; }
-            else if (Model.list_SlaveSend[mSLot_Number - 1].BatteryWakeup == true)
-            { Model.list_SlaveSend[mSLot_Number - 1].BatteryWakeup = false; }
+            if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup == false)
+            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = true; }
+            else if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup == true)
+            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = false; }
         }
 
         public void InitForm()
@@ -190,18 +190,18 @@ namespace EL_BSS
 
         private void manual_on_Click(object sender, EventArgs e)
         {
-            Model.list_SlaveSend[mSLot_Number - 1].hmiManual = true;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].hmiManual = true;
         }
 
         private void manual_off_Click(object sender, EventArgs e)
         {
-            Model.list_SlaveSend[mSLot_Number - 1].hmiManual = false;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].hmiManual = false;
         }
 
         private void send_voltage_wattage_Click(object sender, EventArgs e)
         {
-            Model.list_SlaveSend[mSLot_Number - 1].request_Voltage = (Convert.ToInt32(put_Battery_voltage.Text) * 10);
-            Model.list_SlaveSend[mSLot_Number - 1].request_Wattage = (Convert.ToInt32(put_Battery_wattage.Text) * 10);
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].request_Voltage = (Convert.ToInt32(put_Battery_voltage.Text) * 10);
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].request_Wattage = (Convert.ToInt32(put_Battery_wattage.Text) * 10);
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -218,7 +218,7 @@ namespace EL_BSS
 
         private void send_board_Reset_Click(object sender, EventArgs e)
         {
-            Model.list_SlaveSend[mSLot_Number - 1].boardReset = true;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].boardReset = true;
         }
     }
 }
