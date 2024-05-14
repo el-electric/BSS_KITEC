@@ -20,14 +20,14 @@ namespace EL_BSS.Cycle
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
             {
                 case CsDefine.CYC_INIT:
-                    CurrentStep = CsDefine.CYC_MAIN;
+                    CurrentStep = CsDefine.CYC_INIT;
                     Model.getInstance().oCPP_Comm_Manager = new OCPP_Comm_Manager();
                     Model.getInstance().oCPP_Comm_SendMgr = new OCPP_Comm_SendMgr();
                     NextStep();
                     break;
                 case CsDefine.CYC_INIT + 1:
-                    string Bootnotification = Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
-                    Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(Bootnotification);
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
+                    //Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(Bootnotification);
                     JumpStep(CsDefine.CYC_MAIN);
                     break;
 
@@ -45,7 +45,7 @@ namespace EL_BSS.Cycle
                     break;
 
                 case CsDefine.CYC_MAIN + 2:
-                    mainFormLabelUpdate("6666");       
+                    mainFormLabelUpdate("6666");
                     break;
                 case CsDefine.CYC_AUTHORIZE:
                     break;
