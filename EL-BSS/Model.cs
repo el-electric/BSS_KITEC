@@ -228,7 +228,7 @@ namespace EL_BSS
             public Nullable<DateTime> dt_First_BatterArrive_Time = null;
 
             // 배터리 타입 구분
-            public string Check_BatteryVoltage_Type = null;
+            public int Check_BatteryVoltage_Type;
 
             ////////////
 

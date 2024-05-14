@@ -112,7 +112,7 @@ namespace EL_BSS
                             }
                             else
                             {
-                                control.Text = Model.getInstance().list_SlaveRecv[i].SOC.ToString() + "%" + Model.getInstance().list_SlaveRecv[i].Check_BatteryVoltage_Type;
+                                control.Text = Model.getInstance().list_SlaveRecv[i].SOC.ToString() + "%" + Model.getInstance().list_SlaveRecv[i].Check_BatteryVoltage_Type + "V";
                                 control.ForeColor = Color.Black;
                             }
                             foundLabel = true;

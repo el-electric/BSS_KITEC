@@ -23,13 +23,13 @@ namespace EL_BSS.Cycle
         public const int CYC_FETON = 1000;
         public const int CYC_CHECK = 1100;
         public const int CYC_CHARGING_STOP = 1200;
-        public const int CYC_WAKEUP = 1300;
 
         public const int CYC_END = 0;
 
 
         public const int CYC_RUN = 1;
         public const int CYC_WAKEUP = 2;
+        public const int CYC_STATUSCHECK = 3;
         //public const int CYC_Firmware = 2;
 
         public static int[] Cyc_Rail = new int[5];

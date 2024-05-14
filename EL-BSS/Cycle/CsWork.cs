@@ -26,13 +26,12 @@ namespace EL_BSS.Cycle
                     NextStep();
                     break;
                 case CsDefine.CYC_INIT + 1:
-                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
+                    // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
                     //Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(Bootnotification);
                     JumpStep(CsDefine.CYC_MAIN);
                     break;
 
                 case CsDefine.CYC_MAIN:
-                    CurrentStep = CsDefine.CYC_MAIN;
                     mainFormLabelUpdate("start");
                     NextStep();
                     break;
@@ -54,6 +53,7 @@ namespace EL_BSS.Cycle
                 case CsDefine.CYC_INSERT_BATTERY_SECOND:
                     break;
                 case CsDefine.CYC_CHARGING:
+                    CsWakeup.CYC_WAKEUP();
                     break;
                 case CsDefine.CYC_RETRIEVE_BATTERY_FIRST:
                     break;
