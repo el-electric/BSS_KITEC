@@ -1,4 +1,5 @@
 ﻿using DrakeUI.Framework;
+using EL_BSS.Cycle;
 using EL_BSS.Serial;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace EL_BSS
         {
 
         }
-        
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -69,7 +70,7 @@ namespace EL_BSS
 
         private void button5_Click(object sender, EventArgs e)
         {
-            button1.Text = ((double)588 / 10).ToString();
+            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
         }
 
         private void BatteryInfoShow()
@@ -197,7 +198,12 @@ namespace EL_BSS
         }
 
         public void UpdateForm(string data)
-        {            
+        {
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_END;
         }
     }
 }

@@ -1,0 +1,303 @@
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "b02a7148-2c65-4315-bc4f-4521b55eff68",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "b28b792e-4620-48e7-ac4e-47cf6db09dc8",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "b7282515-7b04-4250-af5e-c769df6049d7",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "48d25807-b035-4438-b8e2-830a9bdc777f",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "9d8e11e2-5e7e-4962-9304-6b8bb7ebff0c",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "369c13c4-2a15-4cd9-97d0-ba27a8c6ae34",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "1a491136-4f24-4972-9476-3fb323595b4d",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "fed9b6b4-c9fb-46ef-8acd-463484155ee9",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "c24d5c09-e257-4ac7-aec2-494b1a68c420",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "fe79ec2f-f614-49d0-9b2a-b1581afcfc25",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "71cb1726-1be5-4443-9389-82e975a4ae5f",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "d89189fa-ef75-4458-8d56-f7ce813b37e9",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "a2e4f7c4-d342-439a-84be-48671b6f7a6c",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "b02a7148-2c65-4315-bc4f-4521b55eff68",
+  {
+    "currentTime": "2024-05-13 오후 4:11:04",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "fd11efd0-299e-4d2f-9785-fb7fb85c68d0",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "799d1b07-30f6-452c-a3b3-5c81839b1a71",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "b28b792e-4620-48e7-ac4e-47cf6db09dc8",
+  {
+    "currentTime": "2024-05-13 오후 4:11:04",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "8e7eddb2-dac1-4db4-868c-1db0e8cb52c9",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "b7282515-7b04-4250-af5e-c769df6049d7",
+  {
+    "currentTime": "2024-05-13 오후 4:11:04",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "6bc9567d-b11a-4e73-9452-17429d8dd293",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "9d8e11e2-5e7e-4962-9304-6b8bb7ebff0c",
+  {
+    "currentTime": "2024-05-13 오후 4:11:04",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:11:04] ＠Send Success＠ : [2,
+  "0603c8ac-3039-4c4e-88e8-99f7fc23e536",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:11:04] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "369c13c4-2a15-4cd9-97d0-ba27a8c6ae34",
+  {
+    "currentTime": "2024-05-13 오후 4:11:04",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:12:10] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "b32b71f5-0b03-4d2b-b23d-ed93f0d87cce",
+  {
+    "currentTime": "2024-05-13 오후 4:12:10",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:12:13] ＠Send Success＠ : [2,
+  "b32b71f5-0b03-4d2b-b23d-ed93f0d87cce",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:12:54] ＠Send Success＠ : [2,
+  "b75fb591-95e2-4075-96e1-3ca45f052f8c",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:12:54] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "b75fb591-95e2-4075-96e1-3ca45f052f8c",
+  {
+    "currentTime": "2024-05-13 오후 4:12:54",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:13:29] ＠Send Success＠ : [2,
+  "ad0b2816-e971-467e-8883-57fbc0c5d714",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:13:29] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "ad0b2816-e971-467e-8883-57fbc0c5d714",
+  {
+    "currentTime": "2024-05-13 오후 4:13:28",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:13:45] ＠Send Success＠ : [2,
+  "39e910bc-b822-4f28-83aa-8251dd193a97",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:13:45] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "39e910bc-b822-4f28-83aa-8251dd193a97",
+  {
+    "currentTime": "2024-05-13 오후 4:13:45",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:13:45] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "39e910bc-b822-4f28-83aa-8251dd193a97",
+  {
+    "currentTime": "2024-05-13 오후 4:13:45",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:14:26] ＠Send Success＠ : [2,
+  "2bab288a-7669-4861-bf27-7723871e545d",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:14:26] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "2bab288a-7669-4861-bf27-7723871e545d",
+  {
+    "currentTime": "2024-05-13 오후 4:14:26",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:14:43] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "2bab288a-7669-4861-bf27-7723871e545d",
+  {
+    "currentTime": "2024-05-13 오후 4:14:26",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:14:46] ＠Send Success＠ : [2,
+  "fb5441cb-0d01-48dc-9233-c1afc8b6c27d",
+  "BootNotification",
+  {
+    "chargeBoxSerialNumber": "STA01"
+  }
+]
+[2024-05-13 16:14:49] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "fb5441cb-0d01-48dc-9233-c1afc8b6c27d",
+  {
+    "currentTime": "2024-05-13 오후 4:14:43",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:14:49] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "fb5441cb-0d01-48dc-9233-c1afc8b6c27d",
+  {
+    "currentTime": "2024-05-13 오후 4:14:43",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]
+[2024-05-13 16:14:49] ☆Receive☆ OCPP CSMS->CP Call => [
+  3,
+  "fb5441cb-0d01-48dc-9233-c1afc8b6c27d",
+  {
+    "currentTime": "2024-05-13 오후 4:14:43",
+    "interval": 3600,
+    "status": "Accepted"
+  }
+]

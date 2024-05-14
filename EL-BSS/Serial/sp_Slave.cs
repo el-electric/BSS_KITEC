@@ -1,6 +1,7 @@
 ﻿using DrakeUI.Framework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
@@ -162,8 +163,6 @@ namespace EL_BSS.Serial
         {
             //Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);
 
-
-
             masterId = packet[4];
             slaveId = packet[5];
 
@@ -210,7 +209,40 @@ namespace EL_BSS.Serial
             temp[1] = packet[51];
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
 
+           
+            if (Model.getInstance().Check_statusnotification[idx - 1] == null)
+            {
+                Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
+                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx - 1, "NoError", Model.getInstance().Check_statusnotification[idx - 1]);
+            }
+            else
+            {
+                if (Model.getInstance().Check_statusnotification[idx - 1] != Check_Status(idx - 1))
+                {
+                    Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx - 1, "NoError", Model.getInstance().Check_statusnotification[idx - 1]);
+                }
+            }
+        }
 
+        private static string Check_Status(int i)
+        {
+            if (Model.getInstance().list_SlaveRecv[idx - 1].SeqNum == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            {
+                return "Charging";
+            }
+            else if (Model.getInstance().list_SlaveRecv[idx - 1].SeqNum == 101 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            {
+                return "Finishing";
+            }
+            else if (Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            {
+                return "Preparing";
+            }
+            else
+            {
+                return "Available";
+            }
         }
 
         private static void HandlePacket_f1(byte[] packet)

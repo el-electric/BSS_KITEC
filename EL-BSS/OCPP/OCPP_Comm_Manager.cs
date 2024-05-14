@@ -24,7 +24,8 @@ namespace BatteryChangeCharger.OCPP
         string url;
         public OCPP_Comm_Manager()
         {
-            url = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "wss://dev.wev-charger.com:12200/ws/NYJ-TEST0001");
+            //url = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://dev.wev-charger.com:12200/ws/NYJ-TEST0001");
+            url = "ws://192.168.0.90:8181";
             ConnectAsync(url);
             connectionCheckTimer = new Timer(CheckConnectionStatus, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
         }

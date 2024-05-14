@@ -305,16 +305,15 @@ namespace EL_BSS
             while (true)
             {
                 CsWork.Main_WorkCycle();
+                //CsFirmwareUpdate.Main_WorkCycle();
                 Thread.Sleep(1);
             }
-
-
-
-
         }
 
+        
         private void bck_Counting_DoWork(object sender, DoWorkEventArgs e)
         {
+            
             while (true)
             {
                 for (int i = 0; i < 5; i++)

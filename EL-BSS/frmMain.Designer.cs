@@ -50,6 +50,14 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.picDoor_7 = new System.Windows.Forms.PictureBox();
+            this.picDoor_6 = new System.Windows.Forms.PictureBox();
+            this.picDoor_5 = new System.Windows.Forms.PictureBox();
+            this.picDoor_4 = new System.Windows.Forms.PictureBox();
+            this.picDoor_3 = new System.Windows.Forms.PictureBox();
+            this.picDoor_2 = new System.Windows.Forms.PictureBox();
+            this.picDoor_1 = new System.Windows.Forms.PictureBox();
+            this.picDoor_0 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_soc3 = new System.Windows.Forms.Label();
             this.lbl_soc7 = new System.Windows.Forms.Label();
@@ -67,16 +75,9 @@
             this.lbl_soc5 = new System.Windows.Forms.Label();
             this.lbl_soc2 = new System.Windows.Forms.Label();
             this.lbl_soc6 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.picDoor_3 = new System.Windows.Forms.PictureBox();
-            this.picDoor_7 = new System.Windows.Forms.PictureBox();
-            this.picDoor_6 = new System.Windows.Forms.PictureBox();
-            this.picDoor_2 = new System.Windows.Forms.PictureBox();
-            this.picDoor_5 = new System.Windows.Forms.PictureBox();
-            this.picDoor_1 = new System.Windows.Forms.PictureBox();
-            this.picDoor_0 = new System.Windows.Forms.PictureBox();
-            this.picDoor_4 = new System.Windows.Forms.PictureBox();
             this.pb_qr = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -84,15 +85,15 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_qr)).BeginInit();
             this.SuspendLayout();
             // 
@@ -278,6 +279,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
@@ -286,7 +288,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(112, 394);
             this.panel1.TabIndex = 9;
-            this.panel1.Visible = false;
             // 
             // button5
             // 
@@ -327,6 +328,102 @@
             this.button1.Text = "c1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // picDoor_7
+            // 
+            this.picDoor_7.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_7.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_7.Image")));
+            this.picDoor_7.Location = new System.Drawing.Point(293, 506);
+            this.picDoor_7.Name = "picDoor_7";
+            this.picDoor_7.Size = new System.Drawing.Size(113, 102);
+            this.picDoor_7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_7.TabIndex = 8;
+            this.picDoor_7.TabStop = false;
+            this.picDoor_7.Visible = false;
+            // 
+            // picDoor_6
+            // 
+            this.picDoor_6.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_6.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_6.Image")));
+            this.picDoor_6.Location = new System.Drawing.Point(304, 404);
+            this.picDoor_6.Name = "picDoor_6";
+            this.picDoor_6.Size = new System.Drawing.Size(95, 87);
+            this.picDoor_6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_6.TabIndex = 7;
+            this.picDoor_6.TabStop = false;
+            this.picDoor_6.Visible = false;
+            // 
+            // picDoor_5
+            // 
+            this.picDoor_5.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_5.Image = global::EL_BSS.Properties.Resources._6;
+            this.picDoor_5.Location = new System.Drawing.Point(310, 301);
+            this.picDoor_5.Name = "picDoor_5";
+            this.picDoor_5.Size = new System.Drawing.Size(95, 87);
+            this.picDoor_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_5.TabIndex = 6;
+            this.picDoor_5.TabStop = false;
+            this.picDoor_5.Visible = false;
+            // 
+            // picDoor_4
+            // 
+            this.picDoor_4.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_4.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_4.Image")));
+            this.picDoor_4.Location = new System.Drawing.Point(313, 190);
+            this.picDoor_4.Name = "picDoor_4";
+            this.picDoor_4.Size = new System.Drawing.Size(99, 98);
+            this.picDoor_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_4.TabIndex = 5;
+            this.picDoor_4.TabStop = false;
+            this.picDoor_4.Visible = false;
+            // 
+            // picDoor_3
+            // 
+            this.picDoor_3.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_3.Image = global::EL_BSS.Properties.Resources._31;
+            this.picDoor_3.Location = new System.Drawing.Point(170, 479);
+            this.picDoor_3.Name = "picDoor_3";
+            this.picDoor_3.Size = new System.Drawing.Size(88, 97);
+            this.picDoor_3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_3.TabIndex = 4;
+            this.picDoor_3.TabStop = false;
+            this.picDoor_3.Visible = false;
+            // 
+            // picDoor_2
+            // 
+            this.picDoor_2.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_2.Image = global::EL_BSS.Properties.Resources._31;
+            this.picDoor_2.Location = new System.Drawing.Point(170, 377);
+            this.picDoor_2.Name = "picDoor_2";
+            this.picDoor_2.Size = new System.Drawing.Size(88, 97);
+            this.picDoor_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_2.TabIndex = 3;
+            this.picDoor_2.TabStop = false;
+            this.picDoor_2.Visible = false;
+            // 
+            // picDoor_1
+            // 
+            this.picDoor_1.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_1.Image = global::EL_BSS.Properties.Resources._2;
+            this.picDoor_1.Location = new System.Drawing.Point(170, 281);
+            this.picDoor_1.Name = "picDoor_1";
+            this.picDoor_1.Size = new System.Drawing.Size(88, 88);
+            this.picDoor_1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_1.TabIndex = 1;
+            this.picDoor_1.TabStop = false;
+            this.picDoor_1.Visible = false;
+            // 
+            // picDoor_0
+            // 
+            this.picDoor_0.BackColor = System.Drawing.Color.Transparent;
+            this.picDoor_0.Image = global::EL_BSS.Properties.Resources._1_1;
+            this.picDoor_0.Location = new System.Drawing.Point(171, 183);
+            this.picDoor_0.Name = "picDoor_0";
+            this.picDoor_0.Size = new System.Drawing.Size(88, 83);
+            this.picDoor_0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDoor_0.TabIndex = 0;
+            this.picDoor_0.TabStop = false;
+            this.picDoor_0.Visible = false;
             // 
             // tableLayoutPanel1
             // 
@@ -623,107 +720,6 @@
             this.lbl_soc6.TabIndex = 8;
             this.lbl_soc6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 500;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // picDoor_3
-            // 
-            this.picDoor_3.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_3.Image = global::EL_BSS.Properties.Resources._31;
-            this.picDoor_3.Location = new System.Drawing.Point(170, 479);
-            this.picDoor_3.Name = "picDoor_3";
-            this.picDoor_3.Size = new System.Drawing.Size(88, 97);
-            this.picDoor_3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_3.TabIndex = 4;
-            this.picDoor_3.TabStop = false;
-            this.picDoor_3.Visible = false;
-            // 
-            // picDoor_7
-            // 
-            this.picDoor_7.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_7.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_7.Image")));
-            this.picDoor_7.Location = new System.Drawing.Point(293, 506);
-            this.picDoor_7.Name = "picDoor_7";
-            this.picDoor_7.Size = new System.Drawing.Size(113, 102);
-            this.picDoor_7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_7.TabIndex = 8;
-            this.picDoor_7.TabStop = false;
-            this.picDoor_7.Visible = false;
-            // 
-            // picDoor_6
-            // 
-            this.picDoor_6.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_6.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_6.Image")));
-            this.picDoor_6.Location = new System.Drawing.Point(304, 404);
-            this.picDoor_6.Name = "picDoor_6";
-            this.picDoor_6.Size = new System.Drawing.Size(95, 87);
-            this.picDoor_6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_6.TabIndex = 7;
-            this.picDoor_6.TabStop = false;
-            this.picDoor_6.Visible = false;
-            // 
-            // picDoor_2
-            // 
-            this.picDoor_2.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_2.Image = global::EL_BSS.Properties.Resources._31;
-            this.picDoor_2.Location = new System.Drawing.Point(170, 377);
-            this.picDoor_2.Name = "picDoor_2";
-            this.picDoor_2.Size = new System.Drawing.Size(88, 97);
-            this.picDoor_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_2.TabIndex = 3;
-            this.picDoor_2.TabStop = false;
-            this.picDoor_2.Visible = false;
-            // 
-            // picDoor_5
-            // 
-            this.picDoor_5.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_5.Image = global::EL_BSS.Properties.Resources._6;
-            this.picDoor_5.Location = new System.Drawing.Point(310, 301);
-            this.picDoor_5.Name = "picDoor_5";
-            this.picDoor_5.Size = new System.Drawing.Size(95, 87);
-            this.picDoor_5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_5.TabIndex = 6;
-            this.picDoor_5.TabStop = false;
-            this.picDoor_5.Visible = false;
-            // 
-            // picDoor_1
-            // 
-            this.picDoor_1.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_1.Image = global::EL_BSS.Properties.Resources._2;
-            this.picDoor_1.Location = new System.Drawing.Point(170, 281);
-            this.picDoor_1.Name = "picDoor_1";
-            this.picDoor_1.Size = new System.Drawing.Size(88, 88);
-            this.picDoor_1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_1.TabIndex = 1;
-            this.picDoor_1.TabStop = false;
-            this.picDoor_1.Visible = false;
-            // 
-            // picDoor_0
-            // 
-            this.picDoor_0.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_0.Image = global::EL_BSS.Properties.Resources._1_1;
-            this.picDoor_0.Location = new System.Drawing.Point(171, 183);
-            this.picDoor_0.Name = "picDoor_0";
-            this.picDoor_0.Size = new System.Drawing.Size(88, 83);
-            this.picDoor_0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_0.TabIndex = 0;
-            this.picDoor_0.TabStop = false;
-            this.picDoor_0.Visible = false;
-            // 
-            // picDoor_4
-            // 
-            this.picDoor_4.BackColor = System.Drawing.Color.Transparent;
-            this.picDoor_4.Image = ((System.Drawing.Image)(resources.GetObject("picDoor_4.Image")));
-            this.picDoor_4.Location = new System.Drawing.Point(313, 190);
-            this.picDoor_4.Name = "picDoor_4";
-            this.picDoor_4.Size = new System.Drawing.Size(99, 98);
-            this.picDoor_4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picDoor_4.TabIndex = 5;
-            this.picDoor_4.TabStop = false;
-            this.picDoor_4.Visible = false;
-            // 
             // pb_qr
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.pb_qr, 2);
@@ -733,6 +729,21 @@
             this.pb_qr.Size = new System.Drawing.Size(348, 144);
             this.pb_qr.TabIndex = 11;
             this.pb_qr.TabStop = false;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(4, 239);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(83, 23);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "매뉴얼 모드";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // frmMain
             // 
@@ -756,16 +767,16 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDoor_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDoor_0)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDoor_4)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_qr)).EndInit();
             this.ResumeLayout(false);
 
@@ -820,5 +831,6 @@
         private System.Windows.Forms.PictureBox picDoor_1;
         private System.Windows.Forms.PictureBox picDoor_0;
         private System.Windows.Forms.PictureBox pb_qr;
+        private System.Windows.Forms.Button button2;
     }
 }

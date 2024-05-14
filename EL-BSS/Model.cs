@@ -115,6 +115,8 @@ namespace EL_BSS
         public OCPP_Comm_Manager oCPP_Comm_Manager;
         public OCPP_Comm_SendMgr oCPP_Comm_SendMgr;                
         public JsonSerializerSettings mJsonSerializerSettings = new JsonSerializerSettings();
+        public string[] Check_statusnotification = new string[8];
+
         public int HeartBeatInterval = 60;
         public class MasterSend
         {
@@ -543,6 +545,28 @@ namespace EL_BSS
             { sp_Master.Write(bytes); }
             else
             { sp_Slave.Write(bytes); }
+        }
+
+        private bool Check_100SOC_Battery()
+        {
+            int Check_Slot_Count = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                if (Model.getInstance().list_SlaveRecv[i].SOC == 0 &&
+                    Model.getInstance().list_SlaveRecv[i].dt_First_BatterArrive_Time != null &&
+                    Model.getInstance().list_SlaveRecv[i].dt_First_BatterArrive_Time.Value.AddMinutes(5) <= DateTime.Now)
+                {
+                    Check_Slot_Count++;
+                }
+            }
+            if (Check_Slot_Count < 2)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

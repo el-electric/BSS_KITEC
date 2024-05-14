@@ -1,4 +1,6 @@
-﻿using DrakeUI.Framework;
+﻿using BatteryChangeCharger.OCPP;
+using DrakeUI.Framework;
+using EL_DC_Charger.ocpp.ver16.comm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +19,49 @@ namespace EL_BSS.Cycle
         {
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
             {
-                case CsDefine.CYC_WORK:
-                    CurrentStep = CsDefine.CYC_WORK;
+                case CsDefine.CYC_INIT:
+                    CurrentStep = CsDefine.CYC_MAIN;
+                    Model.getInstance().oCPP_Comm_Manager = new OCPP_Comm_Manager();
+                    Model.getInstance().oCPP_Comm_SendMgr = new OCPP_Comm_SendMgr();
                     NextStep();
                     break;
-                case CsDefine.CYC_WORK + 1:
-                    mainFormLabelUpdate("1245");
+                case CsDefine.CYC_INIT + 1:
+                    string Bootnotification = Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
+                    Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(Bootnotification);
+                    JumpStep(CsDefine.CYC_MAIN);
+                    break;
+
+                case CsDefine.CYC_MAIN:
+                    CurrentStep = CsDefine.CYC_MAIN;
+                    mainFormLabelUpdate("start");
                     NextStep();
                     break;
+                case CsDefine.CYC_MAIN + 1:
+                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
+                    {
+                        mainFormLabelUpdate("1245");
+                        NextStep();
+                    }
+                    break;
+
+                case CsDefine.CYC_MAIN + 2:
+                    mainFormLabelUpdate("6666");       
+                    break;
+                case CsDefine.CYC_AUTHORIZE:
+                    break;
+                case CsDefine.CYC_INSERT_BATTERY_FIRST:
+                    break;
+                case CsDefine.CYC_INSERT_BATTERY_SECOND:
+                    break;
+                case CsDefine.CYC_CHARGING:
+                    break;
+                case CsDefine.CYC_RETRIEVE_BATTERY_FIRST:
+                    break;
+                case CsDefine.CYC_RETRIEVE_BATTERY_SECOND:
+                    break;
+                case CsDefine.CYC_COMPLETE:
+                    break;
+
             }
 
         }
@@ -32,8 +69,11 @@ namespace EL_BSS.Cycle
         {
             CsDefine.Delayed[CsDefine.CYC_RUN] = 0;
             CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = ++CurrentStep;
+        }
 
-
+        private static void JumpStep(int step)
+        {
+            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = step;
         }
 
         private static void mainFormLabelUpdate(string context)
