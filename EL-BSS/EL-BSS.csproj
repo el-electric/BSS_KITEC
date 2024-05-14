@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="CsUtil.cs" />
     <Compile Include="CsDefine.cs" />
+    <Compile Include="Cycle\CsCharging.cs" />
     <Compile Include="Cycle\CsWork.cs" />
     <Compile Include="EL_Manager_Conversion.cs" />
     <Compile Include="FWupdate.cs">

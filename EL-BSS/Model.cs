@@ -116,6 +116,7 @@ namespace EL_BSS
         public OCPP_Comm_SendMgr oCPP_Comm_SendMgr;                
         public JsonSerializerSettings mJsonSerializerSettings = new JsonSerializerSettings();
         public string[] Check_statusnotification = new string[8];
+        public bool Send_bootnotification = false;
 
         public int HeartBeatInterval = 60;
         public class MasterSend
@@ -152,6 +153,7 @@ namespace EL_BSS
             public bool LED_Green;
             public bool LED_Red;
 
+            public bool BatteryFETON;
             public bool BatteryWakeup;
             public bool BatteryOutput;
             public bool Output;
@@ -231,7 +233,9 @@ namespace EL_BSS
             ////////////
 
             /////C1/////
-
+            public bool WAKEUP_Signal = false;
+            public bool FET_ON_State = false;
+            public int Serial_Number;
             ////////////
 
         }
@@ -375,6 +379,8 @@ namespace EL_BSS
                 bytes[19] |= 0x01;
 
             bytes[20] = 0;
+            if(list_SlaveSend[idx - 1].BatteryFETON)
+                bytes[20] |= 0x20;
             if (list_SlaveSend[idx - 1].BatteryWakeup)
                 bytes[20] |= 0x10;
             if (list_SlaveSend[idx - 1].BatteryOutput)

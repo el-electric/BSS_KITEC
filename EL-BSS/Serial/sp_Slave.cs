@@ -209,19 +209,47 @@ namespace EL_BSS.Serial
             temp[1] = packet[51];
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
 
-           
-            if (Model.getInstance().Check_statusnotification[idx - 1] == null)
+            if (Model.getInstance().Send_bootnotification)
             {
-                Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
-                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx - 1, "NoError", Model.getInstance().Check_statusnotification[idx - 1]);
+                if (Model.getInstance().Check_statusnotification[idx] == null)
+                {
+                    Model.getInstance().Check_statusnotification[idx] = Check_Status(idx - 1);
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx, "NoError", Model.getInstance().Check_statusnotification[idx - 1]);
+                }
+                else
+                {
+                    if (Model.getInstance().Check_statusnotification[idx - 1] != Check_Status(idx - 1))
+                    {
+                        Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
+                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx, "NoError", Model.getInstance().Check_statusnotification[idx - 1]);
+                    }
+                }
+            }
+
+            Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal = EL_Manager_Conversion.getFlagByByteArray(packet[56], 0);
+            Model.getInstance().list_SlaveRecv[idx - 1].Serial_Number = EL_Manager_Conversion.getInt_2Byte(packet[66], packet[67]);
+            Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State = EL_Manager_Conversion.getFlagByByteArray(packet[55], 7);
+        }
+
+        protected bool Check_100SOC_Battery()
+        {
+            int Check_Slot_Count = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                if (Model.getInstance().list_SlaveRecv[i].SOC == 0 &&
+                    Model.getInstance().list_SlaveRecv[i].dt_First_BatterArrive_Time != null &&
+                    Model.getInstance().list_SlaveRecv[i].dt_First_BatterArrive_Time.Value.AddMinutes(5) <= DateTime.Now)
+                {
+                    Check_Slot_Count++;
+                }
+            }
+            if (Check_Slot_Count < 2)
+            {
+                return false;
             }
             else
             {
-                if (Model.getInstance().Check_statusnotification[idx - 1] != Check_Status(idx - 1))
-                {
-                    Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
-                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx - 1, "NoError", Model.getInstance().Check_statusnotification[idx - 1]);
-                }
+                return true;
             }
         }
 
