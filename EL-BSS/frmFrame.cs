@@ -1,4 +1,5 @@
-﻿using DrakeUI.Framework;
+﻿using BatteryChangeCharger.OCPP;
+using DrakeUI.Framework;
 using EL_BSS.Cycle;
 using EL_BSS.Serial;
 using System;
@@ -28,7 +29,7 @@ namespace EL_BSS
         frmMain frmMain = new frmMain();
         frmManual frmManual = new frmManual();
         FWupdate FWupdate = new FWupdate();
-
+        frmCodeInput frmCodeInput = new frmCodeInput();
         public frmFrame()
         {
             InitializeComponent();
@@ -62,10 +63,10 @@ namespace EL_BSS
             }
 
 
-            //if (!sp_Master.Open(Master_PortName))
-            //    MessageBox.Show("마스터 포트 오픈 실패");
-            //if (!sp_Slave.Open(Model.Slave_PortName))
-            //    MessageBox.Show("슬레이브 포트 오픈 실패");
+            if (!sp_Master.Open(Model.getInstance().Master_PortName))
+                MessageBox.Show("마스터 포트 오픈 실패");
+            if (!sp_Slave.Open(Model.getInstance().Slave_PortName))
+                MessageBox.Show("슬레이브 포트 오픈 실패");
 
         }
 
@@ -101,14 +102,16 @@ namespace EL_BSS
             frmMain.TopLevel = false;
             frmManual.TopLevel = false;
             FWupdate.TopLevel = false;
+            frmCodeInput.TopLevel = false;
             frmMain.Show();
             frmManual.Show();
             FWupdate.Show();
-
+            frmCodeInput.Show();
             foreach (IObserver observer in observers)
             {
                 observer.InitForm();
             }
+
         }
 
         public async void viewForm(int idx)
@@ -139,6 +142,9 @@ namespace EL_BSS
                 case 2:
                     FWupdate.timer1.Enabled = true;
                     panel2.Controls.Add(FWupdate);
+                    break;
+                case 3:
+                    panel2.Controls.Add(frmCodeInput);
                     break;
                 case 10:
 
@@ -305,15 +311,16 @@ namespace EL_BSS
             while (true)
             {
                 CsWork.Main_WorkCycle();
+                CsWork.OCPP_IntervalCycle();
                 //CsFirmwareUpdate.Main_WorkCycle();
                 Thread.Sleep(1);
             }
         }
 
-        
+
         private void bck_Counting_DoWork(object sender, DoWorkEventArgs e)
         {
-            
+
             while (true)
             {
                 for (int i = 0; i < 5; i++)

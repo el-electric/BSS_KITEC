@@ -168,7 +168,7 @@ namespace EL_BSS.Serial
 
             Model.getInstance().list_MasterRecv[masterId - 1].vibrationWarning = EL_Manager_Conversion.getFlagByByteArray(packet[20], 0);
             Model.getInstance().list_MasterRecv[masterId - 1].floodingWarning = EL_Manager_Conversion.getFlagByByteArray(packet[20], 6);
-            Model.getInstance().list_MasterRecv[masterId - 1].floodingDanger = EL_Manager_Conversion.getFlagByByteArray(packet[20], 6);
+            Model.getInstance().list_MasterRecv[masterId - 1].floodingDanger = EL_Manager_Conversion.getFlagByByteArray(packet[20], 7);
             Model.getInstance().list_MasterRecv[masterId - 1].DIP_Switch_Chaeck = packet[22];
             Model.getInstance().list_MasterRecv[masterId - 1].Charger_UpperTemper = EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]);
             Model.getInstance().list_MasterRecv[masterId - 1].Charger_UpperTemper = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
@@ -243,7 +243,7 @@ namespace EL_BSS.Serial
             Model.getInstance().FirmwareUpdate = false;
         }
         public static void Write(byte[] bytes)
-        {
+        {            
             serial.Write(bytes, 0, bytes.Length);
         }
     }

@@ -83,6 +83,12 @@
     <Compile Include="Cycle\CsWakeup.cs" />
     <Compile Include="Cycle\CsWork.cs" />
     <Compile Include="EL_Manager_Conversion.cs" />
+    <Compile Include="frmCodeInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCodeInput.Designer.cs">
+      <DependentUpon>frmCodeInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="FWupdate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +232,9 @@
     <Compile Include="Serial\sp_Master.cs" />
     <Compile Include="Serial\sp_Slave.cs" />
     <Compile Include="Vkeyvoard.cs" />
+    <EmbeddedResource Include="frmCodeInput.resx">
+      <DependentUpon>frmCodeInput.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FWupdate.resx">
       <DependentUpon>FWupdate.cs</DependentUpon>
     </EmbeddedResource>

@@ -45,6 +45,8 @@ namespace EL_BSS
                 cb_master.Text = Model.getInstance().Master_PortName;
             if (!Model.getInstance().Slave_PortName.Equals(""))
                 cb_slave.Text = Model.getInstance().Slave_PortName;
+
+            tb_stationId.Text = Model.getInstance().StationId;
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)

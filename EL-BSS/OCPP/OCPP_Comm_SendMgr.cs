@@ -15,6 +15,8 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.ComponentModel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Threading.Tasks;
+using System.Runtime.Remoting.Messaging;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -27,16 +29,15 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
         public ChargePointStatus[] channelStatuses = new ChargePointStatus[2];
 
-        public void sendOCPP_CP_Req_BootNotification()
+        public async Task<string> sendOCPP_CP_Req_BootNotification()
         {
-            var data = new Object[]
+            var data = new
             {
-                new
-                {
-                    chargeBoxSerialNumber = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "STATION", "ID", ""),
-                }
+                chargeBoxSerialNumber = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "STATION", "ID", ""),
             };
-            sendMessage("BootNotification", data);
+            string msg = makeMessage("BootNotification", data);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            return response;
         }
         public string sendOCPP_CP_Req_StatusNotification(int ChannelIdx, string errorCode, string status)
         {
@@ -65,17 +66,39 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 JsonConvert.SerializeObject(req_Heartbeat, Model.getInstance().mJsonSerializerSettings));*/
             //Model.getInstance().HeartBeatLastSendTime = DateTime.Now;
 
-            var data = new Object[]
-            {
-                2,
-                Guid.NewGuid().ToString(),
-                "Heartbeat",
-            };
-            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            //var data = new
+            //{
+            //    2,
+            //    Guid.NewGuid().ToString(),
+            //    "Heartbeat",
+            //};
+            //string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+
+            //string msg = makeMessage("Authorize", data);
+            //string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(msg);
+            //return response;
+
 
             //Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(json);
         }
+        public async Task<string> sendOCPP_CP_Req_Authorize(string _idTag)
+        {
 
+            /*Req_StartTransaction startTransaction = new Req_StartTransaction();
+            //startTransaction.setRequiredValue(1, Model.getInstance().Card_Number, 0, getTime());
+            setSendPacket_Call_CP(
+                startTransaction.GetType().Name.Split(new String[] { "_" }, StringSplitOptions.RemoveEmptyEntries)[1],
+                JsonConvert.SerializeObject(startTransaction, Model.getInstance().mJsonSerializerSettings));*/
+
+            var data = new
+            {
+                idTag = _idTag
+            };
+
+            string msg = makeMessage("Authorize", data);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            return response;
+        }
         public void sendOCPP_CP_Req_StartTransAction(int ChannelIdx, int soc)
         {
 
@@ -202,7 +225,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             list_packet.Add(mPacket_SendPacket_Call_CP);
 
             //if (!MyApplication.getInstance().is_offline)
-            Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(mPacket_SendPacket_Call_CP.mPacket.ToString());
+            //Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(mPacket_SendPacket_Call_CP.mPacket.ToString());
         }
 
         public void ReceivedPacket(string _packet)
@@ -253,7 +276,24 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             JArray jsonObject = JArray.Parse(json);
             list_Jarray.Add(jsonObject);
 
-            _ = Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(json);
+            //_ = Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(json);
+        }
+        private string makeMessage(string name, object data)
+        {
+            var temp = new Object[]
+            {
+                2,
+                Guid.NewGuid().ToString(),
+                name,
+                data,
+            };
+
+
+            string json = JsonConvert.SerializeObject(temp, Formatting.Indented);
+
+            JArray jsonObject = JArray.Parse(json);
+            list_Jarray.Add(jsonObject);
+            return json;
         }
     }
 }

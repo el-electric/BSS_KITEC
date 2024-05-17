@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using EL_DC_Charger.ocpp.ver16.comm;
 using System.Diagnostics;
 using EL_BSS;
+using System.Timers;
+using System.Collections.Concurrent;
 
 namespace BatteryChangeCharger.OCPP
 {
@@ -19,57 +21,64 @@ namespace BatteryChangeCharger.OCPP
     {
         private ClientWebSocket webSocket = null;
         CancellationTokenSource cts = new CancellationTokenSource();
-        Timer connectionCheckTimer;
+        private System.Timers.Timer connectionCheckTimer;
         bool isStop = false;
+        private TaskCompletionSource<string> responseCompletionSource;
         string url;
         public OCPP_Comm_Manager()
         {
-            //url = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://dev.wev-charger.com:12200/ws/NYJ-TEST0001");
-            url = "ws://192.168.0.90:8181";
+            url = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://192.168.0.90:8181");
+            //url = "ws://192.168.0.90:8181";
             ConnectAsync(url);
-            connectionCheckTimer = new Timer(CheckConnectionStatus, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            connectionCheckTimer = new System.Timers.Timer(5000); // 5초마다 실행
+            connectionCheckTimer.Elapsed += CheckConnectionStatus;
+            connectionCheckTimer.AutoReset = true;
+            connectionCheckTimer.Enabled = true;
         }
-        private async void CheckConnectionStatus(object state)
+
+        private async void CheckConnectionStatus(object sender, ElapsedEventArgs e)
         {
             if (webSocket.State == WebSocketState.Closed || webSocket.State == WebSocketState.Aborted)
             {
-                // 재접속 시도
-                Console.WriteLine("재접속");
-                //await Reconnect(url);
+                Model.getInstance().frmFrame.lamp_ems.On = false;
+                connectionCheckTimer.Stop(); // 타이머 정지
+                await Reconnect(url);
+                connectionCheckTimer.Start(); // 타이머 재시작                
             }
             if (webSocket.State == WebSocketState.Open /*&& !Model.getInstance().is_offline*/)
             {
-                for (int i = 0; i < Model.getInstance().oCPP_Comm_SendMgr.list_packet.Count; i++)
-                {
-                    await SendMessageAsync(Model.getInstance().oCPP_Comm_SendMgr.list_packet[i].mPacket.ToString());
-                }
+                Model.getInstance().frmFrame.lamp_ems.On = true;
+                //for (int i = 0; i < Model.getInstance().oCPP_Comm_SendMgr.list_packet.Count; i++)
+                //{
+                //    await SendMessageAsync(Model.getInstance().oCPP_Comm_SendMgr.list_packet[i].mPacket.ToString());
+                //}
             }
         }
-        async Task ReceiveData(ClientWebSocket webSocket)
-        {
-            var buffer = new byte[1024 * 4]; // 버퍼 크기 설정
-            while (webSocket.State == WebSocketState.Open)
-            {
-                var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
 
-                if (result.MessageType == WebSocketMessageType.Text)
-                {
-                    string receivedMessage = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    Model.getInstance().oCPP_Comm_SendMgr.ReceivedPacket(receivedMessage);
-                    Console.WriteLine("Received: " + receivedMessage);
-                }
-                else if (result.MessageType == WebSocketMessageType.Close)
-                {
-                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
-                }
+
+        public async Task Reconnect(string url)
+        {
+            try
+            {
+                Console.WriteLine("재접속 시도 중...");
+                await ConnectAsync(url); // 비동기 호출 대기
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"재접속 실패: {ex.Message}");
+                // 연결 실패 처리, 재시도 로직 등
+            }
+            await Task.Delay(1000); // 재시도 전 딜레이
+
         }
+
+
         public async Task ConnectAsync(string uri)
         {
             webSocket = new ClientWebSocket();
 
             webSocket.Options.SetRequestHeader("Sec-WebSocket-Protocol", "ocpp1.6");
-            webSocket.Options.KeepAliveInterval = TimeSpan.FromSeconds(5);
+            webSocket.Options.KeepAliveInterval = TimeSpan.FromSeconds(60);
             webSocket.Options.SetBuffer(5000, 5000);
 
             await webSocket.ConnectAsync(new Uri(uri), CancellationToken.None);
@@ -77,41 +86,125 @@ namespace BatteryChangeCharger.OCPP
             switch (webSocket.State)
             {
                 case WebSocketState.Open:
-                    ReceiveData(webSocket);
+                    Model.getInstance().frmFrame.lamp_ems.On = true;
                     Console.WriteLine("연결 성공");
+                    _ = Task.Run(ReceiveMessagesAsync);
+                    string a = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
+
                     break;
                 default:
+                    if (Model.getInstance().frmFrame != null)
+                        Model.getInstance().frmFrame.lamp_ems.On = false;
                     Console.WriteLine("연결 에러");
                     break;
             }
 
         }
 
-        public async Task SendMessageAsync(string message)
+        private async Task ReceiveMessagesAsync()
         {
-            if (webSocket.State == WebSocketState.Open)
+            ArraySegment<byte> buffer = new ArraySegment<byte>(new byte[1024]);
+
+            try
             {
-                message = message.Replace("\r\n  2", "2");
-                message = message.Replace("\r\n  3", "3");
-                var messageBuffer = System.Text.Encoding.UTF8.GetBytes(message);
-                var segment = new ArraySegment<byte>(messageBuffer);
+                while (webSocket.State == WebSocketState.Open)
+                {
+                    WebSocketReceiveResult result = await webSocket.ReceiveAsync(buffer, CancellationToken.None);
+                    if (result.MessageType == WebSocketMessageType.Close)
+                    {
+                        await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
+                        Console.WriteLine("WebSocket connection closed");
+                    }
+                    else
+                    {
+                        string receivedMessage = Encoding.UTF8.GetString(buffer.Array, 0, result.Count);
+                        Console.WriteLine("Received from server: " + receivedMessage);
 
-                await webSocket.SendAsync(segment, WebSocketMessageType.Text, true, CancellationToken.None);
+                        // 응답 메시지를 기다리는 요청이 있는 경우
+                        if (responseCompletionSource != null && !responseCompletionSource.Task.IsCompleted)
+                        {
+                            responseCompletionSource.SetResult(receivedMessage);
+                        }
+                        else
+                        {
+                            // 일반적인 메시지 처리 로직
+                            // HandleGeneralMessage(receivedMessage);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: " + ex.Message);
+            }
+        }
+        string currentRequestId;
+        public async Task<string> SendMessageAndWaitForResponse(string message)
+        {
+            // 메시지에서 UId 추출 및 멤버 변수에 대입
+            currentRequestId = JsonConvert.DeserializeObject<JArray>(message)?[1]?.ToString();
 
-                if (webSocket.State == WebSocketState.Open)
-                    Logger.d("＠Send Success＠ " + ": " + message);
-                else
-                    Logger.d("＠Send Failed＠ " + ": " + message);
+            // 기존 TaskCompletionSource가 이미 완료된 경우를 대비해 새로 생성
+            var tcs = new TaskCompletionSource<string>();
+            Interlocked.Exchange(ref responseCompletionSource, tcs);
+
+            // 메시지 보내기
+            ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
+            await webSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None);
+
+            // 응답 기다리기            
+            using (var cts = new CancellationTokenSource())
+            {
+                var delayTask = Task.Delay(15000, cts.Token);
+
+                while (true)
+                {
+                    var responseTask = responseCompletionSource.Task;
+                    var completedTask = await Task.WhenAny(responseTask, delayTask);
+
+                    if (completedTask == delayTask)
+                    {
+                        // 타임아웃 발생
+                        responseCompletionSource.TrySetResult(null);  // 타임아웃 시 null 반환
+                        return null;
+                    }
+                    else
+                    {
+                        // 응답 받음
+                        var response = await responseTask;
+                        JArray responseObject = null;
+
+                        try
+                        {
+                            responseObject = JsonConvert.DeserializeObject<JArray>(response);
+                        }
+                        catch (JsonException)
+                        {
+                            Console.WriteLine("Invalid JSON format in response: " + response);
+                            // continue로 루프를 계속해서 다음 응답을 기다림
+                            responseCompletionSource = new TaskCompletionSource<string>();
+                            continue;
+                        }
+
+                        string responseUid = responseObject?[1]?.ToString();
+
+                        if (responseUid == currentRequestId)
+                        {
+                            // UID가 일치하면 타임아웃 작업 취소
+                            cts.Cancel();
+                            return response;
+                        }
+                        else
+                        {
+                            // UId가 일치하지 않으면 다시 대기
+                            Console.WriteLine("UID 일치 하지 않아 재대기" + responseUid);
+                            responseCompletionSource = new TaskCompletionSource<string>();
+                        }
+                    }
+                }
             }
         }
 
-        public async Task<string> ReceiveMessageAsync()
-        {
-            var buffer = new byte[1024];
-            var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-
-            return System.Text.Encoding.UTF8.GetString(buffer, 0, result.Count);
-        }
 
         public async Task CloseAsync()
         {
@@ -119,48 +212,6 @@ namespace BatteryChangeCharger.OCPP
             {
                 await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
                 Console.WriteLine("WebSocket closed!");
-            }
-        }
-
-        //public async Task ListenForMessagesAsync(CancellationToken cancellationToken)
-        //{
-        //    try
-        //    {
-        //        while (!cancellationToken.IsCancellationRequested && webSocket.State == WebSocketState.Open)
-        //        {
-
-        //            string message = await ReceiveMessageAsync();
-        //            Console.WriteLine($"Received message: {message}");
-
-
-        //        }
-        //    }
-        //    catch (OperationCanceledException)
-        //    {
-        //        Console.WriteLine("Message listening canceled.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Error in message listening: {ex.Message}");
-        //    }
-        //}
-
-
-        public async Task Reconnect(string url)
-        {
-            while (webSocket.State != WebSocketState.Open)
-            {
-                try
-                {
-                    webSocket = new ClientWebSocket();
-                    await webSocket.ConnectAsync(new Uri(url), CancellationToken.None);
-                    await ReceiveData(webSocket); // 재연결 후 ReceiveData 다시 호출
-                }
-                catch (Exception ex)
-                {
-                    // 연결 실패 처리, 재시도 로직 등
-                }
-                await Task.Delay(1000); // 재시도 전 딜레이
             }
         }
     }

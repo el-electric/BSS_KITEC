@@ -42,29 +42,30 @@ namespace EL_BSS.Cycle
                         NextStep();
                     }
                     break;
-
-                case CsDefine.CYC_MAIN + 2:
-                    mainFormLabelUpdate("6666");
-                    break;
-                case CsDefine.CYC_AUTHORIZE:
-                    break;
-                case CsDefine.CYC_INSERT_BATTERY_FIRST:
-                    break;
-                case CsDefine.CYC_INSERT_BATTERY_SECOND:
-                    break;
-                case CsDefine.CYC_CHARGING:
-                    CsWakeup.CYC_WAKEUP();
-                    break;
-                case CsDefine.CYC_RETRIEVE_BATTERY_FIRST:
-                    break;
-                case CsDefine.CYC_RETRIEVE_BATTERY_SECOND:
-                    break;
-                case CsDefine.CYC_COMPLETE:
-                    break;
-
             }
 
         }
+
+        static DateTime nextHeartBeatTime = DateTime.Now.AddSeconds(Model.getInstance().HeartBeatInterval);
+        static DateTime nextMeterValues = DateTime.Now.AddSeconds(Model.getInstance().MeterValuesInterval);
+        static DateTime nextStationInfo = DateTime.Now.AddSeconds(Model.getInstance().StationInfoInterval);
+        public static void OCPP_IntervalCycle()
+        {
+
+            if (DateTime.Now >= nextHeartBeatTime)
+            {
+                nextHeartBeatTime = DateTime.Now.AddSeconds(Model.getInstance().HeartBeatInterval);
+            }
+            if (DateTime.Now >= nextMeterValues)
+            {
+                nextMeterValues = DateTime.Now.AddSeconds(Model.getInstance().MeterValuesInterval);
+            }
+            if (DateTime.Now >= nextStationInfo)
+            {
+                nextStationInfo = DateTime.Now.AddSeconds(Model.getInstance().StationInfoInterval);
+            }
+        }
+
         private static void NextStep()
         {
             CsDefine.Delayed[CsDefine.CYC_RUN] = 0;

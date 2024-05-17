@@ -22,17 +22,18 @@ namespace EL_BSS
     {
         private static Model instance;
 
-        Model()
-        {
-            mJsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            mJsonSerializerSettings.Formatting = Formatting.None;
-            mJsonSerializerSettings.StringEscapeHandling = StringEscapeHandling.EscapeNonAscii;
-        }
-
         public static Model getInstance()
         {
             if (instance == null)
+            {
                 instance = new Model();
+                mJsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                mJsonSerializerSettings.Formatting = Formatting.None;
+                mJsonSerializerSettings.StringEscapeHandling = StringEscapeHandling.EscapeNonAscii;
+
+                Model.getInstance().oCPP_Comm_Manager = new OCPP_Comm_Manager();
+                Model.getInstance().oCPP_Comm_SendMgr = new OCPP_Comm_SendMgr();
+            }
             return instance;
         }
 
@@ -105,20 +106,25 @@ namespace EL_BSS
         public List<DateTime> list_SlaveDataRecvDatetime = new List<DateTime>();
         public List<DateTime> list_MasterDataRecvDatetime = new List<DateTime>();
 
-        public string Master_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", "");
-        public string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "");
+        public string Master_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", "COM1");
+        public string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "COM2");
+        public string StationId = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "STATION", "ID", "");
 
         public bool Start_Return_Button = false;
 
 
-        public SQLiteConnection connection;        
+        public SQLiteConnection connection;
         public OCPP_Comm_Manager oCPP_Comm_Manager;
-        public OCPP_Comm_SendMgr oCPP_Comm_SendMgr;                
-        public JsonSerializerSettings mJsonSerializerSettings = new JsonSerializerSettings();
+        public OCPP_Comm_SendMgr oCPP_Comm_SendMgr;
+        public static JsonSerializerSettings mJsonSerializerSettings = new JsonSerializerSettings();
         public string[] Check_statusnotification = new string[8];
         public bool Send_bootnotification = false;
 
-        public int HeartBeatInterval = 60;
+        public int HeartBeatInterval = 10;
+        public int StationInfoInterval = 10;
+        public int MeterValuesInterval = 10;
+
+
         public class MasterSend
         {
             public bool boardReset;
@@ -379,7 +385,7 @@ namespace EL_BSS
                 bytes[19] |= 0x01;
 
             bytes[20] = 0;
-            if(list_SlaveSend[idx - 1].BatteryFETON)
+            if (list_SlaveSend[idx - 1].BatteryFETON)
                 bytes[20] |= 0x20;
             if (list_SlaveSend[idx - 1].BatteryWakeup)
                 bytes[20] |= 0x10;

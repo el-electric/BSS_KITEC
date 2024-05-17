@@ -46,6 +46,8 @@
             this.lamp4 = new DrakeUI.Framework.DrakeUILampLED();
             this.lamp0 = new DrakeUI.Framework.DrakeUILampLED();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -77,7 +79,7 @@
             this.lbl_soc6 = new System.Windows.Forms.Label();
             this.pb_qr = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button2 = new System.Windows.Forms.Button();
+            this.drakeUIButton1 = new DrakeUI.Framework.DrakeUIButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -279,6 +281,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button4);
@@ -288,6 +291,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(112, 394);
             this.panel1.TabIndex = 9;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(0, 275);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(83, 23);
+            this.button6.TabIndex = 16;
+            this.button6.Text = "입력폼";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(4, 239);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(83, 23);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "매뉴얼 모드";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // button5
             // 
@@ -448,6 +471,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lbl_soc2, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.lbl_soc6, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.pb_qr, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.drakeUIButton1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -722,11 +746,10 @@
             // 
             // pb_qr
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.pb_qr, 2);
             this.pb_qr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pb_qr.Location = new System.Drawing.Point(3, 3);
             this.pb_qr.Name = "pb_qr";
-            this.pb_qr.Size = new System.Drawing.Size(348, 144);
+            this.pb_qr.Size = new System.Drawing.Size(171, 144);
             this.pb_qr.TabIndex = 11;
             this.pb_qr.TabStop = false;
             // 
@@ -735,15 +758,20 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // button2
+            // drakeUIButton1
             // 
-            this.button2.Location = new System.Drawing.Point(4, 239);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(83, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "매뉴얼 모드";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.drakeUIButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.drakeUIButton1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUIButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.drakeUIButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.drakeUIButton1.Location = new System.Drawing.Point(180, 3);
+            this.drakeUIButton1.Name = "drakeUIButton1";
+            this.drakeUIButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.drakeUIButton1.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.drakeUIButton1.Size = new System.Drawing.Size(171, 144);
+            this.drakeUIButton1.TabIndex = 12;
+            this.drakeUIButton1.Text = "drakeUIButton1";
+            this.drakeUIButton1.Click += new System.EventHandler(this.drakeUIButton1_Click);
             // 
             // frmMain
             // 
@@ -832,5 +860,7 @@
         private System.Windows.Forms.PictureBox picDoor_0;
         private System.Windows.Forms.PictureBox pb_qr;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button6;
+        private DrakeUI.Framework.DrakeUIButton drakeUIButton1;
     }
 }

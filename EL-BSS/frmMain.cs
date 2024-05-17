@@ -201,9 +201,20 @@ namespace EL_BSS
         {
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private async void button2_Click_1(object sender, EventArgs e)
         {
+            string a = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
             CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_END;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            frmFrame.deleMenuClick(3);
+        }
+
+        private void drakeUIButton1_Click(object sender, EventArgs e)
+        {
+            frmFrame.deleMenuClick(3);
         }
     }
 }
