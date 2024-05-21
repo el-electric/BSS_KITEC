@@ -239,6 +239,7 @@ namespace EL_BSS
             ////////////
 
             /////C1/////
+            public int FET_Temper;
             public bool WAKEUP_Signal = false;
             public bool FET_ON_State = false;
             public int Serial_Number;
