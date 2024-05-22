@@ -1,4 +1,6 @@
 ﻿using DrakeUI.Framework;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static EL_BSS.Model;
 
 namespace EL_BSS
 {
@@ -47,8 +50,32 @@ namespace EL_BSS
                 btn_enter.Enabled = false;
                 string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_Authorize(tb_intput.Text);
                 btn_enter.Enabled = true;
+
                 if (response == null)
+                {
                     lbl_status.Text = "서버 응답 없음";
+                    return;
+                }
+                JArray responseObject = null;
+                try
+                {
+                    responseObject = JsonConvert.DeserializeObject<JArray>(response);
+                    string status = responseObject?[2]?["status"]?.ToString();
+
+                    if (status == enumData.Accepted.ToString())
+                    {
+                        lbl_status.Text = "인증 성공";
+                    }
+                    else
+                    {
+                        lbl_status.Text = "인증 실패: " + status;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+
 
             }
         }

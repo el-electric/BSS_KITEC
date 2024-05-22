@@ -17,6 +17,7 @@ using System.ComponentModel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Threading.Tasks;
 using System.Runtime.Remoting.Messaging;
+using static EL_BSS.Model;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -35,21 +36,20 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             {
                 chargeBoxSerialNumber = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "STATION", "ID", ""),
             };
-            string msg = makeMessage("BootNotification", data);
+            string msg = makeMessage(enumData.BootNotification.ToString(), data);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
             return response;
         }
-        public string sendOCPP_CP_Req_StatusNotification(int ChannelIdx, string errorCode, string status)
+        public string sendOCPP_CP_Req_StatusNotification(int ChannelIdx, string status)
         {
             var data = new Object[]
             {
                 2,
                 Guid.NewGuid().ToString(),
-                "StatusNotification",
+                enumData.StatusNotification.ToString(),
                     new
                     {
                         connectorId = ChannelIdx,
-                        errorCode = errorCode,
                         status = status
                     }
             };
@@ -57,146 +57,28 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
             return json;
         }
-        public void sendOCPP_CP_Req_HearthBeat()
-        {
-            /*Req_Heartbeat req_Heartbeat = new Req_Heartbeat();
+        //public async Task<string> sendOCPP_CP_Req_HearthBeat()
+        //{
+        //    var data = new
+        //    {
+        //        idTag = _idTag
+        //    };
 
-            setSendPacket_Call_CP(
-                req_Heartbeat.GetType().Name.Split(new String[] { "_" }, StringSplitOptions.RemoveEmptyEntries)[1],
-                JsonConvert.SerializeObject(req_Heartbeat, Model.getInstance().mJsonSerializerSettings));*/
-            //Model.getInstance().HeartBeatLastSendTime = DateTime.Now;
-
-            //var data = new
-            //{
-            //    2,
-            //    Guid.NewGuid().ToString(),
-            //    "Heartbeat",
-            //};
-            //string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-
-            //string msg = makeMessage("Authorize", data);
-            //string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(msg);
-            //return response;
-
-
-            //Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(json);
-        }
+        //    string msg = makeMessage(enumData.Heartbeat.ToString(), data);
+        //    string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+        //    return response;
+        //}
         public async Task<string> sendOCPP_CP_Req_Authorize(string _idTag)
         {
-
-            /*Req_StartTransaction startTransaction = new Req_StartTransaction();
-            //startTransaction.setRequiredValue(1, Model.getInstance().Card_Number, 0, getTime());
-            setSendPacket_Call_CP(
-                startTransaction.GetType().Name.Split(new String[] { "_" }, StringSplitOptions.RemoveEmptyEntries)[1],
-                JsonConvert.SerializeObject(startTransaction, Model.getInstance().mJsonSerializerSettings));*/
-
             var data = new
             {
                 idTag = _idTag
             };
 
-            string msg = makeMessage("Authorize", data);
+            string msg = makeMessage(enumData.Authorize.ToString(), data);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
             return response;
         }
-        public void sendOCPP_CP_Req_StartTransAction(int ChannelIdx, int soc)
-        {
-
-            /*Req_StartTransaction startTransaction = new Req_StartTransaction();
-            //startTransaction.setRequiredValue(1, Model.getInstance().Card_Number, 0, getTime());
-            setSendPacket_Call_CP(
-                startTransaction.GetType().Name.Split(new String[] { "_" }, StringSplitOptions.RemoveEmptyEntries)[1],
-                JsonConvert.SerializeObject(startTransaction, Model.getInstance().mJsonSerializerSettings));*/
-
-            var data = new Object[]
-            {
-                2,
-                Guid.NewGuid().ToString(),
-                "StartTransaction",
-                new
-                    {
-                        connectorId = ChannelIdx,
-                        meterStart = soc
-                    }
-            };
-            //string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-
-            //Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(json);
-        }
-        //public void sendOCPP_CP_Req_Battery_Info()  // datatransfer
-        //{
-        //    Req_Battery_Info battery_Info = new Req_Battery_Info();
-        //    battery_Info.setRequiredValue(3);
-        //    setSendPacket_Call_CP(
-        //        battery_Info.GetType().Name.Split(new String[] { "_" }, StringSplitOptions.RemoveEmptyEntries)[1],
-        //        JsonConvert.SerializeObject(battery_Info, Model.getInstance().mJsonSerializerSettings));
-        //}
-        //protected List<MeterValue> mOCPP_List_MeterValue_Charging = new List<MeterValue>();
-        //public void sendOCPP_CP_Req_MeterValue()
-        //{
-        //    //DataTable dt = MyApplication.getInstance().oCPP_Manager_Table_Setting.selectData(CONST_INDEX_OCPP_Setting.ClockAlignedDataInterval.ToString());
-
-        //    int _interval = int.Parse("60");
-        //    MeterValue meterValue = new MeterValue();
-        //    List<SampledValue> list_SampledValue = new List<SampledValue>();
-
-        //    SampledValue sampledValue = new SampledValue();
-
-        //    Req_MeterValues req_MeterValues = new Req_MeterValues();
-
-        //    if (_interval > 0)
-        //    {
-        //        sampledValue = new SampledValue();
-        //        sampledValue.measurand = "Energy.Active.Export.Interval";
-        //        sampledValue.format = ValueFormat.Raw;
-        //        sampledValue.context = "Sample.Clock";
-        //        DateTime dt1 = DateTime.Now;
-        //        DateTime nextSamplingTime = dt1.AddSeconds(_interval);
-        //        sampledValue.value = nextSamplingTime.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-        //        sampledValue.location = Location.Body;
-
-        //    }
-        //    else
-        //    {
-
-        //        sampledValue.setRequiredValue("" + (int)(100));
-        //        sampledValue.format = ValueFormat.Raw;
-        //        sampledValue.context = "Sample.Periodic";
-        //        sampledValue.measurand = "Current.Export";
-        //        sampledValue.unit = UnitOfMeasure.A;
-        //        sampledValue.location = Location.Cable;
-        //        list_SampledValue.Add(sampledValue);
-
-        //        sampledValue = new SampledValue();
-        //        sampledValue.setRequiredValue("" + (300));
-        //        sampledValue.format = ValueFormat.Raw;
-        //        sampledValue.context = "Sample.Periodic";
-        //        sampledValue.measurand = "Voltage";
-        //        sampledValue.location = Location.Cable;
-        //        sampledValue.unit = UnitOfMeasure.V;
-
-        //    }
-        //    list_SampledValue.Add(sampledValue);
-
-        //    meterValue.setRequiredValue(getTime(), list_SampledValue);
-        //    mOCPP_List_MeterValue_Charging.Add(meterValue);
-
-        //    req_MeterValues.setRequiredValue(1, mOCPP_List_MeterValue_Charging);
-        //    req_MeterValues.transactionId = (long)conf_StartTransaction.transactionId;
-
-        //    setSendPacket_Call_CP(
-        //req_MeterValues.GetType().Name.Split(new String[] { "_" }, StringSplitOptions.RemoveEmptyEntries)[1],
-        //JsonConvert.SerializeObject(req_MeterValues, Model.getInstance().mJsonSerializerSettings));
-
-        //    mOCPP_List_MeterValue_Charging.Clear();
-        //}
-
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        public Conf_StartTransaction conf_StartTransaction = new Conf_StartTransaction();
-
         private void setSendPacket_Call_CP(String actionName, String payloadString)
         {
 

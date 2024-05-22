@@ -57,11 +57,25 @@ namespace EL_BSS
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
-
+            var task = aa();
+            if (await Task.WhenAny(task, Task.Delay(1100)) == task)
+            {
+                Console.WriteLine("작업이 완료되었습니다.");
+                await task;
+            }
+            else
+            {
+                Console.WriteLine("작업이 타임아웃되었습니다.");
+            }
         }
 
+        private async Task aa()
+        {
+            await Task.Delay(1000);
+            Console.WriteLine("didi");
+        }
         private void button4_Click(object sender, EventArgs e)
         {
 

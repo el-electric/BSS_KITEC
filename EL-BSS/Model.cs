@@ -580,5 +580,18 @@ namespace EL_BSS
                 return true;
             }
         }
+        public enum enumData
+        {
+            BootNotification,
+            StatusNotification,
+            Heartbeat,
+            MeterValues,
+            StationInfo,
+            Authorize,
+            StartTransaction,
+            StopTransaction,
+            Accepted,
+
+        }
     }
 }

@@ -155,7 +155,7 @@ namespace BatteryChangeCharger.OCPP
             // 응답 기다리기            
             using (var cts = new CancellationTokenSource())
             {
-                var delayTask = Task.Delay(15000, cts.Token);
+                var delayTask = Task.Delay(5000, cts.Token);
 
                 while (true)
                 {

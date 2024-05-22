@@ -214,14 +214,14 @@ namespace EL_BSS.Serial
                 if (Model.getInstance().Check_statusnotification[idx] == null)
                 {
                     Model.getInstance().Check_statusnotification[idx] = Check_Status(idx - 1);
-                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx, "NoError", Model.getInstance().Check_statusnotification[idx - 1]);
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx, Model.getInstance().Check_statusnotification[idx - 1]);
                 }
                 else
                 {
                     if (Model.getInstance().Check_statusnotification[idx - 1] != Check_Status(idx - 1))
                     {
                         Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
-                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx, "NoError", Model.getInstance().Check_statusnotification[idx - 1]);
+                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx, Model.getInstance().Check_statusnotification[idx - 1]);
                     }
                 }
             }

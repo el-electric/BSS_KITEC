@@ -17,6 +17,7 @@ namespace EL_BSS.Cycle
 
         public static void Main_WorkCycle() //자동동작 시퀀스
         {
+            
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
             {
                 case CsDefine.CYC_INIT:
@@ -32,7 +33,7 @@ namespace EL_BSS.Cycle
                     break;
 
                 case CsDefine.CYC_MAIN:
-                    mainFormLabelUpdate("start");
+                    //반납 //status // 충전 
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 1:
@@ -50,10 +51,10 @@ namespace EL_BSS.Cycle
         static DateTime nextMeterValues = DateTime.Now.AddSeconds(Model.getInstance().MeterValuesInterval);
         static DateTime nextStationInfo = DateTime.Now.AddSeconds(Model.getInstance().StationInfoInterval);
         public static void OCPP_IntervalCycle()
-        {
-
+        {            
             if (DateTime.Now >= nextHeartBeatTime)
             {
+                //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_HeartBeat();
                 nextHeartBeatTime = DateTime.Now.AddSeconds(Model.getInstance().HeartBeatInterval);
             }
             if (DateTime.Now >= nextMeterValues)
