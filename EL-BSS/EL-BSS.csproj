@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="CsUtil.cs" />
     <Compile Include="CsDefine.cs" />
+    <Compile Include="Cycle\CsCharging.cs" />
     <Compile Include="Cycle\CsStatusCheck.cs" />
     <Compile Include="Cycle\CsWakeup.cs" />
     <Compile Include="Cycle\CsWork.cs" />
