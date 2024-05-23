@@ -20,11 +20,11 @@ namespace EL_BSS.Cycle
 
             if (Model.getInstance().list_SlaveRecv[slotid - 1].Check_BatteryVoltage_Type == (int)enumData.Type48)
             {
-                Model.getInstance().list_SlaveSend[slotid - 1].request_Wattage = 15;
+                Model.getInstance().list_SlaveSend[slotid - 1].request_Wattage = 150;
             }
             else if (Model.getInstance().list_SlaveRecv[slotid - 1].Check_BatteryVoltage_Type == (int)enumData.Type72)
             {
-                Model.getInstance().list_SlaveSend[slotid - 1].request_Wattage = 10;
+                Model.getInstance().list_SlaveSend[slotid - 1].request_Wattage = 100;
             }
 
             CsDefine.Delayed[CsDefine.CYC_CHARGING] = 0;

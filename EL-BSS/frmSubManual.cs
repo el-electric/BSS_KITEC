@@ -97,6 +97,16 @@ namespace EL_BSS
 
                 Bettery_Type.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryType.ToString();
 
+                FET_Temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].FET_Temper.ToString();
+
+
+                if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].isDoor && !Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatterArrive)
+                {
+                    Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = false;
+                    Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryFETON = false;
+                    Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
+                    Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
+                }
             }
 
 
@@ -132,9 +142,6 @@ namespace EL_BSS
 
         private async void button10_Click(object sender, EventArgs e) // 출력(배터리 연동)
         {
-            /*Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = true;
-            Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;*/
-            
             bool isCharging = await Task.Run(() => CsCharging.isCharging(mSLot_Number));
         }
 
@@ -180,23 +187,37 @@ namespace EL_BSS
             else if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup == true)
             { Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = false; }*/
 
-            bool isWakeup = await Task.Run(() => CsWakeup.isWakeUP(mSLot_Number));
-            if (isWakeup)
-                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " WakeUP 성공", 1000);
+            if (!Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup)
+            {
+                bool isWakeup = await Task.Run(() => CsWakeup.isWakeUP(mSLot_Number));
+                if (isWakeup)
+                    Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " WakeUP 성공", 1000);
+                else
+                    Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " WakeUP 실패", 1000);
+            }
             else
-                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " WakeUP 실패", 1000);
+            {
+                Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = false;
+            }
 
 
 
         }
         private async void button1_Click_2(object sender, EventArgs e)
         {
-            bool isFeton = await Task.Run(() => CsWakeup.isFETon(mSLot_Number));
+            if (!Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryFETON)
+            {
+                bool isFeton = await Task.Run(() => CsWakeup.isFETon(mSLot_Number));
 
-            if (isFeton)
-                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " FETON 성공", 1000);
+                if (isFeton)
+                    Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " FETON 성공", 1000);
+                else
+                    Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " FETON 실패", 1000);
+            }
             else
-                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " FETON 실패", 1000);
+            {
+                Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryFETON = false;
+            }
         }
         public void InitForm()
         {
@@ -218,21 +239,9 @@ namespace EL_BSS
             Model.getInstance().list_SlaveSend[mSLot_Number - 1].hmiManual = false;
         }
 
-        private void send_voltage_wattage_Click(object sender, EventArgs e)
-        {
-            Model.getInstance().list_SlaveSend[mSLot_Number - 1].request_Voltage = (Convert.ToInt32(put_Battery_voltage.Text) * 10);
-            Model.getInstance().list_SlaveSend[mSLot_Number - 1].request_Wattage = (Convert.ToInt32(put_Battery_wattage.Text) * 10);
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "VOLT" + mSLot_Number, (Convert.ToDouble(put_Battery_voltage.Text) * 10));
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "WATT" + mSLot_Number, (Convert.ToDouble(put_Battery_wattage.Text) * 10));
-        }
-
         private void send_voltage_wattage_Click_1(object sender, EventArgs e)
         {
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "VOLT" + mSLot_Number, (Convert.ToDouble(put_Battery_voltage.Text) * 10));
+            // CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "VOLT" + mSLot_Number, (Convert.ToDouble(put_Battery_voltage.Text) * 10));
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CONFIG", "WATT" + mSLot_Number, (Convert.ToDouble(put_Battery_wattage.Text) * 10));
         }
 
@@ -241,6 +250,9 @@ namespace EL_BSS
             Model.getInstance().list_SlaveSend[mSLot_Number - 1].boardReset = true;
         }
 
-
+        private void set_Current_Click_1(object sender, EventArgs e)
+        {
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].request_Wattage = (Convert.ToInt32(put_Battery_wattage.Text) * 10);
+        }
     }
 }

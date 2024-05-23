@@ -593,7 +593,13 @@ namespace EL_BSS
             StopTransaction,
             Accepted,
             Type48 = 48,
-            Type72 = 72
+            Type72 = 72,
+            Availaable,
+            Preparing,
+            Finishing,
+            Charging,
+            Empty,
+            Fault
         }
     }
 }

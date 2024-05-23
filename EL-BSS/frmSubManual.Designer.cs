@@ -30,7 +30,6 @@
         {
             this.DOOR_OPEN_Button = new System.Windows.Forms.Button();
             this.DOOR_CLOSE_Button = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.LED_BLUE_Button = new System.Windows.Forms.Button();
             this.LED_GREEN_Button = new System.Windows.Forms.Button();
@@ -70,14 +69,15 @@
             this.SOH_percent = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.gb_Slot = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.send_board_Reset = new System.Windows.Forms.Button();
-            this.send_voltage_wattage = new System.Windows.Forms.Button();
+            this.set_Current = new System.Windows.Forms.Button();
             this.put_Battery_wattage = new System.Windows.Forms.TextBox();
-            this.put_Battery_voltage = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.manual_off = new System.Windows.Forms.Button();
             this.manual_on = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.FET_Temp = new System.Windows.Forms.Label();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -106,22 +106,11 @@
             this.DOOR_CLOSE_Button.UseVisualStyleBackColor = false;
             this.DOOR_CLOSE_Button.Click += new System.EventHandler(this.DOOR_CLOSE_Button_Click);
             // 
-            // label4
-            // 
-            this.label4.BackColor = System.Drawing.Color.White;
-            this.label4.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.Location = new System.Drawing.Point(576, 99);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 37);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "V";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.Color.White;
             this.label5.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(694, 99);
+            this.label5.Location = new System.Drawing.Point(688, 99);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 37);
             this.label5.TabIndex = 10;
@@ -329,9 +318,9 @@
             this.button3.BackColor = System.Drawing.Color.White;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button3.Location = new System.Drawing.Point(401, 73);
+            this.button3.Location = new System.Drawing.Point(401, 94);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(93, 40);
+            this.button3.Size = new System.Drawing.Size(93, 51);
             this.button3.TabIndex = 28;
             this.button3.Text = "WAKE UP";
             this.button3.UseVisualStyleBackColor = false;
@@ -550,12 +539,10 @@
             // 
             this.gb_Slot.Controls.Add(this.button1);
             this.gb_Slot.Controls.Add(this.send_board_Reset);
-            this.gb_Slot.Controls.Add(this.send_voltage_wattage);
+            this.gb_Slot.Controls.Add(this.set_Current);
             this.gb_Slot.Controls.Add(this.put_Battery_wattage);
-            this.gb_Slot.Controls.Add(this.put_Battery_voltage);
             this.gb_Slot.Controls.Add(this.label5);
             this.gb_Slot.Controls.Add(this.button3);
-            this.gb_Slot.Controls.Add(this.label4);
             this.gb_Slot.Controls.Add(this.label7);
             this.gb_Slot.Controls.Add(this.button9);
             this.gb_Slot.Controls.Add(this.label8);
@@ -574,6 +561,19 @@
             this.gb_Slot.TabStop = false;
             this.gb_Slot.Text = "1번 슬롯";
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button1.Location = new System.Drawing.Point(500, 94);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(93, 51);
+            this.button1.TabIndex = 36;
+            this.button1.Text = "FET ON";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
             // send_board_Reset
             // 
             this.send_board_Reset.BackColor = System.Drawing.Color.White;
@@ -586,19 +586,19 @@
             this.send_board_Reset.UseVisualStyleBackColor = false;
             this.send_board_Reset.Click += new System.EventHandler(this.send_board_Reset_Click);
             // 
-            // send_voltage_wattage
+            // set_Current
             // 
-            this.send_voltage_wattage.Location = new System.Drawing.Point(506, 142);
-            this.send_voltage_wattage.Name = "send_voltage_wattage";
-            this.send_voltage_wattage.Size = new System.Drawing.Size(106, 20);
-            this.send_voltage_wattage.TabIndex = 34;
-            this.send_voltage_wattage.Text = "전압 전류 설정";
-            this.send_voltage_wattage.UseVisualStyleBackColor = true;
-            this.send_voltage_wattage.Click += new System.EventHandler(this.send_voltage_wattage_Click_1);
+            this.set_Current.Location = new System.Drawing.Point(611, 142);
+            this.set_Current.Name = "set_Current";
+            this.set_Current.Size = new System.Drawing.Size(106, 20);
+            this.set_Current.TabIndex = 34;
+            this.set_Current.Text = "전류 설정";
+            this.set_Current.UseVisualStyleBackColor = true;
+            this.set_Current.Click += new System.EventHandler(this.set_Current_Click_1);
             // 
             // put_Battery_wattage
             // 
-            this.put_Battery_wattage.Location = new System.Drawing.Point(618, 99);
+            this.put_Battery_wattage.Location = new System.Drawing.Point(612, 99);
             this.put_Battery_wattage.Multiline = true;
             this.put_Battery_wattage.Name = "put_Battery_wattage";
             this.put_Battery_wattage.ShortcutsEnabled = false;
@@ -607,19 +607,10 @@
             this.put_Battery_wattage.Text = "15";
             this.put_Battery_wattage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // put_Battery_voltage
-            // 
-            this.put_Battery_voltage.Location = new System.Drawing.Point(500, 97);
-            this.put_Battery_voltage.Multiline = true;
-            this.put_Battery_voltage.Name = "put_Battery_voltage";
-            this.put_Battery_voltage.ShortcutsEnabled = false;
-            this.put_Battery_voltage.Size = new System.Drawing.Size(70, 37);
-            this.put_Battery_voltage.TabIndex = 32;
-            this.put_Battery_voltage.Text = "57.4";
-            this.put_Battery_voltage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.FET_Temp);
+            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.manual_off);
             this.groupBox2.Controls.Add(this.manual_on);
             this.groupBox2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -650,18 +641,27 @@
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
             // 
-            // button1
+            // label1
             // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.button1.Location = new System.Drawing.Point(401, 119);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 43);
-            this.button1.TabIndex = 36;
-            this.button1.Text = "FET ON";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(410, 242);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 37);
+            this.label1.TabIndex = 44;
+            this.label1.Text = "FET 온도";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // FET_Temp
+            // 
+            this.FET_Temp.BackColor = System.Drawing.Color.White;
+            this.FET_Temp.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.FET_Temp.Location = new System.Drawing.Point(505, 242);
+            this.FET_Temp.Name = "FET_Temp";
+            this.FET_Temp.Size = new System.Drawing.Size(78, 37);
+            this.FET_Temp.TabIndex = 46;
+            this.FET_Temp.Text = "57.4";
+            this.FET_Temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmSubManual
             // 
@@ -711,7 +711,6 @@
         #endregion
         private System.Windows.Forms.Button DOOR_OPEN_Button;
         private System.Windows.Forms.Button DOOR_CLOSE_Button;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button LED_BLUE_Button;
         private System.Windows.Forms.Button LED_GREEN_Button;
@@ -752,12 +751,13 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.GroupBox gb_Slot;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox put_Battery_voltage;
         private System.Windows.Forms.TextBox put_Battery_wattage;
         private System.Windows.Forms.Button manual_off;
         private System.Windows.Forms.Button manual_on;
-        private System.Windows.Forms.Button send_voltage_wattage;
+        private System.Windows.Forms.Button set_Current;
         private System.Windows.Forms.Button send_board_Reset;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label FET_Temp;
+        private System.Windows.Forms.Label label1;
     }
 }
