@@ -78,8 +78,8 @@
             this.lbl_soc2 = new System.Windows.Forms.Label();
             this.lbl_soc6 = new System.Windows.Forms.Label();
             this.pb_qr = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.drakeUIButton1 = new DrakeUI.Framework.DrakeUIButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -753,11 +753,6 @@
             this.pb_qr.TabIndex = 11;
             this.pb_qr.TabStop = false;
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 500;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // drakeUIButton1
             // 
             this.drakeUIButton1.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -769,9 +764,15 @@
             this.drakeUIButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
             this.drakeUIButton1.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.drakeUIButton1.Size = new System.Drawing.Size(171, 144);
+            this.drakeUIButton1.Style = DrakeUI.Framework.UIStyle.Custom;
             this.drakeUIButton1.TabIndex = 12;
             this.drakeUIButton1.Text = "drakeUIButton1";
             this.drakeUIButton1.Click += new System.EventHandler(this.drakeUIButton1_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // frmMain
             // 

@@ -90,6 +90,12 @@
     <Compile Include="frmCodeInput.Designer.cs">
       <DependentUpon>frmCodeInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmNotiPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNotiPopup.Designer.cs">
+      <DependentUpon>frmNotiPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="FWupdate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +242,9 @@
     <EmbeddedResource Include="frmCodeInput.resx">
       <DependentUpon>frmCodeInput.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmNotiPopup.resx">
+      <DependentUpon>frmNotiPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FWupdate.resx">
       <DependentUpon>FWupdate.cs</DependentUpon>
     </EmbeddedResource>
@@ -314,6 +323,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OCPP\database\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\bell.png" />
+    <None Include="Resources\bell1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

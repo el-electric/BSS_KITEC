@@ -4,13 +4,48 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using static EL_BSS.Model;
 
 namespace EL_BSS.Cycle
 {
     public class CsCharging
     {
         public static int CurrentStep = 0;
+
+        public static bool isCharging(int slotid)
+        {
+            Model.getInstance().list_SlaveSend[slotid - 1].BatteryOutput = true;
+
+            if (Model.getInstance().list_SlaveRecv[slotid - 1].Check_BatteryVoltage_Type == (int)enumData.Type48)
+            {
+                Model.getInstance().list_SlaveSend[slotid - 1].request_Wattage = 15;
+            }
+            else if (Model.getInstance().list_SlaveRecv[slotid - 1].Check_BatteryVoltage_Type == (int)enumData.Type72)
+            {
+                Model.getInstance().list_SlaveSend[slotid - 1].request_Wattage = 10;
+            }
+
+            CsDefine.Delayed[CsDefine.CYC_CHARGING] = 0;
+
+            while (true)
+            {
+                if (Model.getInstance().list_SlaveRecv[slotid - 1].ProcessStatus == 100)
+                {
+                    // Model.getInstance().list_SlaveSend[slotid - 1].BatteryFETON = true;
+                    break;
+
+                }
+                else if (CsDefine.Delayed[CsDefine.CYC_CHARGING] >= 3000)
+                {
+                    return false;
+                }
+
+                Thread.Sleep(10);
+            }
+            return true;
+        }
 
         public static void Main_WorkCycle(int slotId) //자동동작 시퀀스
         {
@@ -60,7 +95,7 @@ namespace EL_BSS.Cycle
             CsDefine.Cyc_Rail[CsDefine.CYC_CHARGING] = step;
         }
 
-        private static void setHighTemp_Current(bool high_temp , int slotId)
+        private static void setHighTemp_Current(bool high_temp, int slotId)
         {
             if (high_temp)
             {
@@ -75,11 +110,11 @@ namespace EL_BSS.Cycle
             }
             else
             {
-                if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == 48)
+                if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == (int)enumData.Type48)
                 {
                     Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 15;
                 }
-                else if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == 72)
+                else if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == (int)enumData.Type72)
                 {
                     Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 10;
                 }

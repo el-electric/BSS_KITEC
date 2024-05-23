@@ -391,7 +391,7 @@ namespace EL_BSS
             if (list_SlaveSend[idx - 1].BatteryWakeup)
                 bytes[20] |= 0x10;
             if (list_SlaveSend[idx - 1].BatteryOutput)
-                bytes[20] |= 0x01;
+                bytes[20] |= 0x04;
             if (list_SlaveSend[idx - 1].Output)
                 bytes[20] |= 0x02;
 
@@ -592,7 +592,8 @@ namespace EL_BSS
             StartTransaction,
             StopTransaction,
             Accepted,
-
+            Type48 = 48,
+            Type72 = 72
         }
     }
 }

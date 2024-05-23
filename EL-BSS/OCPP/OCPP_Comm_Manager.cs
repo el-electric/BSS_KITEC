@@ -141,6 +141,9 @@ namespace BatteryChangeCharger.OCPP
         string currentRequestId;
         public async Task<string> SendMessageAndWaitForResponse(string message)
         {
+            if (webSocket.State != WebSocketState.Open)
+                return null;
+
             // 메시지에서 UId 추출 및 멤버 변수에 대입
             currentRequestId = JsonConvert.DeserializeObject<JArray>(message)?[1]?.ToString();
 

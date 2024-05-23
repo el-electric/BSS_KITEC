@@ -32,15 +32,16 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.ui_timer_500ms = new System.Windows.Forms.Timer(this.components);
             this.bck_Protocol = new System.ComponentModel.BackgroundWorker();
-            this.lbl_time = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.drakeUISymbolLabel1 = new DrakeUI.Framework.DrakeUISymbolLabel();
+            this.lamp_ems = new DrakeUI.Framework.DrakeUILampLED();
             this.lbl_Notify_Tv = new DrakeUI.Framework.DrakeUILabel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.bck_Sequnce = new System.ComponentModel.BackgroundWorker();
             this.bck_Counting = new System.ComponentModel.BackgroundWorker();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.drakeUISymbolLabel1 = new DrakeUI.Framework.DrakeUISymbolLabel();
-            this.lamp_ems = new DrakeUI.Framework.DrakeUILampLED();
+            this.lbl_time = new DrakeUI.Framework.DrakeUISymbolLabel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -64,30 +65,11 @@
             // 
             this.bck_Protocol.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Protocol_DoWork);
             // 
-            // lbl_time
-            // 
-            this.lbl_time.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_time.BackgroundImage = global::EL_BSS.Properties.Resources.empty;
-            this.tableLayoutPanel1.SetColumnSpan(this.lbl_time, 3);
-            this.lbl_time.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_time.ForeColor = System.Drawing.Color.White;
-            this.lbl_time.Location = new System.Drawing.Point(3, 3);
-            this.lbl_time.Name = "lbl_time";
-            this.lbl_time.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
-            this.lbl_time.Size = new System.Drawing.Size(247, 31);
-            this.lbl_time.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.lbl_time.Symbol = 125;
-            this.lbl_time.SymbolColor = System.Drawing.Color.White;
-            this.lbl_time.SymbolSize = 36;
-            this.lbl_time.TabIndex = 0;
-            this.lbl_time.Text = "drakeUISymbolLabel1";
-            this.lbl_time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbl_time.DoubleClick += new System.EventHandler(this.lbl_time_DoubleClick);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(182)))), ((int)(((byte)(176)))));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Controls.Add(this.lbl_Notify_Tv);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -96,34 +78,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1021, 74);
             this.panel1.TabIndex = 3;
-            // 
-            // lbl_Notify_Tv
-            // 
-            this.lbl_Notify_Tv.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold);
-            this.lbl_Notify_Tv.ForeColor = System.Drawing.Color.White;
-            this.lbl_Notify_Tv.Location = new System.Drawing.Point(3, 33);
-            this.lbl_Notify_Tv.Name = "lbl_Notify_Tv";
-            this.lbl_Notify_Tv.Size = new System.Drawing.Size(1018, 41);
-            this.lbl_Notify_Tv.TabIndex = 1;
-            this.lbl_Notify_Tv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 74);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1021, 694);
-            this.panel2.TabIndex = 5;
-            // 
-            // bck_Sequnce
-            // 
-            this.bck_Sequnce.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Sequnce_DoWork);
-            // 
-            // bck_Counting
-            // 
-            this.bck_Counting.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Counting_DoWork);
             // 
             // tableLayoutPanel1
             // 
@@ -171,6 +125,64 @@
             this.lamp_ems.TabIndex = 2;
             this.lamp_ems.Text = "drakeUILampLED1";
             // 
+            // lbl_Notify_Tv
+            // 
+            this.lbl_Notify_Tv.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_Notify_Tv.ForeColor = System.Drawing.Color.White;
+            this.lbl_Notify_Tv.Location = new System.Drawing.Point(3, 33);
+            this.lbl_Notify_Tv.Name = "lbl_Notify_Tv";
+            this.lbl_Notify_Tv.Size = new System.Drawing.Size(1018, 41);
+            this.lbl_Notify_Tv.TabIndex = 1;
+            this.lbl_Notify_Tv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 74);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1021, 694);
+            this.panel2.TabIndex = 5;
+            // 
+            // bck_Sequnce
+            // 
+            this.bck_Sequnce.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Sequnce_DoWork);
+            // 
+            // bck_Counting
+            // 
+            this.bck_Counting.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Counting_DoWork);
+            // 
+            // lbl_time
+            // 
+            this.lbl_time.BackColor = System.Drawing.Color.Transparent;
+            this.lbl_time.BackgroundImage = global::EL_BSS.Properties.Resources.empty;
+            this.tableLayoutPanel1.SetColumnSpan(this.lbl_time, 3);
+            this.lbl_time.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_time.ForeColor = System.Drawing.Color.White;
+            this.lbl_time.Location = new System.Drawing.Point(3, 3);
+            this.lbl_time.Name = "lbl_time";
+            this.lbl_time.Padding = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.lbl_time.Size = new System.Drawing.Size(247, 31);
+            this.lbl_time.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.lbl_time.Symbol = 125;
+            this.lbl_time.SymbolColor = System.Drawing.Color.White;
+            this.lbl_time.SymbolSize = 36;
+            this.lbl_time.TabIndex = 0;
+            this.lbl_time.Text = "drakeUISymbolLabel1";
+            this.lbl_time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbl_time.DoubleClick += new System.EventHandler(this.lbl_time_DoubleClick);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(76, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -204,5 +216,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private DrakeUI.Framework.DrakeUISymbolLabel drakeUISymbolLabel1;
         public DrakeUI.Framework.DrakeUILampLED lamp_ems;
+        private System.Windows.Forms.Button button1;
     }
 }

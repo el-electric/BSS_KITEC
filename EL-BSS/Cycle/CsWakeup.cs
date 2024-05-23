@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace EL_BSS.Cycle
 {
@@ -10,14 +13,56 @@ namespace EL_BSS.Cycle
     {
         public static int CurrentStep = 0;
 
-
+        int timeout = 3000;
         //웨이크업(FETON) CsWakeUp
 
         //상태체크 CsStatusCheck
 
         //충전     CsCharging
 
+        public static bool isWakeUP(int slotid)
+        {
+            Model.getInstance().list_SlaveSend[slotid - 1].BatteryWakeup = true;
+            CsDefine.Delayed[CsDefine.CYC_WAKEUP] = 0;
 
+            while (true)
+            {
+                if (Model.getInstance().list_SlaveRecv[slotid - 1].WAKEUP_Signal)
+                {
+                    // Model.getInstance().list_SlaveSend[slotid - 1].BatteryFETON = true;
+                    break;
+
+                }
+                else if (CsDefine.Delayed[CsDefine.CYC_WAKEUP] >= 5000)
+                {
+                    return false;
+                }
+
+                Thread.Sleep(10);
+            }
+            return true;
+        }
+
+        public static bool isFETon(int slotid)
+        {
+            Model.getInstance().list_SlaveSend[slotid - 1].BatteryFETON = true;
+            CsDefine.Delayed[CsDefine.CYC_FETON] = 0;
+
+            while (true)
+            {
+                if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_ON_State)
+                {
+                    break;
+                }
+                else if (CsDefine.Delayed[CsDefine.CYC_FETON] >= 5000)
+                {
+                    return false;
+                }
+
+                Thread.Sleep(10);
+            }
+            return true;
+        }
 
         public static void CYC_WAKEUP(int slotid)
         {

@@ -1,4 +1,5 @@
-﻿using EL_BSS.Serial;
+﻿using EL_BSS.Cycle;
+using EL_BSS.Serial;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -129,10 +130,12 @@ namespace EL_BSS
             Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
         }
 
-        private void button10_Click(object sender, EventArgs e) // 출력(배터리 연동)
+        private async void button10_Click(object sender, EventArgs e) // 출력(배터리 연동)
         {
-            Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = true;
-            Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
+            /*Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = true;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;*/
+            
+            bool isCharging = await Task.Run(() => CsCharging.isCharging(mSLot_Number));
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -170,14 +173,31 @@ namespace EL_BSS
             Model.getInstance().list_SlaveSend[mSLot_Number - 1].doorOpen = false;
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
+        private async void button3_Click_1(object sender, EventArgs e)
         {
-            if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup == false)
+            /*if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup == false)
             { Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = true; }
             else if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup == true)
-            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = false; }
-        }
+            { Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = false; }*/
 
+            bool isWakeup = await Task.Run(() => CsWakeup.isWakeUP(mSLot_Number));
+            if (isWakeup)
+                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " WakeUP 성공", 1000);
+            else
+                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " WakeUP 실패", 1000);
+
+
+
+        }
+        private async void button1_Click_2(object sender, EventArgs e)
+        {
+            bool isFeton = await Task.Run(() => CsWakeup.isFETon(mSLot_Number));
+
+            if (isFeton)
+                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " FETON 성공", 1000);
+            else
+                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " FETON 실패", 1000);
+        }
         public void InitForm()
         {
             throw new NotImplementedException();
@@ -220,5 +240,7 @@ namespace EL_BSS
         {
             Model.getInstance().list_SlaveSend[mSLot_Number - 1].boardReset = true;
         }
+
+
     }
 }

@@ -196,10 +196,10 @@ namespace EL_BSS.Serial
             else if ((Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) < 65)
             {
                 Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = 48;
-            }
+            }         
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestWattage = EL_Manager_Conversion.getInt_2Byte(packet[31], packet[32]);
-            Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = (EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]) + 40);
-            Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = (EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]) + 40);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = (EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]) - 40);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = (EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]) - 40);
             Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
@@ -227,8 +227,8 @@ namespace EL_BSS.Serial
             }
 
             Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal = EL_Manager_Conversion.getFlagByByteArray(packet[56], 0);
+            Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State = EL_Manager_Conversion.getFlagByByteArray(packet[56], 7);
             Model.getInstance().list_SlaveRecv[idx - 1].Serial_Number = EL_Manager_Conversion.getInt_2Byte(packet[66], packet[67]);
-            Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State = EL_Manager_Conversion.getFlagByByteArray(packet[55], 7);
 
             Model.getInstance().list_SlaveRecv[idx - 1].FET_Temper = EL_Manager_Conversion.getInt(packet[59]);
         }

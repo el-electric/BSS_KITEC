@@ -323,7 +323,7 @@ namespace EL_BSS
 
             while (true)
             {
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < CsDefine.Cyc_Rail.Count(); i++)
                 {
                     if (CsDefine.Delayed[i] == 0)
                     {
@@ -358,6 +358,16 @@ namespace EL_BSS
         public void UpdateForm(string data)
         {
             lbl_Notify_Tv.Text = data;
+        }
+        public void NotiShow(string context,int showingTime)
+        {
+            frmNotiPopup frmNotiPopup = new frmNotiPopup(this,showingTime,context);
+            frmNotiPopup.ShowNotification();
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmNotiPopup frmNotiPopup = new frmNotiPopup(this);
+            frmNotiPopup.ShowNotification();
         }
     }
 }

@@ -17,7 +17,8 @@ namespace EL_BSS.Cycle
 
         public static void Main_WorkCycle() //자동동작 시퀀스
         {
-            
+
+
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
             {
                 case CsDefine.CYC_INIT:

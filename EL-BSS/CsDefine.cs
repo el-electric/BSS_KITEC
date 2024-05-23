@@ -20,7 +20,7 @@ namespace EL_BSS.Cycle
         public const int CYC_COMPLETE = 800;
         public const int CYC_ERROR = 900;
 
-        public const int CYC_FETON = 1000;
+
         public const int CYC_CHECK = 1100;
         public const int CYC_CHARGING_STOP = 1200;
 
@@ -31,15 +31,16 @@ namespace EL_BSS.Cycle
         public const int CYC_WAKEUP = 2;
         public const int CYC_STATUSCHECK = 3;
         public const int CYC_CHARGING = 4;
+        public const int CYC_FETON = 5;
         //public const int CYC_Firmware = 2;
 
-        public static int[] Cyc_Rail = new int[5];
-        public static int[] Delayed = new int[5];
-        public static int[] Counted = new int[5];
+        public static int[] Cyc_Rail = new int[10];
+        public static int[] Delayed = new int[10];
+        public static int[] Counted = new int[10];
         public static DateTime[] dt_beforeDealy = new DateTime[31];
         public static DateTime[] dt_beforeCount = new DateTime[31];
 
-      
+
 
     }
 }

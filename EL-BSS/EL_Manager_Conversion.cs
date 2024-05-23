@@ -437,7 +437,7 @@ namespace EL_BSS
         public static string ByteArrayToHexString(byte[] ba) => BitConverter.ToString(ba).Replace("-", "");
         public static int getInt_2Byte(byte[] data) => (data[0] << 8 | data[1]) & 0x0000ffff;
 
-        public static int getInt_2Byte(byte data1, byte data2) => (data1 << 8 | data2) & 0x0000ffff;
+        public static int getInt_2Byte(byte data1, byte data2) => (data2 << 8 | data1) & 0x0000ffff;
         public static int getInt(byte data) => data & 0x000000ff;
         public static int getInt(string data)
         {
