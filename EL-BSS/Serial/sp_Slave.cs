@@ -231,7 +231,7 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State = EL_Manager_Conversion.getFlagByByteArray(packet[56], 7);
             Model.getInstance().list_SlaveRecv[idx - 1].Serial_Number = EL_Manager_Conversion.getInt_2Byte(packet[66], packet[67]);
 
-            Model.getInstance().list_SlaveRecv[idx - 1].FET_Temper = EL_Manager_Conversion.getInt(packet[59]);
+            Model.getInstance().list_SlaveRecv[idx - 1].FET_Temper = (EL_Manager_Conversion.getInt(packet[59]) - 40);
         }
 
         protected bool Check_100SOC_Battery()
@@ -272,7 +272,7 @@ namespace EL_BSS.Serial
             }
             else
             {
-                return "Available";
+                return "EMPTY";
             }
         }
 
