@@ -20,7 +20,7 @@ namespace EL_BSS.Serial
                 serial = new SerialPort();
 
                 serial.PortName = PortName;
-                serial.BaudRate = 38400;
+                serial.BaudRate = 115200;
                 serial.Parity = Parity.None;
                 serial.DataBits = 8;
                 serial.StopBits = StopBits.One;
@@ -243,7 +243,7 @@ namespace EL_BSS.Serial
             Model.getInstance().FirmwareUpdate = false;
         }
         public static void Write(byte[] bytes)
-        {            
+        {
             serial.Write(bytes, 0, bytes.Length);
         }
     }

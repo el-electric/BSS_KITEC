@@ -48,7 +48,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 Guid.NewGuid().ToString(),
                 enumData.StatusNotification.ToString(),
                     new
-                    {
+                    {                        
                         connectorId = ChannelIdx,
                         status = status
                     }

@@ -41,7 +41,7 @@ namespace EL_BSS.Serial
         {
             serial.Close();
         }
-        private static async void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private static void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             int bytesToRead = serial.BytesToRead;
             byte[] receivedData = new byte[bytesToRead];
@@ -187,6 +187,7 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryCurrentVoltage = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryCurrentWattage = EL_Manager_Conversion.getInt_2Byte(packet[27], packet[28]);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage = EL_Manager_Conversion.getInt_2Byte(packet[29], packet[30]);
+
             if (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage == 0)
             { }
             else if ((Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) > 65)
@@ -196,7 +197,7 @@ namespace EL_BSS.Serial
             else if ((Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) < 65)
             {
                 Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = 48;
-            }         
+            }
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestWattage = EL_Manager_Conversion.getInt_2Byte(packet[31], packet[32]);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = (EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]) - 40);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = (EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]) - 40);
@@ -276,7 +277,7 @@ namespace EL_BSS.Serial
         }
 
         private static void HandlePacket_f1(byte[] packet)
-        {           
+        {
             Model.getInstance().PWUpdate_Receive_MasterID = packet[1];
             Model.getInstance().PWUpdate_Receive_SlaveID = packet[2];
             int JMT = 0;

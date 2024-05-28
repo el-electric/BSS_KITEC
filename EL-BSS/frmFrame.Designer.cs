@@ -32,24 +32,24 @@
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.ui_timer_500ms = new System.Windows.Forms.Timer(this.components);
             this.bck_Protocol = new System.ComponentModel.BackgroundWorker();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.drakeUISymbolLabel1 = new DrakeUI.Framework.DrakeUISymbolLabel();
-            this.lamp_ems = new DrakeUI.Framework.DrakeUILampLED();
-            this.lbl_Notify_Tv = new DrakeUI.Framework.DrakeUILabel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.bck_Sequnce = new System.ComponentModel.BackgroundWorker();
             this.bck_Counting = new System.ComponentModel.BackgroundWorker();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lbl_Notify_Tv = new DrakeUI.Framework.DrakeUILabel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lamp_ems = new DrakeUI.Framework.DrakeUILampLED();
+            this.drakeUISymbolLabel1 = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.lbl_time = new DrakeUI.Framework.DrakeUISymbolLabel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitter1
             // 
             this.splitter1.Location = new System.Drawing.Point(0, 0);
             this.splitter1.Margin = new System.Windows.Forms.Padding(0);
+            this.splitter1.MinSize = 0;
             this.splitter1.Name = "splitter1";
             this.splitter1.Size = new System.Drawing.Size(3, 768);
             this.splitter1.TabIndex = 0;
@@ -65,19 +65,33 @@
             // 
             this.bck_Protocol.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Protocol_DoWork);
             // 
-            // panel1
+            // bck_Sequnce
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(182)))), ((int)(((byte)(176)))));
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Controls.Add(this.lbl_Notify_Tv);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1021, 74);
-            this.panel1.TabIndex = 3;
+            this.bck_Sequnce.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Sequnce_DoWork);
+            // 
+            // bck_Counting
+            // 
+            this.bck_Counting.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Counting_DoWork);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 74);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1021, 694);
+            this.panel2.TabIndex = 5;
+            // 
+            // lbl_Notify_Tv
+            // 
+            this.lbl_Notify_Tv.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold);
+            this.lbl_Notify_Tv.ForeColor = System.Drawing.Color.White;
+            this.lbl_Notify_Tv.Location = new System.Drawing.Point(3, 33);
+            this.lbl_Notify_Tv.Name = "lbl_Notify_Tv";
+            this.lbl_Notify_Tv.Size = new System.Drawing.Size(1018, 41);
+            this.lbl_Notify_Tv.TabIndex = 1;
+            this.lbl_Notify_Tv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
             // 
@@ -97,6 +111,17 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(253, 74);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
+            // lamp_ems
+            // 
+            this.lamp_ems.Color = System.Drawing.Color.Lime;
+            this.lamp_ems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp_ems.Location = new System.Drawing.Point(214, 40);
+            this.lamp_ems.Name = "lamp_ems";
+            this.lamp_ems.On = false;
+            this.lamp_ems.Size = new System.Drawing.Size(36, 31);
+            this.lamp_ems.TabIndex = 2;
+            this.lamp_ems.Text = "drakeUILampLED1";
+            // 
             // drakeUISymbolLabel1
             // 
             this.drakeUISymbolLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -113,45 +138,6 @@
             this.drakeUISymbolLabel1.TabIndex = 1;
             this.drakeUISymbolLabel1.Text = "EMS";
             this.drakeUISymbolLabel1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
-            // lamp_ems
-            // 
-            this.lamp_ems.Color = System.Drawing.Color.Lime;
-            this.lamp_ems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp_ems.Location = new System.Drawing.Point(214, 40);
-            this.lamp_ems.Name = "lamp_ems";
-            this.lamp_ems.On = false;
-            this.lamp_ems.Size = new System.Drawing.Size(36, 31);
-            this.lamp_ems.TabIndex = 2;
-            this.lamp_ems.Text = "drakeUILampLED1";
-            // 
-            // lbl_Notify_Tv
-            // 
-            this.lbl_Notify_Tv.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold);
-            this.lbl_Notify_Tv.ForeColor = System.Drawing.Color.White;
-            this.lbl_Notify_Tv.Location = new System.Drawing.Point(3, 33);
-            this.lbl_Notify_Tv.Name = "lbl_Notify_Tv";
-            this.lbl_Notify_Tv.Size = new System.Drawing.Size(1018, 41);
-            this.lbl_Notify_Tv.TabIndex = 1;
-            this.lbl_Notify_Tv.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 74);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1021, 694);
-            this.panel2.TabIndex = 5;
-            // 
-            // bck_Sequnce
-            // 
-            this.bck_Sequnce.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Sequnce_DoWork);
-            // 
-            // bck_Counting
-            // 
-            this.bck_Counting.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bck_Counting_DoWork);
             // 
             // lbl_time
             // 
@@ -173,15 +159,18 @@
             this.lbl_time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lbl_time.DoubleClick += new System.EventHandler(this.lbl_time_DoubleClick);
             // 
-            // button1
+            // panel1
             // 
-            this.button1.Location = new System.Drawing.Point(76, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(182)))), ((int)(((byte)(176)))));
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Controls.Add(this.lbl_Notify_Tv);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1021, 74);
+            this.panel1.TabIndex = 3;
             // 
             // frmFrame
             // 
@@ -196,8 +185,8 @@
             this.Name = "frmFrame";
             this.Text = "frmFrame";
             this.Load += new System.EventHandler(this.frmFrame_Load);
-            this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -207,15 +196,14 @@
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Timer ui_timer_500ms;
         private System.ComponentModel.BackgroundWorker bck_Protocol;
-        private DrakeUI.Framework.DrakeUISymbolLabel lbl_time;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.ComponentModel.BackgroundWorker bck_Sequnce;
         private System.ComponentModel.BackgroundWorker bck_Counting;
+        private System.Windows.Forms.Panel panel2;
         public DrakeUI.Framework.DrakeUILabel lbl_Notify_Tv;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private DrakeUI.Framework.DrakeUISymbolLabel lbl_time;
         private DrakeUI.Framework.DrakeUISymbolLabel drakeUISymbolLabel1;
         public DrakeUI.Framework.DrakeUILampLED lamp_ems;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

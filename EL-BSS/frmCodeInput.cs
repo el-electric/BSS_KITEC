@@ -15,7 +15,7 @@ using static EL_BSS.Model;
 
 namespace EL_BSS
 {
-    public partial class frmCodeInput : Form
+    public partial class frmCodeInput : Form, IObserver
     {
         public frmCodeInput()
         {
@@ -30,10 +30,7 @@ namespace EL_BSS
             {
                 tb_intput.Text += ((DrakeUIButton)sender).Text;
             }
-
-
         }
-
         private void drakeUIButtonIcon2_Click(object sender, EventArgs e)
         {
             if (tb_intput.Text.Length > 0)
@@ -83,6 +80,22 @@ namespace EL_BSS
         private void drakeUIButtonIcon1_Click_1(object sender, EventArgs e)
         {
             frmFrame.deleMenuClick(0);
+        }
+
+        public void InitForm()
+        {
+            lbl_status.Text = "앱에 표시된 6자리 코드를 입력하세요";
+            tb_intput.Text = string.Empty;
+        }
+
+        public void UpdateForm(Model model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateForm(string data)
+        {
+            throw new NotImplementedException();
         }
     }
 }
