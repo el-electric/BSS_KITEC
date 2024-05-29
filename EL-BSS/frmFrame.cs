@@ -30,6 +30,7 @@ namespace EL_BSS
         frmManual frmManual = new frmManual();
         FWupdate FWupdate = new FWupdate();
         frmCodeInput frmCodeInput = new frmCodeInput();
+        frmCSMSSetting frmCSMSSetting = new frmCSMSSetting();
         public frmFrame()
         {
             InitializeComponent();
@@ -103,10 +104,12 @@ namespace EL_BSS
             frmManual.TopLevel = false;
             FWupdate.TopLevel = false;
             frmCodeInput.TopLevel = false;
+            frmCSMSSetting.TopLevel = false;
             frmMain.Show();
             frmManual.Show();
             FWupdate.Show();
             frmCodeInput.Show();
+            frmCSMSSetting.Show();
 
             foreach (IObserver observer in observers)
             {
@@ -147,6 +150,9 @@ namespace EL_BSS
                 case 3:
                     frmCodeInput.InitForm();
                     panel2.Controls.Add(frmCodeInput);
+                    break;
+                case 4:
+                    panel2.Controls.Add(frmCSMSSetting);
                     break;
                 case 10:
 
