@@ -90,6 +90,12 @@
     <Compile Include="frmCodeInput.Designer.cs">
       <DependentUpon>frmCodeInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCSMSSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCSMSSetting.Designer.cs">
+      <DependentUpon>frmCSMSSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmNotiPopup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,6 +247,9 @@
     <Compile Include="Vkeyvoard.cs" />
     <EmbeddedResource Include="frmCodeInput.resx">
       <DependentUpon>frmCodeInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCSMSSetting.resx">
+      <DependentUpon>frmCSMSSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNotiPopup.resx">
       <DependentUpon>frmNotiPopup.cs</DependentUpon>

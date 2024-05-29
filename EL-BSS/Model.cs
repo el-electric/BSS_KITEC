@@ -204,31 +204,97 @@ namespace EL_BSS
             public string BatteryType = "";
 
             //51
-            public bool overCharging;
-            public bool overDischarge;
-            public bool packOverCharging;
-            public bool cellOverCharging;
-            public bool packHighVoltage;
-            public bool packLowVoltage;
-            public bool highVoltage;
             public bool rowVoltage;
+            public bool highVoltage;
+            public bool packLowVoltage;
+            public bool packHighVoltage;
+            public bool cellOverCharging;
+            public bool packOverCharging;
+            public bool overDischarge;
+            public bool overCharging;
 
             //52
-            public bool FET_HighTemp;
-            public bool FET_LowTemp;
-            public bool cell_HighTemp;
-            public bool cell_LowTemp;
             public bool reCycleOverCharging;
+            public bool cell_LowTemp;
+            public bool cell_HighTemp;
+            public bool FET_LowTemp;
+            public bool FET_HighTemp;
 
             //53
-            public bool overChargingProtection;
-            public bool overDischargeProtection;
-            public bool packRecycleOverChargingProtection;
-            public bool cellRecycleOverChargingProtection;
-            public bool packHighVoltageProtection;
-            public bool packLowVoltageProtection;
-            public bool highVoltageProtection;
             public bool lowVoltageProtection;
+            public bool highVoltageProtection;
+            public bool packLowVoltageProtection;
+            public bool packHighVoltageProtection;
+            public bool cellRecycleOverChargingProtection;
+            public bool packRecycleOverChargingProtection;
+            public bool overDischargeProtection;
+            public bool overChargingProtection;
+
+            //55
+            public bool reCycleOverChargingProtection;
+            public bool cellLowTempProtection;
+            public bool cellHighTempProtection;
+            public bool FETLowTempProtection;
+            public bool FETHighTempProtection;
+            public bool shortProtect;
+            public bool VCUError;
+            public bool PreChargeError;
+
+            //56
+            public bool WAKEUP_Signal = false;
+            public bool BMSReadyState;
+            public bool VCU_Connect;
+            public bool charger_Connect;
+            public bool chargeStationConnect;
+            public bool discharge_FET_State;
+            public bool charge_FET_State;
+            public bool FET_ON_State = false;
+
+            public bool Charge_State;
+            public bool Discharge_State;
+            public bool Regeneration_State;
+            public bool Ready_State;
+            public bool Emergence_State;
+            public bool Protect_State;
+            public bool Balancing_State;
+
+            //57
+            public bool ROM_Check;
+            public bool RAM_Check;
+            public bool Thermistor_Open;
+            public bool Thermistor_Short;
+            public bool Current_Error;
+            public bool FET_Error;
+            public bool Cell_Deviation_Error;
+            public bool All_Pack_Deviation_Error;
+
+            public int FET_Temper;
+            public int Battery_FW_Version;
+            public int Battery_Model;
+            public int Year;
+            public int Month;
+            public int Day;
+            public int Serial_Number;
+
+            public int Battery_Slot_Temp;
+            public int Battery_Cell_High_Voltage;
+            public int Battery_Cell_Low_Voltage;
+            public int Cell_Belancing_Flag;
+            public int Battery_Moduel_Voltage;
+            public int Battery_Cell_Vol_01;
+            public int Battery_Cell_Vol_02;
+            public int Battery_Cell_Vol_03;
+            public int Battery_Cell_Vol_04;
+            public int Battery_Cell_Vol_05;
+            public int Battery_Cell_Vol_06;
+            public int Battery_Cell_Vol_07;
+            public int Battery_Cell_Vol_08;
+            public int Battery_Cell_Vol_09;
+            public int Battery_Cell_Vol_10;
+            public int Battery_Cell_Vol_11;
+            public int Battery_Cell_Vol_12;
+            public int Battery_Cell_Vol_13;
+            public int Battery_Cell_Vol_14;
 
             // 최초 안착 신호 들어온 시간
             public Nullable<DateTime> dt_First_BatterArrive_Time = null;
@@ -239,10 +305,10 @@ namespace EL_BSS
             ////////////
 
             /////C1/////
-            public int FET_Temper;
-            public bool WAKEUP_Signal = false;
-            public bool FET_ON_State = false;
-            public int Serial_Number;
+            
+            
+            
+            
             ////////////
 
         }
