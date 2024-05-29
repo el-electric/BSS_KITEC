@@ -283,7 +283,7 @@ namespace EL_BSS
 
                 }
 
-                Thread.Sleep(200);
+                Thread.Sleep(50);
             }
         }
         public void InitForm()

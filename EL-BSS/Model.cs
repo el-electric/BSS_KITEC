@@ -657,6 +657,8 @@ namespace EL_BSS
             Authorize,
             StartTransaction,
             StopTransaction,
+            AddInfoStationBatteryState,
+            AddInforBatteryExchange,
             Accepted,
             Type48 = 48,
             Type72 = 72,

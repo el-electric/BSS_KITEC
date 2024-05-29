@@ -18,6 +18,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Threading.Tasks;
 using System.Runtime.Remoting.Messaging;
 using static EL_BSS.Model;
+using System.Xml;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -48,13 +49,94 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 Guid.NewGuid().ToString(),
                 enumData.StatusNotification.ToString(),
                     new
-                    {                        
+                    {
+                        //스테이션id
+                        //chargePointSerialNumber = 
                         connectorId = ChannelIdx,
-                        status = status
+                        status = status,
+                        //errorCode = 
+                        //info = 
+                        //batteryId = 
+                        //soc = 
+                        timestamp = DateTime.Now.ToString(),
+
+        }
+    };
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+
+            return json;
+        }
+
+        public string sendOCPP_CP_Req_AddInfoStationBatteryState(int ChannelIdx)
+        {
+            var data = new Object[]
+           {
+                2,
+                Guid.NewGuid().ToString(),
+                enumData.AddInfoStationBatteryState.ToString(),
+                    new
+                    {
+                        timeStamp = DateTime.Now.ToString(),
+                        stationId = 0,
+                        slotId=ChannelIdx,
+                        jobSequenceName=0,
+                        isErrorOccured=0,
+                        batteryId=0,
+                        SOC=0,
+                        SOH=0,
+                        batteryPackVoltage=0,
+                        batteryPackCurrent=0,
+                        batteryModuleTempMax=0,
+                        batteryModuleTempMin=0,
+                        batteryTemp1=0,
+                        batteryTemp2=0,
+                        batteryFetTemp=0,
+                        batteryCellVoltageMax=0,
+                        BatteryCellVoltageMin=0,
+                        cellBalancingFlag=0,
+                        batteryModuleVoltage=0,
+                        batteryCellVoltage01=0,
+                        batteryCellVoltage02=0,
+                        batteryCellVoltage03=0,
+                        batteryCellVoltage04=0,
+                        batteryCellVoltage05=0,
+                        batteryCellVoltage06=0,
+                        batteryCellVoltage07=0,
+                        batteryCellVoltage08=0,
+                        batteryCellVoltage09=0,
+                        batteryCellVoltage10=0,
+                        batteryCellVoltage11=0,
+                        batteryCellVoltage12=0,
+                        batteryCellVoltage13=0,
+                        batteryCellVoltage14=0,
+                        slotConnectState=0,
+                        stationConnectState=0,
+                        chargingState=0,
+                        dischargingState=0,
+                        recoveryState=0,
+                        readyState=0,
+                        warningState=0,
+                        protectState=0,
+                        balancingState=0,
+
                     }
             };
-            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+            return json;
+        }
+        public string sendOCPP_CP_Req_AddInforBatteryExchange(int ChannelIdx)
+        {
+            var data = new Object[]
+            {
+                2,
+                Guid.NewGuid().ToString(),
+                enumData.AddInfoStationBatteryState.ToString(),
+                    new
+                    {
+                        timeStamp = DateTime.Now.ToString(),
+                    }
+            };
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
             return json;
         }
         //public async Task<string> sendOCPP_CP_Req_HearthBeat()
@@ -153,7 +235,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             };
 
 
-            string json = JsonConvert.SerializeObject(temp, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(temp, Newtonsoft.Json.Formatting.Indented);
 
             JArray jsonObject = JArray.Parse(json);
             list_Jarray.Add(jsonObject);
@@ -171,7 +253,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             };
 
 
-            string json = JsonConvert.SerializeObject(temp, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(temp, Newtonsoft.Json.Formatting.Indented);
 
             JArray jsonObject = JArray.Parse(json);
             list_Jarray.Add(jsonObject);

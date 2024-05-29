@@ -199,7 +199,7 @@ namespace BatteryChangeCharger.OCPP
                         }
                         else
                         {
-                            // UId가 일치하지 않으면 다시 대기
+                            //UId가 일치하지 않으면 다시 대기
                             Console.WriteLine("UID 일치 하지 않아 재대기" + responseUid);
                             responseCompletionSource = new TaskCompletionSource<string>();
                         }
