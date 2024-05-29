@@ -108,7 +108,17 @@ namespace EL_BSS
 
         public string Master_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", "COM1");
         public string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "COM2");
-        public string StationId = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "STATION", "ID", "");
+
+        public string chargeBoxSerialNumber = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargeBoxSerialNumber.ToString(), "");
+        public string chargePointModel = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointModel.ToString(), "");
+        public string chargePointSerialNumber = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointSerialNumber.ToString(), "");
+        public string chargePointVendor = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointVendor.ToString(), "");
+        public string iccid = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.iccid.ToString(), "");
+        public string imsi = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.imsi.ToString(), "");
+        public string stationAddressDetail = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationAddressDetail.ToString(), "");
+        public string stationAddressConvenient = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationAddressConvenient.ToString(), "");
+        public string Manager = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.Manager.ToString(), "");
+
 
         public bool Start_Return_Button = false;
 
@@ -305,10 +315,10 @@ namespace EL_BSS
             ////////////
 
             /////C1/////
-            
-            
-            
-            
+
+
+
+
             ////////////
 
         }
@@ -667,7 +677,23 @@ namespace EL_BSS
             Finishing,
             Charging,
             Empty,
-            Fault
+            Fault,
+            chargeBoxSerialNumber,
+            chargePointModel,
+            chargePointSerialNumber,
+            chargePointVendor,
+            firmwareVersion,
+            iccid,
+            imsi,
+            stationAddressDetail,
+            stationAddressConvenient,
+            Manager,
+            countSlot,
+            connectorType,
+            chargerMaximumPower,
+            maker,
+            makeDate,
+            runDate,
         }
     }
 }

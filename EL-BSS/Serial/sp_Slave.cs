@@ -62,7 +62,7 @@ namespace EL_BSS.Serial
                 int startIndex = mReceive_Data.IndexOf(0xfe); // STX
                 if (!Model.getInstance().FirmwareUpdate)
                 {
-                    int packetLength = 107; // 패킷의 길이
+                    int packetLength = 108; // 패킷의 길이
 
                     // STX가 있고, 충분한 길이의 데이터가 있는지 확인
                     if (startIndex != -1 && mReceive_Data.Count >= startIndex + packetLength)
@@ -172,7 +172,17 @@ namespace EL_BSS.Serial
             else
                 idx = slaveId;
 
+
+            ///////////////// TEMP LOG ///////////////
+            TimeSpan difference = DateTime.Now - Model.getInstance().list_SlaveDataRecvDatetime[idx - 1];
+            CsUtil.WriteLog("," + idx + ", Receive TERM : " + difference.ToString(@"hh\:mm\:ss\.fff"), "SERIAL");
+
+            //////////////////////////////////////////
+
             Model.getInstance().list_SlaveDataRecvDatetime[idx - 1] = DateTime.Now;
+
+
+
 
             Model.getInstance().list_SlaveRecv[idx - 1].BatterArrive = EL_Manager_Conversion.getFlagByByteArray(packet[17], 7);
             Model.getInstance().list_SlaveRecv[idx - 1].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);
@@ -272,13 +282,13 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_FW_Version = EL_Manager_Conversion.getInt(packet[60]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Model = EL_Manager_Conversion.getInt_2Byte(packet[61], packet[62]);
             Model.getInstance().list_SlaveRecv[idx - 1].Year = EL_Manager_Conversion.getInt(packet[63]);
-            Model.getInstance().list_SlaveRecv[idx -1 ].Month = EL_Manager_Conversion.getInt(packet[64]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Month = EL_Manager_Conversion.getInt(packet[64]);
             Model.getInstance().list_SlaveRecv[idx - 1].Day = EL_Manager_Conversion.getInt(packet[65]);
 
             Model.getInstance().list_SlaveRecv[idx - 1].Serial_Number = EL_Manager_Conversion.getInt_2Byte(packet[66], packet[67]);
 
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68])- 40);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[69] , packet[70]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68]) - 40);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[69], packet[70]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Low_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[71], packet[72]);
             Model.getInstance().list_SlaveRecv[idx - 1].Cell_Belancing_Flag = EL_Manager_Conversion.getInt(packet[73]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Moduel_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[74], packet[75]);
@@ -318,8 +328,8 @@ namespace EL_BSS.Serial
                 }
             }
 
-            
-          
+
+
         }
 
         protected bool Check_100SOC_Battery()

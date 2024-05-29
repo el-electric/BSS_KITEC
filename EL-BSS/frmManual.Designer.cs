@@ -34,9 +34,6 @@
             this.Chage_To_FW = new System.Windows.Forms.Button();
             this.Vkey_OFF_button = new System.Windows.Forms.Button();
             this.Vkey_ON_button = new System.Windows.Forms.Button();
-            this.cb_slave = new DrakeUI.Framework.DrakeUIComboBox();
-            this.cb_master = new DrakeUI.Framework.DrakeUIComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.Back_Main = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -50,8 +47,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.tb_stationId = new DrakeUI.Framework.DrakeUITextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -69,13 +65,9 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.tb_stationId);
             this.groupBox1.Controls.Add(this.Chage_To_FW);
             this.groupBox1.Controls.Add(this.Vkey_OFF_button);
             this.groupBox1.Controls.Add(this.Vkey_ON_button);
-            this.groupBox1.Controls.Add(this.cb_slave);
-            this.groupBox1.Controls.Add(this.cb_master);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.Back_Main);
             this.groupBox1.Controls.Add(this.button3);
@@ -119,52 +111,6 @@
             this.Vkey_ON_button.Text = "화상키보드 ON";
             this.Vkey_ON_button.UseVisualStyleBackColor = true;
             this.Vkey_ON_button.Click += new System.EventHandler(this.Vkey_ON_button_Click);
-            // 
-            // cb_slave
-            // 
-            this.cb_slave.DropDownStyle = DrakeUI.Framework.UIDropDownStyle.DropDownList;
-            this.cb_slave.FillColor = System.Drawing.Color.White;
-            this.cb_slave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.cb_slave.Location = new System.Drawing.Point(492, 17);
-            this.cb_slave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cb_slave.MinimumSize = new System.Drawing.Size(63, 0);
-            this.cb_slave.Name = "cb_slave";
-            this.cb_slave.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_slave.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.cb_slave.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.cb_slave.Size = new System.Drawing.Size(133, 29);
-            this.cb_slave.Style = DrakeUI.Framework.UIStyle.Green;
-            this.cb_slave.TabIndex = 13;
-            this.cb_slave.Text = "Slave";
-            this.cb_slave.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cb_master
-            // 
-            this.cb_master.DropDownStyle = DrakeUI.Framework.UIDropDownStyle.DropDownList;
-            this.cb_master.FillColor = System.Drawing.Color.White;
-            this.cb_master.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.cb_master.Location = new System.Drawing.Point(365, 17);
-            this.cb_master.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cb_master.MinimumSize = new System.Drawing.Size(63, 0);
-            this.cb_master.Name = "cb_master";
-            this.cb_master.Padding = new System.Windows.Forms.Padding(0, 0, 30, 0);
-            this.cb_master.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.cb_master.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.cb_master.Size = new System.Drawing.Size(119, 29);
-            this.cb_master.Style = DrakeUI.Framework.UIStyle.Green;
-            this.cb_master.TabIndex = 12;
-            this.cb_master.Text = "Master";
-            this.cb_master.TextAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(632, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 68);
-            this.button1.TabIndex = 31;
-            this.button1.Text = "저장";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Back_Main
             // 
@@ -287,33 +233,15 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // tb_stationId
+            // button1
             // 
-            this.tb_stationId.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.tb_stationId.FillColor = System.Drawing.Color.White;
-            this.tb_stationId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.tb_stationId.Location = new System.Drawing.Point(465, 59);
-            this.tb_stationId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tb_stationId.Maximum = 2147483647D;
-            this.tb_stationId.Minimum = -2147483648D;
-            this.tb_stationId.Name = "tb_stationId";
-            this.tb_stationId.Padding = new System.Windows.Forms.Padding(5);
-            this.tb_stationId.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(142)))), ((int)(((byte)(60)))));
-            this.tb_stationId.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.tb_stationId.Size = new System.Drawing.Size(160, 26);
-            this.tb_stationId.Style = DrakeUI.Framework.UIStyle.Green;
-            this.tb_stationId.TabIndex = 34;
-            this.tb_stationId.Text = "drakeUITextBox1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("돋움", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(352, 64);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 16);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "STATION ID :";
+            this.button1.Location = new System.Drawing.Point(590, 17);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(116, 68);
+            this.button1.TabIndex = 31;
+            this.button1.Text = "설정 창";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmManual
             // 
@@ -329,7 +257,6 @@
             this.Load += new System.EventHandler(this.frmManual_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -350,15 +277,11 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button Back_Main;
-        private System.Windows.Forms.Button button1;
-        private DrakeUI.Framework.DrakeUIComboBox cb_slave;
-        private DrakeUI.Framework.DrakeUIComboBox cb_master;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button Vkey_OFF_button;
         private System.Windows.Forms.Button Vkey_ON_button;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button Chage_To_FW;
-        private System.Windows.Forms.Label label1;
-        private DrakeUI.Framework.DrakeUITextBox tb_stationId;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static EL_BSS.Model;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace EL_BSS
 {
@@ -15,19 +18,51 @@ namespace EL_BSS
         public frmCSMSSetting()
         {
             InitializeComponent();
+
+
+
+            //tb_chargePointSerialNumber.Text = Model.getInstance().StationId;
         }
 
         private void btn_Save_Click(object sender, EventArgs e)
         {
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", "SATIONBOXID", tb_StationBoxID.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", "MODEL", tb_Model.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", "STATIONID", tb_StationID.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", "VENDOR", tb_Vendor.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", "COMMUNICATION_MODULE_ID", tb_CmModuleID.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", "IMSI", tb_IMSI.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", "DETAIL_ADDRESS", tb_detailadress.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", "SIMPLE_ADDRESS", tb_simpleadress.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", "MANAGER", tb_Manager.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargeBoxSerialNumber.ToString(), tb_chargeBoxSerialNumber.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointModel.ToString(), tb_chargePointModel.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointSerialNumber.ToString(), tb_chargePointSerialNumber.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointVendor.ToString(), tb_chargePointVendor.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.iccid.ToString(), tb_iccid.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.imsi.ToString(), tb_imsi.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationAddressDetail.ToString(), tb_stationAddressDetail.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationAddressConvenient.ToString(), tb_stationAddressConvenient.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.Manager.ToString(), tb_Manager.Text);
+
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", cb_master.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", cb_slave.Text);
+        }
+
+        private void frmCSMSSetting_Load(object sender, EventArgs e)
+        {
+            string[] port = SerialPort.GetPortNames();
+            cb_master.Items.AddRange(port);
+            cb_slave.Items.AddRange(port);
+
+            if (!Model.getInstance().Master_PortName.Equals(""))
+                cb_master.Text = Model.getInstance().Master_PortName;
+            if (!Model.getInstance().Slave_PortName.Equals(""))
+                cb_slave.Text = Model.getInstance().Slave_PortName;
+
+
+
+            tb_chargeBoxSerialNumber.Text = Model.getInstance().chargeBoxSerialNumber;
+            tb_chargePointModel.Text = Model.getInstance().chargePointModel;
+            tb_chargePointSerialNumber.Text = Model.getInstance().chargePointSerialNumber;
+            tb_chargePointVendor.Text = Model.getInstance().chargePointVendor;
+            tb_iccid.Text = Model.getInstance().iccid;
+            tb_imsi.Text = Model.getInstance().imsi;
+            tb_stationAddressDetail.Text = Model.getInstance().stationAddressDetail;
+            tb_stationAddressConvenient.Text = Model.getInstance().stationAddressConvenient;
+            tb_Manager.Text = Model.getInstance().Manager;
+
         }
     }
 }

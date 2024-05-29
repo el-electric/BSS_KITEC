@@ -35,18 +35,7 @@ namespace EL_BSS
                 mLayouts[i - 1].Show();
             }
 
-            updateView();
-
-            string[] port = SerialPort.GetPortNames();
-            cb_master.Items.AddRange(port);
-            cb_slave.Items.AddRange(port);
-
-            if (!Model.getInstance().Master_PortName.Equals(""))
-                cb_master.Text = Model.getInstance().Master_PortName;
-            if (!Model.getInstance().Slave_PortName.Equals(""))
-                cb_slave.Text = Model.getInstance().Slave_PortName;
-
-            tb_stationId.Text = Model.getInstance().StationId;
+            updateView();            
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -121,9 +110,8 @@ namespace EL_BSS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", cb_master.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", cb_slave.Text);
-            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "STATION", "ID", tb_stationId.Text);
+            frmCSMSSetting frmCSMSSetting = new frmCSMSSetting();
+            frmCSMSSetting.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
