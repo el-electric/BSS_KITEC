@@ -141,7 +141,7 @@ namespace EL_BSS
 
             int keyboardWidth = 250;  // 키보드의 너비
             int keyboardHeight = 100; // 키보드의 높이
-            VKeyboard.moveWindow(0, screenHeight - keyboardHeight, keyboardWidth, keyboardHeight);
+            //VKeyboard.moveWindow(0, screenHeight - keyboardHeight, keyboardWidth, keyboardHeight);
         }
 
         private void Vkey_OFF_button_Click(object sender, EventArgs e)

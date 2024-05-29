@@ -31,7 +31,6 @@ namespace EL_BSS.Cycle
                 {
                     // Model.getInstance().list_SlaveSend[slotid - 1].BatteryFETON = true;
                     break;
-
                 }
                 else if (CsDefine.Delayed[CsDefine.CYC_WAKEUP] >= 5000)
                 {
@@ -46,7 +45,7 @@ namespace EL_BSS.Cycle
         public static bool isFETon(int slotid)
         {
             Model.getInstance().list_SlaveSend[slotid - 1].BatteryFETON = true;
-            CsDefine.Delayed[CsDefine.CYC_FETON] = 0;
+            CsDefine.Delayed[CsDefine.CYC_FETON] = 0;           
 
             while (true)
             {

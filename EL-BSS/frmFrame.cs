@@ -107,6 +107,7 @@ namespace EL_BSS
             frmManual.Show();
             FWupdate.Show();
             frmCodeInput.Show();
+
             foreach (IObserver observer in observers)
             {
                 observer.InitForm();
@@ -144,6 +145,7 @@ namespace EL_BSS
                     panel2.Controls.Add(FWupdate);
                     break;
                 case 3:
+                    frmCodeInput.InitForm();
                     panel2.Controls.Add(frmCodeInput);
                     break;
                 case 10:
@@ -261,7 +263,7 @@ namespace EL_BSS
                 else  // 펌웨어 업데이트 하면 정상 패킷을 보내는걸 중지
                 {
                     if (getInstance().isOpen_Master)
-                    {
+                    { 
                         byte[] bytes = getInstance().makeMaserPacket(masterIdx++);
                         sp_Master.Write(bytes);
                         if (masterIdx > getInstance().masterCount)
@@ -281,7 +283,7 @@ namespace EL_BSS
 
                 }
 
-                Thread.Sleep(50);
+                Thread.Sleep(200);
             }
         }
         public void InitForm()
@@ -306,7 +308,7 @@ namespace EL_BSS
         int max_soc;
         bool find_100SOC_Battery = false;
         DateTime minute2;
-        private async void bck_Sequnce_DoWork(object sender, DoWorkEventArgs e)
+        private void bck_Sequnce_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
@@ -359,9 +361,9 @@ namespace EL_BSS
         {
             lbl_Notify_Tv.Text = data;
         }
-        public void NotiShow(string context,int showingTime)
+        public void NotiShow(string context, int showingTime)
         {
-            frmNotiPopup frmNotiPopup = new frmNotiPopup(this,showingTime,context);
+            frmNotiPopup frmNotiPopup = new frmNotiPopup(this, showingTime, context);
             frmNotiPopup.ShowNotification();
         }
         private void button1_Click(object sender, EventArgs e)
