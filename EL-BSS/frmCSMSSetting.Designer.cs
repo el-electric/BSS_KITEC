@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tb_Manager = new System.Windows.Forms.TextBox();
-            this.tb_stationAddressConvenient = new System.Windows.Forms.TextBox();
             this.tb_stationAddressDetail = new System.Windows.Forms.TextBox();
             this.tb_imsi = new System.Windows.Forms.TextBox();
             this.drakeUILabel1 = new DrakeUI.Framework.DrakeUILabel();
@@ -47,12 +45,28 @@
             this.tb_chargePointSerialNumber = new System.Windows.Forms.TextBox();
             this.tb_chargePointVendor = new System.Windows.Forms.TextBox();
             this.tb_iccid = new System.Windows.Forms.TextBox();
-            this.btn_Save = new DrakeUI.Framework.DrakeUIButton();
             this.cb_slave = new DrakeUI.Framework.DrakeUIComboBox();
             this.cb_master = new DrakeUI.Framework.DrakeUIComboBox();
             this.drakeUILabel7 = new DrakeUI.Framework.DrakeUILabel();
             this.drakeUILabel11 = new DrakeUI.Framework.DrakeUILabel();
+            this.btn_Save = new DrakeUI.Framework.DrakeUIButton();
+            this.drakeUILabel12 = new DrakeUI.Framework.DrakeUILabel();
+            this.drakeUILabel13 = new DrakeUI.Framework.DrakeUILabel();
+            this.drakeUILabel14 = new DrakeUI.Framework.DrakeUILabel();
+            this.drakeUILabel15 = new DrakeUI.Framework.DrakeUILabel();
+            this.drakeUILabel16 = new DrakeUI.Framework.DrakeUILabel();
+            this.tb_stationLocationLat = new System.Windows.Forms.TextBox();
+            this.tb_stationLocationLong = new System.Windows.Forms.TextBox();
+            this.tb_maker = new System.Windows.Forms.TextBox();
+            this.tb_makeDate = new System.Windows.Forms.TextBox();
+            this.tb_runDate = new System.Windows.Forms.TextBox();
+            this.tb_stationAddressConvenient = new System.Windows.Forms.TextBox();
+            this.tb_Manager = new System.Windows.Forms.TextBox();
+            this.drakeUILabel17 = new DrakeUI.Framework.DrakeUILabel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tb_CSMS_ADDRESS = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -65,8 +79,6 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66666F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.tb_Manager, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.tb_stationAddressConvenient, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.tb_stationAddressDetail, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.tb_imsi, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.drakeUILabel1, 0, 0);
@@ -88,6 +100,20 @@
             this.tableLayoutPanel1.Controls.Add(this.drakeUILabel7, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.drakeUILabel11, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.btn_Save, 5, 5);
+            this.tableLayoutPanel1.Controls.Add(this.drakeUILabel12, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.drakeUILabel13, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.drakeUILabel14, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.drakeUILabel15, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.drakeUILabel16, 2, 6);
+            this.tableLayoutPanel1.Controls.Add(this.tb_stationLocationLat, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.tb_stationLocationLong, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.tb_maker, 3, 4);
+            this.tableLayoutPanel1.Controls.Add(this.tb_makeDate, 3, 5);
+            this.tableLayoutPanel1.Controls.Add(this.tb_runDate, 3, 6);
+            this.tableLayoutPanel1.Controls.Add(this.tb_stationAddressConvenient, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tb_Manager, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.drakeUILabel17, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 7);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -103,24 +129,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1017, 586);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // tb_Manager
-            // 
-            this.tb_Manager.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_Manager.Location = new System.Drawing.Point(510, 222);
-            this.tb_Manager.Multiline = true;
-            this.tb_Manager.Name = "tb_Manager";
-            this.tb_Manager.Size = new System.Drawing.Size(163, 67);
-            this.tb_Manager.TabIndex = 18;
-            // 
-            // tb_stationAddressConvenient
-            // 
-            this.tb_stationAddressConvenient.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tb_stationAddressConvenient.Location = new System.Drawing.Point(510, 149);
-            this.tb_stationAddressConvenient.Multiline = true;
-            this.tb_stationAddressConvenient.Name = "tb_stationAddressConvenient";
-            this.tb_stationAddressConvenient.Size = new System.Drawing.Size(163, 67);
-            this.tb_stationAddressConvenient.TabIndex = 17;
             // 
             // tb_stationAddressDetail
             // 
@@ -192,7 +200,7 @@
             this.drakeUILabel5.Name = "drakeUILabel5";
             this.drakeUILabel5.Size = new System.Drawing.Size(163, 73);
             this.drakeUILabel5.TabIndex = 4;
-            this.drakeUILabel5.Text = "통신모듈식별번호";
+            this.drakeUILabel5.Text = "ICCID";
             this.drakeUILabel5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tb_chargeBoxSerialNumber
@@ -284,21 +292,6 @@
             this.tb_iccid.Size = new System.Drawing.Size(163, 67);
             this.tb_iccid.TabIndex = 14;
             // 
-            // btn_Save
-            // 
-            this.btn_Save.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_Save.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.btn_Save.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F);
-            this.btn_Save.Location = new System.Drawing.Point(848, 368);
-            this.btn_Save.Name = "btn_Save";
-            this.btn_Save.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.btn_Save.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.btn_Save.Size = new System.Drawing.Size(163, 67);
-            this.btn_Save.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.btn_Save.TabIndex = 19;
-            this.btn_Save.Text = "SAVE";
-            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
-            // 
             // cb_slave
             // 
             this.cb_slave.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -357,6 +350,182 @@
             this.drakeUILabel11.Text = "슬레이브";
             this.drakeUILabel11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btn_Save
+            // 
+            this.btn_Save.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Save.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.btn_Save.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F);
+            this.btn_Save.Location = new System.Drawing.Point(848, 368);
+            this.btn_Save.Name = "btn_Save";
+            this.btn_Save.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.btn_Save.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.btn_Save.Size = new System.Drawing.Size(163, 67);
+            this.btn_Save.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.btn_Save.TabIndex = 19;
+            this.btn_Save.Text = "SAVE";
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
+            // 
+            // drakeUILabel12
+            // 
+            this.drakeUILabel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUILabel12.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel12.Location = new System.Drawing.Point(3, 365);
+            this.drakeUILabel12.Name = "drakeUILabel12";
+            this.drakeUILabel12.Size = new System.Drawing.Size(163, 73);
+            this.drakeUILabel12.TabIndex = 23;
+            this.drakeUILabel12.Text = "스테이션 위치정보 위도";
+            this.drakeUILabel12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // drakeUILabel13
+            // 
+            this.drakeUILabel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUILabel13.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel13.Location = new System.Drawing.Point(3, 438);
+            this.drakeUILabel13.Name = "drakeUILabel13";
+            this.drakeUILabel13.Size = new System.Drawing.Size(163, 73);
+            this.drakeUILabel13.TabIndex = 24;
+            this.drakeUILabel13.Text = "스테이션 위치정보 경도";
+            this.drakeUILabel13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // drakeUILabel14
+            // 
+            this.drakeUILabel14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUILabel14.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel14.Location = new System.Drawing.Point(341, 292);
+            this.drakeUILabel14.Name = "drakeUILabel14";
+            this.drakeUILabel14.Size = new System.Drawing.Size(163, 73);
+            this.drakeUILabel14.TabIndex = 25;
+            this.drakeUILabel14.Text = "제조사";
+            this.drakeUILabel14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // drakeUILabel15
+            // 
+            this.drakeUILabel15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUILabel15.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel15.Location = new System.Drawing.Point(341, 365);
+            this.drakeUILabel15.Name = "drakeUILabel15";
+            this.drakeUILabel15.Size = new System.Drawing.Size(163, 73);
+            this.drakeUILabel15.TabIndex = 26;
+            this.drakeUILabel15.Text = "제조일자";
+            this.drakeUILabel15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // drakeUILabel16
+            // 
+            this.drakeUILabel16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUILabel16.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel16.Location = new System.Drawing.Point(341, 438);
+            this.drakeUILabel16.Name = "drakeUILabel16";
+            this.drakeUILabel16.Size = new System.Drawing.Size(163, 73);
+            this.drakeUILabel16.TabIndex = 27;
+            this.drakeUILabel16.Text = "가동일자";
+            this.drakeUILabel16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tb_stationLocationLat
+            // 
+            this.tb_stationLocationLat.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_stationLocationLat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_stationLocationLat.Location = new System.Drawing.Point(172, 368);
+            this.tb_stationLocationLat.Multiline = true;
+            this.tb_stationLocationLat.Name = "tb_stationLocationLat";
+            this.tb_stationLocationLat.Size = new System.Drawing.Size(163, 67);
+            this.tb_stationLocationLat.TabIndex = 28;
+            // 
+            // tb_stationLocationLong
+            // 
+            this.tb_stationLocationLong.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_stationLocationLong.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_stationLocationLong.Location = new System.Drawing.Point(172, 441);
+            this.tb_stationLocationLong.Multiline = true;
+            this.tb_stationLocationLong.Name = "tb_stationLocationLong";
+            this.tb_stationLocationLong.Size = new System.Drawing.Size(163, 67);
+            this.tb_stationLocationLong.TabIndex = 29;
+            // 
+            // tb_maker
+            // 
+            this.tb_maker.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_maker.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_maker.Location = new System.Drawing.Point(510, 295);
+            this.tb_maker.Multiline = true;
+            this.tb_maker.Name = "tb_maker";
+            this.tb_maker.Size = new System.Drawing.Size(163, 67);
+            this.tb_maker.TabIndex = 30;
+            // 
+            // tb_makeDate
+            // 
+            this.tb_makeDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_makeDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_makeDate.Location = new System.Drawing.Point(510, 368);
+            this.tb_makeDate.Multiline = true;
+            this.tb_makeDate.Name = "tb_makeDate";
+            this.tb_makeDate.Size = new System.Drawing.Size(163, 67);
+            this.tb_makeDate.TabIndex = 31;
+            // 
+            // tb_runDate
+            // 
+            this.tb_runDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_runDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_runDate.Location = new System.Drawing.Point(510, 441);
+            this.tb_runDate.Multiline = true;
+            this.tb_runDate.Name = "tb_runDate";
+            this.tb_runDate.Size = new System.Drawing.Size(163, 67);
+            this.tb_runDate.TabIndex = 32;
+            // 
+            // tb_stationAddressConvenient
+            // 
+            this.tb_stationAddressConvenient.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_stationAddressConvenient.Location = new System.Drawing.Point(510, 149);
+            this.tb_stationAddressConvenient.Multiline = true;
+            this.tb_stationAddressConvenient.Name = "tb_stationAddressConvenient";
+            this.tb_stationAddressConvenient.Size = new System.Drawing.Size(163, 67);
+            this.tb_stationAddressConvenient.TabIndex = 17;
+            // 
+            // tb_Manager
+            // 
+            this.tb_Manager.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_Manager.Location = new System.Drawing.Point(510, 222);
+            this.tb_Manager.Multiline = true;
+            this.tb_Manager.Name = "tb_Manager";
+            this.tb_Manager.Size = new System.Drawing.Size(163, 67);
+            this.tb_Manager.TabIndex = 18;
+            // 
+            // drakeUILabel17
+            // 
+            this.drakeUILabel17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUILabel17.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold);
+            this.drakeUILabel17.Location = new System.Drawing.Point(3, 511);
+            this.drakeUILabel17.Name = "drakeUILabel17";
+            this.drakeUILabel17.Size = new System.Drawing.Size(163, 75);
+            this.drakeUILabel17.TabIndex = 33;
+            this.drakeUILabel17.Text = "CSMS 주소";
+            this.drakeUILabel17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel2, 3);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.tb_CSMS_ADDRESS, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(169, 511);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(507, 75);
+            this.tableLayoutPanel2.TabIndex = 34;
+            // 
+            // tb_CSMS_ADDRESS
+            // 
+            this.tb_CSMS_ADDRESS.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tb_CSMS_ADDRESS.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tb_CSMS_ADDRESS.Location = new System.Drawing.Point(3, 3);
+            this.tb_CSMS_ADDRESS.Multiline = true;
+            this.tb_CSMS_ADDRESS.Name = "tb_CSMS_ADDRESS";
+            this.tb_CSMS_ADDRESS.Size = new System.Drawing.Size(501, 69);
+            this.tb_CSMS_ADDRESS.TabIndex = 0;
+            // 
             // frmCSMSSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -369,6 +538,8 @@
             this.Load += new System.EventHandler(this.frmCSMSSetting_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -399,5 +570,18 @@
         private DrakeUI.Framework.DrakeUIComboBox cb_master;
         private DrakeUI.Framework.DrakeUILabel drakeUILabel7;
         private DrakeUI.Framework.DrakeUILabel drakeUILabel11;
+        private DrakeUI.Framework.DrakeUILabel drakeUILabel12;
+        private DrakeUI.Framework.DrakeUILabel drakeUILabel13;
+        private DrakeUI.Framework.DrakeUILabel drakeUILabel14;
+        private DrakeUI.Framework.DrakeUILabel drakeUILabel15;
+        private DrakeUI.Framework.DrakeUILabel drakeUILabel16;
+        private System.Windows.Forms.TextBox tb_stationLocationLat;
+        private System.Windows.Forms.TextBox tb_stationLocationLong;
+        private System.Windows.Forms.TextBox tb_maker;
+        private System.Windows.Forms.TextBox tb_makeDate;
+        private System.Windows.Forms.TextBox tb_runDate;
+        private DrakeUI.Framework.DrakeUILabel drakeUILabel17;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TextBox tb_CSMS_ADDRESS;
     }
 }

@@ -118,6 +118,11 @@ namespace EL_BSS
         public string stationAddressDetail = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationAddressDetail.ToString(), "");
         public string stationAddressConvenient = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationAddressConvenient.ToString(), "");
         public string Manager = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.Manager.ToString(), "");
+        public string stationLocationLat = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationLocationLat.ToString(), "");
+        public string stationLocationLong = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationLocationLong.ToString(), "");
+        public string maker = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.maker.ToString(), "");
+        public string makeDate = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.makeDate.ToString(), "");
+        public string runDate = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.runDate.ToString(), "");
 
 
         public bool Start_Return_Button = false;
@@ -694,6 +699,8 @@ namespace EL_BSS
             maker,
             makeDate,
             runDate,
+            stationLocationLat,
+            stationLocationLong
         }
     }
 }

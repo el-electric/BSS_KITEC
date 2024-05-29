@@ -35,9 +35,18 @@ namespace EL_BSS
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationAddressDetail.ToString(), tb_stationAddressDetail.Text);
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationAddressConvenient.ToString(), tb_stationAddressConvenient.Text);
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.Manager.ToString(), tb_Manager.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationLocationLat.ToString(), tb_stationLocationLat.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationLocationLong.ToString(), tb_stationLocationLong.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.maker.ToString(), tb_maker.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.makeDate.ToString(), tb_makeDate.Text);
+            CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.runDate.ToString(), tb_runDate.Text);
+
 
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "MASTER", cb_master.Text);
             CsUtil.IniWriteValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", cb_slave.Text);
+
+            CsUtil.IniWriteValue(Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", tb_CSMS_ADDRESS.Text);
+
         }
 
         private void frmCSMSSetting_Load(object sender, EventArgs e)
@@ -62,7 +71,7 @@ namespace EL_BSS
             tb_stationAddressDetail.Text = Model.getInstance().stationAddressDetail;
             tb_stationAddressConvenient.Text = Model.getInstance().stationAddressConvenient;
             tb_Manager.Text = Model.getInstance().Manager;
-
+            tb_CSMS_ADDRESS.Text = CsUtil.IniReadValue(Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url" , "ws://192.168.0.90:8181");
         }
     }
 }
