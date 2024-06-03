@@ -14,6 +14,7 @@ using System.Diagnostics;
 using EL_BSS;
 using System.Timers;
 using System.Collections.Concurrent;
+using static EL_BSS.Model;
 
 namespace BatteryChangeCharger.OCPP
 {
@@ -89,8 +90,12 @@ namespace BatteryChangeCharger.OCPP
                     Model.getInstance().frmFrame.lamp_ems.On = true;
                     Console.WriteLine("연결 성공");
                     _ = Task.Run(ReceiveMessagesAsync);
-                    string a = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
-
+                    string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
+                    JArray jsonArray = JArray.Parse(response);
+                    if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
+                    {
+                        Model.getInstance().frmFrame.viewForm(0);
+                    }
                     break;
                 default:
                     if (Model.getInstance().frmFrame != null)

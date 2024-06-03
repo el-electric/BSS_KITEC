@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Device.Location;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
@@ -9,7 +10,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static EL_BSS.Model;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace EL_BSS
 {
@@ -49,7 +49,7 @@ namespace EL_BSS
 
         }
 
-        private void frmCSMSSetting_Load(object sender, EventArgs e)
+        private void frmCSMSSetting_LoadAsync(object sender, EventArgs e)
         {
             string[] port = SerialPort.GetPortNames();
             cb_master.Items.AddRange(port);
@@ -60,8 +60,6 @@ namespace EL_BSS
             if (!Model.getInstance().Slave_PortName.Equals(""))
                 cb_slave.Text = Model.getInstance().Slave_PortName;
 
-
-
             tb_chargeBoxSerialNumber.Text = Model.getInstance().chargeBoxSerialNumber;
             tb_chargePointModel.Text = Model.getInstance().chargePointModel;
             tb_chargePointSerialNumber.Text = Model.getInstance().chargePointSerialNumber;
@@ -71,7 +69,9 @@ namespace EL_BSS
             tb_stationAddressDetail.Text = Model.getInstance().stationAddressDetail;
             tb_stationAddressConvenient.Text = Model.getInstance().stationAddressConvenient;
             tb_Manager.Text = Model.getInstance().Manager;
-            tb_CSMS_ADDRESS.Text = CsUtil.IniReadValue(Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url" , "ws://192.168.0.90:8181");
+            tb_CSMS_ADDRESS.Text = CsUtil.IniReadValue(Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://192.168.0.90:8181");
         }
+
+
     }
 }

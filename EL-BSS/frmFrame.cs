@@ -31,6 +31,7 @@ namespace EL_BSS
         FWupdate FWupdate = new FWupdate();
         frmCodeInput frmCodeInput = new frmCodeInput();
         frmCSMSSetting frmCSMSSetting = new frmCSMSSetting();
+        frmNoti frmNoti = new frmNoti();
         public frmFrame()
         {
             InitializeComponent();
@@ -51,7 +52,9 @@ namespace EL_BSS
         private void frmFrame_Load(object sender, EventArgs e)
         {
             initForm();
-            viewForm(0);
+
+            showNotiForm();
+            //viewForm(0);
 
             for (int i = 0; i < Model.getInstance().slaveCount; i++)
             {
@@ -99,25 +102,29 @@ namespace EL_BSS
             observers.Add(frmMain);
             observers.Add(frmManual);
             observers.Add(FWupdate);
+            observers.Add(frmNoti);
 
             frmMain.TopLevel = false;
             frmManual.TopLevel = false;
             FWupdate.TopLevel = false;
             frmCodeInput.TopLevel = false;
             frmCSMSSetting.TopLevel = false;
+            frmNoti.TopLevel = false;
+
             frmMain.Show();
             frmManual.Show();
             FWupdate.Show();
             frmCodeInput.Show();
             frmCSMSSetting.Show();
+            frmNoti.Show();
 
+            observers.Add(frmNoti);
             foreach (IObserver observer in observers)
             {
                 observer.InitForm();
             }
 
         }
-
         public async void viewForm(int idx)
         {
             panel2.Controls.Clear();
@@ -135,8 +142,14 @@ namespace EL_BSS
             switch (idx)
             {
                 case 0:
-                    frmMain.timer1.Enabled = true;
-                    panel2.Controls.Add(frmMain);
+
+                    //재접속때 await 이라 invoke 안하면 timer 실행이 안되는거 같아 추가
+                    this.Invoke(new MethodInvoker(delegate ()
+                    {
+                        frmMain.timer1.Enabled = true;
+                        panel2.Controls.Add(frmMain);
+                    }));
+
                     break;
                 case 1:
                     frmManual.timer.Start();
@@ -170,6 +183,11 @@ namespace EL_BSS
                     Application.Exit();
                     break;
             }
+        }
+        public void showNotiForm()
+        {
+            panel2.Controls.Add(frmNoti);
+            observers.Find(observer => observer is frmNoti).UpdateForm("Attempt to connect to server");
         }
 
         private void ui_timer_500ms_Tick(object sender, EventArgs e)
@@ -269,7 +287,7 @@ namespace EL_BSS
                 else  // 펌웨어 업데이트 하면 정상 패킷을 보내는걸 중지
                 {
                     if (getInstance().isOpen_Master)
-                    { 
+                    {
                         byte[] bytes = getInstance().makeMaserPacket(masterIdx++);
                         sp_Master.Write(bytes);
                         if (masterIdx > getInstance().masterCount)

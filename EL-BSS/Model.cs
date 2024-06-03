@@ -190,6 +190,8 @@ namespace EL_BSS
         }
         public class SlaveRecv
         {
+            //수신여부
+            public bool isRecv = true;
             //배터리안착
             public bool BatterArrive;
             public bool isDoor;
@@ -327,7 +329,60 @@ namespace EL_BSS
             ////////////
 
         }
+        private static string GetErrorMessages(SlaveRecv slave)
+        {
+            var errors = new Dictionary<string, bool>
+        {
+            { "rowVoltage", slave.rowVoltage },
+            { "highVoltage", slave.highVoltage },
+            { "packLowVoltage", slave.packLowVoltage },
+            { "packHighVoltage", slave.packHighVoltage },
+            { "cellOverCharging", slave.cellOverCharging },
+            { "packOverCharging", slave.packOverCharging },
+            { "overDischarge", slave.overDischarge },
+            { "overCharging", slave.overCharging },
+            { "reCycleOverCharging", slave.reCycleOverCharging },
+            { "cell_LowTemp", slave.cell_LowTemp },
+            { "cell_HighTemp", slave.cell_HighTemp },
+            { "FET_LowTemp", slave.FET_LowTemp },
+            { "FET_HighTemp", slave.FET_HighTemp },
+            { "lowVoltageProtection", slave.lowVoltageProtection },
+            { "highVoltageProtection", slave.highVoltageProtection },
+            { "packLowVoltageProtection", slave.packLowVoltageProtection },
+            { "packHighVoltageProtection", slave.packHighVoltageProtection },
+            { "cellRecycleOverChargingProtection", slave.cellRecycleOverChargingProtection },
+            { "packRecycleOverChargingProtection", slave.packRecycleOverChargingProtection },
+            { "overDischargeProtection", slave.overDischargeProtection },
+            { "overChargingProtection", slave.overChargingProtection },
+            { "reCycleOverChargingProtection", slave.reCycleOverChargingProtection },
+            { "cellLowTempProtection", slave.cellLowTempProtection },
+            { "cellHighTempProtection", slave.cellHighTempProtection },
+            { "FETLowTempProtection", slave.FETLowTempProtection },
+            { "FETHighTempProtection", slave.FETHighTempProtection },
+            { "shortProtect", slave.shortProtect },
+            { "VCUError", slave.VCUError },
+            { "PreChargeError", slave.PreChargeError },
+            { "ROM_Check", slave.ROM_Check },
+            { "RAM_Check", slave.RAM_Check },
+            { "Thermistor_Open", slave.Thermistor_Open },
+            { "Thermistor_Short", slave.Thermistor_Short },
+            { "Current_Error", slave.Current_Error },
+            { "FET_Error", slave.FET_Error },
+            { "Cell_Deviation_Error", slave.Cell_Deviation_Error },
+            { "All_Pack_Deviation_Error", slave.All_Pack_Deviation_Error }
+        };
 
+            var errorMessages = new List<string>();
+            foreach (var error in errors)
+            {
+                if (error.Value)
+                {
+                    errorMessages.Add(error.Key);
+                }
+            }
+
+            return string.Join(", ", errorMessages);
+        }
         public byte[] makeMaserPacket(int idx)
         {
             byte[] bytes = new byte[22];
@@ -665,6 +720,7 @@ namespace EL_BSS
         public enum enumData
         {
             BootNotification,
+            AddInforBootNotification,
             StatusNotification,
             Heartbeat,
             MeterValues,

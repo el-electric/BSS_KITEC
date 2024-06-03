@@ -49,7 +49,6 @@
             this.cb_master = new DrakeUI.Framework.DrakeUIComboBox();
             this.drakeUILabel7 = new DrakeUI.Framework.DrakeUILabel();
             this.drakeUILabel11 = new DrakeUI.Framework.DrakeUILabel();
-            this.btn_Save = new DrakeUI.Framework.DrakeUIButton();
             this.drakeUILabel12 = new DrakeUI.Framework.DrakeUILabel();
             this.drakeUILabel13 = new DrakeUI.Framework.DrakeUILabel();
             this.drakeUILabel14 = new DrakeUI.Framework.DrakeUILabel();
@@ -65,6 +64,7 @@
             this.drakeUILabel17 = new DrakeUI.Framework.DrakeUILabel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tb_CSMS_ADDRESS = new System.Windows.Forms.TextBox();
+            this.btn_Save = new DrakeUI.Framework.DrakeUIButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -99,7 +99,6 @@
             this.tableLayoutPanel1.Controls.Add(this.cb_master, 5, 0);
             this.tableLayoutPanel1.Controls.Add(this.drakeUILabel7, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.drakeUILabel11, 4, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btn_Save, 5, 5);
             this.tableLayoutPanel1.Controls.Add(this.drakeUILabel12, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.drakeUILabel13, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.drakeUILabel14, 2, 4);
@@ -114,6 +113,7 @@
             this.tableLayoutPanel1.Controls.Add(this.tb_Manager, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.drakeUILabel17, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.btn_Save, 5, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -350,21 +350,6 @@
             this.drakeUILabel11.Text = "슬레이브";
             this.drakeUILabel11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btn_Save
-            // 
-            this.btn_Save.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_Save.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.btn_Save.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F);
-            this.btn_Save.Location = new System.Drawing.Point(848, 368);
-            this.btn_Save.Name = "btn_Save";
-            this.btn_Save.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.btn_Save.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.btn_Save.Size = new System.Drawing.Size(163, 67);
-            this.btn_Save.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.btn_Save.TabIndex = 19;
-            this.btn_Save.Text = "SAVE";
-            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
-            // 
             // drakeUILabel12
             // 
             this.drakeUILabel12.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -512,7 +497,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(507, 75);
             this.tableLayoutPanel2.TabIndex = 34;
             // 
@@ -526,6 +511,21 @@
             this.tb_CSMS_ADDRESS.Size = new System.Drawing.Size(501, 69);
             this.tb_CSMS_ADDRESS.TabIndex = 0;
             // 
+            // btn_Save
+            // 
+            this.btn_Save.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_Save.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.btn_Save.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F);
+            this.btn_Save.Location = new System.Drawing.Point(848, 295);
+            this.btn_Save.Name = "btn_Save";
+            this.btn_Save.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.btn_Save.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.btn_Save.Size = new System.Drawing.Size(163, 67);
+            this.btn_Save.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.btn_Save.TabIndex = 19;
+            this.btn_Save.Text = "SAVE";
+            this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
+            // 
             // frmCSMSSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -535,7 +535,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "frmCSMSSetting";
             this.Text = "frmCSMSSetting";
-            this.Load += new System.EventHandler(this.frmCSMSSetting_Load);
+            this.Load += new System.EventHandler(this.frmCSMSSetting_LoadAsync);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);

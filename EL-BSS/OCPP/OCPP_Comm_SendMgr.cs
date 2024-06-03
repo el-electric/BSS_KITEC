@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Runtime.Remoting.Messaging;
 using static EL_BSS.Model;
 using System.Xml;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -35,12 +36,45 @@ namespace EL_DC_Charger.ocpp.ver16.comm
         {
             var data = new
             {
-                chargeBoxSerialNumber = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "STATION", "ID", ""),
+                chargeBoxSerialNumber = Model.getInstance().chargeBoxSerialNumber,
+                chargePointModel = Model.getInstance().chargeBoxSerialNumber,
+                chargePointSerialNumber = Model.getInstance().chargePointSerialNumber,
+                chargePointVendor = Model.getInstance().chargePointVendor,
+                firmwareVersion = "1.1.1", //임시
+                iccid = Model.getInstance().iccid,
+                imsi = Model.getInstance().imsi
+
             };
             string msg = makeMessage(enumData.BootNotification.ToString(), data);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
             return response;
         }
+        public async Task<string> sendOCPP_CP_Req_AddInforBootNotification()
+        {
+            var data = new
+            {
+
+                chargePointModel = Model.getInstance().chargeBoxSerialNumber,
+                stationName = "남양주 1",
+//stationLocationLat =""
+//stationLocationLong
+//stationAddressDetail
+//stationAddressConvenient
+//countSlot
+//connectorType
+//chargerMaximumPower
+//maker
+//makeDate
+//runDate
+//manager
+//swVersion
+
+            };
+            string msg = makeMessage(enumData.AddInforBootNotification.ToString(), data);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            return response;
+        }
+
         public string sendOCPP_CP_Req_StatusNotification(int ChannelIdx, string status)
         {
             var data = new Object[]
@@ -77,47 +111,45 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                     new
                     {
                         timeStamp = DateTime.Now.ToString(),
-                        stationId = 0,
+                        stationId = getInstance().chargeBoxSerialNumber,
                         slotId=ChannelIdx,
                         jobSequenceName=0,
                         isErrorOccured=0,
                         batteryId=0,
-                        SOC=0,
-                        SOH=0,
-                        batteryPackVoltage=0,
-                        batteryPackCurrent=0,
-                        batteryModuleTempMax=0,
-                        batteryModuleTempMin=0,
-                        batteryTemp1=0,
-                        batteryTemp2=0,
-                        batteryFetTemp=0,
-                        batteryCellVoltageMax=0,
-                        BatteryCellVoltageMin=0,
-                        cellBalancingFlag=0,
-                        batteryModuleVoltage=0,
-                        batteryCellVoltage01=0,
-                        batteryCellVoltage02=0,
-                        batteryCellVoltage03=0,
-                        batteryCellVoltage04=0,
-                        batteryCellVoltage05=0,
-                        batteryCellVoltage06=0,
-                        batteryCellVoltage07=0,
-                        batteryCellVoltage08=0,
-                        batteryCellVoltage09=0,
-                        batteryCellVoltage10=0,
-                        batteryCellVoltage11=0,
-                        batteryCellVoltage12=0,
-                        batteryCellVoltage13=0,
-                        batteryCellVoltage14=0,
-                        slotConnectState=0,
-                        stationConnectState=0,
-                        chargingState=0,
-                        dischargingState=0,
-                        recoveryState=0,
-                        readyState=0,
-                        warningState=0,
-                        protectState=0,
-                        balancingState=0,
+                        SOC = getInstance().list_SlaveRecv[ChannelIdx].SOC,
+                        SOH = getInstance().list_SlaveRecv[ChannelIdx].SOH,
+                        batteryPackVoltage=getInstance().list_SlaveRecv[ChannelIdx].BatteryCurrentVoltage,
+                        batteryPackCurrent=getInstance().list_SlaveRecv[ChannelIdx].BatteryCurrentWattage,
+                        batteryModuleTempMax=getInstance().list_SlaveRecv[ChannelIdx].BatteryMaxTemper,
+                        batteryModuleTempMin=getInstance().list_SlaveRecv[ChannelIdx].BatteryMinTemper,
+                        batteryFetTemp=getInstance().list_SlaveRecv[ChannelIdx].FET_Temper,
+                        batteryCellVoltageMax=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_High_Voltage,
+                        BatteryCellVoltageMin=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Low_Voltage,
+                        cellBalancingFlag=getInstance().list_SlaveRecv[ChannelIdx].Cell_Belancing_Flag,
+                        batteryModuleVoltage=getInstance().list_SlaveRecv[ChannelIdx].Battery_Moduel_Voltage,
+                        batteryCellVoltage01=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_01,
+                        batteryCellVoltage02=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_02,
+                        batteryCellVoltage03=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_03,
+                        batteryCellVoltage04=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_04,
+                        batteryCellVoltage05=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_05,
+                        batteryCellVoltage06=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_06,
+                        batteryCellVoltage07=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_07,
+                        batteryCellVoltage08=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_08,
+                        batteryCellVoltage09=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_09,
+                        batteryCellVoltage10=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_10,
+                        batteryCellVoltage11=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_11,
+                        batteryCellVoltage12=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_12,
+                        batteryCellVoltage13=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_13,
+                        batteryCellVoltage14=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_14,
+                        slotConnectState=getInstance().list_SlaveRecv[ChannelIdx].charger_Connect,
+                        stationConnectState=getInstance().list_SlaveRecv[ChannelIdx].chargeStationConnect,
+                        chargingState=getInstance().list_SlaveRecv[ChannelIdx].ChargingStatus,
+                        dischargingState=getInstance().list_SlaveRecv[ChannelIdx].Discharge_State,
+                        recoveryState=getInstance().list_SlaveRecv[ChannelIdx].Regeneration_State,
+                        readyState=getInstance().list_SlaveRecv[ChannelIdx].Ready_State,
+                        warningState=getInstance().list_SlaveRecv[ChannelIdx].Emergence_State,
+                        protectState=getInstance().list_SlaveRecv[ChannelIdx].Protect_State,
+                        balancingState=getInstance().list_SlaveRecv[ChannelIdx].Balancing_State,
 
                     }
             };

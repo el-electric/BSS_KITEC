@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +20,18 @@ namespace EL_BSS
             Application.SetCompatibleTextRenderingDefault(false);
             try
             {
+                Process[] processes = null;
+                processes = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName);
+                if (processes.Length > 1)
+                {
+                    MessageBox.Show(string.Format("'{0}' 프로그램이 이미 실행 중입니다.", Process.GetCurrentProcess().ProcessName));
+                    return;
+                }
+                ProcessCall(Process.GetCurrentProcess().ProcessName);
+                CurPath = Application.StartupPath;
+
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new frmFrame());
             }
             catch (Exception ex)
@@ -59,6 +73,26 @@ namespace EL_BSS
 
             // 필요한 경우 애플리케이션 종료
             Application.Exit();
+        }
+        public static string CurPath = string.Empty;
+
+        [DllImport("user32")]
+        private static extern bool SetForegroundWindow(IntPtr handle);
+        [DllImport("User32")]
+        private static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
+        [DllImport("User32")]
+        private static extern void BringWindowToTop(IntPtr hwnd);
+        private static void ProcessCall(string processName)
+        {
+            foreach (Process process in Process.GetProcesses())
+            {
+                if (process.ProcessName == processName)
+                {
+                    ShowWindow(process.MainWindowHandle, 9);
+                    BringWindowToTop(process.MainWindowHandle);
+                    SetForegroundWindow(process.MainWindowHandle);
+                }
+            }
         }
     }
 }

@@ -43,8 +43,7 @@ namespace EL_BSS.Serial
             serial.Close();
         }
         private static void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            Console.WriteLine("수신");
+        {            
             int bytesToRead = serial.BytesToRead;
             byte[] receivedData = new byte[bytesToRead];
             serial.Read(receivedData, 0, bytesToRead);
@@ -65,34 +64,42 @@ namespace EL_BSS.Serial
                 {
                     int packetLength = 41; // 패킷의 길이
 
-                    // STX가 있고, 충분한 길이의 데이터가 있는지 확인
-                    if (startIndex != -1 && mReceive_Data.Count >= startIndex + packetLength)
+                    try
                     {
-                        if (mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
+                        // STX가 있고, 충분한 길이의 데이터가 있는지 확인
+                        if (startIndex != -1 && mReceive_Data.Count >= startIndex + packetLength)
                         {
-                            byte[] packet = mReceive_Data.GetRange(startIndex, packetLength).ToArray();
-
-                            // 패킷 처리
-                            HandlePacket(packet);
-
-                            // 처리된 데이터 제거
-                            mReceive_Data.RemoveRange(0, startIndex + packetLength);
-
-                            // 버퍼에 더 이상 데이터가 없으면 반복 중단
-                            if (mReceive_Data.Count == 0)
+                            if (mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
                             {
-                                break;
+                                byte[] packet = mReceive_Data.GetRange(startIndex, packetLength).ToArray();
+
+                                // 패킷 처리
+                                HandlePacket(packet);
+
+                                // 처리된 데이터 제거
+                                mReceive_Data.RemoveRange(0, startIndex + packetLength);
+
+                                // 버퍼에 더 이상 데이터가 없으면 반복 중단
+                                if (mReceive_Data.Count == 0)
+                                {
+                                    break;
+                                }
+                            }
+                            else if (!mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
+                            {
+                                mReceive_Data.RemoveRange(0, startIndex + packetLength);
                             }
                         }
-                        else if (!mReceive_Data[startIndex + packetLength - 1].Equals(0xff))
+                        else
                         {
-                            mReceive_Data.RemoveRange(0, startIndex + packetLength);
+                            // 완전한 패킷이 아직 도착하지 않았으면, 루프 탈출
+                            break;
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        // 완전한 패킷이 아직 도착하지 않았으면, 루프 탈출
-                        break;
+                        CsUtil.WriteLog("마스터" + ex.Message + " " + ex.InnerException, "ERROR");
+                        mReceive_Data.RemoveRange(0, startIndex + packetLength);
                     }
                 }
                 else if (Model.getInstance().FirmwareUpdate)
@@ -163,6 +170,12 @@ namespace EL_BSS.Serial
 
             masterId = packet[4];
             slaveId = packet[5];
+
+
+            ///////////////// TEMP LOG ///////////////
+            TimeSpan difference = DateTime.Now - Model.getInstance().list_MasterDataRecvDatetime[masterId - 1];
+            CsUtil.WriteLog("," + idx + ", Receive TERM : " + difference.ToString(@"hh\:mm\:ss\.fff"), "MASTER");
+            //////////////////////////////////////////
 
             Model.getInstance().list_MasterDataRecvDatetime[masterId - 1] = DateTime.Now;
 

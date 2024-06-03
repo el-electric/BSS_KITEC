@@ -1,4 +1,5 @@
-﻿using DrakeUI.Framework;
+﻿using BatteryChangeCharger.OCPP;
+using DrakeUI.Framework;
 using EL_BSS.Cycle;
 using EL_BSS.Serial;
 using System;
@@ -9,6 +10,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Reflection.Emit;
 using System.Security.Policy;
 using System.Text;
@@ -59,16 +61,7 @@ namespace EL_BSS
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            var task = aa();
-            if (await Task.WhenAny(task, Task.Delay(1100)) == task)
-            {
-                Console.WriteLine("작업이 완료되었습니다.");
-                await task;
-            }
-            else
-            {
-                Console.WriteLine("작업이 타임아웃되었습니다.");
-            }
+
         }
 
         private async Task aa()
@@ -217,8 +210,7 @@ namespace EL_BSS
 
         private async void button2_Click_1(object sender, EventArgs e)
         {
-            string a = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
-            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_END;
+
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -229,6 +221,34 @@ namespace EL_BSS
         private void drakeUIButton1_Click(object sender, EventArgs e)
         {
             frmFrame.deleMenuClick(3);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            int validIndx = 0;
+            var indices = Model.getInstance().list_SlaveRecv
+            .Select((s, i) => new { Element = s, Index = i })
+            .Where(x => x.Element.SOC == 100)
+            .Select(x => x.Index)
+            .ToList();
+
+            if (indices.Count >= 2)
+            {
+                Console.WriteLine("조건을 만족하는 인덱스");
+                foreach (var index in indices)
+                {
+                    Console.WriteLine(index);
+                    //열고
+                    validIndx++;
+                    if (validIndx == 2)
+                        break;
+                }
+            }
         }
     }
 }

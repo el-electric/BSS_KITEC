@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.ui_timer_500ms = new System.Windows.Forms.Timer(this.components);
             this.bck_Protocol = new System.ComponentModel.BackgroundWorker();
             this.bck_Sequnce = new System.ComponentModel.BackgroundWorker();
@@ -37,23 +36,13 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbl_Notify_Tv = new DrakeUI.Framework.DrakeUILabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lamp_ems = new DrakeUI.Framework.DrakeUILampLED();
-            this.drakeUISymbolLabel1 = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.lbl_time = new DrakeUI.Framework.DrakeUISymbolLabel();
+            this.drakeUISymbolLabel1 = new DrakeUI.Framework.DrakeUISymbolLabel();
+            this.lamp_ems = new DrakeUI.Framework.DrakeUILampLED();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // splitter1
-            // 
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Margin = new System.Windows.Forms.Padding(0);
-            this.splitter1.MinSize = 0;
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 768);
-            this.splitter1.TabIndex = 0;
-            this.splitter1.TabStop = false;
             // 
             // ui_timer_500ms
             // 
@@ -77,10 +66,10 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.Gainsboro;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 74);
+            this.panel2.Location = new System.Drawing.Point(0, 74);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1021, 694);
+            this.panel2.Size = new System.Drawing.Size(1024, 694);
             this.panel2.TabIndex = 5;
             // 
             // lbl_Notify_Tv
@@ -103,41 +92,13 @@
             this.tableLayoutPanel1.Controls.Add(this.drakeUISymbolLabel1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.lamp_ems, 2, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(768, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(771, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(253, 74);
             this.tableLayoutPanel1.TabIndex = 2;
-            // 
-            // lamp_ems
-            // 
-            this.lamp_ems.Color = System.Drawing.Color.Lime;
-            this.lamp_ems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lamp_ems.Location = new System.Drawing.Point(214, 40);
-            this.lamp_ems.Name = "lamp_ems";
-            this.lamp_ems.On = false;
-            this.lamp_ems.Size = new System.Drawing.Size(36, 31);
-            this.lamp_ems.TabIndex = 2;
-            this.lamp_ems.Text = "drakeUILampLED1";
-            // 
-            // drakeUISymbolLabel1
-            // 
-            this.drakeUISymbolLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUISymbolLabel1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 14F);
-            this.drakeUISymbolLabel1.ForeColor = System.Drawing.Color.White;
-            this.drakeUISymbolLabel1.Location = new System.Drawing.Point(87, 40);
-            this.drakeUISymbolLabel1.Name = "drakeUISymbolLabel1";
-            this.drakeUISymbolLabel1.Padding = new System.Windows.Forms.Padding(32, 0, 0, 0);
-            this.drakeUISymbolLabel1.Size = new System.Drawing.Size(121, 31);
-            this.drakeUISymbolLabel1.Style = DrakeUI.Framework.UIStyle.Custom;
-            this.drakeUISymbolLabel1.Symbol = 57567;
-            this.drakeUISymbolLabel1.SymbolColor = System.Drawing.Color.White;
-            this.drakeUISymbolLabel1.SymbolSize = 28;
-            this.drakeUISymbolLabel1.TabIndex = 1;
-            this.drakeUISymbolLabel1.Text = "EMS";
-            this.drakeUISymbolLabel1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lbl_time
             // 
@@ -159,6 +120,34 @@
             this.lbl_time.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lbl_time.DoubleClick += new System.EventHandler(this.lbl_time_DoubleClick);
             // 
+            // drakeUISymbolLabel1
+            // 
+            this.drakeUISymbolLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUISymbolLabel1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 14F);
+            this.drakeUISymbolLabel1.ForeColor = System.Drawing.Color.White;
+            this.drakeUISymbolLabel1.Location = new System.Drawing.Point(87, 40);
+            this.drakeUISymbolLabel1.Name = "drakeUISymbolLabel1";
+            this.drakeUISymbolLabel1.Padding = new System.Windows.Forms.Padding(32, 0, 0, 0);
+            this.drakeUISymbolLabel1.Size = new System.Drawing.Size(121, 31);
+            this.drakeUISymbolLabel1.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.drakeUISymbolLabel1.Symbol = 57567;
+            this.drakeUISymbolLabel1.SymbolColor = System.Drawing.Color.White;
+            this.drakeUISymbolLabel1.SymbolSize = 28;
+            this.drakeUISymbolLabel1.TabIndex = 1;
+            this.drakeUISymbolLabel1.Text = "EMS";
+            this.drakeUISymbolLabel1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // lamp_ems
+            // 
+            this.lamp_ems.Color = System.Drawing.Color.Lime;
+            this.lamp_ems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lamp_ems.Location = new System.Drawing.Point(214, 40);
+            this.lamp_ems.Name = "lamp_ems";
+            this.lamp_ems.On = false;
+            this.lamp_ems.Size = new System.Drawing.Size(36, 31);
+            this.lamp_ems.TabIndex = 2;
+            this.lamp_ems.Text = "drakeUILampLED1";
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(182)))), ((int)(((byte)(176)))));
@@ -166,10 +155,10 @@
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Controls.Add(this.lbl_Notify_Tv);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1021, 74);
+            this.panel1.Size = new System.Drawing.Size(1024, 74);
             this.panel1.TabIndex = 3;
             // 
             // frmFrame
@@ -180,7 +169,6 @@
             this.ClientSize = new System.Drawing.Size(1024, 768);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.splitter1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmFrame";
             this.Text = "frmFrame";
@@ -192,8 +180,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Timer ui_timer_500ms;
         private System.ComponentModel.BackgroundWorker bck_Protocol;
         private System.ComponentModel.BackgroundWorker bck_Sequnce;

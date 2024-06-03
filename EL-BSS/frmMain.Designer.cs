@@ -46,9 +46,7 @@
             this.lamp4 = new DrakeUI.Framework.DrakeUILampLED();
             this.lamp0 = new DrakeUI.Framework.DrakeUILampLED();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -80,6 +78,7 @@
             this.pb_qr = new System.Windows.Forms.PictureBox();
             this.drakeUIButton1 = new DrakeUI.Framework.DrakeUIButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -281,9 +280,8 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button1);
@@ -292,35 +290,15 @@
             this.panel1.Size = new System.Drawing.Size(112, 394);
             this.panel1.TabIndex = 9;
             // 
-            // button6
+            // button7
             // 
-            this.button6.Location = new System.Drawing.Point(0, 275);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(83, 23);
-            this.button6.TabIndex = 16;
-            this.button6.Text = "입력폼";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(4, 239);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(83, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "매뉴얼 모드";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(3, 189);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "z1";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button7.Location = new System.Drawing.Point(12, 164);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(83, 23);
+            this.button7.TabIndex = 17;
+            this.button7.Text = "테스트";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button4
             // 
@@ -774,6 +752,16 @@
             this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(-11, 260);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(120, 23);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "SOC 100찾기";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_2);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -835,7 +823,6 @@
         private System.Windows.Forms.Label lbl_soc6;
         public System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button1;
@@ -860,8 +847,8 @@
         private System.Windows.Forms.PictureBox picDoor_1;
         private System.Windows.Forms.PictureBox picDoor_0;
         private System.Windows.Forms.PictureBox pb_qr;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button6;
         private DrakeUI.Framework.DrakeUIButton drakeUIButton1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button2;
     }
 }
