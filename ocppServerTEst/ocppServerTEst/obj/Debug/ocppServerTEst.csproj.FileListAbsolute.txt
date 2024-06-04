@@ -1,0 +1,14 @@
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\bin\Debug\ocppServerTEst.exe.config
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\bin\Debug\ocppServerTEst.exe
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\bin\Debug\ocppServerTEst.pdb
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\bin\Debug\Fleck.dll
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\obj\Debug\ocppServerTEst.csproj.AssemblyReference.cache
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\obj\Debug\ocppServerTEst.Form1.resources
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\obj\Debug\ocppServerTEst.Properties.Resources.resources
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\obj\Debug\ocppServerTEst.csproj.GenerateResource.cache
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\obj\Debug\ocppServerTEst.csproj.CoreCompileInputs.cache
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\obj\Debug\ocppServerTEst.csproj.CopyComplete
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\obj\Debug\ocppServerTEst.exe
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\obj\Debug\ocppServerTEst.pdb
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\bin\Debug\Newtonsoft.Json.dll
+C:\Users\hs\source\repos\ocppServerTEst\ocppServerTEst\bin\Debug\Newtonsoft.Json.xml
