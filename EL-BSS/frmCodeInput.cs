@@ -60,12 +60,11 @@ namespace EL_BSS
                 try
                 {
                     JArray responseObject = JArray.Parse(response);
-                    Model.getInstance().Conf_Authorize = JsonConvert.DeserializeObject<Conf_Authorize>(responseObject[2].ToString());
+                    Model.getInstance().Req_Authorize = JsonConvert.DeserializeObject<Req_Authorize>(responseObject[2].ToString());
                     string status = responseObject?[2]?["status"]?.ToString();
 
                     if (status == enumData.Accepted.ToString())
                     {
-                        Model.getInstance().Authorize_Complete = true;
                         lbl_status.Text = "인증 성공";
 
                         CsDefine.Cyc_Rail[CsDefine.CYC_MAIN] = CsDefine.CYC_MAIN;

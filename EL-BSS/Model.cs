@@ -141,8 +141,6 @@ namespace EL_BSS
         public int MeterValuesInterval = 10;
 
         public Req_Authorize Req_Authorize;
-        public Conf_Authorize Conf_Authorize;
-        public bool Authorize_Complete = false;
         public Nullable<DateTime> Send_Wakeup = DateTime.Now;
 
         public class MasterSend

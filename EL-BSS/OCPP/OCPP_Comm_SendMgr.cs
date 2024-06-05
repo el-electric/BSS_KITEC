@@ -22,6 +22,7 @@ using System.Xml;
 using static System.Data.Entity.Infrastructure.Design.Executor;
 using System.Net.Http.Headers;
 using EL_BSS.Serial;
+using EL_BSS.Cycle;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -265,19 +266,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
                             // Model.getInstance().frmFrame.showNotiForm("인증중입니다." + Model.getInstance().Req_Authorize.userName + "\n" + Model.getInstance().Req_Authorize.batterySetName);
 
-                            Model.getInstance().Authorize_Complete = true;
-
-                            /*Req_Authorize req_Authorize = new Req_Authorize();
-
-                            req_Authorize.staionId = jsonArray[3]["staionId"].ToString();
-                            req_Authorize.userNo = int.Parse(jsonArray[3]["userNo"].ToString());
-                            req_Authorize.userName = jsonArray[3]["userName"].ToString();
-                            req_Authorize.batterySetNo = int.Parse(jsonArray[3]["batterySetNo"].ToString());
-                            req_Authorize.batterySetName = jsonArray[3]["batterySetName"].ToString();
-                            req_Authorize.batteryId1 = jsonArray[3]["batteryId1"].ToString();;
-                            req_Authorize.batteryId2 = jsonArray[3]["batteryId2"].ToString();
-                            req_Authorize.ticketAvailable = jsonArray[3]["ticketAvailable"].ToObject<bool>();
-                            req_Authorize.cashBalance = int.Parse(jsonArray[3]["cashBalance"].ToString());*/
+                            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
                         }
                         break;
                     //응답

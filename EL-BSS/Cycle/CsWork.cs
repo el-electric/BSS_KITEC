@@ -37,15 +37,12 @@ namespace EL_BSS.Cycle
 
                 case CsDefine.CYC_MAIN:
                     //반납 //status // 충전 
+                    CurrentStep = CsDefine.CYC_MAIN;
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 1:
-                    if (Model.getInstance().Authorize_Complete)
-                    {
-                        Model.getInstance().Authorize_Complete = false;
-                        Model.getInstance().frmFrame.showNotiForm("인증중입니다." + Model.getInstance().Req_Authorize.batterySetName);
-                        NextStep();
-                    }
+                    Model.getInstance().frmFrame.showNotiForm("인증중입니다." + Model.getInstance().Req_Authorize.batterySetName);
+                    NextStep();                    
                     break;
                 case CsDefine.CYC_MAIN + 2:
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
