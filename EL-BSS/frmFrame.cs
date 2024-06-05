@@ -63,8 +63,8 @@ namespace EL_BSS
                 Model.getInstance().list_MasterRecv.Add(new MasterRecv());
                 Model.getInstance().list_SlaveSend.Add(new SlaveSend(int.Parse(CsUtil.IniReadValue(getInstance().DefaultPath, "CONFIG", "VOLT" + i + 1, "0")), int.Parse(CsUtil.IniReadValue(getInstance().DefaultPath, "CONFIG", "WATT" + i + 1, "0"))));
                 Model.getInstance().list_SlaveRecv.Add(new SlaveRecv());
-                Model.getInstance().list_SlaveDataRecvDatetime.Add(new DateTime());
-                Model.getInstance().list_MasterDataRecvDatetime.Add(new DateTime());
+                Model.getInstance().list_SlaveDataRecvDatetime.Add(DateTime.Now);
+                Model.getInstance().list_MasterDataRecvDatetime.Add(DateTime.Now);
             }
 
 

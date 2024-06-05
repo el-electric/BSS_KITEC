@@ -88,6 +88,12 @@ namespace EL_BSS
             {
                 for (int i = 0; i < 8; i++)
                 {
+
+                    ///////////////////////
+                    TimeSpan timeDifference = DateTime.Now - Model.getInstance().list_SlaveDataRecvDatetime[i];
+                    Controls.Find("label" + (i + 1), true)[0].Text = $"{timeDifference.Hours:D2}:{timeDifference.Minutes:D2}:{timeDifference.Seconds:D2}";
+                    ///////////////////////
+
                     bool foundBattery = false;
                     bool foundLabel = false;
 
