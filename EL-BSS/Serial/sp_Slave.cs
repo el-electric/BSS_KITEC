@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static EL_BSS.Model;
 
 namespace EL_BSS.Serial
 {
@@ -166,6 +167,7 @@ namespace EL_BSS.Serial
         static int slaveId = 0;
         static int masterId = 0;
         static int idx = 0;
+        static bool test = false;
         static byte[] temp = new byte[2];
         private static void HandlePacket(byte[] packet)
         {
@@ -224,6 +226,15 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
+            Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
+            
+            Model.getInstance().list_SlaveRecv[idx - 1].firmWareVersion_Major = EL_Manager_Conversion.getInt(packet[44]);
+            Model.getInstance().list_SlaveRecv[idx - 1].firmWareVersion_Minor = EL_Manager_Conversion.getInt(packet[45]);
+            Model.getInstance().list_SlaveRecv[idx - 1].firmWareVersion_Patch = EL_Manager_Conversion.getInt(packet[46]);
+            Model.getInstance().list_SlaveRecv[idx - 1].firmWareVersion = EL_Manager_Conversion.getInt(packet[44]).ToString() + "." + EL_Manager_Conversion.getInt(packet[45]).ToString() + "." + EL_Manager_Conversion.getInt(packet[46]).ToString();
+            Model.getInstance().list_SlaveRecv[idx - 1].protocolVersion_Major = EL_Manager_Conversion.getInt(packet[47]);
+            Model.getInstance().list_SlaveRecv[idx - 1].protocolVersion_Minor = EL_Manager_Conversion.getInt(packet[48]);
+            Model.getInstance().list_SlaveRecv[idx - 1].protocolVersion_Patch = EL_Manager_Conversion.getInt(packet[49]);
 
             temp[0] = packet[50];
             temp[1] = packet[51];
@@ -345,7 +356,7 @@ namespace EL_BSS.Serial
 
         }
 
-        protected bool Check_100SOC_Battery()
+        public static bool Check_100SOC_Battery()
         {
             int Check_Slot_Count = 0;
             for (int i = 0; i < 8; i++)
@@ -371,19 +382,19 @@ namespace EL_BSS.Serial
         {
             if (Model.getInstance().list_SlaveRecv[idx - 1].SeqNum == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
-                return "Charging";
+                return enumData.Charging.ToString();
             }
             else if (Model.getInstance().list_SlaveRecv[idx - 1].SeqNum == 101 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
-                return "Finishing";
+                return enumData.Finishing.ToString();
             }
             else if (Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
-                return "Preparing";
+                return enumData.Preparing.ToString();
             }
             else
             {
-                return "EMPTY";
+                return enumData.Empty.ToString();
             }
         }
 

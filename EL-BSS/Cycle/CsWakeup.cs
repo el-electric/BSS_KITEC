@@ -104,6 +104,19 @@ namespace EL_BSS.Cycle
             }
         }
 
+        public async static void interverWakeUP()
+        {
+            for (int i = 1; i <= 8; i++)
+            {
+                if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive)
+                {
+                    bool isWakeup = await Task.Run(() => isWakeUP(i));
+
+                    Model.getInstance().list_SlaveSend[i - 1].BatteryWakeup = false;
+                }
+            }
+        }
+
         private static void NextStep()
         {
             CsDefine.Delayed[CsDefine.CYC_WAKEUP] = 0;

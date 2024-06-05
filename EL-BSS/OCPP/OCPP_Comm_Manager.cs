@@ -15,6 +15,7 @@ using EL_BSS;
 using System.Timers;
 using System.Collections.Concurrent;
 using static EL_BSS.Model;
+using System.Speech.Synthesis.TtsEngine;
 
 namespace BatteryChangeCharger.OCPP
 {
@@ -133,7 +134,8 @@ namespace BatteryChangeCharger.OCPP
                         else
                         {
                             // 일반적인 메시지 처리 로직
-                            // HandleGeneralMessage(receivedMessage);
+                            // HandleGeneralMessage(receivedMessag
+                            Model.getInstance().oCPP_Comm_SendMgr.ReceivedPacket(receivedMessage);
                         }
                     }
                 }
@@ -213,6 +215,14 @@ namespace BatteryChangeCharger.OCPP
             }
         }
 
+        public async Task SendMessagePacket(string message)
+        {
+            if (webSocket.State == WebSocketState.Open)
+            {
+                ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
+                await webSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+        }
 
         public async Task CloseAsync()
         {

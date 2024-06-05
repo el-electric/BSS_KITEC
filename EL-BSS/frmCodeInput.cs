@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static EL_BSS.Model;
+using EL_DC_Charger.ocpp.ver16.packet.cp2csms;
+using EL_BSS.Cycle;
 
 namespace EL_BSS
 {
@@ -53,15 +55,20 @@ namespace EL_BSS
                     lbl_status.Text = "서버 응답 없음";
                     return;
                 }
-                JArray responseObject = null;
+                // JArray responseObject = null;
+                // JArray jsonArray = JArray.Parse(_packet);
                 try
                 {
-                    responseObject = JsonConvert.DeserializeObject<JArray>(response);
+                    JArray responseObject = JArray.Parse(response);
+                    Model.getInstance().Conf_Authorize = JsonConvert.DeserializeObject<Conf_Authorize>(responseObject[2].ToString());
                     string status = responseObject?[2]?["status"]?.ToString();
 
                     if (status == enumData.Accepted.ToString())
                     {
+                        Model.getInstance().Authorize_Complete = true;
                         lbl_status.Text = "인증 성공";
+
+                        CsDefine.Cyc_Rail[CsDefine.CYC_MAIN] = CsDefine.CYC_MAIN;
                     }
                     else
                     {

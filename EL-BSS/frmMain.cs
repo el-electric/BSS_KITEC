@@ -61,7 +61,7 @@ namespace EL_BSS
 
         private async void button3_Click(object sender, EventArgs e)
         {
-
+            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
         }
 
         private async Task aa()

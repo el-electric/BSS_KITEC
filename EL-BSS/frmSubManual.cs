@@ -100,13 +100,13 @@ namespace EL_BSS
                 FET_Temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].FET_Temper.ToString();
 
 
-                if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].isDoor && !Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatterArrive)
+                /*if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].isDoor && !Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatterArrive)
                 {
                     Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = false;
                     Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryFETON = false;
                     Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
                     Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
-                }
+                }*/
             }
 
 
@@ -180,7 +180,7 @@ namespace EL_BSS
             Model.getInstance().list_SlaveSend[mSLot_Number - 1].doorOpen = false;
         }
 
-        private async void button3_Click_1(object sender, EventArgs e)
+        private  async void button3_Click_1(object sender, EventArgs e)
         {
             /*if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup == false)
             { Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = true; }
@@ -198,6 +198,7 @@ namespace EL_BSS
             else
             {
                 Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup = false;
+                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " WakeUP 해제", 1000);
             }
 
 
@@ -217,6 +218,7 @@ namespace EL_BSS
             else
             {
                 Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryFETON = false;
+                Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " FETON 해제", 1000);
             }
         }
         public void InitForm()

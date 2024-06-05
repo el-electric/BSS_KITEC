@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,7 +54,7 @@ namespace EL_BSS
         {
             initForm();
 
-            showNotiForm();
+            showNotiForm("Attempt to connect to server");
             //viewForm(0);
 
             for (int i = 0; i < Model.getInstance().slaveCount; i++)
@@ -98,6 +99,7 @@ namespace EL_BSS
 
             MenuClick += FrmFrame_MenuClick;
 
+
             observers.Add(this);
             observers.Add(frmMain);
             observers.Add(frmManual);
@@ -125,7 +127,7 @@ namespace EL_BSS
             }
 
         }
-        public async void viewForm(int idx)
+        public async void viewForm(int idx, string context = "")
         {
             panel2.Controls.Clear();
             //frmManual.timer1.Enabled = false;
@@ -167,6 +169,10 @@ namespace EL_BSS
                 case 4:
                     panel2.Controls.Add(frmCSMSSetting);
                     break;
+                case 5:
+                    panel2.Controls.Add(frmNoti);
+                    observers.Find(observer => observer is frmNoti).UpdateForm(context);
+                    break;
                 case 10:
 
                     ThreadRun = false;
@@ -184,10 +190,17 @@ namespace EL_BSS
                     break;
             }
         }
-        public void showNotiForm()
+
+        public void showNotiForm(string context)
         {
-            panel2.Controls.Add(frmNoti);
-            observers.Find(observer => observer is frmNoti).UpdateForm("Attempt to connect to server");
+
+            viewForm(5, context);
+            //this.Invoke(new MethodInvoker(delegate ()
+            //{
+            //    panel2.Controls.Add(frmNoti);
+            //    observers.Find(observer => observer is frmNoti).UpdateForm(context);
+            //}));
+
         }
 
         private void ui_timer_500ms_Tick(object sender, EventArgs e)

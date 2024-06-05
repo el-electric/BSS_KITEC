@@ -20,6 +20,8 @@ using System.Runtime.Remoting.Messaging;
 using static EL_BSS.Model;
 using System.Xml;
 using static System.Data.Entity.Infrastructure.Design.Executor;
+using System.Net.Http.Headers;
+using EL_BSS.Serial;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -56,18 +58,18 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
                 chargePointModel = Model.getInstance().chargeBoxSerialNumber,
                 stationName = "남양주 1",
-//stationLocationLat =""
-//stationLocationLong
-//stationAddressDetail
-//stationAddressConvenient
-//countSlot
-//connectorType
-//chargerMaximumPower
-//maker
-//makeDate
-//runDate
-//manager
-//swVersion
+                stationLocationLat = Model.getInstance().stationLocationLat,
+                stationLocationLong = Model.getInstance().stationLocationLong,
+                stationAddressDetail = Model.getInstance().stationAddressDetail,
+                stationAddressConvenient = Model.getInstance().stationAddressConvenient,
+                countSlot = "8",
+                connectorType = "Both",
+                chargerMaximumPower = "72",
+                maker = Model.getInstance().maker,
+                makeDate = Model.getInstance().makeDate,
+                runDate = Model.getInstance().runDate,
+                manager = Model.getInstance().Manager,
+                swVersion = "1.1.1"
 
             };
             string msg = makeMessage(enumData.AddInforBootNotification.ToString(), data);
@@ -75,7 +77,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             return response;
         }
 
-        public string sendOCPP_CP_Req_StatusNotification(int ChannelIdx, string status)
+        public string sendOCPP_CP_Req_StatusNotification(int ChannelIdx, string status, int errorLevel = 0)
         {
             var data = new Object[]
             {
@@ -83,12 +85,13 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 Guid.NewGuid().ToString(),
                 enumData.StatusNotification.ToString(),
                     new
-                    {
-                        //스테이션id
-                        //chargePointSerialNumber = 
+                    { 
+                        stationId = Model.getInstance().chargePointSerialNumber,
+                        //chargePointSerialNumber =
                         connectorId = ChannelIdx,
                         status = status,
-                        //errorCode = 
+                        //errorCode =
+                        errorLevel =  errorLevel.ToString(),
                         //info = 
                         //batteryId = 
                         //soc = 
@@ -99,6 +102,23 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
 
             return json;
+        }
+
+        public async Task<string> sendOCPP_CP_Req_StatusNotification_for_authorize(string status, int errorLevel, string errormessage)
+        {
+            var data = new 
+            {
+                stationId = Model.getInstance().chargePointSerialNumber,
+                status = status,
+                // errorCode =  
+                errorLevel =  errorLevel.ToString(),
+                errorMassege = errormessage,
+                timestamp = DateTime.Now.ToString(),       
+            };
+            
+            string msg = makeMessage(enumData.StatusNotification.ToString(), data);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            return response;
         }
 
         public string sendOCPP_CP_Req_AddInfoStationBatteryState(int ChannelIdx)
@@ -231,14 +251,41 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             {
                 JArray jsonArray = JArray.Parse(_packet);
                 string _uid = jsonArray[1].ToString();
+                string messageName = jsonArray[2].ToString();
 
                 switch ((int)jsonArray[0])
                 {
                     //수신
                     case 2:
+                        if (messageName == enumData.Authorize.ToString())
+                        {
+                            SendConf_by_Req(_uid); // 답장
+
+                            Model.getInstance().Req_Authorize = JsonConvert.DeserializeObject<Req_Authorize>(jsonArray[3].ToString());
+
+                            // Model.getInstance().frmFrame.showNotiForm("인증중입니다." + Model.getInstance().Req_Authorize.userName + "\n" + Model.getInstance().Req_Authorize.batterySetName);
+
+                            Model.getInstance().Authorize_Complete = true;
+
+                            /*Req_Authorize req_Authorize = new Req_Authorize();
+
+                            req_Authorize.staionId = jsonArray[3]["staionId"].ToString();
+                            req_Authorize.userNo = int.Parse(jsonArray[3]["userNo"].ToString());
+                            req_Authorize.userName = jsonArray[3]["userName"].ToString();
+                            req_Authorize.batterySetNo = int.Parse(jsonArray[3]["batterySetNo"].ToString());
+                            req_Authorize.batterySetName = jsonArray[3]["batterySetName"].ToString();
+                            req_Authorize.batteryId1 = jsonArray[3]["batteryId1"].ToString();;
+                            req_Authorize.batteryId2 = jsonArray[3]["batteryId2"].ToString();
+                            req_Authorize.ticketAvailable = jsonArray[3]["ticketAvailable"].ToObject<bool>();
+                            req_Authorize.cashBalance = int.Parse(jsonArray[3]["cashBalance"].ToString());*/
+                        }
                         break;
                     //응답
                     case 3:
+                        if (messageName == enumData.Authorize.ToString())
+                        {
+                            
+                        }
                         list_Jarray.RemoveAll(jObject => (string)jObject[1] == _uid);
                         break;
                     //에러
@@ -290,6 +337,22 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             JArray jsonObject = JArray.Parse(json);
             list_Jarray.Add(jsonObject);
             return json;
+        }
+
+        private void SendConf_by_Req(string uid)
+        {
+            var data = new { current = DateTime.Now.ToString() };
+
+            var temp = new Object[]
+            {
+                3,
+                uid,
+                data,
+            };
+
+
+            string json = JsonConvert.SerializeObject(temp, Newtonsoft.Json.Formatting.Indented);
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
         }
     }
 }

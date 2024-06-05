@@ -8,21 +8,21 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
 {
     public class Req_Authorize
     {
-        public String idTag;
-        /*public MoreAuthorizeReq moreAuthorizeReq;*/
-        public void setRequiredValue(String idTag)
-        {
-            this.idTag = idTag;
-        }
+        // public String idTag;
 
-        public void setRequiredValue_Wev_CardTag(int connectorId, String idTag)
-        {
-            this.idTag = idTag;
-            /*this.moreAuthorizeReq = new MoreAuthorizeReq();
-            moreAuthorizeReq.connectorId = connectorId;
-            moreAuthorizeReq.certifyType = 1;*/
-            //        errorMessageOOPS = "kkkkkkkkkk";
-        }
+        public String staionId;
+        public int userNo;
+        public String userName;
+        public int batterySetNo;
+        public String batterySetName;
+        public String batteryId1;
+        public String batteryId2;
+        public bool ticketAvailable;
+        public int cashBalance;
+        public int type;
+
+        /*public MoreAuthorizeReq moreAuthorizeReq;*/
+
 
     }
 

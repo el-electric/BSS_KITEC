@@ -15,6 +15,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using System.Data.SQLite;
 using Newtonsoft.Json;
 using Formatting = Newtonsoft.Json.Formatting;
+using EL_DC_Charger.ocpp.ver16.packet.cp2csms;
 
 namespace EL_BSS
 {
@@ -139,6 +140,10 @@ namespace EL_BSS
         public int StationInfoInterval = 10;
         public int MeterValuesInterval = 10;
 
+        public Req_Authorize Req_Authorize;
+        public Conf_Authorize Conf_Authorize;
+        public bool Authorize_Complete = false;
+        public Nullable<DateTime> Send_Wakeup = DateTime.Now;
 
         public class MasterSend
         {
@@ -215,6 +220,8 @@ namespace EL_BSS
             public int RemainTime;
             public int firmWareVersion_Major;
             public int firmWareVersion_Minor;
+            public int firmWareVersion_Patch;
+            public string firmWareVersion;
             public int protocolVersion_Major;
             public int protocolVersion_Minor;
             public int protocolVersion_Patch;
