@@ -18,10 +18,14 @@ namespace EL_BSS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // 예외 핸들러 등록
+            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
             try
             {
-                Process[] processes = null;
-                processes = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName);
+                Process[] processes = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName);
                 if (processes.Length > 1)
                 {
                     MessageBox.Show(string.Format("'{0}' 프로그램이 이미 실행 중입니다.", Process.GetCurrentProcess().ProcessName));
@@ -30,8 +34,6 @@ namespace EL_BSS
                 ProcessCall(Process.GetCurrentProcess().ProcessName);
                 CurPath = Application.StartupPath;
 
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new frmFrame());
             }
             catch (Exception ex)
@@ -39,6 +41,7 @@ namespace EL_BSS
                 HandleException(ex);
             }
         }
+
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             HandleException(e.Exception);
@@ -46,6 +49,7 @@ namespace EL_BSS
 
         // 비 UI 스레드에서 발생한 예외를 처리하는 핸들러
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+
         {
             HandleException(e.ExceptionObject as Exception);
         }
@@ -74,6 +78,7 @@ namespace EL_BSS
             // 필요한 경우 애플리케이션 종료
             Application.Exit();
         }
+
         public static string CurPath = string.Empty;
 
         [DllImport("user32")]
@@ -82,6 +87,7 @@ namespace EL_BSS
         private static extern int ShowWindow(IntPtr hwnd, int nCmdShow);
         [DllImport("User32")]
         private static extern void BringWindowToTop(IntPtr hwnd);
+
         private static void ProcessCall(string processName)
         {
             foreach (Process process in Process.GetProcesses())
