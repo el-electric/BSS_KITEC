@@ -27,11 +27,15 @@ namespace EL_BSS.Cycle
             {
                 case CsDefine.CYC_INIT:
                     CurrentStep = CsDefine.CYC_INIT;
-                    NextStep();
+                    mainFormLabelUpdate("");
+
+                    Model.getInstance().Retreive_slot[0] = 0;
+                    Model.getInstance().Retreive_slot[1] = 0;
+
+                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = 0;
+                    /*NextStep();*/
                     break;
                 case CsDefine.CYC_INIT + 1:
-                    // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
-                    //Model.getInstance().oCPP_Comm_Manager.SendMessageAsync(Bootnotification);
                     JumpStep(CsDefine.CYC_MAIN);
                     break;
 
@@ -45,27 +49,51 @@ namespace EL_BSS.Cycle
                     NextStep();                    
                     break;
                 case CsDefine.CYC_MAIN + 2:
+                    CsWakeup.interverWakeUP();
+                    NextStep();
+                    break;
+                case CsDefine.CYC_MAIN + 3:
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
                     {
-                        if (sp_Slave.Check_100SOC_Battery())
+                        if (sp_Slave.Check_able_battery_slot())
                         {
+                            Model.getInstance().list_SlaveSend[Model.getInstance().Retreive_slot[0] - 1].doorOpen = true;
+                            Model.getInstance().list_SlaveSend[Model.getInstance().Retreive_slot[1] - 1].doorOpen = true;
+                            frmFrame.deleMenuClick(0);
+                            mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
                             NextStep();
                         }
                         else
                         {
                             Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_authorize(enumData.Fault.ToString(), 1, "유효 슬롯 없음");
-                            NextStep();
+                            Model.getInstance().frmFrame.NotiShow("사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요", 1000);
+                            frmFrame.deleMenuClick(0);
+                            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                         }
                     }
                     break;
-                case CsDefine.CYC_MAIN + 3:
-                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
+                case CsDefine.CYC_MAIN + 4:
+                    if (Model.getInstance().list_SlaveRecv[Model.getInstance().Retreive_slot[0] - 1].BatterArrive && Model.getInstance().list_SlaveRecv[Model.getInstance().Retreive_slot[0] - 1].isDoor == false &&
+                        Model.getInstance().list_SlaveRecv[Model.getInstance().Retreive_slot[1] - 1].BatterArrive && Model.getInstance().list_SlaveRecv[Model.getInstance().Retreive_slot[1] - 1].isDoor == false)
                     {
-                        frmFrame.deleMenuClick(0);
-                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = 0;
+                        mainFormLabelUpdate("배터리 인증중 입니다.");
+                        NextStep();
+                    }
+                    else if (!Model.getInstance().list_SlaveRecv[Model.getInstance().Retreive_slot[0] - 1].BatterArrive && Model.getInstance().list_SlaveRecv[Model.getInstance().Retreive_slot[0] - 1].isDoor == false)
+                    {
+                        mainFormLabelUpdate("슬롯의 배터리를 넣고 문을 닫아주세요");
+                        Model.getInstance().list_SlaveSend[Model.getInstance().Retreive_slot[0] - 1].doorOpen = true;
+                    }
+                    else if (!Model.getInstance().list_SlaveRecv[Model.getInstance().Retreive_slot[1] - 1].BatterArrive && Model.getInstance().list_SlaveRecv[Model.getInstance().Retreive_slot[1] - 1].isDoor == false)
+                    {
+                        mainFormLabelUpdate("슬롯의 배터리를 넣고 문을 닫아주세요");
+                        Model.getInstance().list_SlaveSend[Model.getInstance().Retreive_slot[0] - 1].doorOpen = true;
                     }
                     break;
-                case CsDefine.CYC_MAIN + 4:
+                    case CsDefine.CYC_MAIN + 5:
+
+                    break;
+                case CsDefine.CYC_MAIN + 6:
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
                     {
                         mainFormLabelUpdate("1245");
@@ -74,12 +102,8 @@ namespace EL_BSS.Cycle
                     break;
             }
 
-            if (Model.getInstance().Send_Wakeup == null || Model.getInstance().Send_Wakeup != null && Model.getInstance().Send_Wakeup.Value.AddMinutes(5) <= DateTime.Now)
-            {
-                Model.getInstance().Send_Wakeup = DateTime.Now;
-                CsWakeup.interverWakeUP();
-            }
 
+                CsWakeup.interverWakeUP();
         }
 
 

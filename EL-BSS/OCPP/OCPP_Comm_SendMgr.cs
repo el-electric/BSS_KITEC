@@ -105,6 +105,33 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             return json;
         }
 
+        public string sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status, int errorLevel = 0)
+        {
+            var data = new Object[]
+            {
+                2,
+                Guid.NewGuid().ToString(),
+                enumData.StatusNotification.ToString(),
+                    new
+                    {
+                        stationId = Model.getInstance().chargePointSerialNumber,
+                        //chargePointSerialNumber =
+                        connectorId = ChannelIdx,
+                        status = status,
+                        //errorCode =
+                        errorLevel =  errorLevel.ToString(),
+                        //info = 
+                        batteryId = Model.getInstance().list_SlaveRecv[ChannelIdx - 1].Serial_Number,
+                        soc = Model.getInstance().list_SlaveRecv[ChannelIdx - 1].SOC, 
+                        timestamp = DateTime.Now.ToString(),
+
+        }
+    };
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+
+            return json;
+        }
+
         public async Task<string> sendOCPP_CP_Req_StatusNotification_for_authorize(string status, int errorLevel, string errormessage)
         {
             var data = new 
@@ -136,7 +163,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         slotId=ChannelIdx,
                         jobSequenceName=0,
                         isErrorOccured=0,
-                        batteryId=0,
+                        batteryId=getInstance().list_SlaveRecv[ChannelIdx - 1].Serial_Number,
                         SOC = getInstance().list_SlaveRecv[ChannelIdx].SOC,
                         SOH = getInstance().list_SlaveRecv[ChannelIdx].SOH,
                         batteryPackVoltage=getInstance().list_SlaveRecv[ChannelIdx].BatteryCurrentVoltage,

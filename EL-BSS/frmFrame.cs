@@ -400,8 +400,11 @@ namespace EL_BSS
         }
         public void NotiShow(string context, int showingTime)
         {
-            frmNotiPopup frmNotiPopup = new frmNotiPopup(this, showingTime, context);
-            frmNotiPopup.ShowNotification();
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+                frmNotiPopup frmNotiPopup = new frmNotiPopup(this, showingTime, context);
+                frmNotiPopup.ShowNotification();
+            }));
         }
         private void button1_Click(object sender, EventArgs e)
         {

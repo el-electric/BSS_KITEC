@@ -378,6 +378,30 @@ namespace EL_BSS.Serial
             }
         }
 
+        public static bool Check_able_battery_slot()
+        {
+            int check_slot_Count = 0;
+
+            for (int i = 1; i <= 8; i++)
+            {
+                if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
+                    Model.getInstance().list_SlaveRecv[i - 1].SOC == 100 &&
+                    Model.getInstance().list_SlaveRecv[i - 1].BatteryType == Model.getInstance().Req_Authorize.type.ToString())
+                {
+                    Model.getInstance().Retreive_slot[check_slot_Count] = i;
+                    check_slot_Count++;
+                        
+                }
+
+                if (check_slot_Count == 2)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private static string Check_Status(int i)
         {
             if (Model.getInstance().list_SlaveRecv[idx - 1].SeqNum == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)

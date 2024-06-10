@@ -29,7 +29,7 @@ namespace BatteryChangeCharger.OCPP
         string url;
         public OCPP_Comm_Manager()
         {
-            url = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://192.168.0.90:8181");
+            url = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://192.168.0.59:8181");
             //url = "ws://192.168.0.90:8181";
             ConnectAsync(url);
             connectionCheckTimer = new System.Timers.Timer(5000); // 5초마다 실행
