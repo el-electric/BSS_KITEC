@@ -225,6 +225,13 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].SOC == 100 && 
+                Model.getInstance().list_SlaveRecv[idx  -1].ChargingStatus == 100) 
+            { 
+                Model.getInstance().list_SlaveSend[idx - 1].BatteryFETON = false;
+                Model.getInstance().list_SlaveSend[idx - 1].BatteryWakeup = false;
+                Model.getInstance().list_SlaveSend[idx - 1].BatteryOutput = false;
+            }
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
             
@@ -273,6 +280,7 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].PreChargeError = EL_Manager_Conversion.getFlagByByteArray(packet[55], 7);
 
             Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal = EL_Manager_Conversion.getFlagByByteArray(packet[56], 0);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal) { Model.getInstance().list_SlaveRecv[idx - 1].Send_Wakeup = DateTime.Now; }
             Model.getInstance().list_SlaveRecv[idx - 1].BMSReadyState = EL_Manager_Conversion.getFlagByByteArray(packet[56], 1);
             Model.getInstance().list_SlaveRecv[idx - 1].VCU_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 2);
             Model.getInstance().list_SlaveRecv[idx - 1].charger_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 3);
@@ -381,19 +389,28 @@ namespace EL_BSS.Serial
         public static bool Check_able_battery_slot()
         {
             int check_slot_Count = 0;
+            int check_Retreive_slot_Count = 0;
+            int check_lent_Slot_Count = 0;
 
             for (int i = 1; i <= 8; i++)
             {
                 if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
                     Model.getInstance().list_SlaveRecv[i - 1].SOC == 100 &&
-                    Model.getInstance().list_SlaveRecv[i - 1].BatteryType == Model.getInstance().Req_Authorize.type.ToString())
+                    Model.getInstance().list_SlaveRecv[i - 1].BatteryType == Model.getInstance().Req_Authorize.type.ToString() &&
+                    check_Retreive_slot_Count != 2
+                    )
                 {
-                    Model.getInstance().Retreive_slot[check_slot_Count] = i;
-                    check_slot_Count++;
-                        
+                    check_Retreive_slot_Count++;
+                    Model.getInstance().Retreive_slot[check_Retreive_slot_Count - 1] = i;
+
+                }
+                else if (!Model.getInstance().list_SlaveRecv[i - 1].BatterArrive && check_lent_Slot_Count != 2)
+                {
+                    check_lent_Slot_Count++;
+                    Model.getInstance().Lent_slot[check_lent_Slot_Count - 1] = i;
                 }
 
-                if (check_slot_Count == 2)
+                if (check_Retreive_slot_Count == 2 && check_lent_Slot_Count == 2)
                 {
                     return true;
                 }

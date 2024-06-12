@@ -143,6 +143,7 @@ namespace EL_BSS
         public Req_Authorize Req_Authorize;
 
         public int[] Retreive_slot = new int[2];
+        public int[] Lent_slot = new int[2];
 
         public class MasterSend
         {
@@ -321,7 +322,7 @@ namespace EL_BSS
 
             // 최초 안착 신호 들어온 시간
             public Nullable<DateTime> dt_First_BatterArrive_Time = null;
-            public Nullable<DateTime> Send_Wakeup = null;
+            public DateTime Send_Wakeup = DateTime.Now;
 
             // 배터리 타입 구분
             public int Check_BatteryVoltage_Type;

@@ -34,6 +34,7 @@
             this.Chage_To_FW = new System.Windows.Forms.Button();
             this.Vkey_OFF_button = new System.Windows.Forms.Button();
             this.Vkey_ON_button = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.Back_Main = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -47,7 +48,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_fan_1 = new System.Windows.Forms.Button();
+            this.btn_fan_2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -65,6 +67,8 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox1.Controls.Add(this.btn_fan_2);
+            this.groupBox1.Controls.Add(this.btn_fan_1);
             this.groupBox1.Controls.Add(this.Chage_To_FW);
             this.groupBox1.Controls.Add(this.Vkey_OFF_button);
             this.groupBox1.Controls.Add(this.Vkey_ON_button);
@@ -111,6 +115,16 @@
             this.Vkey_ON_button.Text = "화상키보드 ON";
             this.Vkey_ON_button.UseVisualStyleBackColor = true;
             this.Vkey_ON_button.Click += new System.EventHandler(this.Vkey_ON_button_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(590, 17);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(116, 68);
+            this.button1.TabIndex = 31;
+            this.button1.Text = "설정 창";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Back_Main
             // 
@@ -233,15 +247,25 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // button1
+            // btn_fan_1
             // 
-            this.button1.Location = new System.Drawing.Point(590, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(116, 68);
-            this.button1.TabIndex = 31;
-            this.button1.Text = "설정 창";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_fan_1.Location = new System.Drawing.Point(352, 17);
+            this.btn_fan_1.Name = "btn_fan_1";
+            this.btn_fan_1.Size = new System.Drawing.Size(63, 29);
+            this.btn_fan_1.TabIndex = 34;
+            this.btn_fan_1.Text = "팬 1";
+            this.btn_fan_1.UseVisualStyleBackColor = true;
+            this.btn_fan_1.Click += new System.EventHandler(this.btn_fan_1_Click);
+            // 
+            // btn_fan_2
+            // 
+            this.btn_fan_2.Location = new System.Drawing.Point(421, 17);
+            this.btn_fan_2.Name = "btn_fan_2";
+            this.btn_fan_2.Size = new System.Drawing.Size(63, 29);
+            this.btn_fan_2.TabIndex = 35;
+            this.btn_fan_2.Text = "팬 2";
+            this.btn_fan_2.UseVisualStyleBackColor = true;
+            this.btn_fan_2.Click += new System.EventHandler(this.btn_fan_2_Click);
             // 
             // frmManual
             // 
@@ -283,5 +307,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button Chage_To_FW;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_fan_2;
+        private System.Windows.Forms.Button btn_fan_1;
     }
 }

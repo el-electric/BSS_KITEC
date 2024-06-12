@@ -67,6 +67,19 @@ namespace EL_BSS
                 Model.getInstance().list_MasterDataRecvDatetime.Add(DateTime.Now);
             }
 
+            getInstance().frmFrame = this;
+
+            if (!bck_Protocol.IsBusy)
+                bck_Protocol.RunWorkerAsync();
+
+            if (!bck_Sequnce.IsBusy)
+                bck_Sequnce.RunWorkerAsync();
+
+            if (!bck_Counting.IsBusy)
+                bck_Counting.RunWorkerAsync();
+
+            MenuClick += FrmFrame_MenuClick;
+
 
             if (!sp_Master.Open(Model.getInstance().Master_PortName))
                 MessageBox.Show("마스터 포트 오픈 실패");
@@ -86,18 +99,7 @@ namespace EL_BSS
 
         private void initForm()
         {
-            getInstance().frmFrame = this;
-
-            if (!bck_Protocol.IsBusy)
-                bck_Protocol.RunWorkerAsync();
-
-            if (!bck_Sequnce.IsBusy)
-                bck_Sequnce.RunWorkerAsync();
-
-            if (!bck_Counting.IsBusy)
-                bck_Counting.RunWorkerAsync();
-
-            MenuClick += FrmFrame_MenuClick;
+            
 
 
             observers.Add(this);

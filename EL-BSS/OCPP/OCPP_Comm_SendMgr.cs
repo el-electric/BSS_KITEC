@@ -105,7 +105,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             return json;
         }
 
-        public string sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status, int errorLevel = 0)
+        public void sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status, int errorLevel = 0)
         {
             var data = new Object[]
             {
@@ -127,9 +127,15 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
         }
     };
-            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+            
+            /*string msg = makeMessage(enumData.AddInforBootNotification.ToString(), data);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
 
-            return json;
+            return response;*/
+
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
+
         }
 
         public async Task<string> sendOCPP_CP_Req_StatusNotification_for_authorize(string status, int errorLevel, string errormessage)
@@ -241,6 +247,18 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
             return response;
         }
+
+        /*public async Task<string> sendOCPP_CP_Req_StartTransaction(int slot_id)
+        {
+            var data = new
+            {
+                idTag = _idTag
+            };
+
+            string msg = makeMessage(enumData.Authorize.ToString(), data);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            return response;
+        }*/
         private void setSendPacket_Call_CP(String actionName, String payloadString)
         {
 

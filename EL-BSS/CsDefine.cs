@@ -15,6 +15,7 @@ namespace EL_BSS.Cycle
         public const int CYC_INSERT_BATTERY_FIRST = 300;
         public const int CYC_INSERT_BATTERY_SECOND = 400;
         // public const int CYC_CHARGING = 500;
+        public const int CYC_WAKEUP = 500;
         public const int CYC_RETRIEVE_BATTERY_FIRST = 600;
         public const int CYC_RETRIEVE_BATTERY_SECOND = 700;
         public const int CYC_COMPLETE = 800;
@@ -28,7 +29,7 @@ namespace EL_BSS.Cycle
 
 
         public const int CYC_RUN = 1;
-        public const int CYC_WAKEUP = 2;
+        // public const int CYC_WAKEUP = 2;
         public const int CYC_STATUSCHECK = 3;
         public const int CYC_CHARGING = 4;
         public const int CYC_FETON = 5;
