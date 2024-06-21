@@ -23,7 +23,7 @@ namespace EL_BSS.Cycle
         public static bool isWakeUP(int slotid)
         {
             Model.getInstance().list_SlaveSend[slotid - 1].BatteryWakeup = true;
-            CsDefine.Delayed[CsDefine.CYC_WAKEUP] = 0;
+            CsDefine.Delayed[CsDefine.CYC_R_WAKEUP] = 0;
 
             while (true)
             {
@@ -32,7 +32,7 @@ namespace EL_BSS.Cycle
                     // Model.getInstance().list_SlaveSend[slotid - 1].BatteryFETON = true;
                     break;
                 }
-                else if (CsDefine.Delayed[CsDefine.CYC_WAKEUP] >= 5000)
+                else if (CsDefine.Delayed[CsDefine.CYC_R_WAKEUP] >= 5000)
                 {
                     return false;
                 }

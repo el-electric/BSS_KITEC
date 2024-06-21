@@ -29,7 +29,7 @@ namespace EL_BSS.Cycle
 
 
         public const int CYC_RUN = 1;
-        // public const int CYC_WAKEUP = 2;
+        public const int CYC_R_WAKEUP = 2;
         public const int CYC_STATUSCHECK = 3;
         public const int CYC_CHARGING = 4;
         public const int CYC_FETON = 5;

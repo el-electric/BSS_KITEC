@@ -764,7 +764,9 @@ namespace EL_BSS
             makeDate,
             runDate,
             stationLocationLat,
-            stationLocationLong
+            stationLocationLong,
+            success,
+            fail
         }
     }
 }

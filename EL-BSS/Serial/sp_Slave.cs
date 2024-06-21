@@ -57,7 +57,7 @@ namespace EL_BSS.Serial
         {
             // 수신된 데이터를 버퍼에 추가
             mReceive_Data.AddRange(data);
-
+            // Console.WriteLine(BitConverter.ToString(data).Replace("-", "") + " LEN " + data.Length + " COUNT : " + _count++);
             while (true)
             {
                 int startIndex = mReceive_Data.IndexOf(0xfe); // STX
@@ -169,10 +169,11 @@ namespace EL_BSS.Serial
         static int idx = 0;
         static bool test = false;
         static byte[] temp = new byte[2];
+        static int _count = 0;
         private static void HandlePacket(byte[] packet)
         {
-            //Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);
-            
+            //Console.WriteLine(BitConverter.ToString(packet).Replace("-", "") + " LEN " + packet.Length + " COUNT : " + _count++);
+
 
             masterId = packet[4];
             slaveId = packet[5];
@@ -225,16 +226,16 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
-            if (Model.getInstance().list_SlaveRecv[idx - 1].SOC == 100 && 
-                Model.getInstance().list_SlaveRecv[idx  -1].ChargingStatus == 100) 
-            { 
+            if (Model.getInstance().list_SlaveRecv[idx - 1].SOC == 100 &&
+                Model.getInstance().list_SlaveRecv[idx - 1].ChargingStatus == 100)
+            {
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryFETON = false;
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryWakeup = false;
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryOutput = false;
             }
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
-            
+
             Model.getInstance().list_SlaveRecv[idx - 1].firmWareVersion_Major = EL_Manager_Conversion.getInt(packet[44]);
             Model.getInstance().list_SlaveRecv[idx - 1].firmWareVersion_Minor = EL_Manager_Conversion.getInt(packet[45]);
             Model.getInstance().list_SlaveRecv[idx - 1].firmWareVersion_Patch = EL_Manager_Conversion.getInt(packet[46]);
@@ -335,7 +336,7 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_13 = EL_Manager_Conversion.getInt_2Byte(packet[100], packet[101]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_14 = EL_Manager_Conversion.getInt_2Byte(packet[102], packet[103]);
 
-            if(Model.getInstance().list_SlaveRecv[idx - 1].Cell_Deviation_Error || Model.getInstance().list_SlaveRecv[idx - 1].All_Pack_Deviation_Error)
+            if (Model.getInstance().list_SlaveRecv[idx - 1].Cell_Deviation_Error || Model.getInstance().list_SlaveRecv[idx - 1].All_Pack_Deviation_Error)
             {
 
             }
@@ -348,14 +349,14 @@ namespace EL_BSS.Serial
                 if (Model.getInstance().Check_statusnotification[idx] == null)
                 {
                     Model.getInstance().Check_statusnotification[idx] = Check_Status(idx - 1);
-                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx, Model.getInstance().Check_statusnotification[idx - 1]);
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(idx, Model.getInstance().Check_statusnotification[idx - 1]);
                 }
                 else
                 {
                     if (Model.getInstance().Check_statusnotification[idx - 1] != Check_Status(idx - 1))
                     {
                         Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
-                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification(idx, Model.getInstance().Check_statusnotification[idx - 1]);
+                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(idx, Model.getInstance().Check_statusnotification[idx - 1]);
                     }
                 }
             }

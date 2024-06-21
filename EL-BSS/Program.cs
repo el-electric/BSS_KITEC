@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -16,6 +17,9 @@ namespace EL_BSS
         [STAThread]
         static void Main()
         {
+            /*string a = "FE-00-01-00-01-02-4D-53-31-7A-00-38-00-01-00-00-03-00-02-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-0A-00-00-00-00-00-00-01-01-01-00-01-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-D6-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-9D-B8-FF";
+
+            a = a.Replace("-", "");*/
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

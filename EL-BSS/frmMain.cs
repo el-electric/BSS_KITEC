@@ -256,5 +256,12 @@ namespace EL_BSS
                 }
             }
         }
+
+        public void setting_button_visible(bool setting)
+        {
+            pb_qr.Visible = setting;
+            drakeUIButton1.Visible = setting;
+
+        }
     }
 }

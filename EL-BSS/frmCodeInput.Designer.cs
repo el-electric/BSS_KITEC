@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.drakeUILabel1 = new DrakeUI.Framework.DrakeUILabel();
-            this.lbl_status = new DrakeUI.Framework.DrakeUILabel();
+            this.lbl_main_status = new DrakeUI.Framework.DrakeUILabel();
+            this.lbl_sub_status = new DrakeUI.Framework.DrakeUILabel();
             this.tb_intput = new DrakeUI.Framework.DrakeUIRichTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.drakeUIButton13 = new DrakeUI.Framework.DrakeUIButton();
@@ -55,8 +55,8 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.drakeUILabel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbl_status, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_main_status, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lbl_sub_status, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tb_intput, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -71,31 +71,31 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1024, 694);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // drakeUILabel1
+            // lbl_main_status
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.drakeUILabel1, 2);
-            this.drakeUILabel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.drakeUILabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.drakeUILabel1.Location = new System.Drawing.Point(3, 0);
-            this.drakeUILabel1.Name = "drakeUILabel1";
-            this.drakeUILabel1.Size = new System.Drawing.Size(1018, 138);
-            this.drakeUILabel1.TabIndex = 1;
-            this.drakeUILabel1.Text = "보안 코드 입력";
-            this.drakeUILabel1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.tableLayoutPanel1.SetColumnSpan(this.lbl_main_status, 2);
+            this.lbl_main_status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_main_status.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_main_status.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_main_status.Location = new System.Drawing.Point(3, 0);
+            this.lbl_main_status.Name = "lbl_main_status";
+            this.lbl_main_status.Size = new System.Drawing.Size(1018, 138);
+            this.lbl_main_status.TabIndex = 1;
+            this.lbl_main_status.Text = "보안 코드 입력";
+            this.lbl_main_status.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
-            // lbl_status
+            // lbl_sub_status
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.lbl_status, 2);
-            this.lbl_status.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_status.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lbl_status.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lbl_status.Location = new System.Drawing.Point(3, 138);
-            this.lbl_status.Name = "lbl_status";
-            this.lbl_status.Size = new System.Drawing.Size(1018, 138);
-            this.lbl_status.TabIndex = 2;
-            this.lbl_status.Text = "앱에 표시된 6자리 코드를 입력하세요";
-            this.lbl_status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tableLayoutPanel1.SetColumnSpan(this.lbl_sub_status, 2);
+            this.lbl_sub_status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_sub_status.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_sub_status.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_sub_status.Location = new System.Drawing.Point(3, 138);
+            this.lbl_sub_status.Name = "lbl_sub_status";
+            this.lbl_sub_status.Size = new System.Drawing.Size(1018, 138);
+            this.lbl_sub_status.TabIndex = 2;
+            this.lbl_sub_status.Text = "앱에 표시된 6자리 코드를 입력하세요";
+            this.lbl_sub_status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tb_intput
             // 
@@ -388,8 +388,8 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private DrakeUI.Framework.DrakeUILabel drakeUILabel1;
-        private DrakeUI.Framework.DrakeUILabel lbl_status;
+        private DrakeUI.Framework.DrakeUILabel lbl_main_status;
+        private DrakeUI.Framework.DrakeUILabel lbl_sub_status;
         private DrakeUI.Framework.DrakeUIRichTextBox tb_intput;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private DrakeUI.Framework.DrakeUIButton drakeUIButton1;

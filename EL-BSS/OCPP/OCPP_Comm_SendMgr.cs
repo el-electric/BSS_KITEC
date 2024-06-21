@@ -236,16 +236,29 @@ namespace EL_DC_Charger.ocpp.ver16.comm
         //    string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
         //    return response;
         //}
-        public async Task<string> sendOCPP_CP_Req_Authorize(string _idTag)
+        public async Task<string> sendOCPP_CP_Req_Authorize(int midentificationCode , int msecurityCode)
         {
             var data = new
             {
-                idTag = _idTag
+                stationId = Model.getInstance().chargePointSerialNumber,
+                identificationCode = midentificationCode,
+                securityCode = msecurityCode
             };
 
             string msg = makeMessage(enumData.Authorize.ToString(), data);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
             return response;
+        }
+
+        public void sendOCPP_CP_Conf_Authorize(string uid, string confdata)
+        {
+            var data = new
+            {
+                errcode = 00000,
+                contents = confdata
+            };
+
+            SendConf_with_data(uid, data);
         }
 
         /*public async Task<string> sendOCPP_CP_Req_StartTransaction(int slot_id)
@@ -305,13 +318,19 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                     case 2:
                         if (messageName == enumData.Authorize.ToString())
                         {
-                            SendConf_by_Req(_uid); // 답장
+                            if (sp_Slave.Check_able_battery_slot())
+                            {
+                                sendOCPP_CP_Conf_Authorize(_uid, enumData.success.ToString()); //답장
 
-                            Model.getInstance().Req_Authorize = JsonConvert.DeserializeObject<Req_Authorize>(jsonArray[3].ToString());
+                                Model.getInstance().Req_Authorize = JsonConvert.DeserializeObject<Req_Authorize>(jsonArray[3].ToString());
+                                Model.getInstance().Req_Authorize.setting_returnbatteryId();
 
-                            // Model.getInstance().frmFrame.showNotiForm("인증중입니다." + Model.getInstance().Req_Authorize.userName + "\n" + Model.getInstance().Req_Authorize.batterySetName);
-
-                            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
+                                CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
+                            }
+                            else
+                            {
+                                sendOCPP_CP_Conf_Authorize(_uid, enumData.fail.ToString());
+                            }
                         }
                         break;
                     //응답
@@ -377,6 +396,21 @@ namespace EL_DC_Charger.ocpp.ver16.comm
         {
             var data = new { current = DateTime.Now.ToString() };
 
+            var temp = new Object[]
+            {
+                3,
+                uid,
+                data,
+            };
+
+
+            string json = JsonConvert.SerializeObject(temp, Newtonsoft.Json.Formatting.Indented);
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
+        }
+
+        private void SendConf_with_data(string uid , object data)
+        {
+            
             var temp = new Object[]
             {
                 3,

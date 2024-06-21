@@ -319,7 +319,6 @@ namespace EL_BSS
                             slaveIdx = 1;
                         }
                     }
-
                 }
 
                 Thread.Sleep(50);
@@ -413,6 +412,8 @@ namespace EL_BSS
             frmNotiPopup frmNotiPopup = new frmNotiPopup(this);
             frmNotiPopup.ShowNotification();
         }
+
+        public frmMain GetfrmMain() { return frmMain; }
     }
 }
 

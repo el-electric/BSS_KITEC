@@ -99,6 +99,8 @@ namespace EL_BSS
 
                 FET_Temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].FET_Temper.ToString();
 
+                lb_serial_num.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].Serial_Number.ToString();
+
 
                 /*if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].isDoor && !Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatterArrive)
                 {

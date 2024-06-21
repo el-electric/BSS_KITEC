@@ -74,10 +74,12 @@
             this.set_Current = new System.Windows.Forms.Button();
             this.put_Battery_wattage = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.FET_Temp = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.manual_off = new System.Windows.Forms.Button();
             this.manual_on = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.FET_Temp = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lb_serial_num = new System.Windows.Forms.Label();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -609,6 +611,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lb_serial_num);
+            this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.FET_Temp);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.manual_off);
@@ -620,6 +624,28 @@
             this.groupBox2.TabIndex = 49;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "배터리";
+            // 
+            // FET_Temp
+            // 
+            this.FET_Temp.BackColor = System.Drawing.Color.White;
+            this.FET_Temp.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.FET_Temp.Location = new System.Drawing.Point(505, 242);
+            this.FET_Temp.Name = "FET_Temp";
+            this.FET_Temp.Size = new System.Drawing.Size(78, 37);
+            this.FET_Temp.TabIndex = 46;
+            this.FET_Temp.Text = "57.4";
+            this.FET_Temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(410, 242);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 37);
+            this.label1.TabIndex = 44;
+            this.label1.Text = "FET 온도";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // manual_off
             // 
@@ -641,27 +667,27 @@
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
             // 
-            // label1
+            // label2
             // 
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(410, 242);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 37);
-            this.label1.TabIndex = 44;
-            this.label1.Text = "FET 온도";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(410, 183);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(93, 43);
+            this.label2.TabIndex = 47;
+            this.label2.Text = "시리얼 번호";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // FET_Temp
+            // lb_serial_num
             // 
-            this.FET_Temp.BackColor = System.Drawing.Color.White;
-            this.FET_Temp.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.FET_Temp.Location = new System.Drawing.Point(505, 242);
-            this.FET_Temp.Name = "FET_Temp";
-            this.FET_Temp.Size = new System.Drawing.Size(78, 37);
-            this.FET_Temp.TabIndex = 46;
-            this.FET_Temp.Text = "57.4";
-            this.FET_Temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lb_serial_num.BackColor = System.Drawing.Color.White;
+            this.lb_serial_num.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_serial_num.Location = new System.Drawing.Point(529, 183);
+            this.lb_serial_num.Name = "lb_serial_num";
+            this.lb_serial_num.Size = new System.Drawing.Size(130, 43);
+            this.lb_serial_num.TabIndex = 48;
+            this.lb_serial_num.Text = "시리얼 번호";
+            this.lb_serial_num.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmSubManual
             // 
@@ -759,5 +785,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label FET_Temp;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lb_serial_num;
     }
 }

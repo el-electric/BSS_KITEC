@@ -19,6 +19,8 @@ namespace EL_BSS
 {
     public partial class frmCodeInput : Form, IObserver
     {
+        public int identificationCode;
+        public int securityCode;
         public frmCodeInput()
         {
             InitializeComponent();
@@ -43,43 +45,57 @@ namespace EL_BSS
 
         private async void drakeUIButtonIcon1_Click(object sender, EventArgs e)
         {
-            if (tb_intput.Text.Length == 6)
+            if (lbl_sub_status.Text == "앱에 표시된 6자리 인증코드를 입력하세요")
             {
-                lbl_status.Text = "인증코드 전송";
-                btn_enter.Enabled = false;
-                string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_Authorize(tb_intput.Text);
-                btn_enter.Enabled = true;
-
-                if (response == null)
+                if (tb_intput.Text.Length == 6)
                 {
-                    lbl_status.Text = "서버 응답 없음";
-                    return;
+                    identificationCode = tb_intput.Text.ToInt();
+                    tb_intput.Text = string.Empty;
+
+                    lbl_sub_status.Text = "앱에 표시된 6자리 보안코드를 입력하세요";
                 }
-                // JArray responseObject = null;
-                // JArray jsonArray = JArray.Parse(_packet);
-                try
+            }
+            else
+            {
+                if (tb_intput.Text.Length == 6)
                 {
-                    JArray responseObject = JArray.Parse(response);
-                    Model.getInstance().Req_Authorize = JsonConvert.DeserializeObject<Req_Authorize>(responseObject[2].ToString());
-                    string status = responseObject?[2]?["status"]?.ToString();
+                    securityCode = tb_intput.Text.ToInt();
+                    lbl_sub_status.Text = "인증코드 전송";
 
-                    if (status == enumData.Accepted.ToString())
+
+                    btn_enter.Enabled = false;
+                    string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_Authorize(identificationCode , securityCode);
+                    btn_enter.Enabled = true;
+
+                    if (response == null)
                     {
-                        lbl_status.Text = "인증 성공";
-
-                        CsDefine.Cyc_Rail[CsDefine.CYC_MAIN] = CsDefine.CYC_MAIN;
+                        lbl_sub_status.Text = "서버 응답 없음";
+                        return;
                     }
-                    else
+                    // JArray responseObject = null;
+                    // JArray jsonArray = JArray.Parse(_packet);
+                    try
                     {
-                        lbl_status.Text = "인증 실패: " + status;
+                        JArray responseObject = JArray.Parse(response);
+                        Model.getInstance().Req_Authorize = JsonConvert.DeserializeObject<Req_Authorize>(responseObject[2].ToString());
+                        string status = responseObject?[2]?["status"]?.ToString();
+
+                        if (status == enumData.Accepted.ToString())
+                        {
+                            lbl_sub_status.Text = "인증 성공";
+
+                            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
+                        }
+                        else
+                        {
+                            lbl_sub_status.Text = "인증 실패: " + status;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
                     }
                 }
-                catch (Exception ex)
-                {
-
-                }
-
-
             }
         }
 
@@ -90,7 +106,7 @@ namespace EL_BSS
 
         public void InitForm()
         {
-            lbl_status.Text = "앱에 표시된 6자리 코드를 입력하세요";
+            lbl_sub_status.Text = "앱에 표시된 6자리 인증코드를 입력하세요";
             tb_intput.Text = string.Empty;
         }
 
