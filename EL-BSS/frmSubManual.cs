@@ -92,8 +92,7 @@ namespace EL_BSS
                 Battery_get_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryRequestWattage / 10).ToString();
                 Battery_Current_Voltage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryCurrentVoltage / 10).ToString();
                 Battery_Current_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryCurrentWattage / 10).ToString();
-                Battery_Highest_temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMaxTemper.ToString();
-                Battery_Lowest_temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMinTemper.ToString();
+                Battery_Highest_temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMaxTemper.ToString() + " / " + Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMinTemper.ToString();
 
                 Bettery_Type.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryType.ToString();
 
@@ -235,12 +234,8 @@ namespace EL_BSS
 
         private void manual_on_Click(object sender, EventArgs e)
         {
-            Model.getInstance().list_SlaveSend[mSLot_Number - 1].hmiManual = true;
-        }
-
-        private void manual_off_Click(object sender, EventArgs e)
-        {
-            Model.getInstance().list_SlaveSend[mSLot_Number - 1].hmiManual = false;
+            if(!Model.getInstance().list_SlaveSend[mSLot_Number - 1].hmiManual) Model.getInstance().list_SlaveSend[mSLot_Number - 1].hmiManual = true;
+            else Model.getInstance().list_SlaveSend[mSLot_Number - 1].hmiManual = false;
         }
 
         private void send_voltage_wattage_Click_1(object sender, EventArgs e)

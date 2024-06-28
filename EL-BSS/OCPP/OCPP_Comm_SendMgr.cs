@@ -23,6 +23,9 @@ using static System.Data.Entity.Infrastructure.Design.Executor;
 using System.Net.Http.Headers;
 using EL_BSS.Serial;
 using EL_BSS.Cycle;
+using System.IdentityModel.Protocols.WSTrust;
+using System.Windows.Interop;
+using EL_BSS.OCPP.packet.cp2csms;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -261,17 +264,74 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             SendConf_with_data(uid, data);
         }
 
-        /*public async Task<string> sendOCPP_CP_Req_StartTransaction(int slot_id)
+        public async Task<string> Send_OCPP_CP_Req_DataTransfer_battery_exchange(int[] returnid, int[] lentid)
         {
-            var data = new
-            {
-                idTag = _idTag
-            };
+            List<SET_Batteries_Value> returnBatteries = new List<SET_Batteries_Value>();
+            List<SET_Batteries_Value> lentBatteries = new List<SET_Batteries_Value>();
 
-            string msg = makeMessage(enumData.Authorize.ToString(), data);
-            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
-            return response;
-        }*/
+            for (int i = 0; i <= 1; i++)
+            {
+                SET_Batteries_Value m_returnBatteries = new SET_Batteries_Value(returnid[i]);
+                returnBatteries.Add(m_returnBatteries);
+
+                SET_Batteries_Value m_lentBatteries = new SET_Batteries_Value(lentid[i]);
+                lentBatteries.Add(m_lentBatteries);
+            }
+
+            var data = new Object[]
+            {
+                2,
+                Guid.NewGuid().ToString(),
+                enumData.DataTransfer.ToString(),
+                    new
+                    {
+                        stationId = Model.getInstance().chargePointSerialNumber,
+                        userNo = Model.getInstance().Authorize.userNo,
+                        batterySetNo = Model.getInstance().Authorize.batterySetNo,
+                        returnBatteries = returnBatteries,
+                        lendingBattteries = lentBatteries,
+                        timestamp = DateTime.Now.ToString(),
+                    }
+            };
+            string returnvlaue = "";
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(json);
+
+            JArray responseObject = JArray.Parse(response);
+            
+            string errCode = responseObject?[2]?["errCode"]?.ToString();
+
+            if (errCode == null)
+            {
+                returnvlaue = "응답없음";
+                return returnvlaue;
+            }
+
+            switch (errCode)
+            {
+                case "00000":
+                    returnvlaue = "성공";
+                    break;
+                case "11101":
+                    returnvlaue = "배터리를 찾을 수 없습니다.";
+                    break;
+                case "11102":
+                    returnvlaue = "배터리 세트를 찾을 수 없습니다.";
+                    break;
+                case "10002":
+                    returnvlaue = "이용자가 없습니다.";
+                    break;
+                case "12102":
+                    returnvlaue = "스테이션이 존재하지 않습니다";
+                    break;
+                default:
+                    returnvlaue = "없는 애러코드";
+                    break;
+            }
+
+            return errCode;
+        }
+
         private void setSendPacket_Call_CP(String actionName, String payloadString)
         {
 
@@ -322,8 +382,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                             {
                                 sendOCPP_CP_Conf_Authorize(_uid, enumData.success.ToString()); //답장
 
-                                Model.getInstance().Req_Authorize = JsonConvert.DeserializeObject<Req_Authorize>(jsonArray[3].ToString());
-                                Model.getInstance().Req_Authorize.setting_returnbatteryId();
+                                Model.getInstance().Authorize = JsonConvert.DeserializeObject<Req_Authorize>(jsonArray[3].ToString());
+                                Model.getInstance().Authorize.setting_Authorize_value();
 
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
                             }

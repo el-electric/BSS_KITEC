@@ -16,6 +16,8 @@ using System.Data.SQLite;
 using Newtonsoft.Json;
 using Formatting = Newtonsoft.Json.Formatting;
 using EL_DC_Charger.ocpp.ver16.packet.cp2csms;
+using EL_BSS.OCPP.packet.cp2csms;
+using EL_BSS.Cycle;
 
 namespace EL_BSS
 {
@@ -140,10 +142,14 @@ namespace EL_BSS
         public int StationInfoInterval = 10;
         public int MeterValuesInterval = 10;
 
-        public Req_Authorize Req_Authorize;
+        public Req_Authorize Authorize;
 
         public int[] Retreive_slot = new int[2];
         public int[] Lent_slot = new int[2];
+
+        public string Authorize_Type;
+
+        public CsCharging[] Slot_ChargeManager = new CsCharging[8];
 
         public class MasterSend
         {
@@ -738,6 +744,7 @@ namespace EL_BSS
             StopTransaction,
             AddInfoStationBatteryState,
             AddInforBatteryExchange,
+            DataTransfer,
             Accepted,
             Type48 = 48,
             Type72 = 72,
@@ -766,7 +773,9 @@ namespace EL_BSS
             stationLocationLat,
             stationLocationLong,
             success,
-            fail
+            fail,
+            APP,
+            STATION
         }
     }
 }

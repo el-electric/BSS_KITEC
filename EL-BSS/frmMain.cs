@@ -49,9 +49,13 @@ namespace EL_BSS
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
 
+            int[] returnid = new int[2];
+            returnid[0] = 1;
+            returnid[1] = 1;
+            string response = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(returnid , returnid);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -93,6 +97,8 @@ namespace EL_BSS
                     TimeSpan timeDifference = DateTime.Now - Model.getInstance().list_SlaveDataRecvDatetime[i];
                     Controls.Find("label" + (i + 1), true)[0].Text = $"{timeDifference.Hours:D2}:{timeDifference.Minutes:D2}:{timeDifference.Seconds:D2}";
                     ///////////////////////
+                  
+
 
                     bool foundBattery = false;
                     bool foundLabel = false;
@@ -170,6 +176,12 @@ namespace EL_BSS
                 }
                 for (int i = 0; i < 2; i++)
                 {
+                    ///////////////////////
+                    TimeSpan mastertimeDifference = DateTime.Now - Model.getInstance().list_MasterDataRecvDatetime[i];
+                    Controls.Find("label" + (i + 9), true)[0].Text = $"{mastertimeDifference.Hours:D2}:{mastertimeDifference.Minutes:D2}:{mastertimeDifference.Seconds:D2}";
+                    //////////////////////
+                    
+
                     foreach (Control control in tableLayoutPanel3.Controls)
                     {
                         if (control.Name == "master_lamp" + i)

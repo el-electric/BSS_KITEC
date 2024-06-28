@@ -77,18 +77,27 @@ namespace EL_BSS
                     try
                     {
                         JArray responseObject = JArray.Parse(response);
-                        Model.getInstance().Req_Authorize = JsonConvert.DeserializeObject<Req_Authorize>(responseObject[2].ToString());
-                        string status = responseObject?[2]?["status"]?.ToString();
+                        Model.getInstance().Authorize = JsonConvert.DeserializeObject<Req_Authorize>(responseObject[2].ToString());
+                        Model.getInstance().Authorize.setting_Authorize_value();
+                        string errCode = responseObject?[2]?["errCode"]?.ToString();
 
-                        if (status == enumData.Accepted.ToString())
+                        switch (errCode) 
                         {
-                            lbl_sub_status.Text = "인증 성공";
+                            case "00000":
+                                lbl_sub_status.Text = "인증 성공";
+                                Model.getInstance().Authorize_Type = enumData.STATION.ToString();
 
-                            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
-                        }
-                        else
-                        {
-                            lbl_sub_status.Text = "인증 실패: " + status;
+                                CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
+                                break;
+                            case "10002":
+                                lbl_sub_status.Text = "인증 실패: " + "이용자가 없습니다.";
+                                break;
+                            case "12101":
+                                lbl_sub_status.Text = "인증 실패: " + "스테이션이 존재하지 않습니다.";
+                                break;
+                            case "60004":
+                                lbl_sub_status.Text = "인증 실패: " + "보유한 캐시가 부족합니다.";
+                                break;
                         }
                     }
                     catch (Exception ex)

@@ -1,7 +1,9 @@
 ﻿using DrakeUI.Framework;
+using EL_BSS.Cycle;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.IdentityModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
@@ -16,6 +18,8 @@ namespace EL_BSS.Serial
     {
         static SerialPort serial;
         private static List<byte> mReceive_Data = new List<byte>();
+        public static CsSlotchargingManager[] CsSlotchargingManager = new CsSlotchargingManager[8];
+
         public static bool Open(string PortName)
         {
             try
@@ -256,11 +260,11 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].overDischarge = EL_Manager_Conversion.getFlagByByteArray(packet[52], 6);
             Model.getInstance().list_SlaveRecv[idx - 1].overCharging = EL_Manager_Conversion.getFlagByByteArray(packet[52], 7);
 
-            Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverCharging = EL_Manager_Conversion.getFlagByByteArray(packet[53], 0);
-            Model.getInstance().list_SlaveRecv[idx - 1].cell_LowTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 1);
-            Model.getInstance().list_SlaveRecv[idx - 1].cell_HighTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 2);
-            Model.getInstance().list_SlaveRecv[idx - 1].FET_LowTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 3);
-            Model.getInstance().list_SlaveRecv[idx - 1].FET_HighTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 4);
+            Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverCharging = EL_Manager_Conversion.getFlagByByteArray(packet[53], 3);
+            Model.getInstance().list_SlaveRecv[idx - 1].cell_LowTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 4);
+            Model.getInstance().list_SlaveRecv[idx - 1].cell_HighTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 5);
+            Model.getInstance().list_SlaveRecv[idx - 1].FET_LowTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 6);
+            Model.getInstance().list_SlaveRecv[idx - 1].FET_HighTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 7);
 
             Model.getInstance().list_SlaveRecv[idx - 1].lowVoltageProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 0);
             Model.getInstance().list_SlaveRecv[idx - 1].highVoltageProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 1);
@@ -281,7 +285,10 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].PreChargeError = EL_Manager_Conversion.getFlagByByteArray(packet[55], 7);
 
             Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal = EL_Manager_Conversion.getFlagByByteArray(packet[56], 0);
-            if (Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal) { Model.getInstance().list_SlaveRecv[idx - 1].Send_Wakeup = DateTime.Now; }
+            if (Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal) 
+            {
+                Model.getInstance().list_SlaveRecv[idx - 1].Send_Wakeup = DateTime.Now; 
+            }
             Model.getInstance().list_SlaveRecv[idx - 1].BMSReadyState = EL_Manager_Conversion.getFlagByByteArray(packet[56], 1);
             Model.getInstance().list_SlaveRecv[idx - 1].VCU_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 2);
             Model.getInstance().list_SlaveRecv[idx - 1].charger_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 3);
@@ -290,13 +297,13 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].charge_FET_State = EL_Manager_Conversion.getFlagByByteArray(packet[56], 6);
             Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State = EL_Manager_Conversion.getFlagByByteArray(packet[56], 7);
 
-            Model.getInstance().list_SlaveRecv[idx - 1].Charge_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 0);
-            Model.getInstance().list_SlaveRecv[idx - 1].Discharge_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 1);
-            Model.getInstance().list_SlaveRecv[idx - 1].Regeneration_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 2);
-            Model.getInstance().list_SlaveRecv[idx - 1].Ready_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 3);
-            Model.getInstance().list_SlaveRecv[idx - 1].Emergence_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 4);
-            Model.getInstance().list_SlaveRecv[idx - 1].Protect_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 5);
-            Model.getInstance().list_SlaveRecv[idx - 1].Balancing_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 6);
+            Model.getInstance().list_SlaveRecv[idx - 1].Charge_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 1);
+            Model.getInstance().list_SlaveRecv[idx - 1].Discharge_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 2);
+            Model.getInstance().list_SlaveRecv[idx - 1].Regeneration_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 3);
+            Model.getInstance().list_SlaveRecv[idx - 1].Ready_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 4);
+            Model.getInstance().list_SlaveRecv[idx - 1].Emergence_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 5);
+            Model.getInstance().list_SlaveRecv[idx - 1].Protect_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 6);
+            Model.getInstance().list_SlaveRecv[idx - 1].Balancing_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 7);
 
             Model.getInstance().list_SlaveRecv[idx - 1].ROM_Check = EL_Manager_Conversion.getFlagByByteArray(packet[58], 0);
             Model.getInstance().list_SlaveRecv[idx - 1].RAM_Check = EL_Manager_Conversion.getFlagByByteArray(packet[58], 1);
@@ -319,22 +326,22 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68]) - 40);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[69], packet[70]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Low_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[71], packet[72]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Cell_Belancing_Flag = EL_Manager_Conversion.getInt(packet[73]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Moduel_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[74], packet[75]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_01 = EL_Manager_Conversion.getInt_2Byte(packet[76], packet[77]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_02 = EL_Manager_Conversion.getInt_2Byte(packet[78], packet[79]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_03 = EL_Manager_Conversion.getInt_2Byte(packet[80], packet[81]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_04 = EL_Manager_Conversion.getInt_2Byte(packet[82], packet[83]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_05 = EL_Manager_Conversion.getInt_2Byte(packet[84], packet[85]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_06 = EL_Manager_Conversion.getInt_2Byte(packet[86], packet[87]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_07 = EL_Manager_Conversion.getInt_2Byte(packet[88], packet[89]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_08 = EL_Manager_Conversion.getInt_2Byte(packet[90], packet[91]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_09 = EL_Manager_Conversion.getInt_2Byte(packet[92], packet[93]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_10 = EL_Manager_Conversion.getInt_2Byte(packet[94], packet[95]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_11 = EL_Manager_Conversion.getInt_2Byte(packet[96], packet[97]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_12 = EL_Manager_Conversion.getInt_2Byte(packet[98], packet[99]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_13 = EL_Manager_Conversion.getInt_2Byte(packet[100], packet[101]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_14 = EL_Manager_Conversion.getInt_2Byte(packet[102], packet[103]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Cell_Belancing_Flag = EL_Manager_Conversion.getInt_2Byte(packet[73] , packet[74]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Moduel_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[75], packet[76]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_01 = EL_Manager_Conversion.getInt_2Byte(packet[77], packet[78]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_02 = EL_Manager_Conversion.getInt_2Byte(packet[79], packet[80]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_03 = EL_Manager_Conversion.getInt_2Byte(packet[81], packet[82]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_04 = EL_Manager_Conversion.getInt_2Byte(packet[83], packet[84]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_05 = EL_Manager_Conversion.getInt_2Byte(packet[85], packet[86]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_06 = EL_Manager_Conversion.getInt_2Byte(packet[87], packet[88]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_07 = EL_Manager_Conversion.getInt_2Byte(packet[89], packet[90]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_08 = EL_Manager_Conversion.getInt_2Byte(packet[91], packet[92]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_09 = EL_Manager_Conversion.getInt_2Byte(packet[93], packet[94]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_10 = EL_Manager_Conversion.getInt_2Byte(packet[95], packet[96]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_11 = EL_Manager_Conversion.getInt_2Byte(packet[97], packet[98]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_12 = EL_Manager_Conversion.getInt_2Byte(packet[99], packet[100]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_13 = EL_Manager_Conversion.getInt_2Byte(packet[101], packet[102]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_14 = EL_Manager_Conversion.getInt_2Byte(packet[103], packet[104]);
 
             if (Model.getInstance().list_SlaveRecv[idx - 1].Cell_Deviation_Error || Model.getInstance().list_SlaveRecv[idx - 1].All_Pack_Deviation_Error)
             {
@@ -361,8 +368,10 @@ namespace EL_BSS.Serial
                 }
             }
 
-
-
+            if (Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus == 100 &&
+                Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal &&
+                Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State)
+            { CsSlotchargingManager[idx - 1].Slot_Charging_Manage(idx); }
         }
 
         public static bool Check_100SOC_Battery()
@@ -397,7 +406,7 @@ namespace EL_BSS.Serial
             {
                 if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
                     Model.getInstance().list_SlaveRecv[i - 1].SOC == 100 &&
-                    Model.getInstance().list_SlaveRecv[i - 1].BatteryType == Model.getInstance().Req_Authorize.type.ToString() &&
+                    Model.getInstance().list_SlaveRecv[i - 1].BatteryType == Model.getInstance().Authorize.type.ToString() &&
                     check_Retreive_slot_Count != 2
                     )
                 {

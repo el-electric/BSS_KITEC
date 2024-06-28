@@ -100,6 +100,7 @@
     <Compile Include="CsUtil.cs" />
     <Compile Include="CsDefine.cs" />
     <Compile Include="Cycle\CsCharging.cs" />
+    <Compile Include="Cycle\CsSlotchargingManager.cs" />
     <Compile Include="Cycle\CsStatusCheck.cs" />
     <Compile Include="Cycle\CsWakeup.cs" />
     <Compile Include="Cycle\CsWork.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="OCPP\packet\cp2csms\Req_FirmwareStatusNotification.cs" />
     <Compile Include="OCPP\packet\cp2csms\Req_Heartbeat.cs" />
     <Compile Include="OCPP\packet\cp2csms\Req_MeterValues.cs" />
+    <Compile Include="OCPP\packet\cp2csms\Req_returnBatteries.cs" />
     <Compile Include="OCPP\packet\cp2csms\Req_StartTransaction.cs" />
     <Compile Include="OCPP\packet\cp2csms\Req_StatusNotification.cs" />
     <Compile Include="OCPP\packet\cp2csms\Req_StopTransaction.cs" />

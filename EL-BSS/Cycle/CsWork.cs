@@ -24,8 +24,6 @@ namespace EL_BSS.Cycle
 
         public static void Main_WorkCycle() //자동동작 시퀀스
         {
-
-
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
             {
                 case CsDefine.CYC_MAIN:
@@ -42,11 +40,17 @@ namespace EL_BSS.Cycle
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 1:
-                    getInstance().frmFrame.showNotiForm("인증중입니다." + getInstance().Req_Authorize.batterySetName);
+                    getInstance().frmFrame.showNotiForm("인증중입니다..." + "\n" + "사용자 이름 : " + getInstance().Authorize.userName + "\n" + "배터리 세트 : " + getInstance().Authorize.batterySetName + "\n" + "구독 여부 : " + getInstance().Authorize.ticketAvailable + "\n" + "잔여캐시 : " + getInstance().Authorize.cashBalance);
                     NextStep();                    
                     break;
                 case CsDefine.CYC_MAIN + 2:
                     CsWakeup.interverWakeUP();
+                    for (int i = 1; i < 9; i++)
+                    {
+                        if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
+                            Model.getInstance().list_SlaveSend[i - 1].BatteryWakeup) 
+                            CsWakeup.isWakeUP(i);
+                    }
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 3:
@@ -54,30 +58,29 @@ namespace EL_BSS.Cycle
                     {
                         if (sp_Slave.Check_able_battery_slot())
                         {
-                            /*if (enumData.Accepted.ToString() == JsonConvert.DeserializeObject<JArray>(Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(Model.getInstance().Retreive_slot[0], enumData.Preparing.ToString()).ToString())?[2]?["status"]?.ToString() &&
-                                enumData.Accepted.ToString() == JsonConvert.DeserializeObject<JArray>(Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(Model.getInstance().Retreive_slot[1], enumData.Preparing.ToString()).ToString())?[2]?["status"]?.ToString())
+                            if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
                             {
-                                Model.getInstance().list_SlaveSend[Model.getInstance().Retreive_slot[0] - 1].doorOpen = true;
-                                Model.getInstance().list_SlaveSend[Model.getInstance().Retreive_slot[1] - 1].doorOpen = true;
+                                getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                                getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
 
                                 frmFrame.deleMenuClick(0);
                                 mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
                                 NextStep();
-                            }*/
-                            getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
-                            getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
-
+                            }
+                            else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
+                            {
+                                getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                                getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                            }
+                           
                             frmFrame.deleMenuClick(0);
                             mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
                             NextStep();
-
-
                         }
                         else
                         {
-                            getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_authorize(enumData.Fault.ToString(), 1, "유효 슬롯 없음");
-                            getInstance().frmFrame.NotiShow("사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요", 1000);
                             frmFrame.deleMenuClick(0);
+                            getInstance().frmFrame.NotiShow("사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요", 1000);
                             CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                         }
                     }
@@ -128,20 +131,23 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 case CsDefine.CYC_MAIN + 6:
-                    /*if ((getInstance().Req_Authorize.batteryId1 == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString() &&  // 서버에서 받은 batteryid와 배터리에서 받은 serialnum이 일치할때
-                        getInstance().Req_Authorize.batteryId2 == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString()) 
+                    if ((getInstance().Authorize.returnbatteryId[0] == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString() &&  // 서버에서 받은 batteryid와 배터리에서 받은 serialnum이 일치할때
+                        getInstance().Authorize.returnbatteryId[1] == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString())
                         ||
-                        (getInstance().Req_Authorize.batteryId1 == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString() &&
-                         getInstance().Req_Authorize.batteryId2 == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString()))
+                        (getInstance().Authorize.returnbatteryId[1] == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString() &&
+                         getInstance().Authorize.returnbatteryId[0] == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString()))
                     {
-                        NextStep();
+                        // string response = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(Model.getInstance().Retreive_slot, Model.getInstance().Lent_slot);
+
+                        /*if(response == "00000") NextStep();
+                        else CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;*/
                     }
                     else
                     {
                         getInstance().frmFrame.NotiShow("배터리의 ID가 일치하지 않습니다.\n고객센터에 문의해주세요.", 1000);
                         frmFrame.deleMenuClick(0);
                         CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
-                    }*/
+                    }
                     break;
                 case CsDefine .CYC_MAIN + 7:
                     if (_slot_Count == 2)
@@ -212,6 +218,14 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 
+            }
+
+            for (int c = 1; c < 9; c++)
+            {
+                if (Model.getInstance().list_SlaveSend[c - 1].BatteryOutput == true && Model.getInstance().list_SlaveRecv[c - 1].ChargingStatus == 100)
+                {
+                    CsCharging.Main_WorkCycle(c);
+                }
             }
 
 

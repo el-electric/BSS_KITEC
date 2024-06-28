@@ -32,7 +32,7 @@ namespace EL_BSS.Cycle
                     // Model.getInstance().list_SlaveSend[slotid - 1].BatteryFETON = true;
                     break;
                 }
-                else if (CsDefine.Delayed[CsDefine.CYC_R_WAKEUP] >= 5000)
+                else if (CsDefine.Delayed[CsDefine.CYC_R_WAKEUP] >= 10000)
                 {
                     return false;
                 }
@@ -53,7 +53,7 @@ namespace EL_BSS.Cycle
                 {
                     break;
                 }
-                else if (CsDefine.Delayed[CsDefine.CYC_FETON] >= 5000)
+                else if (CsDefine.Delayed[CsDefine.CYC_FETON] >= 10000)
                 {
                     return false;
                 }

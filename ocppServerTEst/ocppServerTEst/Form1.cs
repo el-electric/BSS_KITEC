@@ -91,6 +91,11 @@ namespace ocppServerTEst
                         string uid = jsonArray[1].ToString();
                         string status = "Accepted";
 
+                        List<string> returnBatteryId = new List<string>();
+
+                        returnBatteryId.Add("BT-001");
+                        returnBatteryId.Add("BT-002");
+
                         var data = new object[]
                         {
                             3,
@@ -103,8 +108,7 @@ namespace ocppServerTEst
                                     userName= "홍길동",
                                     batterySetNo= 1,
                                     batterySetName= "홍길동 배터리 모음",
-                                    batteryId1= "홍길동 배터리 1",
-                                    batteryId2= "홍길동 배터리 2",
+                                    returnBatteryIds = returnBatteryId,
                                     ticketAvailable= true,
                                     cashBalance= 100,
                                     
@@ -139,6 +143,11 @@ namespace ocppServerTEst
         {
             string uid = "e22f11a5-590e-461e-8550-cfc8bf79efec";
 
+             List<string> returnBatteryId = new List<string>();
+
+            returnBatteryId.Add("BT-001");
+            returnBatteryId.Add("BT-002");
+
             var data = new Object[]
             {
                 2,
@@ -146,13 +155,12 @@ namespace ocppServerTEst
                 "Authorize",
                     new
                     {
-                            staionId= "elstation01",
+                    staionId= "elstation01",
                     userNo= 1,
                     userName= "홍길동",
                     batterySetNo= 1,
                     batterySetName= "홍길동 배터리 모음",
-                    batteryId1= "홍길동 배터리 1",
-                    batteryId2= "홍길동 배터리 2",
+                    returnBatteryIds = returnBatteryId,
                     ticketAvailable= true,
                     cashBalance= 100,
                     type ="72"

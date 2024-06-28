@@ -63,9 +63,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
             this.Battery_Highest_temp = new System.Windows.Forms.Label();
-            this.Battery_Lowest_temp = new System.Windows.Forms.Label();
             this.SOH_percent = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.gb_Slot = new System.Windows.Forms.GroupBox();
@@ -74,12 +72,11 @@
             this.set_Current = new System.Windows.Forms.Button();
             this.put_Battery_wattage = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lb_serial_num = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.FET_Temp = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.manual_off = new System.Windows.Forms.Button();
             this.manual_on = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lb_serial_num = new System.Windows.Forms.Label();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -477,43 +474,21 @@
             this.label30.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label30.Location = new System.Drawing.Point(23, 429);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(84, 37);
+            this.label30.Size = new System.Drawing.Size(125, 37);
             this.label30.TabIndex = 42;
-            this.label30.Text = "최고온도";
+            this.label30.Text = "최고/최저 온도";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label31
-            // 
-            this.label31.BackColor = System.Drawing.Color.White;
-            this.label31.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label31.Location = new System.Drawing.Point(229, 429);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(84, 37);
-            this.label31.TabIndex = 43;
-            this.label31.Text = "최저온도";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Battery_Highest_temp
             // 
             this.Battery_Highest_temp.BackColor = System.Drawing.Color.White;
             this.Battery_Highest_temp.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Battery_Highest_temp.Location = new System.Drawing.Point(128, 429);
+            this.Battery_Highest_temp.Location = new System.Drawing.Point(142, 242);
             this.Battery_Highest_temp.Name = "Battery_Highest_temp";
-            this.Battery_Highest_temp.Size = new System.Drawing.Size(78, 37);
+            this.Battery_Highest_temp.Size = new System.Drawing.Size(112, 37);
             this.Battery_Highest_temp.TabIndex = 44;
-            this.Battery_Highest_temp.Text = "57.4";
+            this.Battery_Highest_temp.Text = "57.4 / 57.4";
             this.Battery_Highest_temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Battery_Lowest_temp
-            // 
-            this.Battery_Lowest_temp.BackColor = System.Drawing.Color.White;
-            this.Battery_Lowest_temp.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Battery_Lowest_temp.Location = new System.Drawing.Point(326, 429);
-            this.Battery_Lowest_temp.Name = "Battery_Lowest_temp";
-            this.Battery_Lowest_temp.Size = new System.Drawing.Size(78, 37);
-            this.Battery_Lowest_temp.TabIndex = 45;
-            this.Battery_Lowest_temp.Text = "57.4";
-            this.Battery_Lowest_temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SOH_percent
             // 
@@ -613,9 +588,9 @@
             // 
             this.groupBox2.Controls.Add(this.lb_serial_num);
             this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.Battery_Highest_temp);
             this.groupBox2.Controls.Add(this.FET_Temp);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.manual_off);
             this.groupBox2.Controls.Add(this.manual_on);
             this.groupBox2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox2.Location = new System.Drawing.Point(12, 187);
@@ -625,11 +600,33 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "배터리";
             // 
+            // lb_serial_num
+            // 
+            this.lb_serial_num.BackColor = System.Drawing.Color.White;
+            this.lb_serial_num.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_serial_num.Location = new System.Drawing.Point(497, 189);
+            this.lb_serial_num.Name = "lb_serial_num";
+            this.lb_serial_num.Size = new System.Drawing.Size(130, 43);
+            this.lb_serial_num.TabIndex = 48;
+            this.lb_serial_num.Text = "시리얼 번호";
+            this.lb_serial_num.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label2.Location = new System.Drawing.Point(398, 189);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(93, 43);
+            this.label2.TabIndex = 47;
+            this.label2.Text = "시리얼 번호";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FET_Temp
             // 
             this.FET_Temp.BackColor = System.Drawing.Color.White;
             this.FET_Temp.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.FET_Temp.Location = new System.Drawing.Point(505, 242);
+            this.FET_Temp.Location = new System.Drawing.Point(361, 242);
             this.FET_Temp.Name = "FET_Temp";
             this.FET_Temp.Size = new System.Drawing.Size(78, 37);
             this.FET_Temp.TabIndex = 46;
@@ -640,54 +637,22 @@
             // 
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(410, 242);
+            this.label1.Location = new System.Drawing.Point(271, 242);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 37);
             this.label1.TabIndex = 44;
             this.label1.Text = "FET 온도";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // manual_off
-            // 
-            this.manual_off.Location = new System.Drawing.Point(585, 135);
-            this.manual_off.Name = "manual_off";
-            this.manual_off.Size = new System.Drawing.Size(109, 23);
-            this.manual_off.TabIndex = 1;
-            this.manual_off.Text = "매뉴얼OFF";
-            this.manual_off.UseVisualStyleBackColor = true;
-            this.manual_off.Click += new System.EventHandler(this.manual_off_Click);
-            // 
             // manual_on
             // 
-            this.manual_on.Location = new System.Drawing.Point(450, 135);
+            this.manual_on.Location = new System.Drawing.Point(401, 135);
             this.manual_on.Name = "manual_on";
             this.manual_on.Size = new System.Drawing.Size(125, 23);
             this.manual_on.TabIndex = 0;
-            this.manual_on.Text = "매뉴얼ON";
+            this.manual_on.Text = "매뉴얼";
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(410, 183);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 43);
-            this.label2.TabIndex = 47;
-            this.label2.Text = "시리얼 번호";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lb_serial_num
-            // 
-            this.lb_serial_num.BackColor = System.Drawing.Color.White;
-            this.lb_serial_num.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_serial_num.Location = new System.Drawing.Point(529, 183);
-            this.lb_serial_num.Name = "lb_serial_num";
-            this.lb_serial_num.Size = new System.Drawing.Size(130, 43);
-            this.lb_serial_num.TabIndex = 48;
-            this.lb_serial_num.Text = "시리얼 번호";
-            this.lb_serial_num.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmSubManual
             // 
@@ -696,9 +661,6 @@
             this.ClientSize = new System.Drawing.Size(743, 508);
             this.Controls.Add(this.SOH_percent);
             this.Controls.Add(this.label35);
-            this.Controls.Add(this.Battery_Lowest_temp);
-            this.Controls.Add(this.Battery_Highest_temp);
-            this.Controls.Add(this.label31);
             this.Controls.Add(this.label30);
             this.Controls.Add(this.label29);
             this.Controls.Add(this.label28);
@@ -770,15 +732,12 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label Battery_Highest_temp;
-        private System.Windows.Forms.Label Battery_Lowest_temp;
         private System.Windows.Forms.Label SOH_percent;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.GroupBox gb_Slot;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox put_Battery_wattage;
-        private System.Windows.Forms.Button manual_off;
         private System.Windows.Forms.Button manual_on;
         private System.Windows.Forms.Button set_Current;
         private System.Windows.Forms.Button send_board_Reset;
