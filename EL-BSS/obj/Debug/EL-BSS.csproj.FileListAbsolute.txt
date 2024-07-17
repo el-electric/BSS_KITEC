@@ -58,3 +58,7 @@ C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL-BSS.csproj.CoreCompileInputs.cache
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL-BSS.csproj.CopyComplete
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL-BSS.exe
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL-BSS.pdb
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL_BSS.frmCodeInput.resources
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL_BSS.frmCSMSSetting.resources
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL_BSS.frmNoti.resources
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL_BSS.frmNotiPopup.resources

@@ -5,9 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,6 +33,7 @@ namespace ocppServerTEst
         {
             allSockets = new List<IWebSocketConnection>();
             var server = new WebSocketServer("ws://0.0.0.0:8181");
+            
             server.Start(socket =>
             {
                 socket.OnOpen = () =>
@@ -111,12 +116,148 @@ namespace ocppServerTEst
                                     returnBatteryIds = returnBatteryId,
                                     ticketAvailable= true,
                                     cashBalance= 100,
-                                    
+                                    type ="72"
 
                                 }
                         };
                         string json = JsonConvert.SerializeObject(data, Formatting.Indented);
                         allSockets.ForEach(s => s.Send(json));
+                    }
+                    else if (message.IndexOf("StatusNotification") > 0)
+                    {
+                        JArray jsonArray = JArray.Parse(message);
+                        string uid = jsonArray[1].ToString();
+
+
+                        var data = new object[]
+                        {
+                            3,
+                            uid,
+                                new
+                                {}
+                        };
+                        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        allSockets.ForEach(s => s.Send(json));
+                    }
+                    else if (message.IndexOf("StartTransaction") > 0)
+                    {
+                        JArray jsonArray = JArray.Parse(message);
+                        string uid = jsonArray[1].ToString();
+
+
+                        var data = new object[]
+                        {
+                            3,
+                            uid,
+                                new
+                                {
+                                    status = "Accepted",
+                                    transactionId = 1234567890
+                                }
+                        };
+                        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        allSockets.ForEach(s => s.Send(json));
+                    }
+                    else if (message.IndexOf("StopTransaction") > 0)
+                    {
+                        JArray jsonArray = JArray.Parse(message);
+                        string uid = jsonArray[1].ToString();
+
+
+                        var data = new object[]
+                        {
+                            3,
+                            uid,
+                                new
+                                {
+                                    status = "Accepted",
+                                }
+                        };
+                        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        allSockets.ForEach(s => s.Send(json));
+                    }
+                    else if (message.IndexOf("DataTransfer") > 0)
+                    {
+                        JArray jsonArray = JArray.Parse(message);
+                        string uid = jsonArray[1].ToString();
+
+
+                        string json = Send_DataTransfer_Battery_exchange(uid);
+                        allSockets.ForEach(s => s.Send(json));
+                    }
+                    else if (message.IndexOf("AddInfoStationBatteryState") > 0)
+                    {
+                        JArray jsonArray = JArray.Parse(message);
+                        string uid = jsonArray[1].ToString();
+
+                        var data = new object[]
+                        {
+                            3,
+                            uid,
+                                new
+                                {
+                                }
+                        };
+                        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        allSockets.ForEach(s => s.Send(json));
+
+                        Console.WriteLine(json);
+                    }
+                    else if (message.IndexOf("StationInfo") > 0)
+                    {
+                        JArray jsonArray = JArray.Parse(message);
+                        string uid = jsonArray[1].ToString();
+
+                        var data = new object[]
+                        {
+                            3,
+                            uid,
+                                new
+                                {
+                                }
+                        };
+                        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        allSockets.ForEach(s => s.Send(json));
+
+                        Console.WriteLine(json);
+
+                    }
+                    else if (message.IndexOf("battery_exchange_finished") > 0)
+                    {
+                        JArray jsonArray = JArray.Parse(message);
+                        string uid = jsonArray[1].ToString();
+
+                        var data = new object[]
+                        {
+                            3,
+                            uid,
+                                new
+                                {
+                                    errCode = "00000",
+                                    contents = "success"
+                                }
+                        };
+                        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        allSockets.ForEach(s => s.Send(json));
+
+                        Console.WriteLine(json);
+                    }
+                    else if (message.IndexOf("AddInfoErrorEvent") > 0)
+                    {
+                        JArray jsonArray = JArray.Parse(message);
+                        string uid = jsonArray[1].ToString();
+
+                        var data = new object[]
+                        {
+                            3,
+                            uid,
+                                new
+                                {}
+                        };
+                        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        allSockets.ForEach(s => s.Send(json));
+
+                        Console.WriteLine(json);
                     }
 
                 };
@@ -170,5 +311,53 @@ namespace ocppServerTEst
             allSockets.ForEach(s => s.Send(json));
         }
 
+        private string Send_DataTransfer_Battery_exchange(string uid)
+        {
+            Contents Contents1 = new Contents();
+            Contents Contents2 = new Contents();
+
+            Contents1.paymentType = "TICKET";
+            Contents1.chargingTotal = 99.0;
+
+            Contents2.paymentType = "CASH";
+            Contents2.chargingTotal = 99.0;
+            Contents2.paymentPrice = 1237;
+            Contents2.cashBalance = 30000;
+
+            var content1 = new Object[]
+           {
+                    new
+                    {
+                        errCode = 00000,
+                        contents = Contents1
+                    }
+            };
+
+            var content2 = new Object[]
+          {
+
+                    new
+                    {
+                        errCode = 00000,
+                        contents = Contents2
+                    }
+           };
+
+
+            var data = new Object[]
+                {
+                    3,
+                uid,
+                content1,
+                content2,
+                };
+
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+
+            return json;
+        }
+
+
+        
     }
 }

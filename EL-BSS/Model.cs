@@ -18,6 +18,7 @@ using Formatting = Newtonsoft.Json.Formatting;
 using EL_DC_Charger.ocpp.ver16.packet.cp2csms;
 using EL_BSS.OCPP.packet.cp2csms;
 using EL_BSS.Cycle;
+using System.Security.Cryptography.Xml;
 
 namespace EL_BSS
 {
@@ -527,6 +528,7 @@ namespace EL_BSS
                 bytes[17] |= 0x02;
 
             bytes[18] = 0;
+
             bytes[19] = 0;
             if (list_SlaveSend[idx - 1].LED_Blue)
                 bytes[19] |= 0x04;
@@ -543,15 +545,44 @@ namespace EL_BSS
             if (list_SlaveSend[idx - 1].BatteryOutput)
                 bytes[20] |= 0x04;
             if (list_SlaveSend[idx - 1].Output)
-                bytes[20] |= 0x02;
+            {
+                bytes[20] |= 0x08;
+            }
 
 
+            if (list_SlaveSend[idx - 1].hmiManual)
+            {
+                bytes[21] = (byte)((list_SlaveSend[idx - 1].request_Voltage >> 8) & 0x000000ff);
+                bytes[22] = (byte)((list_SlaveSend[idx - 1].request_Voltage) & 0x000000ff);
+            }
+            else 
+            {   bytes[21] = 0;
+                bytes[22] = 0;
+            }
 
-            bytes[21] = (byte)((list_SlaveSend[idx - 1].request_Voltage >> 8) & 0x000000ff);
-            bytes[22] = (byte)((list_SlaveSend[idx - 1].request_Voltage) & 0x000000ff);
-
-            bytes[23] = (byte)((list_SlaveSend[idx - 1].request_Wattage >> 8) & 0x000000ff);
-            bytes[24] = (byte)((list_SlaveSend[idx - 1].request_Wattage) & 0x000000ff);
+            if (Model.getInstance().list_MasterSend[idx - 1].hmiManual)
+            {
+                bytes[23] = (byte)((list_SlaveSend[idx - 1].request_Wattage >> 8) & 0x000000ff);
+                bytes[24] = (byte)((list_SlaveSend[idx - 1].request_Wattage) & 0x000000ff);
+            }
+            else 
+            {
+                if (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage == 72)
+                {
+                    bytes[23] = (byte)((100 >> 8) & 0x000000ff);
+                    bytes[24] = (byte)((100) & 0x000000ff);
+                }
+                else if (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage == 48)
+                {
+                    bytes[23] = (byte)((150 >> 8) & 0x000000ff);
+                    bytes[24] = (byte)((150) & 0x000000ff);
+                }
+                else 
+                {
+                    bytes[23] = (byte)((0 >> 8) & 0x000000ff);
+                    bytes[24] = (byte)((0) & 0x000000ff);
+                }
+            }
 
             byte[] temp;
             temp = CsUtil.getCRC16_CCITT(bytes, 0, bytes.Length);
@@ -751,6 +782,7 @@ namespace EL_BSS
             Availaable,
             Preparing,
             Finishing,
+            finished,
             Charging,
             Empty,
             Fault,
@@ -775,7 +807,9 @@ namespace EL_BSS
             success,
             fail,
             APP,
-            STATION
+            STATION,
+            battery_exchange_finished,
+            AddInfoErrorEvent
         }
     }
 }

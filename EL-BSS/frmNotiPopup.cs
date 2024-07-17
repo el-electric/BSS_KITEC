@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EL_BSS.OCPP.packet.cp2csms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,7 @@ namespace EL_BSS
         private int _showingTime = 3000;
         Form parentForm;
 
-        public frmNotiPopup(Form parentForm, int showingTime = 3000, string context = "")
+        public frmNotiPopup(Form parentForm, int showingTime = 3000, string context = "" , string icon = "")
         {
             InitializeComponent();
             InitializeTimers();
@@ -27,6 +28,23 @@ namespace EL_BSS
             _showingTime = showingTime;
 
             lbl_context.Text = context;
+
+            if (icon == IconName.BlueNotify.ToString())
+            {
+                pictureBox1.Image = EL_BSS.Properties.Resources.파란알림;
+            }
+            else if (icon == IconName.BlueCheck.ToString())
+            {
+                pictureBox1.Image = EL_BSS.Properties.Resources.파란체크;
+            }
+            else if (icon == IconName.RedDanger.ToString())
+            {
+                pictureBox1.Image = EL_BSS.Properties.Resources.경고표시;
+            }
+            else 
+            {
+                pictureBox1.Image = EL_BSS.Properties.Resources.파란알림;
+            }
         }
 
         private void InitializeTimers()
@@ -104,6 +122,13 @@ namespace EL_BSS
         private void drakeUIButton1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public enum IconName
+        {
+            BlueCheck,
+            RedDanger,
+            BlueNotify
         }
     }
 }

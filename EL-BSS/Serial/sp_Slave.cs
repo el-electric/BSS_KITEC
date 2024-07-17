@@ -7,6 +7,7 @@ using System.IdentityModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,7 +19,7 @@ namespace EL_BSS.Serial
     {
         static SerialPort serial;
         private static List<byte> mReceive_Data = new List<byte>();
-        public static CsSlotchargingManager[] CsSlotchargingManager = new CsSlotchargingManager[8];
+        public static CsSlotchargingManager CsSlotchargingManager = new CsSlotchargingManager();
 
         public static bool Open(string PortName)
         {
@@ -215,7 +216,8 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage = EL_Manager_Conversion.getInt_2Byte(packet[29], packet[30]);
 
             if (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage == 0)
-            { }
+            {
+            }
             else if ((Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) > 65)
             {
                 Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = 72;
@@ -236,6 +238,7 @@ namespace EL_BSS.Serial
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryFETON = false;
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryWakeup = false;
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryOutput = false;
+                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StopTransaction(idx, "완충 종료");
             }
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
@@ -353,25 +356,28 @@ namespace EL_BSS.Serial
 
             if (Model.getInstance().Send_bootnotification)
             {
-                if (Model.getInstance().Check_statusnotification[idx] == null)
+                if (Model.getInstance().Check_statusnotification[idx -1] == null)
                 {
-                    Model.getInstance().Check_statusnotification[idx] = Check_Status(idx - 1);
-                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(idx, Model.getInstance().Check_statusnotification[idx - 1]);
+                    Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(idx - 1, Model.getInstance().Check_statusnotification[idx - 1]);
                 }
                 else
                 {
                     if (Model.getInstance().Check_statusnotification[idx - 1] != Check_Status(idx - 1))
                     {
                         Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
-                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(idx, Model.getInstance().Check_statusnotification[idx - 1]);
+                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(idx - 1, Model.getInstance().Check_statusnotification[idx - 1]);
                     }
                 }
             }
 
             if (Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus == 100 &&
                 Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal &&
-                Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State)
-            { CsSlotchargingManager[idx - 1].Slot_Charging_Manage(idx); }
+                Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State &&
+                !Model.getInstance().list_SlaveSend[idx - 1].hmiManual)
+            { CsSlotchargingManager.Slot_Charging_Manage(idx); }
+
+            
         }
 
         public static bool Check_100SOC_Battery()
@@ -537,5 +543,10 @@ namespace EL_BSS.Serial
         {
             serial.Write(bytes, 0, bytes.Length);
         }
+
+        /*public static void Check_Over_V_C()
+        {
+            if (Model.getInstance().list_SlaveRecv[])
+        }*/
     }
 }

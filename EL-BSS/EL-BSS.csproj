@@ -231,6 +231,7 @@
     <Compile Include="OCPP\packet\cp2csms\Req_StartTransaction.cs" />
     <Compile Include="OCPP\packet\cp2csms\Req_StatusNotification.cs" />
     <Compile Include="OCPP\packet\cp2csms\Req_StopTransaction.cs" />
+    <Compile Include="OCPP\packet\cp2csms\StaionInfo.cs" />
     <Compile Include="OCPP\packet\csms2cp\Conf_CancelReservation.cs" />
     <Compile Include="OCPP\packet\csms2cp\Conf_ChangeAvailability.cs" />
     <Compile Include="OCPP\packet\csms2cp\Conf_ChangeConfiguration.cs" />
@@ -366,6 +367,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\bell.png" />
+    <None Include="Resources\파란알림.png" />
+    <None Include="Resources\파란체크.png" />
+    <None Include="Resources\경고표시.png" />
     <None Include="Resources\bell1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

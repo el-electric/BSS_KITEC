@@ -28,25 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbl_context = new System.Windows.Forms.Label();
             this.drakeUIButton1 = new DrakeUI.Framework.DrakeUIButton();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.pictureBox1, 2);
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::EL_BSS.Properties.Resources.bell;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(294, 61);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
@@ -83,12 +71,15 @@
             this.tableLayoutPanel1.SetColumnSpan(this.drakeUIButton1, 2);
             this.drakeUIButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUIButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.drakeUIButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(137)))), ((int)(((byte)(245)))));
+            this.drakeUIButton1.FillHoverColor = System.Drawing.Color.White;
+            this.drakeUIButton1.FillPressColor = System.Drawing.Color.White;
+            this.drakeUIButton1.FillSelectedColor = System.Drawing.Color.White;
             this.drakeUIButton1.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton1.Location = new System.Drawing.Point(50, 117);
             this.drakeUIButton1.Margin = new System.Windows.Forms.Padding(50, 10, 50, 10);
             this.drakeUIButton1.Name = "drakeUIButton1";
-            this.drakeUIButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.drakeUIButton1.RectColor = System.Drawing.Color.White;
             this.drakeUIButton1.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.drakeUIButton1.Size = new System.Drawing.Size(200, 23);
             this.drakeUIButton1.Style = DrakeUI.Framework.UIStyle.Custom;
@@ -96,18 +87,31 @@
             this.drakeUIButton1.Text = "CLOSE";
             this.drakeUIButton1.Click += new System.EventHandler(this.drakeUIButton1_Click);
             // 
+            // pictureBox1
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.pictureBox1, 2);
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = global::EL_BSS.Properties.Resources.파란알림;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 15);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 15, 3, 15);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(294, 37);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // frmNotiPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Cornsilk;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(300, 150);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmNotiPopup";
             this.Text = "frmNotiPopup";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

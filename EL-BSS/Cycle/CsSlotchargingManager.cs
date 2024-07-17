@@ -22,7 +22,7 @@ namespace EL_BSS.Cycle
                             Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 0;
                             charger_step = 1;
                         }
-                        else if (Model.getInstance().list_SlaveRecv[slotId - 1].FET_Temper >= 82)
+                        else if (Model.getInstance().list_SlaveRecv[slotId - 1].FET_Temper >= 72)
                         {
                             setHighTemp_Current(true, slotId);
                         }
@@ -49,22 +49,22 @@ namespace EL_BSS.Cycle
             {
                 if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == (int)enumData.Type48)
                 {
-                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 7;
+                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 7 * 10;
                 }
                 else if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == (int)enumData.Type72)
                 {
-                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 5;
+                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 5 * 10;
                 }
             }
             else
             {
                 if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == (int)enumData.Type48)
                 {
-                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 15;
+                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 15 * 10;
                 }
                 else if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == (int)enumData.Type72)
                 {
-                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 10;
+                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 10 * 10;
                 }
             }
         }

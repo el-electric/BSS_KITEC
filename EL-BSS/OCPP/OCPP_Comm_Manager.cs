@@ -79,7 +79,9 @@ namespace BatteryChangeCharger.OCPP
         {
             webSocket = new ClientWebSocket();
 
-            webSocket.Options.SetRequestHeader("Sec-WebSocket-Protocol", "ocpp1.6");
+            webSocket.Options.AddSubProtocol("Upgrade");
+            webSocket.Options.AddSubProtocol("websocket");
+            //webSocket.Options.SetRequestHeader("Sec-WebSocket-Protocol", "ocpp1.6");
             webSocket.Options.KeepAliveInterval = TimeSpan.FromSeconds(60);
             webSocket.Options.SetBuffer(5000, 5000);
 
@@ -95,7 +97,9 @@ namespace BatteryChangeCharger.OCPP
                     JArray jsonArray = JArray.Parse(response);
                     if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
                     {
+                        Model.getInstance().Send_bootnotification = true;
                         Model.getInstance().frmFrame.viewForm(0);
+                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
                     }
                     break;
                 default:

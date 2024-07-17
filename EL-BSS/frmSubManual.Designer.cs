@@ -67,10 +67,12 @@
             this.SOH_percent = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.gb_Slot = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.put_Battery_voltage = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.send_board_Reset = new System.Windows.Forms.Button();
             this.set_Current = new System.Windows.Forms.Button();
-            this.put_Battery_wattage = new System.Windows.Forms.TextBox();
+            this.put_Battery_curent = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lb_serial_num = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -109,9 +111,9 @@
             // 
             this.label5.BackColor = System.Drawing.Color.White;
             this.label5.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(688, 99);
+            this.label5.Location = new System.Drawing.Point(688, 110);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 37);
+            this.label5.Size = new System.Drawing.Size(29, 26);
             this.label5.TabIndex = 10;
             this.label5.Text = "A";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -514,10 +516,12 @@
             // 
             // gb_Slot
             // 
+            this.gb_Slot.Controls.Add(this.label3);
+            this.gb_Slot.Controls.Add(this.put_Battery_voltage);
             this.gb_Slot.Controls.Add(this.button1);
             this.gb_Slot.Controls.Add(this.send_board_Reset);
             this.gb_Slot.Controls.Add(this.set_Current);
-            this.gb_Slot.Controls.Add(this.put_Battery_wattage);
+            this.gb_Slot.Controls.Add(this.put_Battery_curent);
             this.gb_Slot.Controls.Add(this.label5);
             this.gb_Slot.Controls.Add(this.button3);
             this.gb_Slot.Controls.Add(this.label7);
@@ -537,6 +541,28 @@
             this.gb_Slot.TabIndex = 48;
             this.gb_Slot.TabStop = false;
             this.gb_Slot.Text = "1번 슬롯";
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.Location = new System.Drawing.Point(688, 79);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 25);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "V";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // put_Battery_voltage
+            // 
+            this.put_Battery_voltage.Location = new System.Drawing.Point(612, 79);
+            this.put_Battery_voltage.Multiline = true;
+            this.put_Battery_voltage.Name = "put_Battery_voltage";
+            this.put_Battery_voltage.ShortcutsEnabled = false;
+            this.put_Battery_voltage.Size = new System.Drawing.Size(70, 25);
+            this.put_Battery_voltage.TabIndex = 37;
+            this.put_Battery_voltage.Text = "15";
+            this.put_Battery_voltage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // button1
             // 
@@ -569,20 +595,20 @@
             this.set_Current.Name = "set_Current";
             this.set_Current.Size = new System.Drawing.Size(106, 20);
             this.set_Current.TabIndex = 34;
-            this.set_Current.Text = "전류 설정";
+            this.set_Current.Text = "전류 전압 설정";
             this.set_Current.UseVisualStyleBackColor = true;
             this.set_Current.Click += new System.EventHandler(this.set_Current_Click_1);
             // 
-            // put_Battery_wattage
+            // put_Battery_curent
             // 
-            this.put_Battery_wattage.Location = new System.Drawing.Point(612, 99);
-            this.put_Battery_wattage.Multiline = true;
-            this.put_Battery_wattage.Name = "put_Battery_wattage";
-            this.put_Battery_wattage.ShortcutsEnabled = false;
-            this.put_Battery_wattage.Size = new System.Drawing.Size(70, 37);
-            this.put_Battery_wattage.TabIndex = 33;
-            this.put_Battery_wattage.Text = "15";
-            this.put_Battery_wattage.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.put_Battery_curent.Location = new System.Drawing.Point(612, 110);
+            this.put_Battery_curent.Multiline = true;
+            this.put_Battery_curent.Name = "put_Battery_curent";
+            this.put_Battery_curent.ShortcutsEnabled = false;
+            this.put_Battery_curent.Size = new System.Drawing.Size(70, 26);
+            this.put_Battery_curent.TabIndex = 33;
+            this.put_Battery_curent.Text = "15";
+            this.put_Battery_curent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox2
             // 
@@ -737,7 +763,7 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.GroupBox gb_Slot;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox put_Battery_wattage;
+        private System.Windows.Forms.TextBox put_Battery_curent;
         private System.Windows.Forms.Button manual_on;
         private System.Windows.Forms.Button set_Current;
         private System.Windows.Forms.Button send_board_Reset;
@@ -746,5 +772,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lb_serial_num;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox put_Battery_voltage;
     }
 }

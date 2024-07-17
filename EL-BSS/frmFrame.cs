@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static EL_BSS.frmNotiPopup;
 using static EL_BSS.Model;
 
 namespace EL_BSS
@@ -176,7 +177,6 @@ namespace EL_BSS
                     observers.Find(observer => observer is frmNoti).UpdateForm(context);
                     break;
                 case 10:
-
                     ThreadRun = false;
                     await Task.Delay(500);
                     try
@@ -202,7 +202,6 @@ namespace EL_BSS
             //    panel2.Controls.Add(frmNoti);
             //    observers.Find(observer => observer is frmNoti).UpdateForm(context);
             //}));
-
         }
 
         private void ui_timer_500ms_Tick(object sender, EventArgs e)
@@ -399,11 +398,11 @@ namespace EL_BSS
         {
             lbl_Notify_Tv.Text = data;
         }
-        public void NotiShow(string context, int showingTime)
+        public void NotiShow(string context, int showingTime , string icon = "")
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                frmNotiPopup frmNotiPopup = new frmNotiPopup(this, showingTime, context);
+                frmNotiPopup frmNotiPopup = new frmNotiPopup(this, showingTime, context , icon);
                 frmNotiPopup.ShowNotification();
             }));
         }

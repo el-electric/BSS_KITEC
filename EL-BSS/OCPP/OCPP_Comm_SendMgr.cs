@@ -26,6 +26,7 @@ using EL_BSS.Cycle;
 using System.IdentityModel.Protocols.WSTrust;
 using System.Windows.Interop;
 using EL_BSS.OCPP.packet.cp2csms;
+using System.Diagnostics;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -42,13 +43,21 @@ namespace EL_DC_Charger.ocpp.ver16.comm
         {
             var data = new
             {
-                chargeBoxSerialNumber = Model.getInstance().chargeBoxSerialNumber,
-                chargePointModel = Model.getInstance().chargeBoxSerialNumber,
-                chargePointSerialNumber = Model.getInstance().chargePointSerialNumber,
-                chargePointVendor = Model.getInstance().chargePointVendor,
-                firmwareVersion = "1.1.1", //임시
-                iccid = Model.getInstance().iccid,
-                imsi = Model.getInstance().imsi
+                //chargeBoxSerialNumber = Model.getInstance().chargeBoxSerialNumber,
+                //chargePointModel = Model.getInstance().chargeBoxSerialNumber,
+                //chargePointSerialNumber = Model.getInstance().chargePointSerialNumber,
+                //chargePointVendor = Model.getInstance().chargePointVendor,
+                //firmwareVersion = "1.1.1", //임시
+                //iccid = "EMPTY",
+                //imsi = "EMPTY",
+
+                chargeBoxSerialnumber = "BSS-Station01",
+                chargepointmodel = "BSS-KI",
+                chargepointserialnumber = "BSS-01",
+                chargepointvendor = "EL",
+                firmwareversion = "1.1.1", //임시
+                iccid = "empty",
+                imsi = "empty",
 
             };
             string msg = makeMessage(enumData.BootNotification.ToString(), data);
@@ -89,16 +98,16 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 Guid.NewGuid().ToString(),
                 enumData.StatusNotification.ToString(),
                     new
-                    { 
+                    {
                         stationId = Model.getInstance().chargePointSerialNumber,
-                        //chargePointSerialNumber =
+                        chargePointSerialNumber = "empty",
                         connectorId = ChannelIdx,
                         status = status,
-                        //errorCode =
+                        errorCode = "0000",
                         errorLevel =  errorLevel.ToString(),
-                        //info = 
-                        //batteryId = 
-                        //soc = 
+                        info = "empty",
+                        batteryId = "empty", 
+                        soc = Model.getInstance().list_SlaveRecv[ChannelIdx - 1].SOC.ToString(), 
                         timestamp = DateTime.Now.ToString(),
 
         }
@@ -118,19 +127,19 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                     new
                     {
                         stationId = Model.getInstance().chargePointSerialNumber,
-                        //chargePointSerialNumber =
+                        chargePointSerialNumber = "empty",
                         connectorId = ChannelIdx,
                         status = status,
-                        //errorCode =
+                        errorCode = "0000",
                         errorLevel =  errorLevel.ToString(),
-                        //info = 
-                        batteryId = Model.getInstance().list_SlaveRecv[ChannelIdx - 1].Serial_Number,
-                        soc = Model.getInstance().list_SlaveRecv[ChannelIdx - 1].SOC, 
+                        info = "empty",
+                        batteryId = Model.getInstance().list_SlaveRecv[ChannelIdx].Serial_Number,
+                        soc = Model.getInstance().list_SlaveRecv[ChannelIdx].SOC,
                         timestamp = DateTime.Now.ToString(),
 
         }
     };
-            
+
             /*string msg = makeMessage(enumData.AddInforBootNotification.ToString(), data);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
 
@@ -143,22 +152,22 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
         public async Task<string> sendOCPP_CP_Req_StatusNotification_for_authorize(string status, int errorLevel, string errormessage)
         {
-            var data = new 
+            var data = new
             {
                 stationId = Model.getInstance().chargePointSerialNumber,
                 status = status,
                 // errorCode =  
-                errorLevel =  errorLevel.ToString(),
+                errorLevel = errorLevel.ToString(),
                 errorMassege = errormessage,
-                timestamp = DateTime.Now.ToString(),       
+                timestamp = DateTime.Now.ToString(),
             };
-            
+
             string msg = makeMessage(enumData.StatusNotification.ToString(), data);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
             return response;
         }
 
-        public string sendOCPP_CP_Req_AddInfoStationBatteryState(int ChannelIdx)
+        public void sendOCPP_CP_Req_AddInfoStationBatteryState(int ChannelIdx)
         {
             var data = new Object[]
            {
@@ -211,7 +220,29 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                     }
             };
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
-            return json;
+            // return json;
+
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
+        }
+
+        public void sendOCPP_CP_Req_StaionInfo(int ChannelIdx)
+        {
+            StaionInfo StaionInfo1 = new StaionInfo(ChannelIdx);
+            var data = new Object[]
+           {
+                2,
+                Guid.NewGuid().ToString(),
+                enumData.StationInfo.ToString(),
+                    new
+                    {
+                     staionId = ChannelIdx,   
+                     Values = StaionInfo1
+                    }
+            };
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+            // return json;
+
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
         }
         public string sendOCPP_CP_Req_AddInforBatteryExchange(int ChannelIdx)
         {
@@ -239,7 +270,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
         //    string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
         //    return response;
         //}
-        public async Task<string> sendOCPP_CP_Req_Authorize(int midentificationCode , int msecurityCode)
+        public async Task<string> sendOCPP_CP_Req_Authorize(int midentificationCode, int msecurityCode)
         {
             var data = new
             {
@@ -297,8 +328,10 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(json);
 
+
+
             JArray responseObject = JArray.Parse(response);
-            
+
             string errCode = responseObject?[2]?["errCode"]?.ToString();
 
             if (errCode == null)
@@ -330,6 +363,74 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             }
 
             return errCode;
+        }
+
+        public void sendOCPP_CP_Req_StartTrnasaction(int ConnectorId)
+        {
+            var data = new
+            {
+                connectorId = ConnectorId,
+                //userNo = Model.getInstance().Authorize.userNo,
+                userNo = 1,
+                //SOC = Model.getInstance().list_SlaveRecv[ConnectorId].SOC,
+                SOC = 46,
+                reservationId = 0,
+                timestamp = DateTime.Now.ToString(),
+            };
+            string msg = makeMessage(enumData.StartTransaction.ToString(), data);
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(msg);
+            /*string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            return response;*/
+        }
+
+        public void sendOCPP_CP_Req_StopTransaction(int ConnectorId, string reason)
+        {
+            var data = new
+            {
+                idTag = ConnectorId,
+                meterStop = Model.getInstance().list_SlaveRecv[ConnectorId - 1].SOC,
+                timestamp = DateTime.Now.ToString(),
+                transactionId = 0,
+                reason = reason,
+                trasactiondData = 0,
+            };
+            string msg = makeMessage(enumData.StopTransaction.ToString(), data);
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(msg);
+        }
+
+        public void Send_OCPP_CP_Req_battery_Excange_Finished()
+        {
+            var data = new
+            {
+                stationId = Model.getInstance().chargeBoxSerialNumber,
+                userNo = Model.getInstance().Authorize.userNo,
+                finishedSignal = enumData.finished.ToString()
+            };
+
+            string msg = makeMessage(enumData.battery_exchange_finished.ToString(), data);
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(msg);
+        }
+
+        public void Send_OCPP_CP_Req_AddInfoErrorEvent(int index)
+        {
+            var data = new Object[]
+            {
+                2,
+                Guid.NewGuid().ToString(),
+                enumData.AddInfoErrorEvent.ToString(),
+                    new
+                    {
+                        timeStamp = DateTime.Now.ToString(),
+                        batteryId = Model.getInstance().list_SlaveRecv[index].Serial_Number,
+                        stationid = "elstation01",
+                        slotId = index,
+                        eventName = "VCU Error",
+                        isMeasure = false,
+                        timeStampMeasure = 0
+                    }
+            };
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
         }
 
         private void setSendPacket_Call_CP(String actionName, String payloadString)
@@ -385,6 +486,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                                 Model.getInstance().Authorize = JsonConvert.DeserializeObject<Req_Authorize>(jsonArray[3].ToString());
                                 Model.getInstance().Authorize.setting_Authorize_value();
 
+                                Model.getInstance().Authorize_Type = enumData.APP.ToString();
+
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
                             }
                             else
@@ -397,7 +500,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                     case 3:
                         if (messageName == enumData.Authorize.ToString())
                         {
-                            
+
                         }
                         list_Jarray.RemoveAll(jObject => (string)jObject[1] == _uid);
                         break;
@@ -468,9 +571,9 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
         }
 
-        private void SendConf_with_data(string uid , object data)
+        private void SendConf_with_data(string uid, object data)
         {
-            
+
             var temp = new Object[]
             {
                 3,
