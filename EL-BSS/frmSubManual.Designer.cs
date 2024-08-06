@@ -79,6 +79,7 @@
             this.FET_Temp = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.manual_on = new System.Windows.Forms.Button();
+            this.lb_battery_arrive = new System.Windows.Forms.Label();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -612,6 +613,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lb_battery_arrive);
             this.groupBox2.Controls.Add(this.lb_serial_num);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.Battery_Highest_temp);
@@ -679,6 +681,17 @@
             this.manual_on.Text = "매뉴얼";
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
+            // 
+            // lb_battery_arrive
+            // 
+            this.lb_battery_arrive.BackColor = System.Drawing.Color.White;
+            this.lb_battery_arrive.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_arrive.Location = new System.Drawing.Point(318, 86);
+            this.lb_battery_arrive.Name = "lb_battery_arrive";
+            this.lb_battery_arrive.Size = new System.Drawing.Size(88, 37);
+            this.lb_battery_arrive.TabIndex = 50;
+            this.lb_battery_arrive.Text = "100%";
+            this.lb_battery_arrive.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmSubManual
             // 
@@ -774,5 +787,6 @@
         private System.Windows.Forms.Label lb_serial_num;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox put_Battery_voltage;
+        private System.Windows.Forms.Label lb_battery_arrive;
     }
 }

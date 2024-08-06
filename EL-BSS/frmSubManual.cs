@@ -104,6 +104,9 @@ namespace EL_BSS
             }
 
 
+            if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatterArrive) lb_battery_arrive.Text = "있음";
+            else lb_battery_arrive.Text = "없음";
+
         }
 
 

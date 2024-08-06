@@ -37,7 +37,7 @@ namespace EL_BSS
         }
         private void drakeUIButtonIcon2_Click(object sender, EventArgs e)
         {
-            if (tb_intput.Text.Length > 0)
+            if (tb_intput.Text.Length > 6)
             {
                 tb_intput.Text = tb_intput.Text.Substring(0, tb_intput.Text.Length - 1);
             }
@@ -45,14 +45,14 @@ namespace EL_BSS
 
         private async void drakeUIButtonIcon1_Click(object sender, EventArgs e)
         {
-            if (lbl_sub_status.Text == "앱에 표시된 6자리 인증코드를 입력하세요")
+            if (lbl_sub_status.Text == "앱에 표시된 4자리 인증코드를 입력하세요")
             {
                 if (tb_intput.Text.Length == 6)
                 {
                     identificationCode = tb_intput.Text.ToInt();
                     tb_intput.Text = string.Empty;
 
-                    lbl_sub_status.Text = "앱에 표시된 6자리 보안코드를 입력하세요";
+                    lbl_sub_status.Text = "앱에 표시된 4자리 보안코드를 입력하세요";
                 }
             }
             else
@@ -102,7 +102,7 @@ namespace EL_BSS
                     }
                     catch (Exception ex)
                     {
-
+                        frmFrame.deleMenuClick(0);
                     }
                 }
             }
@@ -115,7 +115,7 @@ namespace EL_BSS
 
         public void InitForm()
         {
-            lbl_sub_status.Text = "앱에 표시된 6자리 인증코드를 입력하세요";
+            lbl_sub_status.Text = "앱에 표시된 4자리 인증코드를 입력하세요";
             tb_intput.Text = string.Empty;
         }
 

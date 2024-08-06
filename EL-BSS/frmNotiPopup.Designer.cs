@@ -41,10 +41,11 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.26042F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.73958F));
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbl_context, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.drakeUIButton1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.ForeColor = System.Drawing.Color.White;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
@@ -59,11 +60,12 @@
             this.tableLayoutPanel1.SetColumnSpan(this.lbl_context, 2);
             this.lbl_context.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbl_context.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_context.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lbl_context.Location = new System.Drawing.Point(3, 67);
             this.lbl_context.Name = "lbl_context";
             this.lbl_context.Size = new System.Drawing.Size(294, 40);
             this.lbl_context.TabIndex = 1;
-            this.lbl_context.Text = "context";
+            this.lbl_context.Text = "ㅇㅇㅇㅇ";
             this.lbl_context.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // drakeUIButton1
@@ -91,13 +93,13 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.pictureBox1, 2);
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::EL_BSS.Properties.Resources.파란알림;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 15);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 15, 3, 15);
+            this.pictureBox1.Image = global::EL_BSS.Properties.Resources.reddanger1;
+            this.pictureBox1.Location = new System.Drawing.Point(3, 10);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(294, 37);
+            this.pictureBox1.Size = new System.Drawing.Size(294, 47);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
             // 
             // frmNotiPopup
@@ -117,10 +119,9 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lbl_context;
         private DrakeUI.Framework.DrakeUIButton drakeUIButton1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

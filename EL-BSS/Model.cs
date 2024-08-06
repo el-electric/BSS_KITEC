@@ -150,7 +150,7 @@ namespace EL_BSS
 
         public string Authorize_Type;
 
-        public CsCharging[] Slot_ChargeManager = new CsCharging[8];
+        public DateTime Total_WakeUp_Time = DateTime.Now;
 
         public class MasterSend
         {
@@ -329,7 +329,6 @@ namespace EL_BSS
 
             // 최초 안착 신호 들어온 시간
             public Nullable<DateTime> dt_First_BatterArrive_Time = null;
-            public DateTime Send_Wakeup = DateTime.Now;
 
             // 배터리 타입 구분
             public int Check_BatteryVoltage_Type;
@@ -567,12 +566,12 @@ namespace EL_BSS
             }
             else 
             {
-                if (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage == 72)
+                if (Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type == 72)
                 {
                     bytes[23] = (byte)((100 >> 8) & 0x000000ff);
                     bytes[24] = (byte)((100) & 0x000000ff);
                 }
-                else if (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage == 48)
+                else if (Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type == 48)
                 {
                     bytes[23] = (byte)((150 >> 8) & 0x000000ff);
                     bytes[24] = (byte)((150) & 0x000000ff);

@@ -20,7 +20,7 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
         public List<string> returnBatteryIds;
         public bool ticketAvailable;
         public int cashBalance;
-        public int type;
+        public int batteryType;
         public string[] returnbatteryId = new string[2];
         public string ticketAvailable_value;
 

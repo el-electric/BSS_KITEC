@@ -108,19 +108,19 @@ namespace EL_BSS.Cycle
         {
             for (int i = 1; i <= 8; i++)
             {
-                if (Model.getInstance().list_SlaveRecv[i - 1].Send_Wakeup != null &&
-                    Model.getInstance().list_SlaveRecv[i - 1].Send_Wakeup.AddMinutes(5) <= DateTime.Now &&
-                    Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
+                if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
                     Model.getInstance().list_SlaveRecv[i - 1].ChargingStatus != 100 &&
                     Model.getInstance().list_SlaveRecv[i - 1].WAKEUP_Signal == false &&
                     Model.getInstance().list_SlaveRecv[i - 1].FET_ON_State == false &&
-                    Model.getInstance().list_SlaveRecv[i - 1].isDoor == false)
+                    Model.getInstance().list_SlaveRecv[i - 1].isDoor == false &&
+                    Model.getInstance().list_SlaveSend[i - 1].BatteryOutput == false)
                 {
                     bool isWakeup = await Task.Run(() => isWakeUP(i));
 
-                    if (isWakeup) 
-                    { Model.getInstance().list_SlaveSend[i - 1].BatteryWakeup = false; 
-                      Model.getInstance().list_SlaveRecv[i - 1].Send_Wakeup = DateTime.Now; }
+                    if (isWakeup)
+                    { Model.getInstance().list_SlaveSend[i - 1].BatteryWakeup = false; }
+                    else
+                    { Model.getInstance().list_SlaveSend[i - 1].BatteryWakeup = false; }
                 }
             }
         }

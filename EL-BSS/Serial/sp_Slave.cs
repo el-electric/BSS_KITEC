@@ -19,10 +19,15 @@ namespace EL_BSS.Serial
     {
         static SerialPort serial;
         private static List<byte> mReceive_Data = new List<byte>();
-        public static CsSlotchargingManager CsSlotchargingManager = new CsSlotchargingManager();
+        public static CsSlotchargingManager[] CsSlotchargingManager = new CsSlotchargingManager[8];
 
         public static bool Open(string PortName)
         {
+            for (int i = 1; i <= 8; i++)
+            {
+                CsSlotchargingManager[i - 1] = new CsSlotchargingManager(i);
+            }
+
             try
             {
                 serial = new SerialPort();
@@ -288,10 +293,7 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].PreChargeError = EL_Manager_Conversion.getFlagByByteArray(packet[55], 7);
 
             Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal = EL_Manager_Conversion.getFlagByByteArray(packet[56], 0);
-            if (Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal) 
-            {
-                Model.getInstance().list_SlaveRecv[idx - 1].Send_Wakeup = DateTime.Now; 
-            }
+            
             Model.getInstance().list_SlaveRecv[idx - 1].BMSReadyState = EL_Manager_Conversion.getFlagByByteArray(packet[56], 1);
             Model.getInstance().list_SlaveRecv[idx - 1].VCU_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 2);
             Model.getInstance().list_SlaveRecv[idx - 1].charger_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 3);
@@ -375,7 +377,7 @@ namespace EL_BSS.Serial
                 Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal &&
                 Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State &&
                 !Model.getInstance().list_SlaveSend[idx - 1].hmiManual)
-            { CsSlotchargingManager.Slot_Charging_Manage(idx); }
+            { CsSlotchargingManager[idx - 1].Slot_Charging_Manage(); }
 
             
         }
@@ -412,7 +414,7 @@ namespace EL_BSS.Serial
             {
                 if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
                     Model.getInstance().list_SlaveRecv[i - 1].SOC == 100 &&
-                    Model.getInstance().list_SlaveRecv[i - 1].BatteryType == Model.getInstance().Authorize.type.ToString() &&
+                    Model.getInstance().list_SlaveRecv[i - 1].BatteryType == Model.getInstance().Authorize.batteryType.ToString() &&
                     check_Retreive_slot_Count != 2
                     )
                 {

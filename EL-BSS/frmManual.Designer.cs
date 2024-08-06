@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.btn_fan_2 = new System.Windows.Forms.Button();
+            this.btn_fan_1 = new System.Windows.Forms.Button();
             this.Chage_To_FW = new System.Windows.Forms.Button();
             this.Vkey_OFF_button = new System.Windows.Forms.Button();
             this.Vkey_ON_button = new System.Windows.Forms.Button();
@@ -48,8 +51,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btn_fan_1 = new System.Windows.Forms.Button();
-            this.btn_fan_2 = new System.Windows.Forms.Button();
+            this.AutoStart_Popup = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -67,6 +69,8 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox1.Controls.Add(this.AutoStart_Popup);
+            this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.btn_fan_2);
             this.groupBox1.Controls.Add(this.btn_fan_1);
             this.groupBox1.Controls.Add(this.Chage_To_FW);
@@ -85,6 +89,36 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "전체충전전력변경";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(352, 55);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(96, 36);
+            this.button4.TabIndex = 36;
+            this.button4.Text = "경고음 재생";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // btn_fan_2
+            // 
+            this.btn_fan_2.Location = new System.Drawing.Point(421, 17);
+            this.btn_fan_2.Name = "btn_fan_2";
+            this.btn_fan_2.Size = new System.Drawing.Size(63, 29);
+            this.btn_fan_2.TabIndex = 35;
+            this.btn_fan_2.Text = "팬 2";
+            this.btn_fan_2.UseVisualStyleBackColor = true;
+            this.btn_fan_2.Click += new System.EventHandler(this.btn_fan_2_Click);
+            // 
+            // btn_fan_1
+            // 
+            this.btn_fan_1.Location = new System.Drawing.Point(352, 17);
+            this.btn_fan_1.Name = "btn_fan_1";
+            this.btn_fan_1.Size = new System.Drawing.Size(63, 29);
+            this.btn_fan_1.TabIndex = 34;
+            this.btn_fan_1.Text = "팬 1";
+            this.btn_fan_1.UseVisualStyleBackColor = true;
+            this.btn_fan_1.Click += new System.EventHandler(this.btn_fan_1_Click);
             // 
             // Chage_To_FW
             // 
@@ -247,25 +281,15 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // btn_fan_1
+            // AutoStart_Popup
             // 
-            this.btn_fan_1.Location = new System.Drawing.Point(352, 17);
-            this.btn_fan_1.Name = "btn_fan_1";
-            this.btn_fan_1.Size = new System.Drawing.Size(63, 29);
-            this.btn_fan_1.TabIndex = 34;
-            this.btn_fan_1.Text = "팬 1";
-            this.btn_fan_1.UseVisualStyleBackColor = true;
-            this.btn_fan_1.Click += new System.EventHandler(this.btn_fan_1_Click);
-            // 
-            // btn_fan_2
-            // 
-            this.btn_fan_2.Location = new System.Drawing.Point(421, 17);
-            this.btn_fan_2.Name = "btn_fan_2";
-            this.btn_fan_2.Size = new System.Drawing.Size(63, 29);
-            this.btn_fan_2.TabIndex = 35;
-            this.btn_fan_2.Text = "팬 2";
-            this.btn_fan_2.UseVisualStyleBackColor = true;
-            this.btn_fan_2.Click += new System.EventHandler(this.btn_fan_2_Click);
+            this.AutoStart_Popup.Location = new System.Drawing.Point(503, 53);
+            this.AutoStart_Popup.Name = "AutoStart_Popup";
+            this.AutoStart_Popup.Size = new System.Drawing.Size(69, 36);
+            this.AutoStart_Popup.TabIndex = 37;
+            this.AutoStart_Popup.Text = "자동실행";
+            this.AutoStart_Popup.UseVisualStyleBackColor = true;
+            this.AutoStart_Popup.Click += new System.EventHandler(this.AutoStart_Popup_Click);
             // 
             // frmManual
             // 
@@ -309,5 +333,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_fan_2;
         private System.Windows.Forms.Button btn_fan_1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button AutoStart_Popup;
     }
 }

@@ -32,8 +32,9 @@ namespace ocppServerTEst
         private void Form1_Load(object sender, EventArgs e)
         {
             allSockets = new List<IWebSocketConnection>();
-            var server = new WebSocketServer("ws://0.0.0.0:8181");
-            
+            //var server = new WebSocketServer("ws://0.0.0.0:8181");
+            var server = new WebSocketServer("ws://192.168.0.59:8181");
+
             server.Start(socket =>
             {
                 socket.OnOpen = () =>

@@ -151,6 +151,15 @@ namespace EL_BSS.Properties {
         }
         
         /// <summary>
+        ///   System.IO.MemoryStream과(와) 유사한 System.IO.UnmanagedMemoryStream 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream beep {
+            get {
+                return ResourceManager.GetStream("beep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
         internal static System.Drawing.Bitmap bell {
@@ -166,6 +175,26 @@ namespace EL_BSS.Properties {
         internal static System.Drawing.Bitmap bgTitle {
             get {
                 object obj = ResourceManager.GetObject("bgTitle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap bluecheck1 {
+            get {
+                object obj = ResourceManager.GetObject("bluecheck1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap bluenotify1 {
+            get {
+                object obj = ResourceManager.GetObject("bluenotify1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,29 +222,9 @@ namespace EL_BSS.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap 경고표시 {
+        internal static System.Drawing.Bitmap reddanger1 {
             get {
-                object obj = ResourceManager.GetObject("경고표시", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static System.Drawing.Bitmap 파란알림 {
-            get {
-                object obj = ResourceManager.GetObject("파란알림", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static System.Drawing.Bitmap 파란체크 {
-            get {
-                object obj = ResourceManager.GetObject("파란체크", resourceCulture);
+                object obj = ResourceManager.GetObject("reddanger1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

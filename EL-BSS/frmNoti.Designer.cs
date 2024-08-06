@@ -99,7 +99,7 @@
             this.lb_Title.Padding = new System.Windows.Forms.Padding(0, 30, 0, 0);
             this.lb_Title.Size = new System.Drawing.Size(1018, 99);
             this.lb_Title.TabIndex = 2;
-            this.lb_Title.Text = "인증중 입니다...";
+            this.lb_Title.Text = "인증 중 입니다...";
             this.lb_Title.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // frmNoti

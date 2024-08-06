@@ -225,5 +225,18 @@ namespace EL_BSS
                 Model.getInstance().list_MasterSend[1].isFan = false;
             }
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Sound_Player sound_Player = new Sound_Player();
+            sound_Player.play_Sound();
+        }
+
+        private void AutoStart_Popup_Click(object sender, EventArgs e)
+        {
+            frmAutoStartPopup frmAutoStartPopup = new frmAutoStartPopup();
+            frmAutoStartPopup.Show();
+
+        }
     }
 }

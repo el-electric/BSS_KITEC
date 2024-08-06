@@ -29,21 +29,21 @@ namespace EL_BSS
 
             lbl_context.Text = context;
 
-            if (icon == IconName.BlueNotify.ToString())
+            if(icon == IconName.BlueNotify.ToString())
             {
-                pictureBox1.Image = EL_BSS.Properties.Resources.파란알림;
+                pictureBox1.Image = global::EL_BSS.Properties.Resources.bluenotify1;
             }
             else if (icon == IconName.BlueCheck.ToString())
             {
-                pictureBox1.Image = EL_BSS.Properties.Resources.파란체크;
+                pictureBox1.Image = global::EL_BSS.Properties.Resources.bluecheck1;
             }
             else if (icon == IconName.RedDanger.ToString())
             {
-                pictureBox1.Image = EL_BSS.Properties.Resources.경고표시;
+                pictureBox1.Image = EL_BSS.Properties.Resources.reddanger1;
             }
-            else 
+            else
             {
-                pictureBox1.Image = EL_BSS.Properties.Resources.파란알림;
+                pictureBox1.Image = global::EL_BSS.Properties.Resources.bluenotify1;
             }
         }
 
