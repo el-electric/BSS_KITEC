@@ -29,7 +29,7 @@ namespace BatteryChangeCharger.OCPP
         string url;
         public OCPP_Comm_Manager()
         {
-            url = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://192.168.0.90:8181");
+            url = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://192.168.0.59:8181");
             //url = "ws://192.168.0.90:8181";
             ConnectAsync(url);
             connectionCheckTimer = new System.Timers.Timer(5000); // 5초마다 실행
@@ -162,6 +162,9 @@ namespace BatteryChangeCharger.OCPP
             var tcs = new TaskCompletionSource<string>();
             Interlocked.Exchange(ref responseCompletionSource, tcs);
 
+            // 보내는 매세지
+            Console.WriteLine("Send to server = " + message);
+
             // 메시지 보내기
             ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
             await webSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None);
@@ -223,6 +226,7 @@ namespace BatteryChangeCharger.OCPP
         {
             if (webSocket.State == WebSocketState.Open)
             {
+                Console.WriteLine("Send to server = " + message);
                 ArraySegment<byte> bytesToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes(message));
                 await webSocket.SendAsync(bytesToSend, WebSocketMessageType.Text, true, CancellationToken.None);
             }

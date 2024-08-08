@@ -808,7 +808,10 @@ namespace EL_BSS
             APP,
             STATION,
             battery_exchange_finished,
-            AddInfoErrorEvent
+            AddInfoErrorEvent,
+            Ready,
+            WakeUp,
+            FETON
         }
     }
 }

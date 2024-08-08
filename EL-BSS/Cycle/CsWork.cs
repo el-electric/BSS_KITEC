@@ -201,8 +201,8 @@ namespace EL_BSS.Cycle
                 case CsDefine.CYC_MAIN + 8:
                     if (CsCharging.isCharging(getInstance().Lent_slot[0]) && CsCharging.isCharging(getInstance().Lent_slot[1]))
                     {
-                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StartTrnasaction(getInstance().Lent_slot[0] - 1);
-                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StartTrnasaction(getInstance().Lent_slot[1] - 1);
+                        /*Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StartTrnasaction(getInstance().Lent_slot[0] - 1);
+                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StartTrnasaction(getInstance().Lent_slot[1] - 1);*/
                         mainFormLabelUpdate("반납이 완료 되었습니다.");
                         NextStep();
                     }

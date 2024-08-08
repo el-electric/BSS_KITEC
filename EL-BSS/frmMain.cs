@@ -61,13 +61,19 @@ namespace EL_BSS
             lentid[0] = 2;
             lentid[1] = 3;
 
-            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(returnid, lentid);
+            //Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(returnid, lentid);
 
             // string response = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(returnid, lentid);
 
             //Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(0);
 
             /*Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_1(0, enumData.Availaable.ToString(), 0);*/
+
+            //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(1,enumData.Empty.ToString());
+
+            // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished();
+
+            Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
         }
 
         private void button2_Click(object sender, EventArgs e)

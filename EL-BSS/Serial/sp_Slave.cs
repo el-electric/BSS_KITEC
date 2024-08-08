@@ -243,7 +243,7 @@ namespace EL_BSS.Serial
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryFETON = false;
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryWakeup = false;
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryOutput = false;
-                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StopTransaction(idx, "완충 종료");
+                //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StopTransaction(idx, "완충 종료");
             }
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);

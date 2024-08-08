@@ -69,7 +69,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             var data = new
             {
 
-                chargePointModel = Model.getInstance().chargeBoxSerialNumber,
+                chargePointModel = Model.getInstance().chargePointModel,
                 stationName = "남양주 1",
                 stationLocationLat = Model.getInstance().stationLocationLat,
                 stationLocationLong = Model.getInstance().stationLocationLong,
@@ -144,7 +144,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
         }
 
-        public void sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status, int errorLevel = 0)
+        public void sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status, int errorLevel = 0 , string info = "Ready")
         {
             var data = new Object[]
             {
@@ -154,12 +154,11 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                     new
                     {
                         stationId = Model.getInstance().chargePointSerialNumber,
-                        chargePointSerialNumber = "empty",
                         connectorId = ChannelIdx,
                         status = status,
                         errorCode = "0000",
                         errorLevel =  errorLevel.ToString(),
-                        info = "empty",
+                        info = info,
                         batteryId = Model.getInstance().list_SlaveRecv[ChannelIdx].Serial_Number,
                         soc = Model.getInstance().list_SlaveRecv[ChannelIdx].SOC,
                         timestamp = DateTime.Now.ToString(),
@@ -196,6 +195,10 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
         public void sendOCPP_CP_Req_AddInfoStationBatteryState(int ChannelIdx)
         {
+            bool chargingState;
+
+            if (getInstance().list_SlaveRecv[ChannelIdx].ChargingStatus == 100) {chargingState = true;}
+            else { chargingState = false;}
             var data = new Object[]
            {
                 2,
@@ -236,7 +239,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         batteryCellVoltage14=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_14,
                         slotConnectState=getInstance().list_SlaveRecv[ChannelIdx].charger_Connect,
                         stationConnectState=getInstance().list_SlaveRecv[ChannelIdx].chargeStationConnect,
-                        chargingState=getInstance().list_SlaveRecv[ChannelIdx].ChargingStatus,
+                        chargingState=chargingState,
                         dischargingState=getInstance().list_SlaveRecv[ChannelIdx].Discharge_State,
                         recoveryState=getInstance().list_SlaveRecv[ChannelIdx].Regeneration_State,
                         readyState=getInstance().list_SlaveRecv[ChannelIdx].Ready_State,
@@ -297,7 +300,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
         //    string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
         //    return response;
         //}
-        public async Task<string> sendOCPP_CP_Req_Authorize(int midentificationCode, int msecurityCode)
+        public async Task<string> sendOCPP_CP_Req_Authorize(string midentificationCode, string msecurityCode)
         {
             var data = new
             {
@@ -343,9 +346,16 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 enumData.DataTransfer.ToString(),
                     new
                     {
-                        stationId = Model.getInstance().chargeBoxSerialNumber,
+                        /*stationId = Model.getInstance().chargeBoxSerialNumber,
                         userNo = Model.getInstance().Authorize.userNo,
                         batterySetNo = Model.getInstance().Authorize.batterySetNo,
+                        returnBatteries = returnBatteries,
+                        lendingBattteries = lentBatteries,
+                        timestamp = DateTime.Now.ToString(),*/
+
+                        stationId = Model.getInstance().chargeBoxSerialNumber,
+                        userNo = 1,
+                        batterySetNo = 1,
                         returnBatteries = returnBatteries,
                         lendingBattteries = lentBatteries,
                         timestamp = DateTime.Now.ToString(),
@@ -430,7 +440,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             var data = new
             {
                 stationId = Model.getInstance().chargeBoxSerialNumber,
-                userNo = Model.getInstance().Authorize.userNo,
+                //userNo = Model.getInstance().Authorize.userNo,
+                userNo = "1",
                 finishedSignal = enumData.finished.ToString()
             };
 

@@ -19,8 +19,8 @@ namespace EL_BSS
 {
     public partial class frmCodeInput : Form, IObserver
     {
-        public int identificationCode;
-        public int securityCode;
+        public string identificationCode;
+        public string securityCode;
         public frmCodeInput()
         {
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace EL_BSS
         }
         private void drakeUIButtonIcon2_Click(object sender, EventArgs e)
         {
-            if (tb_intput.Text.Length > 6)
+            if (tb_intput.Text.Length > 0)
             {
                 tb_intput.Text = tb_intput.Text.Substring(0, tb_intput.Text.Length - 1);
             }
@@ -47,9 +47,9 @@ namespace EL_BSS
         {
             if (lbl_sub_status.Text == "앱에 표시된 4자리 인증코드를 입력하세요")
             {
-                if (tb_intput.Text.Length == 6)
+                if (tb_intput.Text.Length == 4)
                 {
-                    identificationCode = tb_intput.Text.ToInt();
+                    identificationCode = tb_intput.Text;
                     tb_intput.Text = string.Empty;
 
                     lbl_sub_status.Text = "앱에 표시된 4자리 보안코드를 입력하세요";
@@ -57,9 +57,9 @@ namespace EL_BSS
             }
             else
             {
-                if (tb_intput.Text.Length == 6)
+                if (tb_intput.Text.Length == 4)
                 {
-                    securityCode = tb_intput.Text.ToInt();
+                    securityCode = tb_intput.Text;
                     lbl_sub_status.Text = "인증코드 전송";
 
 
