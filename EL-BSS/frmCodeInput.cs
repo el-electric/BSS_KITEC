@@ -25,6 +25,8 @@ namespace EL_BSS
         {
             InitializeComponent();
             tb_intput.SelectionAlignment = HorizontalAlignment.Center;
+
+            Model.getInstance().setTouchManger(this);
         }
 
 

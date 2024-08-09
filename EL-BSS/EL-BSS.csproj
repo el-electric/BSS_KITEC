@@ -139,6 +139,12 @@
     <Compile Include="frmNotiPopup.Designer.cs">
       <DependentUpon>frmNotiPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmunuseablePopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmunuseablePopup.Designer.cs">
+      <DependentUpon>frmunuseablePopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="FWupdate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,7 @@
       <DependentUpon>frmSubManual.cs</DependentUpon>
     </Compile>
     <Compile Include="IObserver.cs" />
+    <Compile Include="Manager_Touch.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="OCPP\datatype\AuthorizationData.cs" />
     <Compile Include="OCPP\datatype\AuthorizationStatus.cs" />
@@ -297,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmNotiPopup.resx">
       <DependentUpon>frmNotiPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmunuseablePopup.resx">
+      <DependentUpon>frmunuseablePopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FWupdate.resx">
       <DependentUpon>FWupdate.cs</DependentUpon>

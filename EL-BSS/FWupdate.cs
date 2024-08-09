@@ -22,6 +22,7 @@ namespace EL_BSS
         public FWupdate()
         {
             InitializeComponent();
+            Model.getInstance().setTouchManger(this);
 
         }
         public void InitForm()

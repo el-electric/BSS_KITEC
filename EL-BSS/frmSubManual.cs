@@ -20,6 +20,8 @@ namespace EL_BSS
         public frmSubManual()
         {
             InitializeComponent();
+
+            Model.getInstance().setTouchManger(this);
         }
         protected override CreateParams CreateParams
         {

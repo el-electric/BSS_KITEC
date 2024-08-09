@@ -36,12 +36,14 @@ namespace EL_BSS
                 mLayouts[i - 1].Show();
             }
 
-            updateView();            
+            updateView();
+
+            Model.getInstance().setTouchManger(this);
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            this.Invoke(new MethodInvoker(delegate ()
+            this.BeginInvoke(new MethodInvoker(delegate ()
             {
                 for (int i = 1; i < 9; i++)
                 {

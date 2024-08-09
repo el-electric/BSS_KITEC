@@ -36,6 +36,7 @@ namespace EL_BSS
         frmNoti frmNoti = new frmNoti();
         public frmFrame()
         {
+            Model.getInstance().setTouchManger(this);
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
         }

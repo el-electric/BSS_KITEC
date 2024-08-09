@@ -151,6 +151,15 @@ namespace EL_BSS
         public string Authorize_Type;
 
         public DateTime Total_WakeUp_Time = DateTime.Now;
+        public bool TouchManagerInit = false;
+
+        Manager_Touch touch_manager;
+        public void setTouchManger(Form c)
+        {
+            touch_manager = new Manager_Touch(c);
+        }
+
+        public DateTime DT_Screen_Touch_Time = DateTime.Now;
 
         public class MasterSend
         {

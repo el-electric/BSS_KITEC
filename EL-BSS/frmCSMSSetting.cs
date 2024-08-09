@@ -18,7 +18,7 @@ namespace EL_BSS
         public frmCSMSSetting()
         {
             InitializeComponent();
-
+            Model.getInstance().setTouchManger(this);
 
 
             //tb_chargePointSerialNumber.Text = Model.getInstance().StationId;

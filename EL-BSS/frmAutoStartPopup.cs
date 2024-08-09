@@ -18,6 +18,8 @@ namespace EL_BSS
         public frmAutoStartPopup()
         {
             InitializeComponent();
+            Model.getInstance().setTouchManger(this);
+
             lb_auto_start.Text = "";
 
             if (Setting_AutoStart.IsRunAsAdmin())

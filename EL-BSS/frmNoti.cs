@@ -16,6 +16,8 @@ namespace EL_BSS
         public frmNoti()
         {
             InitializeComponent();
+
+            Model.getInstance().setTouchManger(this);
         }
 
         public void InitForm()

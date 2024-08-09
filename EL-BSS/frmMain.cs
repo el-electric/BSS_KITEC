@@ -29,6 +29,8 @@ namespace EL_BSS
         public frmMain()
         {
             InitializeComponent();
+
+            Model.getInstance().setTouchManger(this);
         }
         protected override CreateParams CreateParams
         {
@@ -73,7 +75,9 @@ namespace EL_BSS
 
             // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished();
 
-            Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
+            //Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(1);
+
+            Show_UnUseable_Popup("침수로 인해 사용이 불가합니다.\n관리자에게 문의해주세요.");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -292,6 +296,15 @@ namespace EL_BSS
             pb_qr.Visible = setting;
             drakeUIButton1.Visible = setting;
 
+        }
+
+        protected void Show_UnUseable_Popup(string message)
+        {
+            frmunuseablePopup rmunuseablePopup = new frmunuseablePopup(message);
+            rmunuseablePopup.StartPosition = FormStartPosition.Manual;
+
+            rmunuseablePopup.Location = new Point(ParentForm.Top, ParentForm.Top + 74);
+            rmunuseablePopup.Show();
         }
     }
 }
