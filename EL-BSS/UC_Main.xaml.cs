@@ -28,7 +28,7 @@ namespace EL_BSS
     /// </summary>
     public partial class UC_Main : UserControl
     {
-        private System.Timers.Timer timer;
+        public System.Timers.Timer timer;
         System.Windows.Controls.Image[] images;
         System.Windows.Controls.TextBlock[] socs;
         StackPanel[] panels;
@@ -180,6 +180,6 @@ namespace EL_BSS
             frmFrame.deleMenuClick(3);
 
             Keyboard.ClearFocus();
-        }
+        }        
     }
 }

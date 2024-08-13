@@ -23,7 +23,7 @@ namespace BatteryChangeCharger.OCPP
     {
         private ClientWebSocket webSocket = null;
         CancellationTokenSource cts = new CancellationTokenSource();
-        private System.Timers.Timer connectionCheckTimer;
+        public System.Timers.Timer connectionCheckTimer;
         bool isStop = false;
         private TaskCompletionSource<string> responseCompletionSource;
         string url;

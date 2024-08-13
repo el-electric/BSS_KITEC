@@ -172,6 +172,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmFrame";
             this.Text = "frmFrame";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFrame_FormClosing);
             this.Load += new System.EventHandler(this.frmFrame_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

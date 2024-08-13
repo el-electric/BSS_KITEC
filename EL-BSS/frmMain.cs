@@ -27,9 +27,7 @@ namespace EL_BSS
 
         public frmMain()
         {
-            InitializeComponent();
-            UC_Main userControl1 = new UC_Main();
-            elementHost1.Child = userControl1;
+            InitializeComponent();            
         }
         protected override CreateParams CreateParams
         {
@@ -42,7 +40,7 @@ namespace EL_BSS
         }
         public void InitForm()
         {
-
+            elementHost1.Child = getInstance().frmFrame.userControl1;
         }
 
         public void UpdateForm(Model model)
@@ -114,6 +112,7 @@ namespace EL_BSS
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+      
             //ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
             //barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
 

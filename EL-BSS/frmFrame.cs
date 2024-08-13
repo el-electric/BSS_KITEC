@@ -28,12 +28,14 @@ namespace EL_BSS
         public List<IObserver> observers = new List<IObserver>();
         private Model.SlaveSend slaveSend;
 
+        public UC_Main userControl1 = new UC_Main();
         frmMain frmMain = new frmMain();
         frmManual frmManual = new frmManual();
         FWupdate FWupdate = new FWupdate();
         frmCodeInput frmCodeInput = new frmCodeInput();
         frmCSMSSetting frmCSMSSetting = new frmCSMSSetting();
         frmNoti frmNoti = new frmNoti();
+
         public frmFrame()
         {
             Model.getInstance().setTouchManger(this);
@@ -54,6 +56,7 @@ namespace EL_BSS
 
         private void frmFrame_Load(object sender, EventArgs e)
         {
+            getInstance().frmFrame = this;
             initForm();
 
             showNotiForm("Attempt to connect to server");
@@ -69,7 +72,7 @@ namespace EL_BSS
                 Model.getInstance().list_MasterDataRecvDatetime.Add(DateTime.Now);
             }
 
-            getInstance().frmFrame = this;
+
 
             if (!bck_Protocol.IsBusy)
                 bck_Protocol.RunWorkerAsync();
@@ -101,7 +104,7 @@ namespace EL_BSS
 
         private void initForm()
         {
-            
+
 
 
             observers.Add(this);
@@ -136,7 +139,7 @@ namespace EL_BSS
             panel2.Controls.Clear();
             //frmManual.timer1.Enabled = false;
             frmManual.timer.Stop();
-            frmMain.timer1.Enabled = false;
+            //frmMain.timer1.Enabled = false;
             FWupdate.timer1.Enabled = false;
             if (Model.getInstance().list_SlaveSend.Count > 0)
             {
@@ -149,12 +152,13 @@ namespace EL_BSS
             {
                 case 0:
 
+
+                    panel2.Controls.Add(frmMain);
                     //재접속때 await 이라 invoke 안하면 timer 실행이 안되는거 같아 추가
-                    this.Invoke(new MethodInvoker(delegate ()
-                    {
-                        frmMain.timer1.Enabled = true;
-                        panel2.Controls.Add(frmMain);
-                    }));
+                    //this.Invoke(new MethodInvoker(delegate ()
+                    //{
+                    //    //frmMain.timer1.Enabled = true;                        
+                    //}));
 
                     break;
                 case 1:
@@ -179,6 +183,14 @@ namespace EL_BSS
                     break;
                 case 10:
                     ThreadRun = false;
+                    userControl1.timer.Stop();
+                    userControl1.timer.Dispose();
+                    getInstance().oCPP_Comm_Manager.connectionCheckTimer.Stop();
+                    getInstance().oCPP_Comm_Manager.connectionCheckTimer.Dispose();
+
+
+
+
                     await Task.Delay(500);
                     try
                     {
@@ -189,7 +201,8 @@ namespace EL_BSS
                     {
                         MessageBox.Show(ex.Message + ex.InnerException);
                     }
-                    Application.Exit();
+                    Application.ExitThread(); // 메시지 루프를 종료
+                    Environment.Exit(0); // 프로세스를 강제 종료
                     break;
             }
         }
@@ -348,7 +361,7 @@ namespace EL_BSS
         DateTime minute2;
         private void bck_Sequnce_DoWork(object sender, DoWorkEventArgs e)
         {
-            while (true)
+            while (ThreadRun)
             {
                 CsWork.Main_WorkCycle();
                 CsWork.OCPP_IntervalCycle();
@@ -367,7 +380,7 @@ namespace EL_BSS
         private void bck_Counting_DoWork(object sender, DoWorkEventArgs e)
         {
 
-            while (true)
+            while (ThreadRun)
             {
                 for (int i = 0; i < CsDefine.Cyc_Rail.Count(); i++)
                 {
@@ -405,11 +418,11 @@ namespace EL_BSS
         {
             lbl_Notify_Tv.Text = data;
         }
-        public void NotiShow(string context, int showingTime , string icon = "")
+        public void NotiShow(string context, int showingTime, string icon = "")
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                frmNotiPopup frmNotiPopup = new frmNotiPopup(this, showingTime, context , icon);
+                frmNotiPopup frmNotiPopup = new frmNotiPopup(this, showingTime, context, icon);
                 frmNotiPopup.ShowNotification();
             }));
         }
@@ -420,6 +433,11 @@ namespace EL_BSS
         }
 
         public frmMain GetfrmMain() { return frmMain; }
+
+        private void frmFrame_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
     }
 }
 
