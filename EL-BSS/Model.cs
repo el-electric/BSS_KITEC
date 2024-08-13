@@ -822,5 +822,45 @@ namespace EL_BSS
             WakeUp,
             FETON
         }
+
+        public enum Battery_Error_Code
+        {
+            Low_Voltage,                            // 저전압 알림
+            Over_Voltage,                           // 고전압 알림
+            Pack_Low_Voltage,                       // 팩 저전압 알림
+            Pack_High_Voltage,                      // 팩 고전압 알림
+            Cell_Regeneration_OverCharge,           // 셀 재생 과충전 알림
+            Pack_Regeneration_OverCharge,           // 팩 재생 과충전 알림
+            Over_Discharge,                         // 과방전 알림
+            Over_Charge,                            // 과충전 알림
+            Regeneration_OverCharge,                // 재생 과충전 알림
+            Cell_Low_Temperature,                   // 셀 저온 알림
+            Cell_High_Temperature,                  // 셀 고온 알림
+            FET_Low_Temperature,                    // FET 저온 알림
+            FET_High_Temperature,                   // FET 고온 알림
+            Low_Voltage_Protection,                 // 저전압 프로텍션
+            High_Voltage_Protection,                // 고전압 프로텍션
+            Pack_Low_Voltage_Protection,            //팩 저전압 프로텍션
+            Pack_High_Voltage_Protection,           // 팩 고전압 프로텍션
+            Cell_Regeneration_OverCharge_Protection, // 셀 재생 과충전 프로텍션
+            Pack_Regeneration_OverCharge_Protection, // 팩 재생 과충전 프로텍션
+            Over_Discharge_Protection,              // 과방전 프로텍션
+            Over_Charge_Protection,                 // 과충전 프로텍션
+            Regeneration_OverCharge_Protection,     // 재생 과충전 프로텍션
+            Cell_Low_Temperature_Protection,        // 셀 저온 프로텍션
+            Cell_High_Temperature_Protection,       // 셀 고온 프로텍션
+            FET_Low_Temperature_Protection,         // FET 저온 프로텍션
+            FET_High_Temperature_Protection,        // FET 고온 프로텍션
+            Short_Circuit_Protect,                  // 단락 보호
+            VCU_Error,                              // VCU 에러
+            Pre_Charge_Error,                       // Pre Charge 에러
+
+            Slot_Temperature_Error,     // 슬롯 온도센서 에러
+            FET_On_Error,               // FET ON 에러
+            Wake_Up_Error,              // Wake Up 에러
+            Door_Closing_Error,         // 문 닫힘 에러
+            Door_Opening_Error,         // 문 열림 에러
+            Power_Pack_Error            // 파워팩 에러
+        }
     }
 }

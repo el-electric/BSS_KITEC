@@ -1,0 +1,2 @@
+[2024-08-12 11:01:38] ☆Receive☆ OCPP CSMS->CP Call => [3,"75e1c2d9-2502-447a-9853-f135a693ade9",{"errCode":"60004","errMsg":"보유한 캐시가 부족합니다.","status":"Accepted"}]
+[2024-08-12 13:37:26] ☆Receive☆ OCPP CSMS->CP Call => [3,"8cc81561-e67f-4841-9bb4-bce14a90d926",{}]

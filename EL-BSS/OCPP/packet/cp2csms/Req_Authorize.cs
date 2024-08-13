@@ -1,4 +1,5 @@
 ﻿using DrakeUI.Framework;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,22 +24,26 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
         public int batteryType;
         public string[] returnbatteryId = new string[2];
         public string ticketAvailable_value;
+        public string errMsg;
 
         /*public MoreAuthorizeReq moreAuthorizeReq;*/
 
         public void setting_Authorize_value()
         {
-            List<string> returnbatteryIdList = new List<string>();
-
-            foreach (var item in returnBatteryIds)
+            if (this.errCode == "00000")
             {
-                string[] splititem = item.Split(',');
-                returnbatteryIdList.AddRange(splititem);
-            }
-            this.returnbatteryId = returnbatteryIdList.ToArray();
+                List<string> returnbatteryIdList = new List<string>();
 
-            if (ticketAvailable) ticketAvailable_value = "구독중";
-            else ticketAvailable_value = "구독 취소";
+                foreach (var item in returnBatteryIds)
+                {
+                    string[] splititem = item.Split(',');
+                    returnbatteryIdList.AddRange(splititem);
+                }
+                this.returnbatteryId = returnbatteryIdList.ToArray();
+
+                if (ticketAvailable) ticketAvailable_value = "구독중";
+                else ticketAvailable_value = "구독 취소";
+            }
         }
     }
 }

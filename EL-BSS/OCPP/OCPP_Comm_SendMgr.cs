@@ -117,34 +117,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             return json;
         }
 
-        public void sendOCPP_CP_Req_StatusNotification_1(int ChannelIdx, string status, int errorLevel = 0)
-        {
-            var data = new Object[]
-            {
-                2,
-                Guid.NewGuid().ToString(),
-                enumData.StatusNotification.ToString(),
-                    new
-                    {
-                        stationId = Model.getInstance().chargePointSerialNumber,
-                        chargePointSerialNumber = "empty",
-                        connectorId = ChannelIdx,
-                        status = status,
-                        errorCode = "0000",
-                        errorLevel =  errorLevel.ToString(),
-                        info = "empty",
-                        batteryId = "empty",
-                        soc = "50",
-                        timestamp = DateTime.Now.ToString(),
-
-        }
-    };
-            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
-
-            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
-        }
-
-        public void sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status, int errorLevel = 0 , string info = "Ready")
+        public void sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status, string info = "Ready")
         {
             var data = new Object[]
             {
@@ -156,8 +129,6 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         stationId = Model.getInstance().chargePointSerialNumber,
                         connectorId = ChannelIdx,
                         status = status,
-                        errorCode = "0000",
-                        errorLevel =  errorLevel.ToString(),
                         info = info,
                         batteryId = Model.getInstance().list_SlaveRecv[ChannelIdx].Serial_Number,
                         soc = Model.getInstance().list_SlaveRecv[ChannelIdx].SOC,
@@ -265,7 +236,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 enumData.StationInfo.ToString(),
                     new
                     {
-                     staionId = ChannelIdx,   
+                     stationId = ChannelIdx,   
                      Values = StaionInfo1
                     }
             };
@@ -449,7 +420,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(msg);
         }
 
-        public void Send_OCPP_CP_Req_AddInfoErrorEvent(int index)
+        public void Send_OCPP_CP_Req_AddInfoErrorEvent(int index , Battery_Error_Code errorName)
         {
             var data = new Object[]
             {
@@ -462,7 +433,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         batteryId = Model.getInstance().list_SlaveRecv[index].Serial_Number,
                         stationid = Model.getInstance().chargePointSerialNumber,
                         slotId = index,
-                        eventName = "VCU Error",
+                        eventName = errorName.ToString(),
                         isMeasure = false,
                         timeStampMeasure = 0
                     }

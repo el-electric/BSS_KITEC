@@ -1,5 +1,6 @@
 ﻿using DrakeUI.Framework;
 using EL_BSS.Cycle;
+using EL_DC_Charger.ocpp.ver16.comm;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -259,29 +260,51 @@ namespace EL_BSS.Serial
             temp[0] = packet[50];
             temp[1] = packet[51];
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
-            Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 0);
-            Model.getInstance().list_SlaveRecv[idx - 1].highVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 1);
-            Model.getInstance().list_SlaveRecv[idx - 1].packLowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 2);
-            Model.getInstance().list_SlaveRecv[idx - 1].packHighVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 3);
-            Model.getInstance().list_SlaveRecv[idx - 1].cellRecycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[52], 4);
-            Model.getInstance().list_SlaveRecv[idx - 1].packRecycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[52], 5);
-            Model.getInstance().list_SlaveRecv[idx - 1].overDischarge = EL_Manager_Conversion.getFlagByByteArray(packet[52], 6);
-            Model.getInstance().list_SlaveRecv[idx - 1].overCharging = EL_Manager_Conversion.getFlagByByteArray(packet[52], 7);
 
+            Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 0);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Low_Voltage); }
+            Model.getInstance().list_SlaveRecv[idx - 1].highVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 1);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].highVoltage) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Over_Voltage); }
+            Model.getInstance().list_SlaveRecv[idx - 1].packLowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 2);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].packLowVoltage) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pack_Low_Voltage); }
+            Model.getInstance().list_SlaveRecv[idx - 1].packHighVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 3);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].packHighVoltage) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pack_High_Voltage); }
+            Model.getInstance().list_SlaveRecv[idx - 1].cellRecycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[52], 4);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].cellRecycleOverChargingProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Cell_Regeneration_OverCharge_Protection); }
+            Model.getInstance().list_SlaveRecv[idx - 1].packRecycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[52], 5);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].packRecycleOverChargingProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pack_Regeneration_OverCharge_Protection); }
+            Model.getInstance().list_SlaveRecv[idx - 1].overDischarge = EL_Manager_Conversion.getFlagByByteArray(packet[52], 6);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].overDischarge) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Over_Discharge); }
+            Model.getInstance().list_SlaveRecv[idx - 1].overCharging = EL_Manager_Conversion.getFlagByByteArray(packet[52], 7);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].overCharging) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Over_Charge); }
+            
             Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverCharging = EL_Manager_Conversion.getFlagByByteArray(packet[53], 3);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverCharging) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Regeneration_OverCharge); }
             Model.getInstance().list_SlaveRecv[idx - 1].cell_LowTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 4);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].cell_LowTemp) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Cell_Low_Temperature); }
             Model.getInstance().list_SlaveRecv[idx - 1].cell_HighTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 5);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].cell_HighTemp) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Cell_High_Temperature); }
             Model.getInstance().list_SlaveRecv[idx - 1].FET_LowTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 6);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].FET_LowTemp) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.FET_Low_Temperature); }
             Model.getInstance().list_SlaveRecv[idx - 1].FET_HighTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 7);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].FET_HighTemp) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.FET_High_Temperature); }
 
             Model.getInstance().list_SlaveRecv[idx - 1].lowVoltageProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 0);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].lowVoltageProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Low_Voltage_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].highVoltageProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 1);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].highVoltageProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.High_Voltage_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].packLowVoltageProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 2);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].packLowVoltageProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pack_High_Voltage_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].packHighVoltageProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 3);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].packHighVoltageProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pack_High_Voltage_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].cellRecycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 4);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].cellRecycleOverChargingProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Cell_Regeneration_OverCharge_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].packRecycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 5);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].packRecycleOverChargingProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pack_Regeneration_OverCharge_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].overDischargeProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 6);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].overDischargeProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Over_Discharge_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].overChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 7);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].overChargingProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Over_Charge_Protection); }
 
             Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[55], 0);
             Model.getInstance().list_SlaveRecv[idx - 1].cellLowTempProtection = EL_Manager_Conversion.getFlagByByteArray(packet[55], 1);
@@ -291,6 +314,17 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].shortProtect = EL_Manager_Conversion.getFlagByByteArray(packet[55], 5);
             Model.getInstance().list_SlaveRecv[idx - 1].VCUError = EL_Manager_Conversion.getFlagByByteArray(packet[55], 6);
             Model.getInstance().list_SlaveRecv[idx - 1].PreChargeError = EL_Manager_Conversion.getFlagByByteArray(packet[55], 7);
+
+            for (int p = 0; p < 4; p++)
+            {
+                for (int f = 0; f < 8; f++)
+                {
+                    if (EL_Manager_Conversion.getFlagByByteArray(packet[52 + p], f))
+                    {
+                        
+                    }
+                }
+            }
 
             Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal = EL_Manager_Conversion.getFlagByByteArray(packet[56], 0);
             
@@ -376,6 +410,7 @@ namespace EL_BSS.Serial
             if (Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus == 100 &&
                 Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal &&
                 Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State &&
+                Model.getInstance().list_SlaveSend[idx - 1].BatteryOutput &&
                 !Model.getInstance().list_SlaveSend[idx - 1].hmiManual)
             { CsSlotchargingManager[idx - 1].Slot_Charging_Manage(); }
 
@@ -439,11 +474,11 @@ namespace EL_BSS.Serial
 
         private static string Check_Status(int i)
         {
-            if (Model.getInstance().list_SlaveRecv[idx - 1].SeqNum == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            if (Model.getInstance().list_SlaveRecv[i].SeqNum == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
                 return enumData.Charging.ToString();
             }
-            else if (Model.getInstance().list_SlaveRecv[idx - 1].SeqNum == 101 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            else if (Model.getInstance().list_SlaveRecv[i].SOC == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
                 return enumData.Finishing.ToString();
             }

@@ -77,6 +77,8 @@ namespace EL_BSS
 
             //Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(1);
 
+            //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
+
             Show_UnUseable_Popup("침수로 인해 사용이 불가합니다.\n관리자에게 문의해주세요.");
         }
 

@@ -82,6 +82,7 @@ namespace EL_BSS
                         Model.getInstance().Authorize = JsonConvert.DeserializeObject<Req_Authorize>(responseObject[2].ToString());
                         Model.getInstance().Authorize.setting_Authorize_value();
                         string errCode = responseObject?[2]?["errCode"]?.ToString();
+                        string errMsg = responseObject?[2]?["errMsg"]?.ToString();
 
                         switch (errCode) 
                         {
@@ -91,14 +92,8 @@ namespace EL_BSS
 
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
                                 break;
-                            case "10002":
-                                lbl_sub_status.Text = "인증 실패: " + "이용자가 없습니다.";
-                                break;
-                            case "12101":
-                                lbl_sub_status.Text = "인증 실패: " + "스테이션이 존재하지 않습니다.";
-                                break;
-                            case "60004":
-                                lbl_sub_status.Text = "인증 실패: " + "보유한 캐시가 부족합니다.";
+                            default:
+                                lbl_sub_status.Text = "인증 실패: " + errMsg;
                                 break;
                         }
                     }
