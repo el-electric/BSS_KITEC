@@ -51,6 +51,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -83,6 +85,7 @@
     <Reference Include="System.Speech" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,7 +95,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="zxing, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
       <HintPath>..\packages\ZXing.Net.0.16.9\lib\net47\zxing.dll</HintPath>
     </Reference>
@@ -288,10 +293,18 @@
     <Compile Include="OCPP\packet\EL_OCPP_Packet_Wrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Serial\sp_Master.cs" />
     <Compile Include="Serial\sp_Slave.cs" />
     <Compile Include="Setting_AutoStart.cs" />
     <Compile Include="Sound_Player.cs" />
+    <Compile Include="UC_Main.xaml.cs">
+      <DependentUpon>UC_Main.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vkeyvoard.cs" />
     <EmbeddedResource Include="frmCodeInput.resx">
       <DependentUpon>frmCodeInput.cs</DependentUpon>
@@ -326,14 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -349,50 +357,35 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\7.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\4.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\31.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bgTitle.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\empty.png" />
+    <Resource Include="Resources\empty.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OCPP\database\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\doorOpen.png" />
+    <Resource Include="Resources\bssStation.png" />
+    <None Include="Resources\speechbubble1.png" />
+    <Resource Include="Resources\battery_in.png" />
+    <Resource Include="Resources\batteryIn_doorOpen.png" />
+    <None Include="Resources\battery_empty.png" />
     <Content Include="Resources\bell.png" />
     <None Include="Resources\파란알림.png" />
     <None Include="Resources\파란체크.png" />
     <None Include="Resources\경고표시.png" />
     <None Include="Resources\bell1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UC_Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
