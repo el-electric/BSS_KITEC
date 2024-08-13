@@ -307,24 +307,21 @@ namespace EL_BSS.Serial
             if (Model.getInstance().list_SlaveRecv[idx - 1].overChargingProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Over_Charge_Protection); }
 
             Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[55], 0);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverChargingProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Regeneration_OverCharge_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].cellLowTempProtection = EL_Manager_Conversion.getFlagByByteArray(packet[55], 1);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].cellLowTempProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Cell_Low_Temperature_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].cellHighTempProtection = EL_Manager_Conversion.getFlagByByteArray(packet[55], 2);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].cellHighTempProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Cell_High_Temperature_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].FETLowTempProtection = EL_Manager_Conversion.getFlagByByteArray(packet[55], 3);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].FETLowTempProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.FET_Low_Temperature_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].FETHighTempProtection = EL_Manager_Conversion.getFlagByByteArray(packet[55], 4);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].FETHighTempProtection) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.FET_High_Temperature_Protection); }
             Model.getInstance().list_SlaveRecv[idx - 1].shortProtect = EL_Manager_Conversion.getFlagByByteArray(packet[55], 5);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].shortProtect) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Short_Circuit_Protect); }
             Model.getInstance().list_SlaveRecv[idx - 1].VCUError = EL_Manager_Conversion.getFlagByByteArray(packet[55], 6);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].VCUError) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.VCU_Error); }
             Model.getInstance().list_SlaveRecv[idx - 1].PreChargeError = EL_Manager_Conversion.getFlagByByteArray(packet[55], 7);
-
-            for (int p = 0; p < 4; p++)
-            {
-                for (int f = 0; f < 8; f++)
-                {
-                    if (EL_Manager_Conversion.getFlagByByteArray(packet[52 + p], f))
-                    {
-                        
-                    }
-                }
-            }
+            if (Model.getInstance().list_SlaveRecv[idx - 1].PreChargeError) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pre_Charge_Error); }
 
             Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal = EL_Manager_Conversion.getFlagByByteArray(packet[56], 0);
             
