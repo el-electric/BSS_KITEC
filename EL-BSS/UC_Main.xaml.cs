@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using static System.Net.Mime.MediaTypeNames;
+using Brush = System.Windows.Media.Brush;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace EL_BSS
@@ -38,6 +39,13 @@ namespace EL_BSS
         Bitmap doorOpen = Properties.Resources.doorOpen;
         Ellipse[] slaveStatus;
         System.Windows.Shapes.Rectangle[] masterStatus;
+
+        private Brush redBrush;
+        private Brush purpleBrush;
+        private Brush blueBrush;
+        private BitmapImage cachedBatteryInDoorOpen;
+        private BitmapImage cachedDoorOpen;
+        private BitmapImage cachedEmpty;
 
         public UC_Main()
         {
@@ -62,6 +70,15 @@ namespace EL_BSS
             slaveStatus = new Ellipse[] { status_1, status_2, status_3, status_4, status_5, status_6, status_7, status_8 };
             masterStatus = new System.Windows.Shapes.Rectangle[] { masterStatus_1, MasterStatus_2 };
 
+
+            cachedBatteryInDoorOpen = ConvertBitmapToBitmapImage(batteryIn_doorOpen);
+            cachedDoorOpen = ConvertBitmapToBitmapImage(doorOpen);
+            cachedEmpty = ConvertBitmapToBitmapImage(empty);
+
+            redBrush = (Brush)new BrushConverter().ConvertFrom("#f32b10");
+            purpleBrush = (Brush)new BrushConverter().ConvertFrom("#a618f0");
+            blueBrush = (Brush)new BrushConverter().ConvertFrom("#2f89f5");
+
             ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
             barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
             barcodeWriter.Options.Margin = 0;
@@ -83,7 +100,7 @@ namespace EL_BSS
                     ///////////////////////////////// DOOR ///////////////////////////////////////////
                     if (Model.getInstance().list_SlaveRecv[i].BatterArrive && Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
-                        images[i].Source = ConvertBitmapToBitmapImage(batteryIn_doorOpen);
+                        images[i].Source = cachedBatteryInDoorOpen;
                     }
                     else if (Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
@@ -91,12 +108,12 @@ namespace EL_BSS
                     }
                     else if (!Model.getInstance().list_SlaveRecv[i].BatterArrive && Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
-                        images[i].Source = ConvertBitmapToBitmapImage(doorOpen);
+                        images[i].Source = cachedDoorOpen;
 
                     }
                     else if (!Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
-                        images[i].Source = ConvertBitmapToBitmapImage(empty);
+                        images[i].Source = cachedEmpty;
                     }
                     ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -104,8 +121,17 @@ namespace EL_BSS
 
                     if (Model.getInstance().list_SlaveRecv[i].SOC > 0)
                     {
+                        int soc = Model.getInstance().list_SlaveRecv[i].SOC;
+
+                        if (soc < 30)
+                            borders[i].Background = redBrush;
+                        else if (soc < 60)
+                            borders[i].Background = purpleBrush;
+                        else
+                            borders[i].Background = blueBrush;
+
                         panels[i].Visibility = Visibility.Visible;
-                        socs[i].Text = Model.getInstance().list_SlaveRecv[i].SOC.ToString() + "%";
+                        socs[i].Text = soc + "%";
                     }
 
                     else
@@ -152,6 +178,8 @@ namespace EL_BSS
         private void btn_stop_Click(object sender, RoutedEventArgs e)
         {
             frmFrame.deleMenuClick(3);
+
+            Keyboard.ClearFocus();
         }
     }
 }
