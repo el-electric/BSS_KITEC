@@ -501,8 +501,6 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                             }
                             else
                             {
-                                // sendOCPP_CP_Conf_Authorize(_uid, enumData.fail.ToString());
-
                                 sendOCPP_CP_Conf_Authorize(_uid, enumData.fail.ToString());
                             }
                         }

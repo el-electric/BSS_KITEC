@@ -16,34 +16,9 @@ namespace EL_BSS.OCPP.packet.cp2csms
 
         public SET_Batteries_Value(int slotid)
         {
-            /*this.bateryId = Model.getInstance().list_SlaveRecv[slotid - 1].Serial_Number.ToString();
+            this.bateryId = Model.getInstance().list_SlaveRecv[slotid - 1].Serial_Number.ToString();
             this.chargingAmount = Model.getInstance().list_SlaveRecv[slotid - 1].SOC;
-            this.batteryType = Model.getInstance().list_SlaveRecv[slotid - 1].Check_BatteryVoltage_Type.ToString();*/
-
-            if (slotid == 0)
-            {
-                this.bateryId = "BT-001";
-                this.chargingAmount = 50;
-                this.batteryType = "48";
-            }
-            else if (slotid == 1)
-            {
-                this.bateryId = "BT-002";
-                this.chargingAmount = 48;
-                this.batteryType = "48";
-            }
-            else if (slotid == 2)
-            {
-                this.bateryId = "BT-003";
-                this.chargingAmount = 100;
-                this.batteryType = "48";
-            }
-            else if (slotid == 3)
-            {
-                this.bateryId = "BT-004";
-                this.chargingAmount = 100;
-                this.batteryType = "48";
-            }
+            this.batteryType = Model.getInstance().list_SlaveRecv[slotid - 1].Check_BatteryVoltage_Type.ToString();
         }
     }
 }

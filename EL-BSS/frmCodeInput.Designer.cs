@@ -162,7 +162,7 @@
             this.drakeUIButton13.Size = new System.Drawing.Size(248, 62);
             this.drakeUIButton13.Style = DrakeUI.Framework.UIStyle.Custom;
             this.drakeUIButton13.TabIndex = 4;
-            this.drakeUIButton13.Text = "７";
+            this.drakeUIButton13.Text = "7";
             this.drakeUIButton13.Click += new System.EventHandler(this.NumClick);
             // 
             // drakeUIButton1
@@ -274,7 +274,7 @@
             this.drakeUIButton7.Size = new System.Drawing.Size(248, 62);
             this.drakeUIButton7.Style = DrakeUI.Framework.UIStyle.Custom;
             this.drakeUIButton7.TabIndex = 0;
-            this.drakeUIButton7.Text = "８";
+            this.drakeUIButton7.Text = "8";
             this.drakeUIButton7.Click += new System.EventHandler(this.NumClick);
             // 
             // drakeUIButton8
