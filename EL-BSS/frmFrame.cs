@@ -184,9 +184,7 @@ namespace EL_BSS
                 case 10:
                     ThreadRun = false;
                     userControl1.timer.Stop();
-                    userControl1.timer.Dispose();
-                    getInstance().oCPP_Comm_Manager.connectionCheckTimer.Stop();
-                    getInstance().oCPP_Comm_Manager.connectionCheckTimer.Dispose();
+                    userControl1.timer.Dispose();                    
 
 
 

@@ -61,7 +61,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
             };
             string msg = makeMessage(enumData.BootNotification.ToString(), data);
-            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
             return response;
         }
         public async Task<string> sendOCPP_CP_Req_AddInforBootNotification()
@@ -86,7 +86,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
             };
             string msg = makeMessage(enumData.AddInforBootNotification.ToString(), data);
-            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
             return response;
         }
 
@@ -160,7 +160,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             };
 
             string msg = makeMessage(enumData.StatusNotification.ToString(), data);
-            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
             return response;
         }
 
@@ -281,7 +281,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             };
 
             string msg = makeMessage(enumData.Authorize.ToString(), data);
-            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
             return response;
         }
 
@@ -334,7 +334,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             };
             string returnvlaue = "";
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
-            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(json);
+            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(json);
 
 
 
