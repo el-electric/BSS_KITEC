@@ -139,6 +139,8 @@ namespace EL_BSS
         public string[] Check_statusnotification = new string[8];
         public bool Send_bootnotification = false;
 
+        public static int SendInterval = 300;
+        public static DateTime Dt_SendInterval = DateTime.Now;
         public int HeartBeatInterval = 10;
         public int StationInfoInterval = 10;
         public int MeterValuesInterval = 10;
@@ -563,8 +565,9 @@ namespace EL_BSS
                 bytes[21] = (byte)((list_SlaveSend[idx - 1].request_Voltage >> 8) & 0x000000ff);
                 bytes[22] = (byte)((list_SlaveSend[idx - 1].request_Voltage) & 0x000000ff);
             }
-            else 
-            {   bytes[21] = 0;
+            else
+            {
+                bytes[21] = 0;
                 bytes[22] = 0;
             }
 
@@ -573,7 +576,7 @@ namespace EL_BSS
                 bytes[23] = (byte)((list_SlaveSend[idx - 1].request_Wattage >> 8) & 0x000000ff);
                 bytes[24] = (byte)((list_SlaveSend[idx - 1].request_Wattage) & 0x000000ff);
             }
-            else 
+            else
             {
                 if (Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type == 72)
                 {
@@ -585,7 +588,7 @@ namespace EL_BSS
                     bytes[23] = (byte)((150 >> 8) & 0x000000ff);
                     bytes[24] = (byte)((150) & 0x000000ff);
                 }
-                else 
+                else
                 {
                     bytes[23] = (byte)((0 >> 8) & 0x000000ff);
                     bytes[24] = (byte)((0) & 0x000000ff);

@@ -24,6 +24,15 @@ namespace EL_BSS.Cycle
 
         public async static void Main_WorkCycle() //자동동작 시퀀스
         {
+            if (Model.Dt_SendInterval.AddSeconds(Model.SendInterval) > DateTime.Now)
+            {
+                ///////////////////////////////////
+
+
+                ///////////////////////////////////
+                Model.Dt_SendInterval = DateTime.Now;
+            }
+
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
             {
                 case CsDefine.CYC_MAIN:
