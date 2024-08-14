@@ -41,17 +41,21 @@ namespace BatteryChangeCharger.OCPP
             websocket.MessageReceived += new EventHandler<MessageReceivedEventArgs>(WebSocket_MessageReceived);
             websocket.Error += new EventHandler<SuperSocket.ClientEngine.ErrorEventArgs>(WebSocket_Error);
 
-            websocket.Open();
-
             //while (websocket.State != WebSocketState.Open)
             //{
             //    await Task.Delay(100);
             //}
         }
 
+        public void WebSocketOpen()
+        {
+
+            websocket.Open();
+        }
         private void WebSocket_Error(object sender, ErrorEventArgs e)
         {
             Console.WriteLine("WebSocket error: " + e.Exception.Message);
+            Model.getInstance().frmFrame.lamp_ems.On = false;
         }
 
 
@@ -59,12 +63,21 @@ namespace BatteryChangeCharger.OCPP
         private void WebSocket_Closed(object sender, EventArgs e)
         {
             Console.WriteLine("WebSocket connection closed.");
+            Model.getInstance().frmFrame.lamp_ems.On = false;
         }
 
         private async void WebSocket_Opened(object sender, EventArgs e)
         {
             Console.WriteLine("WebSocket connection opened.");
+            Model.getInstance().frmFrame.lamp_ems.On = true;
             string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
+            JArray jsonArray = JArray.Parse(response);
+            if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
+            {
+                Model.getInstance().Send_bootnotification = true;
+                Model.getInstance().frmFrame.viewForm(0);
+                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
+            }
         }
 
         public async Task<string> SendMessageAndWaitForResponseAsync(string message)
@@ -78,6 +91,8 @@ namespace BatteryChangeCharger.OCPP
             var tcs = new TaskCompletionSource<string>();
             responseTasks.TryAdd(currentRequestId, tcs);
 
+
+            Console.WriteLine("Message SEND : " + message);
             // 메시지 전송
             websocket.Send(message);
 

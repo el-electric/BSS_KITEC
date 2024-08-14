@@ -28,19 +28,25 @@ namespace EL_BSS
         public List<IObserver> observers = new List<IObserver>();
         private Model.SlaveSend slaveSend;
 
-        public UC_Main userControl1 = new UC_Main();
-        frmMain frmMain = new frmMain();
-        frmManual frmManual = new frmManual();
-        FWupdate FWupdate = new FWupdate();
-        frmCodeInput frmCodeInput = new frmCodeInput();
-        frmCSMSSetting frmCSMSSetting = new frmCSMSSetting();
-        frmNoti frmNoti = new frmNoti();
+        public UC_Main userControl1;
+        frmMain frmMain;
+        frmManual frmManual;
+        FWupdate FWupdate;
+        frmCodeInput frmCodeInput;
+        frmCSMSSetting frmCSMSSetting;
+        frmNoti frmNoti;
 
         public frmFrame()
         {
-            Model.getInstance().setTouchManger(this);
             InitializeComponent();
+            getInstance().frmFrame = this;
+            Model.getInstance().setTouchManger(this);
+
             CheckForIllegalCrossThreadCalls = false;
+
+
+
+
         }
         protected override CreateParams CreateParams
         {
@@ -56,8 +62,18 @@ namespace EL_BSS
 
         private void frmFrame_Load(object sender, EventArgs e)
         {
-            getInstance().frmFrame = this;
+
+            userControl1 = new UC_Main();
+            frmMain = new frmMain();
+            frmManual = new frmManual();
+            FWupdate = new FWupdate();
+            frmCodeInput = new frmCodeInput();
+            frmCSMSSetting = new frmCSMSSetting();
+            frmNoti = new frmNoti();
+
             initForm();
+
+
 
             showNotiForm("Attempt to connect to server");
             //viewForm(0);
@@ -90,6 +106,8 @@ namespace EL_BSS
                 MessageBox.Show("마스터 포트 오픈 실패");
             if (!sp_Slave.Open(Model.getInstance().Slave_PortName))
                 MessageBox.Show("슬레이브 포트 오픈 실패");
+
+            getInstance().oCPP_Comm_Manager.WebSocketOpen();
 
         }
 
@@ -184,7 +202,7 @@ namespace EL_BSS
                 case 10:
                     ThreadRun = false;
                     userControl1.timer.Stop();
-                    userControl1.timer.Dispose();                    
+                    userControl1.timer.Dispose();
 
 
 
