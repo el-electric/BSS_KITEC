@@ -40,9 +40,9 @@ namespace EL_BSS.Cycle
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 1:
-                    string puttext = "사용자 이름 : " + getInstance().Authorize.userName + "\n" + "배터리 세트 : " + getInstance().Authorize.batterySetName + "\n" + "구독 여부 : " + getInstance().Authorize.ticketAvailable_value  +"\n" + "잔여캐시 : " + getInstance().Authorize.cashBalance + "원";
+                    string puttext = "사용자 이름 : " + getInstance().Authorize.userName + "\n" + "배터리 세트 : " + getInstance().Authorize.batterySetName + "\n" + "구독 여부 : " + getInstance().Authorize.ticketAvailable_value + "\n" + "잔여캐시 : " + getInstance().Authorize.cashBalance + "원";
                     getInstance().frmFrame.showNotiForm(puttext);
-                    NextStep();                    
+                    NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 2:
                     CsWakeup.interverWakeUP();
@@ -240,19 +240,19 @@ namespace EL_BSS.Cycle
                         JumpStep(0);
                     }
                     break;
-                
+
             }
 
-            for (int c = 1; c < 9; c++)
-            {
-                if (Model.getInstance().list_SlaveSend[c - 1].BatteryOutput == true && Model.getInstance().list_SlaveRecv[c - 1].ChargingStatus == 100)
-                {
-                    CsCharging.Main_WorkCycle(c);
-                }
-            }
+            //for (int c = 1; c < 9; c++)
+            //{
+            //    if (Model.getInstance().list_SlaveSend[c - 1].BatteryOutput == true && Model.getInstance().list_SlaveRecv[c - 1].ChargingStatus == 100)
+            //    {
+            //        CsCharging.Main_WorkCycle(c);
+            //    }
+            //}
 
 
-                CsWakeup.interverWakeUP();
+            CsWakeup.interverWakeUP();
         }
 
 
@@ -260,7 +260,7 @@ namespace EL_BSS.Cycle
         static DateTime nextMeterValues = DateTime.Now.AddSeconds(getInstance().MeterValuesInterval);
         static DateTime nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
         public static void OCPP_IntervalCycle()
-        {            
+        {
             if (DateTime.Now >= nextHeartBeatTime)
             {
                 //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_HeartBeat();

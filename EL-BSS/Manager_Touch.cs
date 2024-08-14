@@ -60,7 +60,7 @@ namespace EL_BSS
                 if (!Model.getInstance().DT_Screen_Touch_Time.AddMinutes(5).IsAfter(DateTime.Now))
                 {
                     Model.getInstance().DT_Screen_Touch_Time = DateTime.Now;
-                    SetBrightness(10);
+                    //SetBrightness(10);
                 }
 
                 Thread.Sleep(1000);
