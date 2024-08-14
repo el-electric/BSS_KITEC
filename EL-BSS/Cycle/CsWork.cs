@@ -45,7 +45,7 @@ namespace EL_BSS.Cycle
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 2:
-                    CsWakeup.interverWakeUP();
+                    /*CsWakeup.interverWakeUP();*/
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 3:
@@ -100,17 +100,65 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 case CsDefine.CYC_MAIN + 5:  // wakeup 시퀀스
-                    if (_slot_Count == 2)
+                    /*if (_slot_Count == 2)
                     {
                         _slot_Count = 0;
                         NextStep();
+                    }*/
+
+                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_TEMP;
+
+
+                    if (getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].WAKEUP_Signal && getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].WAKEUP_Signal)
+                    {
+                        if ((getInstance().Authorize.returnbatteryId[0] == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString() &&  // 서버에서 받은 batteryid와 배터리에서 받은 serialnum이 일치할때
+                        getInstance().Authorize.returnbatteryId[1] == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString())
+                        ||
+                        (getInstance().Authorize.returnbatteryId[1] == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString() &&
+                         getInstance().Authorize.returnbatteryId[0] == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString()))
+                        {
+                            string response = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(Model.getInstance().Retreive_slot, Model.getInstance().Lent_slot);
+
+                            switch (response)
+                            {
+                                case "00000":
+                                    getInstance().frmFrame.showNotiForm("배터리 인증 성공");
+                                    NextStep();
+                                    break;
+                                case "11101":
+                                    getInstance().frmFrame.showNotiForm("배터리를 찾을 수 없습니다.");
+                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                                    break;
+                                case "11102":
+                                    getInstance().frmFrame.showNotiForm("배터리 세트를 찾을 수 없습니다.");
+                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                                    break;
+                                case "10002":
+                                    getInstance().frmFrame.showNotiForm("이용자가 없습니다.");
+                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                                    break;
+                                case "12102":
+                                    getInstance().frmFrame.showNotiForm("스테이션이 존재하지 않습니다");
+                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                                    break;
+                                default:
+                                    getInstance().frmFrame.showNotiForm("없는 애러코드");
+                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                                    break;
+                            }
+                        }
+                        NextStep();
                     }
-                    else
+                    else if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 10000)
+                    {
+
+                    }
+                    /*else
                     {
                         CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_WAKEUP; // 반납받은 슬롯의 배터리를 확인한다
-                    }
+                    }*/
                     break;
-                case CsDefine.CYC_WAKEUP:
+                /*case CsDefine.CYC_WAKEUP:
                     bool wakeupflag = CsWakeup.isWakeUP(getInstance().Lent_slot[_slot_Count]);
 
                     if (wakeupflag) { _slot_Count++; }  // 슬롯의 배터리를 받아서 Wakeup을 받으면
@@ -125,7 +173,7 @@ namespace EL_BSS.Cycle
                     {
                         CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN + 5;
                     }
-                    break;
+                    break;*/
                 case CsDefine.CYC_MAIN + 6:  // feton 시퀀스
                     if (_slot_Count == 2)
                     {
@@ -239,6 +287,9 @@ namespace EL_BSS.Cycle
                     {
                         JumpStep(0);
                     }
+                    break;
+
+                case CsDefine.CYC_TEMP:
                     break;
 
             }

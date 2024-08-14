@@ -32,7 +32,7 @@ namespace EL_BSS
 
         private void NumClick(object sender, EventArgs e)
         {
-            if (tb_intput.Text.Length < 6)
+            if (tb_intput.Text.Length < 10)
             {
                 tb_intput.Text += ((DrakeUIButton)sender).Text;
             }

@@ -119,7 +119,7 @@ namespace EL_BSS
 
                     ///////////////////////////////// SOC ///////////////////////////////////////////
 
-                    if (Model.getInstance().list_SlaveRecv[i].SOC > 0)
+                    if (Model.getInstance().list_SlaveRecv[i].SOC > 0 && Model.getInstance().list_SlaveRecv[i].BatterArrive && Model.getInstance().list_SlaveRecv[i].WAKEUP_Signal)
                     {
                         int soc = Model.getInstance().list_SlaveRecv[i].SOC;
 
@@ -180,6 +180,6 @@ namespace EL_BSS
             frmFrame.deleMenuClick(3);
 
             Keyboard.ClearFocus();
-        }        
+        }
     }
 }

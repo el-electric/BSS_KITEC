@@ -244,7 +244,6 @@ namespace EL_BSS.Serial
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryFETON = false;
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryWakeup = false;
                 Model.getInstance().list_SlaveSend[idx - 1].BatteryOutput = false;
-                //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StopTransaction(idx, "완충 종료");
             }
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
@@ -277,7 +276,7 @@ namespace EL_BSS.Serial
             if (Model.getInstance().list_SlaveRecv[idx - 1].overDischarge) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Over_Discharge); }
             Model.getInstance().list_SlaveRecv[idx - 1].overCharging = EL_Manager_Conversion.getFlagByByteArray(packet[52], 7);
             if (Model.getInstance().list_SlaveRecv[idx - 1].overCharging) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Over_Charge); }
-            
+
             Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverCharging = EL_Manager_Conversion.getFlagByByteArray(packet[53], 3);
             if (Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverCharging) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Regeneration_OverCharge); }
             Model.getInstance().list_SlaveRecv[idx - 1].cell_LowTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 4);
@@ -324,7 +323,7 @@ namespace EL_BSS.Serial
             if (Model.getInstance().list_SlaveRecv[idx - 1].PreChargeError) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pre_Charge_Error); }
 
             Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal = EL_Manager_Conversion.getFlagByByteArray(packet[56], 0);
-            
+
             Model.getInstance().list_SlaveRecv[idx - 1].BMSReadyState = EL_Manager_Conversion.getFlagByByteArray(packet[56], 1);
             Model.getInstance().list_SlaveRecv[idx - 1].VCU_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 2);
             Model.getInstance().list_SlaveRecv[idx - 1].charger_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 3);
@@ -362,7 +361,7 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68]) - 40);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[69], packet[70]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Low_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[71], packet[72]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Cell_Belancing_Flag = EL_Manager_Conversion.getInt_2Byte(packet[73] , packet[74]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Cell_Belancing_Flag = EL_Manager_Conversion.getInt_2Byte(packet[73], packet[74]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Moduel_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[75], packet[76]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_01 = EL_Manager_Conversion.getInt_2Byte(packet[77], packet[78]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_02 = EL_Manager_Conversion.getInt_2Byte(packet[79], packet[80]);
@@ -389,7 +388,7 @@ namespace EL_BSS.Serial
 
             if (Model.getInstance().Send_bootnotification)
             {
-                if (Model.getInstance().Check_statusnotification[idx -1] == null)
+                if (Model.getInstance().Check_statusnotification[idx - 1] == null)
                 {
                     Model.getInstance().Check_statusnotification[idx - 1] = Check_Status(idx - 1);
                     Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(idx - 1, Model.getInstance().Check_statusnotification[idx - 1]);
@@ -411,7 +410,7 @@ namespace EL_BSS.Serial
                 !Model.getInstance().list_SlaveSend[idx - 1].hmiManual)
             { CsSlotchargingManager[idx - 1].Slot_Charging_Manage(); }
 
-            
+
         }
 
         public static bool Check_100SOC_Battery()
@@ -445,8 +444,8 @@ namespace EL_BSS.Serial
             for (int i = 1; i <= 8; i++)
             {
                 if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
-                    Model.getInstance().list_SlaveRecv[i - 1].SOC == 100 &&
-                    Model.getInstance().list_SlaveRecv[i - 1].BatteryType == Model.getInstance().Authorize.batteryType.ToString() &&
+                    Model.getInstance().list_SlaveRecv[i - 1].SOC >= 90 &&
+                    Model.getInstance().list_SlaveRecv[i - 1].Check_BatteryVoltage_Type == Model.getInstance().Authorize.batteryType &&
                     check_Retreive_slot_Count != 2
                     )
                 {

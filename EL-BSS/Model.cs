@@ -860,7 +860,8 @@ namespace EL_BSS
             Wake_Up_Error,              // Wake Up 에러
             Door_Closing_Error,         // 문 닫힘 에러
             Door_Opening_Error,         // 문 열림 에러
-            Power_Pack_Error            // 파워팩 에러
+            Power_Pack_Error,            // 파워팩 에러
+            Control_Board_Connect_Error
         }
     }
 }
