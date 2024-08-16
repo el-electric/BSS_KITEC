@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using WebSocket4Net;
 using SuperSocket.ClientEngine;
 using System.Security.Cryptography;
+using System.Windows;
 
 namespace BatteryChangeCharger.OCPP
 {
@@ -49,11 +50,11 @@ namespace BatteryChangeCharger.OCPP
 
         public void WebSocketOpen()
         {
-
             websocket.Open();
         }
         private void WebSocket_Error(object sender, ErrorEventArgs e)
         {
+            MessageBox.Show("error " +  e.Exception.Message);
             Console.WriteLine("WebSocket error: " + e.Exception.Message);
             Model.getInstance().frmFrame.lamp_ems.On = false;
         }
@@ -62,6 +63,7 @@ namespace BatteryChangeCharger.OCPP
 
         private void WebSocket_Closed(object sender, EventArgs e)
         {
+            MessageBox.Show("WebSocket connection closed.");
             Console.WriteLine("WebSocket connection closed.");
             Model.getInstance().frmFrame.lamp_ems.On = false;
         }

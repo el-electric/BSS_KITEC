@@ -84,7 +84,7 @@ namespace EL_BSS
             barcodeWriter.Options.Margin = 0;
             barcodeWriter.Options.Width = 180;
             barcodeWriter.Options.Height = 180;
-            string qr_data = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\Config.ini", "STATION", "ID");
+            string qr_data = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\Config.ini", "CSMS", "chargeBoxSerialNumber");
             if (qr_data != "")
                 img_qr.Source = ConvertBitmapToBitmapImage(barcodeWriter.Write(qr_data));
 

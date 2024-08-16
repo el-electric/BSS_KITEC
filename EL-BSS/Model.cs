@@ -298,6 +298,7 @@ namespace EL_BSS
             public bool Ready_State;
             public bool Emergence_State;
             public bool Protect_State;
+            public bool BMS_ERR_State;
             public bool Balancing_State;
 
             //57
@@ -535,7 +536,10 @@ namespace EL_BSS
             if (list_SlaveSend[idx - 1].z1CommandDisregard)
                 bytes[17] |= 0x04;
             if (list_SlaveSend[idx - 1].doorOpen)
+            {
                 bytes[17] |= 0x02;
+                list_SlaveSend[idx - 1].BatteryWakeup = false;
+            }
 
             bytes[18] = 0;
 

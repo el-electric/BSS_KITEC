@@ -24,10 +24,16 @@ namespace EL_BSS.Cycle
 
         public async static void Main_WorkCycle() //자동동작 시퀀스
         {
-            if (Model.Dt_SendInterval.AddSeconds(Model.SendInterval) > DateTime.Now)
+            if (Model.Dt_SendInterval.AddSeconds(Model.SendInterval) < DateTime.Now && Model.getInstance().Send_bootnotification)
             {
                 ///////////////////////////////////
+                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
+                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(1);
 
+                for (int i = 0; i < 8; i++)
+                {
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(i);
+                }
 
                 ///////////////////////////////////
                 Model.Dt_SendInterval = DateTime.Now;
@@ -109,109 +115,83 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 case CsDefine.CYC_MAIN + 5:  // wakeup 시퀀스
-                    /*if (_slot_Count == 2)
-                    {
-                        _slot_Count = 0;
-                        NextStep();
-                    }*/
-
-                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_TEMP;
-
 
                     if (getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].WAKEUP_Signal && getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].WAKEUP_Signal)
                     {
-                        if ((getInstance().Authorize.returnbatteryId[0] == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString() &&  // 서버에서 받은 batteryid와 배터리에서 받은 serialnum이 일치할때
-                        getInstance().Authorize.returnbatteryId[1] == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString())
-                        ||
-                        (getInstance().Authorize.returnbatteryId[1] == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString() &&
-                         getInstance().Authorize.returnbatteryId[0] == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString()))
-                        {
-                            string response = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(Model.getInstance().Retreive_slot, Model.getInstance().Lent_slot);
-
-                            switch (response)
-                            {
-                                case "00000":
-                                    getInstance().frmFrame.showNotiForm("배터리 인증 성공");
-                                    NextStep();
-                                    break;
-                                case "11101":
-                                    getInstance().frmFrame.showNotiForm("배터리를 찾을 수 없습니다.");
-                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
-                                    break;
-                                case "11102":
-                                    getInstance().frmFrame.showNotiForm("배터리 세트를 찾을 수 없습니다.");
-                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
-                                    break;
-                                case "10002":
-                                    getInstance().frmFrame.showNotiForm("이용자가 없습니다.");
-                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
-                                    break;
-                                case "12102":
-                                    getInstance().frmFrame.showNotiForm("스테이션이 존재하지 않습니다");
-                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
-                                    break;
-                                default:
-                                    getInstance().frmFrame.showNotiForm("없는 애러코드");
-                                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
-                                    break;
-                            }
-                        }
+                        getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].BatteryFETON = true;
+                        getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].BatteryFETON = true;
                         NextStep();
                     }
                     else if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 10000)
                     {
-
+                        mainFormLabelUpdate("배터리를 다시 장착해주세요.");
+                        getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                        getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                        JumpStep(CsDefine.CYC_MAIN + 4);
                     }
-                    /*else
-                    {
-                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_WAKEUP; // 반납받은 슬롯의 배터리를 확인한다
-                    }*/
                     break;
-                /*case CsDefine.CYC_WAKEUP:
-                    bool wakeupflag = CsWakeup.isWakeUP(getInstance().Lent_slot[_slot_Count]);
-
-                    if (wakeupflag) { _slot_Count++; }  // 슬롯의 배터리를 받아서 Wakeup을 받으면
-                    else // wake up을 받지 못한다면
-                    {
-                        getInstance().list_SlaveSend[getInstance().Lent_slot[_slot_Count] - 1].doorOpen = true;
-                        mainFormLabelUpdate("문이 열린 슬롯의 배터리를 다시 장착해주세요.");
-                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN + 4;
-                    }
-
-                    if (_slot_Count == 2)
-                    {
-                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN + 5;
-                    }
-                    break;*/
                 case CsDefine.CYC_MAIN + 6:  // feton 시퀀스
-                    if (_slot_Count == 2)
+                    if (getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].FET_ON_State && getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].FET_ON_State)
                     {
-                        _slot_Count = 0;
+                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_TEMP;  // 함수실행중 또 함수가 실행되는 것을 막음
+                    }
+                    else if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 10000)
+                    {
+                        mainFormLabelUpdate("배터리를 다시 장착해주세요.");
+                        getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                        getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                        JumpStep(CsDefine.CYC_MAIN + 4);
+                    }
+                    break;
+
+                case CsDefine.CYC_MAIN + 7:
+                    NextStep();
+                    break;
+                case CsDefine.CYC_MAIN + 8:
+                    if (CsCharging.isCharging(getInstance().Lent_slot[0]) && CsCharging.isCharging(getInstance().Lent_slot[1]))
+                    {
+                        mainFormLabelUpdate("반납이 완료 되었습니다.");
                         NextStep();
                     }
-                    else
+                    break;
+                case CsDefine.CYC_MAIN + 9:
+                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
                     {
-                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_FETON;
+                        getInstance().list_SlaveSend[getInstance().Retreive_slot[0] - 1].doorOpen = true;
+                        getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
+                        mainFormLabelUpdate("문이 열린 슬롯의 배터리를 가져가 주세요.");
+                        NextStep();
                     }
                     break;
-                case CsDefine.CYC_FETON:
-                    bool FETonflag = CsWakeup.isFETon(getInstance().Lent_slot[_slot_Count]);
-                    if (FETonflag) { _slot_Count++; }
-                    else
+                case CsDefine.CYC_MAIN + 10:
+                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive &&
+                        !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
-                        getInstance().list_SlaveSend[getInstance().Lent_slot[_slot_Count] - 1].doorOpen = true;
-                        mainFormLabelUpdate("문이 열린 슬롯의 배터리를 다시 장착해주세요.");
-                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN + 4;
+                        mainFormLabelUpdate("감사합니다. 안녕히가세요.");
+                        NextStep();
                     }
-
-                    if (_slot_Count == 2)
+                    else if (!Model.getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive)
                     {
-                        _slot_Count = 0;
-                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN + 8;
+                        getInstance().list_SlaveSend[getInstance().Retreive_slot[0] - 1].doorOpen = true;
+                        mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
                     }
-
+                    else if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && Model.getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
+                    {
+                        getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
+                        mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
+                    }
                     break;
-                case CsDefine.CYC_MAIN + 7:
+                case CsDefine.CYC_MAIN + 11:
+                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
+                    {
+                        JumpStep(0);
+                    }
+                    break;
+
+                case CsDefine.CYC_TEMP:
+
+                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_TEMP + 1;
+
                     if ((getInstance().Authorize.returnbatteryId[0] == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString() &&  // 서버에서 받은 batteryid와 배터리에서 받은 serialnum이 일치할때
                         getInstance().Authorize.returnbatteryId[1] == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString())
                         ||
@@ -255,50 +235,9 @@ namespace EL_BSS.Cycle
                         CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                     }
                     break;
-                case CsDefine.CYC_MAIN + 8:
-                    if (CsCharging.isCharging(getInstance().Lent_slot[0]) && CsCharging.isCharging(getInstance().Lent_slot[1]))
-                    {
-                        /*Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StartTrnasaction(getInstance().Lent_slot[0] - 1);
-                        Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StartTrnasaction(getInstance().Lent_slot[1] - 1);*/
-                        mainFormLabelUpdate("반납이 완료 되었습니다.");
-                        NextStep();
-                    }
-                    break;
-                case CsDefine.CYC_MAIN + 9:
-                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
-                    {
-                        getInstance().list_SlaveSend[getInstance().Retreive_slot[0] - 1].doorOpen = true;
-                        getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
-                        mainFormLabelUpdate("문이 열린 슬롯의 배터리를 가져가 주세요.");
-                        NextStep();
-                    }
-                    break;
-                case CsDefine.CYC_MAIN + 10:
-                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive &&
-                        !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
-                    {
-                        mainFormLabelUpdate("감사합니다. 안녕히가세요.");
-                        NextStep();
-                    }
-                    else if (!Model.getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive)
-                    {
-                        getInstance().list_SlaveSend[getInstance().Retreive_slot[0] - 1].doorOpen = true;
-                        mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
-                    }
-                    else if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && Model.getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
-                    {
-                        getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
-                        mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
-                    }
-                    break;
-                case CsDefine.CYC_MAIN + 11:
-                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
-                    {
-                        JumpStep(0);
-                    }
-                    break;
 
-                case CsDefine.CYC_TEMP:
+                case CsDefine.CYC_TEMP + 1:
+
                     break;
 
             }
@@ -345,6 +284,7 @@ namespace EL_BSS.Cycle
         private static void JumpStep(int step)
         {
             CurrentStep = step;
+
             CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = step;
         }
 

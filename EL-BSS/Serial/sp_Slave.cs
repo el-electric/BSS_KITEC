@@ -323,7 +323,6 @@ namespace EL_BSS.Serial
             if (Model.getInstance().list_SlaveRecv[idx - 1].PreChargeError) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pre_Charge_Error); }
 
             Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal = EL_Manager_Conversion.getFlagByByteArray(packet[56], 0);
-
             Model.getInstance().list_SlaveRecv[idx - 1].BMSReadyState = EL_Manager_Conversion.getFlagByByteArray(packet[56], 1);
             Model.getInstance().list_SlaveRecv[idx - 1].VCU_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 2);
             Model.getInstance().list_SlaveRecv[idx - 1].charger_Connect = EL_Manager_Conversion.getFlagByByteArray(packet[56], 3);
@@ -332,12 +331,14 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].charge_FET_State = EL_Manager_Conversion.getFlagByByteArray(packet[56], 6);
             Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State = EL_Manager_Conversion.getFlagByByteArray(packet[56], 7);
 
-            Model.getInstance().list_SlaveRecv[idx - 1].Charge_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 1);
-            Model.getInstance().list_SlaveRecv[idx - 1].Discharge_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 2);
-            Model.getInstance().list_SlaveRecv[idx - 1].Regeneration_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 3);
-            Model.getInstance().list_SlaveRecv[idx - 1].Ready_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 4);
-            Model.getInstance().list_SlaveRecv[idx - 1].Emergence_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 5);
-            Model.getInstance().list_SlaveRecv[idx - 1].Protect_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 6);
+            Model.getInstance().list_SlaveRecv[idx - 1].Charge_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 0);
+            Model.getInstance().list_SlaveRecv[idx - 1].Discharge_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 1);
+            Model.getInstance().list_SlaveRecv[idx - 1].Regeneration_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 2);
+            Model.getInstance().list_SlaveRecv[idx - 1].Ready_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 3);
+            Model.getInstance().list_SlaveRecv[idx - 1].Emergence_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 4);
+            Model.getInstance().list_SlaveRecv[idx - 1].Protect_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 5);
+            Model.getInstance().list_SlaveRecv[idx - 1].BMS_ERR_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 6);
+            if (Model.getInstance().list_SlaveRecv[idx - 1].BMS_ERR_State) { Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(idx - 1, Battery_Error_Code.Pre_Charge_Error); }
             Model.getInstance().list_SlaveRecv[idx - 1].Balancing_State = EL_Manager_Conversion.getFlagByByteArray(packet[57], 7);
 
             Model.getInstance().list_SlaveRecv[idx - 1].ROM_Check = EL_Manager_Conversion.getFlagByByteArray(packet[58], 0);
@@ -445,7 +446,7 @@ namespace EL_BSS.Serial
             {
                 if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
                     Model.getInstance().list_SlaveRecv[i - 1].SOC >= 90 &&
-                    Model.getInstance().list_SlaveRecv[i - 1].Check_BatteryVoltage_Type == Model.getInstance().Authorize.batteryType &&
+                    Model.getInstance().list_SlaveRecv[i - 1].Check_BatteryVoltage_Type == Model.getInstance().Authorize.type &&
                     check_Retreive_slot_Count != 2
                     )
                 {
