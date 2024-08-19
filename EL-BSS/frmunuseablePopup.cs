@@ -21,7 +21,7 @@ namespace EL_BSS
 
         private void button1_Click(object sender, EventArgs e)
         {
-           this.Close();
+           
         }
 
         public void set_lb_Noti(string message)

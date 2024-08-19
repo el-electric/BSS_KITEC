@@ -163,6 +163,8 @@ namespace EL_BSS
 
         public DateTime DT_Screen_Touch_Time = DateTime.Now;
 
+        public bool is_Master_Errror_occured = false;
+
         public class MasterSend
         {
             public bool boardReset;
@@ -535,11 +537,9 @@ namespace EL_BSS
 
             if (list_SlaveSend[idx - 1].z1CommandDisregard)
                 bytes[17] |= 0x04;
-            if (list_SlaveSend[idx - 1].doorOpen)
-            {
+            if (list_SlaveSend[idx - 1].doorOpen)      
                 bytes[17] |= 0x02;
-                list_SlaveSend[idx - 1].BatteryWakeup = false;
-            }
+            
 
             bytes[18] = 0;
 
@@ -777,6 +777,17 @@ namespace EL_BSS
                 return true;
             }
         }
+
+        public void ChargingStop_All_Slot()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Model.getInstance().list_SlaveSend[i].BatteryWakeup = false;
+                Model.getInstance().list_SlaveSend[i].BatteryFETON = false;
+                Model.getInstance().list_SlaveSend[i].BatteryOutput = false;
+                Model.getInstance().list_SlaveSend[i].Output = false;
+            }
+        }
         public enum enumData
         {
             BootNotification,
@@ -827,7 +838,10 @@ namespace EL_BSS
             AddInfoErrorEvent,
             Ready,
             WakeUp,
-            FETON
+            FETON,
+            SLOT_EMPTY,
+            BATTERY_INSERT,
+            CHARGING
         }
 
         public enum Battery_Error_Code
@@ -861,6 +875,7 @@ namespace EL_BSS
             Short_Circuit_Protect,                  // 단락 보호
             VCU_Error,                              // VCU 에러
             Pre_Charge_Error,                       // Pre Charge 에러
+            BMS_Error,
 
             Slot_Temperature_Error,     // 슬롯 온도센서 에러
             FET_On_Error,               // FET ON 에러
@@ -868,7 +883,7 @@ namespace EL_BSS
             Door_Closing_Error,         // 문 닫힘 에러
             Door_Opening_Error,         // 문 열림 에러
             Power_Pack_Error,            // 파워팩 에러
-            Control_Board_Connect_Error
+            Control_Board_Error
         }
     }
 }

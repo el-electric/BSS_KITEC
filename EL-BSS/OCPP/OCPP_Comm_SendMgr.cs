@@ -166,10 +166,25 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
         public void sendOCPP_CP_Req_AddInfoStationBatteryState(int ChannelIdx)
         {
-            bool chargingState;
+            bool chargingState = false;
+            string mjobSequenceName;
 
-            if (getInstance().list_SlaveRecv[ChannelIdx].ChargingStatus == 100) {chargingState = true;}
-            else { chargingState = false;}
+            if (getInstance().list_SlaveRecv[ChannelIdx].ChargingStatus == 100)
+            {
+                chargingState = true;
+                mjobSequenceName = enumData.CHARGING.ToString();
+            }
+            else if (getInstance().list_SlaveRecv[ChannelIdx].BatterArrive)
+            {
+                mjobSequenceName = enumData.BATTERY_INSERT.ToString();
+            }
+            else
+            {
+                mjobSequenceName = enumData.SLOT_EMPTY.ToString();
+            }
+            
+            
+            
             var data = new Object[]
            {
                 2,
@@ -180,7 +195,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         timeStamp = DateTime.Now.ToString(),
                         stationId = getInstance().chargeBoxSerialNumber,
                         slotId=ChannelIdx,
-                        jobSequenceName=0,
+                        jobSequenceName=mjobSequenceName,
                         isErrorOccured=0,
                         batteryId=getInstance().list_SlaveRecv[ChannelIdx].Serial_Number,
                         SOC = getInstance().list_SlaveRecv[ChannelIdx].SOC,
@@ -229,6 +244,18 @@ namespace EL_DC_Charger.ocpp.ver16.comm
         public void sendOCPP_CP_Req_StaionInfo(int ChannelIdx)
         {
             StaionInfo StaionInfo1 = new StaionInfo(ChannelIdx);
+
+            string division;
+
+            if (ChannelIdx == 0)
+            {
+                division = "Master";
+            }
+            else
+            {
+                division = "Slave";
+            }
+
             var data = new Object[]
            {
                 2,
@@ -236,7 +263,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 enumData.StationInfo.ToString(),
                     new
                     {
-                     stationId = ChannelIdx,   
+                     stationId = getInstance().chargeBoxSerialNumber,
+                     division = division,
                      Values = StaionInfo1
                     }
             };

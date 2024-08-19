@@ -179,5 +179,14 @@ namespace EL_BSS
             //drakeUIButton1.Visible = setting;
 
         }
+
+        public void show_p(string message)
+        {
+            frmunuseablePopup frmunuseablePopup = new frmunuseablePopup(message);
+            frmunuseablePopup.StartPosition = FormStartPosition.Manual;
+            frmunuseablePopup.Location = new System.Drawing.Point(ParentForm.Top, ParentForm.Top + 74);
+
+            frmunuseablePopup.ShowDialog();
+        }
     }
 }

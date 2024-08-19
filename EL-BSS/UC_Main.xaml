@@ -107,6 +107,8 @@
                 </Button.Effect>
             </Button>
 
+            <Button x:Name="btn_test"  Content="test"  FontSize="28"  Width="50" Height="50" HorizontalAlignment="Center" Margin="0,100,0,0" FocusVisualStyle="{x:Null}" Click="btn_test_Click"/>
+
         </StackPanel>
 
         <Grid VerticalAlignment="Bottom" Height="80" HorizontalAlignment="Left" Width="50" Grid.Column="0" Margin="10,0,0,10">

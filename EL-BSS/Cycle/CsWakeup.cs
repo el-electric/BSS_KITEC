@@ -108,9 +108,13 @@ namespace EL_BSS.Cycle
         {
             for (int i = 1; i <= 8; i++)
             {
-                if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive && Model.getInstance().list_SlaveRecv[i - 1].WAKEUP_Signal == false)
+                if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive && Model.getInstance().list_SlaveRecv[i - 1].WAKEUP_Signal == false && !Model.getInstance().list_SlaveRecv[i - 1].isDoor)
                 {
                     bool isWakeup = await Task.Run(() => isWakeUP(i));
+                }
+                else if (!Model.getInstance().list_SlaveRecv[i - 1].BatterArrive || Model.getInstance().list_SlaveRecv[i - 1].isDoor)
+                {
+                    Model.getInstance().list_SlaveSend[i - 1].BatteryWakeup = false;
                 }
             }
         }

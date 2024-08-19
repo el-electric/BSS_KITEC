@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
@@ -180,6 +182,14 @@ namespace EL_BSS
             frmFrame.deleMenuClick(3);
 
             Keyboard.ClearFocus();
+        }
+
+        private void btn_test_Click(object sender, RoutedEventArgs e)
+        {
+            //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
+            //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(0);
+
+            Model.getInstance().oCPP_Comm_Manager.WebSocketclose();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace EL_BSS.OCPP.packet.cp2csms
 {
@@ -14,6 +15,7 @@ namespace EL_BSS.OCPP.packet.cp2csms
         public int Charger_UpperTemper;
         public int Charger_Humidity;
         public int Charger_WaveSensor;
+        public bool Control_Board_Error;
         public StaionInfo(int index) 
         {
             vibrationWarning = Model.getInstance().list_MasterRecv[index].vibrationWarning;
@@ -22,6 +24,13 @@ namespace EL_BSS.OCPP.packet.cp2csms
             Charger_UpperTemper = Model.getInstance().list_MasterRecv[index].Charger_UpperTemper;
             Charger_Humidity = Model.getInstance().list_MasterRecv[index].Charger_Humidity;
             Charger_WaveSensor = Model.getInstance().list_MasterRecv[index].Charger_WaveSensor;
+            Control_Board_Error = false;
+
+            if (Model.getInstance().list_MasterDataRecvDatetime[index].AddSeconds(5) > DateTime.Now)
+            {
+                Control_Board_Error = true;
+            }
+
         }
 
 

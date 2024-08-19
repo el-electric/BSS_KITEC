@@ -55,7 +55,12 @@ namespace EL_BSS.Cycle
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 1:
-                    string puttext = "사용자 이름 : " + getInstance().Authorize.userName + "\n" + "배터리 세트 : " + getInstance().Authorize.batterySetName + "\n" + "구독 여부 : " + getInstance().Authorize.ticketAvailable_value + "\n" + "잔여캐시 : " + getInstance().Authorize.cashBalance + "원";
+                    string puttext =
+                        "사용자 이름 : " + getInstance().Authorize.userName + "\n" +
+                        "배터리 세트 : " + getInstance().Authorize.batterySetName + "\n" +
+                        "구독 여부 : " + getInstance().Authorize.ticketAvailable_value + "\n" +
+                        "잔여캐시 : " + getInstance().Authorize.cashBalance + "원" + "\n" +
+                        "배터리 종류 : " + "V" + getInstance().Authorize.type; 
                     getInstance().frmFrame.showNotiForm(puttext);
                     NextStep();
                     break;
@@ -168,6 +173,7 @@ namespace EL_BSS.Cycle
                         !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
                         mainFormLabelUpdate("감사합니다. 안녕히가세요.");
+                        Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished();
                         NextStep();
                     }
                     else if (!Model.getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive)
@@ -242,16 +248,7 @@ namespace EL_BSS.Cycle
 
             }
 
-            //for (int c = 1; c < 9; c++)
-            //{
-            //    if (Model.getInstance().list_SlaveSend[c - 1].BatteryOutput == true && Model.getInstance().list_SlaveRecv[c - 1].ChargingStatus == 100)
-            //    {
-            //        CsCharging.Main_WorkCycle(c);
-            //    }
-            //}
-
-
-            CsWakeup.interverWakeUP();
+            CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
         }
 
 

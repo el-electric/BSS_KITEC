@@ -186,6 +186,7 @@
     <Compile Include="CsUtil.cs" />
     <Compile Include="CsDefine.cs" />
     <Compile Include="Cycle\CsCharging.cs" />
+    <Compile Include="Cycle\CsErrorControl.cs" />
     <Compile Include="Cycle\CsSlotchargingManager.cs" />
     <Compile Include="Cycle\CsStatusCheck.cs" />
     <Compile Include="Cycle\CsWakeup.cs" />

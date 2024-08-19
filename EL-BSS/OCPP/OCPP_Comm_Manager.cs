@@ -37,6 +37,8 @@ namespace BatteryChangeCharger.OCPP
         {
             url = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://192.168.0.59:8181");
             websocket = new WebSocket(url);
+            websocket.EnableAutoSendPing = true;
+            websocket.AutoSendPingInterval = 300;
             websocket.Opened += new EventHandler(WebSocket_Opened);
             websocket.Closed += new EventHandler(WebSocket_Closed);
             websocket.MessageReceived += new EventHandler<MessageReceivedEventArgs>(WebSocket_MessageReceived);
@@ -52,10 +54,15 @@ namespace BatteryChangeCharger.OCPP
         {
             websocket.Open();
         }
+        public void WebSocketclose()
+        {
+            websocket.Close();
+        }
         private void WebSocket_Error(object sender, ErrorEventArgs e)
         {
-            MessageBox.Show("error " +  e.Exception.Message);
+            MessageBox.Show("error " + e.Exception.Message);
             Console.WriteLine("WebSocket error: " + e.Exception.Message);
+            CsUtil.WriteLog("WEBSOCKET_ERROR", "WSS");
             Model.getInstance().frmFrame.lamp_ems.On = false;
         }
 
@@ -63,13 +70,25 @@ namespace BatteryChangeCharger.OCPP
 
         private void WebSocket_Closed(object sender, EventArgs e)
         {
-            MessageBox.Show("WebSocket connection closed.");
-            Console.WriteLine("WebSocket connection closed.");
-            Model.getInstance().frmFrame.lamp_ems.On = false;
+
+            var args = e as ClosedEventArgs;
+            if (args != null)
+            {
+                CsUtil.WriteLog("WebSocket connection closed. Reason:" + args.Reason, "WSS");
+                CsUtil.WriteLog("WebSocket connection closed. Reason:" + args.ToString(), "WSS");
+            }
+            else
+            {
+                CsUtil.WriteLog("WEBSOCKET_CLOSE", "WSS");
+            }
+                MessageBox.Show("WebSocket connection closed.");
+                Console.WriteLine("WebSocket connection closed.");
+                Model.getInstance().frmFrame.lamp_ems.On = false;
         }
 
         private async void WebSocket_Opened(object sender, EventArgs e)
         {
+            CsUtil.WriteLog("WEBSOCKET_OPEN", "WSS");
             Console.WriteLine("WebSocket connection opened.");
             Model.getInstance().frmFrame.lamp_ems.On = true;
             string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
@@ -134,6 +153,7 @@ namespace BatteryChangeCharger.OCPP
             if (websocket.State == WebSocketState.Open)
             {
                 Console.WriteLine("Send to Server > " + message);
+                Logger.d("Send to Server > " + message);
                 websocket.Send(message);
             }
 
