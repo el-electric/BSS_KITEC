@@ -10,6 +10,7 @@ using System.Speech.Synthesis.TtsEngine;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using static EL_BSS.frmNotiPopup;
 
@@ -56,8 +57,8 @@ namespace EL_BSS
                 {
                     Power_Pack_State.Text = "OFF";
                 }
-
-                switch (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].ProcessStatus.ToString())
+                ///////////////////////////////////////////////////////////////////////////////////////////
+                /*switch (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].ProcessStatus.ToString())
                 {
 
                     case "1":
@@ -87,8 +88,33 @@ namespace EL_BSS
                     default:
                         val = "";
                         break;
+                }*/
+
+                if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].ProcessStatus == 100)
+                {
+                    val = "충전 중";
                 }
+                else if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].FET_ON_State)
+                {
+                    val = "FET ON";
+                }
+                else if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].WAKEUP_Signal == true)
+                {
+                    val = "Wake Up";
+                }
+                else if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatterArrive)
+                {
+                    val = "배터리 도착";
+                }
+                else
+                {
+                    val = "대기 중";
+                }
+
+
                 Process_State.Text = val;
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////
 
                 Power_Pack_outvoltage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].PowerPackVoltage / 10).ToString();
                 Power_Pack_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].PowerPackWattage / 10).ToString();
@@ -98,7 +124,8 @@ namespace EL_BSS
                 Battery_Current_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryCurrentWattage / 10).ToString();
                 Battery_Highest_temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMaxTemper.ToString() + " / " + Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMinTemper.ToString();
 
-                Bettery_Type.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryType.ToString();
+                /*Bettery_Type.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryType.ToString();*/
+                Bettery_Type.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].Check_BatteryVoltage_Type.ToString() + " V";
 
                 FET_Temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].FET_Temper.ToString();
 
@@ -108,6 +135,8 @@ namespace EL_BSS
 
             if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatterArrive) lb_battery_arrive.Text = "있음";
             else lb_battery_arrive.Text = "없음";
+
+            Slot_Temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].Battery_Slot_Temp.ToString();
 
         }
 

@@ -55,6 +55,9 @@ namespace EL_BSS
 
             Loaded += UC_Main_Loaded;
 
+#if DEBUG
+            btn_test.Visibility = Visibility.Visible;
+#endif
 
         }
 
@@ -133,7 +136,7 @@ namespace EL_BSS
                             borders[i].Background = blueBrush;
 
                         panels[i].Visibility = Visibility.Visible;
-                        socs[i].Text = soc + "%";
+                        socs[i].Text = " " + soc + "%" + " - " + Model.getInstance().list_SlaveRecv[i].Check_BatteryVoltage_Type.ToString() + "V" + " ";
                     }
 
                     else
@@ -184,12 +187,14 @@ namespace EL_BSS
             Keyboard.ClearFocus();
         }
 
-        private void btn_test_Click(object sender, RoutedEventArgs e)
+        private void btn_test_Click_1(object sender, RoutedEventArgs e)
         {
             //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
             //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(0);
 
-            Model.getInstance().oCPP_Comm_Manager.WebSocketclose();
+            // Model.getInstance().oCPP_Comm_Manager.WebSocketclose();
+
+            Model.getInstance().frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
         }
     }
 }

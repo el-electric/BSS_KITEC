@@ -235,6 +235,19 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestWattage = EL_Manager_Conversion.getInt_2Byte(packet[31], packet[32]);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = (EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]) - 40);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = (EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]) - 40);
+
+            if (Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal) 
+            {
+                Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = (EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]) - 40);
+                Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = (EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]) - 40);
+            }
+            else 
+            {
+                Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]);
+                Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]);
+            }
+
+
             Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
@@ -323,6 +336,9 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].All_Pack_Deviation_Error = EL_Manager_Conversion.getFlagByByteArray(packet[58], 7);
 
             Model.getInstance().list_SlaveRecv[idx - 1].FET_Temper = (EL_Manager_Conversion.getInt(packet[59]) - 40);
+
+            if (Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal) { Model.getInstance().list_SlaveRecv[idx - 1].FET_Temper = (EL_Manager_Conversion.getInt(packet[59]) - 40); }
+            else { Model.getInstance().list_SlaveRecv[idx - 1].FET_Temper = EL_Manager_Conversion.getInt(packet[59]); }
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_FW_Version = EL_Manager_Conversion.getInt(packet[60]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Model = EL_Manager_Conversion.getInt_2Byte(packet[61], packet[62]);
             Model.getInstance().list_SlaveRecv[idx - 1].Year = EL_Manager_Conversion.getInt(packet[63]);

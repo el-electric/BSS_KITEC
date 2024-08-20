@@ -74,12 +74,14 @@
             this.set_Current = new System.Windows.Forms.Button();
             this.put_Battery_curent = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lb_battery_arrive = new System.Windows.Forms.Label();
             this.lb_serial_num = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.FET_Temp = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.manual_on = new System.Windows.Forms.Button();
-            this.lb_battery_arrive = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.Slot_Temp = new System.Windows.Forms.Label();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -613,6 +615,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.Slot_Temp);
+            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.lb_battery_arrive);
             this.groupBox2.Controls.Add(this.lb_serial_num);
             this.groupBox2.Controls.Add(this.label2);
@@ -627,6 +631,17 @@
             this.groupBox2.TabIndex = 49;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "배터리";
+            // 
+            // lb_battery_arrive
+            // 
+            this.lb_battery_arrive.BackColor = System.Drawing.Color.White;
+            this.lb_battery_arrive.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_arrive.Location = new System.Drawing.Point(318, 86);
+            this.lb_battery_arrive.Name = "lb_battery_arrive";
+            this.lb_battery_arrive.Size = new System.Drawing.Size(88, 37);
+            this.lb_battery_arrive.TabIndex = 50;
+            this.lb_battery_arrive.Text = "없음";
+            this.lb_battery_arrive.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lb_serial_num
             // 
@@ -682,16 +697,27 @@
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
             // 
-            // lb_battery_arrive
+            // label4
             // 
-            this.lb_battery_arrive.BackColor = System.Drawing.Color.White;
-            this.lb_battery_arrive.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_battery_arrive.Location = new System.Drawing.Point(318, 86);
-            this.lb_battery_arrive.Name = "lb_battery_arrive";
-            this.lb_battery_arrive.Size = new System.Drawing.Size(88, 37);
-            this.lb_battery_arrive.TabIndex = 50;
-            this.lb_battery_arrive.Text = "100%";
-            this.lb_battery_arrive.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Location = new System.Drawing.Point(457, 242);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 37);
+            this.label4.TabIndex = 51;
+            this.label4.Text = "슬롯 온도";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // Slot_Temp
+            // 
+            this.Slot_Temp.BackColor = System.Drawing.Color.White;
+            this.Slot_Temp.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Slot_Temp.Location = new System.Drawing.Point(549, 242);
+            this.Slot_Temp.Name = "Slot_Temp";
+            this.Slot_Temp.Size = new System.Drawing.Size(78, 37);
+            this.Slot_Temp.TabIndex = 52;
+            this.Slot_Temp.Text = "57.4";
+            this.Slot_Temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmSubManual
             // 
@@ -788,5 +814,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox put_Battery_voltage;
         private System.Windows.Forms.Label lb_battery_arrive;
+        private System.Windows.Forms.Label Slot_Temp;
+        private System.Windows.Forms.Label label4;
     }
 }

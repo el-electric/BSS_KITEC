@@ -447,6 +447,8 @@
     <Folder Include="OCPP\database\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\reddanger2.png" />
+    <None Include="Resources\reddanger2.bmp" />
     <Resource Include="Resources\doorOpen.png" />
     <Resource Include="Resources\bssStation.png" />
     <None Include="Resources\speechbubble1.png" />

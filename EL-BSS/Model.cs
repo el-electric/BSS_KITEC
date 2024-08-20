@@ -19,6 +19,7 @@ using EL_DC_Charger.ocpp.ver16.packet.cp2csms;
 using EL_BSS.OCPP.packet.cp2csms;
 using EL_BSS.Cycle;
 using System.Security.Cryptography.Xml;
+using System.Reflection;
 
 namespace EL_BSS
 {
@@ -346,6 +347,9 @@ namespace EL_BSS
 
             // 배터리 타입 구분
             public int Check_BatteryVoltage_Type;
+
+            //
+            public bool Error_Occured = false;
 
             ////////////
 
@@ -778,6 +782,14 @@ namespace EL_BSS
             }
         }
 
+        public void ChargingStop_Slot(int index)
+        {
+            Model.getInstance().list_SlaveSend[index].BatteryWakeup = false;
+            Model.getInstance().list_SlaveSend[index].BatteryFETON = false;
+            Model.getInstance().list_SlaveSend[index].BatteryOutput = false;
+            Model.getInstance().list_SlaveSend[index].Output = false;   
+        }
+
         public void ChargingStop_All_Slot()
         {
             for (int i = 0; i < 8; i++)
@@ -877,6 +889,7 @@ namespace EL_BSS
             Pre_Charge_Error,                       // Pre Charge 에러
             BMS_Error,
 
+
             Slot_Temperature_Error,     // 슬롯 온도센서 에러
             FET_On_Error,               // FET ON 에러
             Wake_Up_Error,              // Wake Up 에러
@@ -884,6 +897,8 @@ namespace EL_BSS
             Door_Opening_Error,         // 문 열림 에러
             Power_Pack_Error,            // 파워팩 에러
             Control_Board_Error
-        }
+        }  // 과전압 , 과전류 , 침수 , 스테이션 고온 , 배터리 고온 , 습도, 
+
+
     }
 }

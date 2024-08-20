@@ -186,6 +186,16 @@ namespace EL_BSS.Cycle
                         getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
                         mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
                     }
+
+                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive &&
+                        !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive &&
+                        CsDefine.Delayed[CsDefine.CYC_RUN] >= 30000)
+                    {
+                        Sound_Player sound_Player = new Sound_Player();
+                        mainFormLabelUpdate("문을 닫아주세요");
+                        sound_Player.play_Sound();
+                        NextStep();
+                    }
                     break;
                 case CsDefine.CYC_MAIN + 11:
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
