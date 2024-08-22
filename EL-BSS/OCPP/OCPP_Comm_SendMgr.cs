@@ -345,16 +345,9 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 enumData.DataTransfer.ToString(),
                     new
                     {
-                        /*stationId = Model.getInstance().chargeBoxSerialNumber,
+                        stationId = Model.getInstance().chargeBoxSerialNumber,
                         userNo = Model.getInstance().Authorize.userNo,
                         batterySetNo = Model.getInstance().Authorize.batterySetNo,
-                        returnBatteries = returnBatteries,
-                        lendingBattteries = lentBatteries,
-                        timestamp = DateTime.Now.ToString(),*/
-
-                        stationId = Model.getInstance().chargeBoxSerialNumber,
-                        userNo = 1,
-                        batterySetNo = 1,
                         returnBatteries = returnBatteries,
                         lendingBattteries = lentBatteries,
                         timestamp = DateTime.Now.ToString(),

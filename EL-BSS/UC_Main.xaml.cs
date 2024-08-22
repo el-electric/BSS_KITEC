@@ -49,7 +49,6 @@ namespace EL_BSS
         private BitmapImage cachedBatteryInDoorOpen;
         private BitmapImage cachedDoorOpen;
         private BitmapImage cachedEmpty;
-        private BitmapImage cashedDanger;
 
         public UC_Main()
         {
@@ -81,7 +80,6 @@ namespace EL_BSS
             cachedBatteryInDoorOpen = ConvertBitmapToBitmapImage(batteryIn_doorOpen);
             cachedDoorOpen = ConvertBitmapToBitmapImage(doorOpen);
             cachedEmpty = ConvertBitmapToBitmapImage(empty);
-            cashedDanger = ConvertBitmapToBitmapImage(Danger);
 
             redBrush = (Brush)new BrushConverter().ConvertFrom("#f32b10");
             purpleBrush = (Brush)new BrushConverter().ConvertFrom("#a618f0");
