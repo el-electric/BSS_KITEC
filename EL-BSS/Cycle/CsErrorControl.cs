@@ -1,107 +1,171 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static EL_BSS.Model;
 
 namespace EL_BSS.Cycle
 {
-    public static class CsErrorControl
+    public  class CsErrorControl
     {
-        public static void Check_Error_Occured()
+        public CsErrorControl()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Model.getInstance().Battery_Error_Code[i] = new Dictionary<Battery_Error, bool>
+                {
+                    { Battery_Error.Low_Voltage,                                  false},
+                    { Battery_Error.Over_Voltage,                                 false},
+                    { Battery_Error.Pack_Low_Voltage,                             false},
+                    { Battery_Error.Pack_High_Voltage,                            false},
+                    { Battery_Error.Cell_Regeneration_OverCharge,                 false},
+                    { Battery_Error.Pack_Regeneration_OverCharge,                 false},
+                    { Battery_Error.Over_Discharge,                               false},
+                    { Battery_Error.Over_Charge,                                  false},
+                    { Battery_Error.Regeneration_OverCharge,                      false},
+                    { Battery_Error.Cell_Low_Temperature,                         false},
+                    { Battery_Error.Cell_High_Temperature,                        false},
+                    { Battery_Error.FET_Low_Temperature,                          false},
+                    { Battery_Error.FET_High_Temperature,                         false},
+                    { Battery_Error.Low_Voltage_Protection,                       false},
+                    { Battery_Error.High_Voltage_Protection,                      false},
+                    { Battery_Error.Pack_Low_Voltage_Protection,                  false},
+                    { Battery_Error.Pack_High_Voltage_Protection,                 false},
+                    { Battery_Error.Cell_Regeneration_OverCharge_Protection,      false},
+                    { Battery_Error.Pack_Regeneration_OverCharge_Protection,      false},
+                    { Battery_Error.Over_Discharge_Protection,                    false},
+                    { Battery_Error.Over_Charge_Protection,                       false},
+                    { Battery_Error.Regeneration_OverCharge_Protection,           false},
+                    { Battery_Error.Cell_Low_Temperature_Protection,              false},
+                    { Battery_Error.Cell_High_Temperature_Protection,             false},
+                    { Battery_Error.FET_Low_Temperature_Protection,               false},
+                    { Battery_Error.FET_High_Temperature_Protection,              false},
+                    { Battery_Error.Short_Circuit_Protect,                        false},
+                    { Battery_Error.VCU_Error,                                    false},
+                    { Battery_Error.Pre_Charge_Error,                             false},
+                    { Battery_Error.BMS_Error,                                    false},
+
+                    { Battery_Error.Slot_Temperature_Error,                       false},
+                    { Battery_Error.FET_On_Error,                                 false},
+                    { Battery_Error.Wake_Up_Error,                                false},
+                    { Battery_Error.Door_Closing_Error,                           false},
+                    { Battery_Error.Door_Opening_Error,                           false},
+                    { Battery_Error.Power_Pack_Error,                             false},
+                    { Battery_Error.Control_Board_Error,                          false}
+                };
+            }
+    }
+
+        public  void Check_Error_Occured()
         {
             var model = Model.getInstance();
 
-
-            for (int m = 0; m < 2; m++)
+            if (model.frmFrame.GetfrmMain() != null)
             {
-                if (model.list_MasterRecv[m].vibrationWarning)  //지진
+                for (int m = 0; m < 2; m++)
                 {
-                    model.frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                    model.ChargingStop_All_Slot();
-                }
-                else if (model.list_MasterRecv[m].floodingDanger)  //침수
-                {
-                    model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                    model.ChargingStop_All_Slot();
-                }
-                else if (model.list_MasterRecv[m].floodingWarning)  // 침수
-                {
-                    model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                    model.ChargingStop_All_Slot();
-                }
-                else if (model.list_MasterRecv[m].Charger_Humidity > 90)
-                {
-                    model.frmFrame.GetfrmMain().show_p("습도가 높아서 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                    model.ChargingStop_All_Slot();
-                }
-                else if (model.list_MasterRecv[m].Charger_UpperTemper > 100 || model.list_MasterRecv[m].Charger_LowerTemper > 100)
-                {
-                    model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                    model.ChargingStop_All_Slot();
+                    if (model.list_MasterRecv[m].vibrationWarning)  //지진
+                    {
+                        model.frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
+                        model.list_MasterRecv[m].Error_Occured = true;
+                    }
+                    else if (model.list_MasterRecv[m].floodingDanger)  //침수
+                    {
+                        model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
+                        model.list_MasterRecv[m].Error_Occured = true;
+                    }
+                    else if (model.list_MasterRecv[m].floodingWarning)  // 침수
+                    {
+                        model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
+                        model.list_MasterRecv[m].Error_Occured = true;
+                    }
+                    else if (model.list_MasterRecv[m].Charger_Humidity > 90) // 습도 90%이상
+                    {
+                        model.frmFrame.GetfrmMain().show_p("습도가 높아서 사용이 불가합니다.\n관리자에게 문의해주세요.");
+                        model.list_MasterRecv[m].Error_Occured = true;
+                    }
+                    else if (model.list_MasterRecv[m].Charger_UpperTemper > 100) // 온도가 100도를 넘었을때
+                    {
+                        model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
+                        model.list_MasterRecv[m].Error_Occured = true;
+                    }
+                    else if (model.list_MasterRecv[m].Error_Occured)
+                    {
+                        model.frmFrame.GetfrmMain().close_p();
+                        model.list_MasterRecv[m].Error_Occured = false;
+                    }
                 }
             }
 
             for (int s = 0; s < 8; s++)
             {
-                if (model.list_SlaveRecv[s].rowVoltage) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Low_Voltage); model.list_SlaveRecv[s].Error_Occured = true;}
-                if (model.list_SlaveRecv[s].highVoltage) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Over_Voltage); }
-                if (model.list_SlaveRecv[s].packLowVoltage) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Pack_Low_Voltage); }
-                if (model.list_SlaveRecv[s].packHighVoltage) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Pack_High_Voltage); }
-                if (model.list_SlaveRecv[s].cellRecycleOverChargingProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Cell_Regeneration_OverCharge_Protection); }
-                if (model.list_SlaveRecv[s].packRecycleOverChargingProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Pack_Regeneration_OverCharge_Protection); }
-                if (model.list_SlaveRecv[s].overDischarge) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Over_Discharge); }
-                if (model.list_SlaveRecv[s].overCharging) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Over_Charge); }
-                    
-                if (model.list_SlaveRecv[s].reCycleOverCharging) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Regeneration_OverCharge); }
-                if (model.list_SlaveRecv[s].cell_LowTemp) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Cell_Low_Temperature); }
-                if (model.list_SlaveRecv[s].cell_HighTemp) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Cell_High_Temperature); }
-                if (model.list_SlaveRecv[s].FET_LowTemp) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.FET_Low_Temperature); }
-                if (model.list_SlaveRecv[s].FET_HighTemp) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.FET_High_Temperature); }
-                    
-                if (model.list_SlaveRecv[s].lowVoltageProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Low_Voltage_Protection); }
-                if (model.list_SlaveRecv[s].highVoltageProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.High_Voltage_Protection); }
-                if (model.list_SlaveRecv[s].packLowVoltageProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Pack_High_Voltage_Protection); }
-                if (model.list_SlaveRecv[s].packHighVoltageProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Pack_High_Voltage_Protection); }
-                if (model.list_SlaveRecv[s].cellRecycleOverChargingProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Cell_Regeneration_OverCharge_Protection); }
-                if (model.list_SlaveRecv[s].packRecycleOverChargingProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Pack_Regeneration_OverCharge_Protection); }
-                if (model.list_SlaveRecv[s].overDischargeProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Over_Discharge_Protection); }
-                if (model.list_SlaveRecv[s].overChargingProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Over_Charge_Protection); }
-                    
-                if (model.list_SlaveRecv[s].reCycleOverChargingProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Regeneration_OverCharge_Protection); }
-                if (model.list_SlaveRecv[s].cellLowTempProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Cell_Low_Temperature_Protection); }
-                if (model.list_SlaveRecv[s].cellHighTempProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Cell_High_Temperature_Protection); }
-                if (model.list_SlaveRecv[s].FETLowTempProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.FET_Low_Temperature_Protection); }
-                if (model.list_SlaveRecv[s].FETHighTempProtection) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.FET_High_Temperature_Protection); }
-                if (model.list_SlaveRecv[s].shortProtect) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Short_Circuit_Protect); }
-                if (model.list_SlaveRecv[s].VCUError) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.VCU_Error); }
-                if (model.list_SlaveRecv[s].PreChargeError) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Pre_Charge_Error); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Low_Voltage] != model.list_SlaveRecv[s].rowVoltage) { Is_Slot_Error(s, Battery_Error.Low_Voltage, model.list_SlaveRecv[s].rowVoltage); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Over_Voltage] != model.list_SlaveRecv[s].highVoltage) { Is_Slot_Error(s, Battery_Error.Over_Voltage, model.list_SlaveRecv[s].highVoltage); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Pack_Low_Voltage] != model.list_SlaveRecv[s].packLowVoltage) { Is_Slot_Error(s, Battery_Error.Pack_Low_Voltage, model.list_SlaveRecv[s].packLowVoltage); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Pack_High_Voltage] != model.list_SlaveRecv[s].packHighVoltage) { Is_Slot_Error(s, Battery_Error.Pack_High_Voltage, model.list_SlaveRecv[s].packHighVoltage); } 
+                    if (model.Battery_Error_Code[s][Battery_Error.Cell_Regeneration_OverCharge] != model.list_SlaveRecv[s].cellRecycleOverCharging) { Is_Slot_Error(s, Battery_Error.Cell_Regeneration_OverCharge, model.list_SlaveRecv[s].cellRecycleOverCharging); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Pack_Regeneration_OverCharge] != model.list_SlaveRecv[s].packRecycleOverCharging) { Is_Slot_Error(s, Battery_Error.Pack_Regeneration_OverCharge, model.list_SlaveRecv[s].packRecycleOverCharging); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Over_Discharge] != model.list_SlaveRecv[s].overDischarge) { Is_Slot_Error(s, Battery_Error.Over_Discharge, model.list_SlaveRecv[s].overDischarge); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Over_Charge] != model.list_SlaveRecv[s].overCharging) { Is_Slot_Error(s, Battery_Error.Over_Charge, model.list_SlaveRecv[s].overCharging); }
+                                                
+                    if (model.Battery_Error_Code[s][Battery_Error.Regeneration_OverCharge] != model.list_SlaveRecv[s].reCycleOverCharging) { Is_Slot_Error(s, Battery_Error.Regeneration_OverCharge, model.list_SlaveRecv[s].reCycleOverCharging); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Cell_Low_Temperature] != model.list_SlaveRecv[s].cell_LowTemp) { Is_Slot_Error(s, Battery_Error.Cell_Low_Temperature, model.list_SlaveRecv[s].cell_LowTemp); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Cell_High_Temperature] != model.list_SlaveRecv[s].cell_HighTemp) { Is_Slot_Error(s, Battery_Error.Cell_High_Temperature, model.list_SlaveRecv[s].cell_HighTemp); }
+                    if (model.Battery_Error_Code[s][Battery_Error.FET_Low_Temperature] != model.list_SlaveRecv[s].FET_LowTemp) { Is_Slot_Error(s, Battery_Error.FET_Low_Temperature, model.list_SlaveRecv[s].FET_LowTemp); }
+                    if (model.Battery_Error_Code[s][Battery_Error.FET_High_Temperature] != model.list_SlaveRecv[s].FET_HighTemp) { Is_Slot_Error(s, Battery_Error.FET_High_Temperature, model.list_SlaveRecv[s].FET_HighTemp); }
+                                                
+                    if (model.Battery_Error_Code[s][Battery_Error.Low_Voltage_Protection] != model.list_SlaveRecv[s].lowVoltageProtection) { Is_Slot_Error(s, Battery_Error.Low_Voltage_Protection, model.list_SlaveRecv[s].lowVoltageProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.High_Voltage_Protection] != model.list_SlaveRecv[s].highVoltageProtection) { Is_Slot_Error(s, Battery_Error.High_Voltage_Protection, model.list_SlaveRecv[s].highVoltageProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Pack_Low_Voltage_Protection] != model.list_SlaveRecv[s].packLowVoltageProtection) { Is_Slot_Error(s, Battery_Error.Pack_Low_Voltage_Protection, model.list_SlaveRecv[s].packLowVoltageProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Pack_High_Voltage_Protection] != model.list_SlaveRecv[s].packHighVoltageProtection) { Is_Slot_Error(s, Battery_Error.Pack_High_Voltage_Protection, model.list_SlaveRecv[s].packHighVoltageProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Cell_Regeneration_OverCharge_Protection] != model.list_SlaveRecv[s].cellRecycleOverChargingProtection) { Is_Slot_Error(s, Battery_Error.Cell_Regeneration_OverCharge_Protection, model.list_SlaveRecv[s].cellRecycleOverChargingProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Pack_Regeneration_OverCharge_Protection] != model.list_SlaveRecv[s].packRecycleOverChargingProtection) { Is_Slot_Error(s, Battery_Error.Pack_Regeneration_OverCharge_Protection, model.list_SlaveRecv[s].packRecycleOverChargingProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Over_Discharge_Protection] != model.list_SlaveRecv[s].overDischargeProtection) { Is_Slot_Error(s, Battery_Error.Over_Discharge_Protection, model.list_SlaveRecv[s].overDischargeProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Over_Charge_Protection] != model.list_SlaveRecv[s].overChargingProtection) { Is_Slot_Error(s, Battery_Error.Over_Charge_Protection, model.list_SlaveRecv[s].overChargingProtection); }
+                                                
+                    if (model.Battery_Error_Code[s][Battery_Error.Regeneration_OverCharge_Protection] != model.list_SlaveRecv[s].reCycleOverChargingProtection) { Is_Slot_Error(s, Battery_Error.Regeneration_OverCharge_Protection, model.list_SlaveRecv[s].reCycleOverChargingProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Cell_Low_Temperature_Protection] != model.list_SlaveRecv[s].cellLowTempProtection) { Is_Slot_Error(s, Battery_Error.Cell_Low_Temperature_Protection, model.list_SlaveRecv[s].cellLowTempProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Cell_High_Temperature_Protection] != model.list_SlaveRecv[s].cellHighTempProtection) { Is_Slot_Error(s, Battery_Error.Cell_High_Temperature_Protection, model.list_SlaveRecv[s].cellHighTempProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.FET_Low_Temperature_Protection] != model.list_SlaveRecv[s].FETLowTempProtection) { Is_Slot_Error(s, Battery_Error.FET_Low_Temperature_Protection, model.list_SlaveRecv[s].FETLowTempProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.FET_High_Temperature_Protection] != model.list_SlaveRecv[s].FETHighTempProtection) { Is_Slot_Error(s, Battery_Error.FET_High_Temperature_Protection, model.list_SlaveRecv[s].FETHighTempProtection); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Short_Circuit_Protect] != model.list_SlaveRecv[s].shortProtect) { Is_Slot_Error(s, Battery_Error.Short_Circuit_Protect, model.list_SlaveRecv[s].shortProtect); }
+                    if (model.Battery_Error_Code[s][Battery_Error.VCU_Error] != model.list_SlaveRecv[s].VCUError) { Is_Slot_Error(s, Battery_Error.VCU_Error, model.list_SlaveRecv[s].VCUError); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Pre_Charge_Error] != model.list_SlaveRecv[s].PreChargeError) { Is_Slot_Error(s, Battery_Error.Pre_Charge_Error, model.list_SlaveRecv[s].PreChargeError); }
+                                                
+                    if (model.Battery_Error_Code[s][Battery_Error.BMS_Error] != model.list_SlaveRecv[s].BMS_ERR_State) { Is_Slot_Error(s, Battery_Error.BMS_Error, model.list_SlaveRecv[s].BMS_ERR_State); }
 
-                if (model.list_SlaveRecv[s].BMS_ERR_State) { model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.BMS_Error); }
-
-                if (model.list_SlaveRecv[s].ProcessStatus == 100)
+                /*if (model.list_SlaveRecv[s].ProcessStatus == 100)  //충전중일때 
                 {
                     switch (model.list_SlaveRecv[s].Check_BatteryVoltage_Type)  // 과전류 
                     {
                         case 48:
-                            if (model.list_SlaveRecv[s].PowerPackWattage > 165)
-                            {
-                                model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Pre_Charge_Error);
-                                model.ChargingStop_Slot(s);
-                            }
+                        if (model.list_SlaveRecv[s].PowerPackWattage > 165) Is_Slot_Error(s, Battery_Error.Pre_Charge_Error, true);
                             break;
                         case 72:
-                            if (model.list_SlaveRecv[s].PowerPackWattage > 110)
-                            {
-                                model.oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(s, Battery_Error_Code.Pre_Charge_Error);
-                                model.ChargingStop_Slot(s);
-                            }
+                            if (model.list_SlaveRecv[s].PowerPackWattage > 110) Is_Slot_Error(s, Battery_Error.Pre_Charge_Error, true);
                             break;
                     }
+                }*/
+
+                /*if (!model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) < DateTime.Now) 
+                { 
+                    Is_Slot_Error(s, Battery_Error.Control_Board_Error, true); 
                 }
+                else if(model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) > DateTime.Now)
+                { 
+                    Is_Slot_Error(s, Battery_Error.Control_Board_Error, false);
+                }*/
             }
 
+        }
+        private  void Is_Slot_Error(int slotid , Battery_Error errorName , bool state)
+        {
+            Model.getInstance().Battery_Error_Code[slotid][errorName] = state;
+            Model.getInstance().list_SlaveRecv[slotid].Error_Occured = state;
+            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(slotid, errorName, state);   
         }
     }
 }

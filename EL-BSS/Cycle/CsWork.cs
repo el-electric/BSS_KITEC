@@ -259,6 +259,7 @@ namespace EL_BSS.Cycle
             }
 
             CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
+            Model.getInstance().csErrorControl.Check_Error_Occured();
         }
 
 

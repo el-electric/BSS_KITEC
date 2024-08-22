@@ -251,13 +251,6 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
-            if (Model.getInstance().list_SlaveRecv[idx - 1].SOC == 100 &&
-                Model.getInstance().list_SlaveRecv[idx - 1].ChargingStatus == 100)
-            {
-                Model.getInstance().list_SlaveSend[idx - 1].BatteryFETON = false;
-                Model.getInstance().list_SlaveSend[idx - 1].BatteryWakeup = false;
-                Model.getInstance().list_SlaveSend[idx - 1].BatteryOutput = false;
-            }
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
 
@@ -277,8 +270,8 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].highVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 1);
             Model.getInstance().list_SlaveRecv[idx - 1].packLowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 2);
             Model.getInstance().list_SlaveRecv[idx - 1].packHighVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 3);
-            Model.getInstance().list_SlaveRecv[idx - 1].cellRecycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[52], 4);
-            Model.getInstance().list_SlaveRecv[idx - 1].packRecycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[52], 5);
+            Model.getInstance().list_SlaveRecv[idx - 1].cellRecycleOverCharging = EL_Manager_Conversion.getFlagByByteArray(packet[52], 4);
+            Model.getInstance().list_SlaveRecv[idx - 1].packRecycleOverCharging = EL_Manager_Conversion.getFlagByByteArray(packet[52], 5);
             Model.getInstance().list_SlaveRecv[idx - 1].overDischarge = EL_Manager_Conversion.getFlagByByteArray(packet[52], 6);
             Model.getInstance().list_SlaveRecv[idx - 1].overCharging = EL_Manager_Conversion.getFlagByByteArray(packet[52], 7);
 
@@ -389,14 +382,7 @@ namespace EL_BSS.Serial
                 }
             }
 
-            if (Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus == 100 &&
-                Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal &&
-                Model.getInstance().list_SlaveRecv[idx - 1].FET_ON_State &&
-                Model.getInstance().list_SlaveSend[idx - 1].BatteryOutput &&
-                !Model.getInstance().list_SlaveSend[idx - 1].hmiManual)
-            { CsSlotchargingManager[idx - 1].Slot_Charging_Manage(); }
-
-
+            CsSlotchargingManager[idx - 1].Slot_Charging_Manage();
         }
 
         public static bool Check_100SOC_Battery()
@@ -556,6 +542,25 @@ namespace EL_BSS.Serial
             Model.getInstance().app2_Version_Patch = packet[17];
 
             Model.getInstance().FirmwareUpdate = false;
+        }
+
+        public static int getCurrent_Temp(int slotid)
+        {
+            int fet_temper = Model.getInstance().list_SlaveRecv[slotid].FET_Temper;
+            int slot_temper = Model.getInstance().list_SlaveRecv[slotid].Battery_Slot_Temp;
+
+            if (fet_temper > slot_temper)
+            {
+                return fet_temper;
+            }
+            else if (fet_temper < slot_temper)
+            {
+                return slot_temper;
+            }
+            else
+            {
+                return fet_temper;
+            }
         }
 
         public static void Write(byte[] bytes)

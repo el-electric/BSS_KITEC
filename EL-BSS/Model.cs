@@ -20,6 +20,7 @@ using EL_BSS.OCPP.packet.cp2csms;
 using EL_BSS.Cycle;
 using System.Security.Cryptography.Xml;
 using System.Reflection;
+using System.Collections;
 
 namespace EL_BSS
 {
@@ -140,6 +141,8 @@ namespace EL_BSS
         public string[] Check_statusnotification = new string[8];
         public bool Send_bootnotification = false;
 
+        public CsErrorControl csErrorControl;
+
         public static int SendInterval = 300;
         public static DateTime Dt_SendInterval = DateTime.Now;
         public int HeartBeatInterval = 10;
@@ -187,6 +190,8 @@ namespace EL_BSS
             public int Charger_Humidity;
             public int Charger_WaveSensor;
             public int Charger_LightSensor;
+
+            public bool Error_Occured = false;
 
         }
         public class SlaveSend
@@ -253,8 +258,8 @@ namespace EL_BSS
             public bool highVoltage;
             public bool packLowVoltage;
             public bool packHighVoltage;
-            public bool cellOverCharging;
-            public bool packOverCharging;
+            public bool cellRecycleOverCharging;
+            public bool packRecycleOverCharging;
             public bool overDischarge;
             public bool overCharging;
 
@@ -369,8 +374,8 @@ namespace EL_BSS
             { "highVoltage", slave.highVoltage },
             { "packLowVoltage", slave.packLowVoltage },
             { "packHighVoltage", slave.packHighVoltage },
-            { "cellOverCharging", slave.cellOverCharging },
-            { "packOverCharging", slave.packOverCharging },
+            { "cellOverCharging", slave.cellRecycleOverCharging },
+            { "packOverCharging", slave.packRecycleOverCharging },
             { "overDischarge", slave.overDischarge },
             { "overCharging", slave.overCharging },
             { "reCycleOverCharging", slave.reCycleOverCharging },
@@ -856,7 +861,9 @@ namespace EL_BSS
             CHARGING
         }
 
-        public enum Battery_Error_Code
+        public Dictionary<Battery_Error, bool>[] Battery_Error_Code = new Dictionary<Battery_Error, bool>[8];
+
+        public enum Battery_Error
         {
             Low_Voltage,                            // 저전압 알림
             Over_Voltage,                           // 고전압 알림
@@ -887,7 +894,8 @@ namespace EL_BSS
             Short_Circuit_Protect,                  // 단락 보호
             VCU_Error,                              // VCU 에러
             Pre_Charge_Error,                       // Pre Charge 에러
-            BMS_Error,
+            BMS_Error,                              // BMS 에러
+
 
 
             Slot_Temperature_Error,     // 슬롯 온도센서 에러
@@ -896,8 +904,8 @@ namespace EL_BSS
             Door_Closing_Error,         // 문 닫힘 에러
             Door_Opening_Error,         // 문 열림 에러
             Power_Pack_Error,            // 파워팩 에러
-            Control_Board_Error
-        }  // 과전압 , 과전류 , 침수 , 스테이션 고온 , 배터리 고온 , 습도, 
+            Control_Board_Error          // 제어보드 통신 에러
+        }  // 과전류 배터리 고온, 
 
 
     }

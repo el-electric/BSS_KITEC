@@ -47,7 +47,7 @@ namespace EL_BSS
 
         private async void drakeUIButtonIcon1_Click(object sender, EventArgs e)
         {
-            if (lbl_sub_status.Text == "앱에 표시된 4자리 인증코드를 입력하세요")
+            if (lbl_sub_status.Text == "앱에 표시된 4자리 식별코드를 입력하세요")
             {
                 if (tb_intput.Text.Length == 4)
                 {
@@ -112,7 +112,7 @@ namespace EL_BSS
 
         public void InitForm()
         {
-            lbl_sub_status.Text = "앱에 표시된 4자리 인증코드를 입력하세요";
+            lbl_sub_status.Text = "앱에 표시된 4자리 식별코드를 입력하세요";
             tb_intput.Text = string.Empty;
         }
 

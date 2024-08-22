@@ -24,11 +24,13 @@ namespace EL_BSS
     public partial class frmMain : Form, IObserver
     {
         frmManual showfrmManual = new frmManual();
+        frmunuseablePopup frmunuseablePopup;
 
         public frmMain()
         {
             InitializeComponent();
             Model.getInstance().setTouchManger(this);
+            Model.getInstance().csErrorControl = new CsErrorControl();
         }
         protected override CreateParams CreateParams
         {
@@ -187,6 +189,11 @@ namespace EL_BSS
             frmunuseablePopup.Location = new System.Drawing.Point(ParentForm.Top, ParentForm.Top + 74);
 
             frmunuseablePopup.ShowDialog();
+        }
+
+        public void close_p()
+        {
+            frmunuseablePopup.Close();
         }
     }
 }

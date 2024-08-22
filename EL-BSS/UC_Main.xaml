@@ -28,52 +28,52 @@
                 </Image.RenderTransform>
             </Image>
             <Canvas>
-                <StackPanel x:Name="panel_1" Canvas.Left="80" Canvas.Top="115" Orientation="Horizontal">
+                <StackPanel x:Name="panel_1" Canvas.Left="40" Canvas.Top="115" Orientation="Horizontal">
                     <Border  x:Name="border_1" Style="{StaticResource CustomBorderStyle}" Background="Red" Width="Auto">
-                        <TextBlock x:Name="soc_1" Text="55%" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
+                        <TextBlock x:Name="soc_1" Text=" 55% - 48V " HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
                     </Border>
                     <Line X1="0" X2="50" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel x:Name="panel_2" Canvas.Left="80" Canvas.Top="245" Orientation="Horizontal">
-                    <Border  x:Name="border_2" Style="{StaticResource CustomBorderStyle}" Background="#a618f0">
+                <StackPanel x:Name="panel_2" Canvas.Left="40" Canvas.Top="245" Orientation="Horizontal">
+                    <Border  x:Name="border_2" Style="{StaticResource CustomBorderStyle}" Background="#a618f0" Width="Auto">
                         <TextBlock x:Name="soc_2" Text="55%" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
                     </Border>
                     <Line X1="0" X2="50" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel x:Name="panel_3"  Canvas.Left="80" Canvas.Top="375" Orientation="Horizontal">
-                    <Border  x:Name="border_3" Style="{StaticResource CustomBorderStyle}" Background="#f32b10"> 
+                <StackPanel x:Name="panel_3"  Canvas.Left="40" Canvas.Top="375" Orientation="Horizontal">
+                    <Border  x:Name="border_3" Style="{StaticResource CustomBorderStyle}" Background="#f32b10" Width="Auto">
                         <TextBlock x:Name="soc_3" Text="55%" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
                     </Border>
                     <Line X1="0" X2="50" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel x:Name="panel_4"  Canvas.Left="80" Canvas.Top="510" Orientation="Horizontal">
-                    <Border  x:Name="border_4" Style="{StaticResource CustomBorderStyle}">
+                <StackPanel x:Name="panel_4"  Canvas.Left="40" Canvas.Top="510" Orientation="Horizontal">
+                    <Border  x:Name="border_4" Style="{StaticResource CustomBorderStyle}" Width="Auto" >
                         <TextBlock x:Name="soc_4" Text="55%" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
                     </Border>
                     <Line X1="0" X2="50" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel x:Name="panel_5" Canvas.Left="565" Canvas.Top="115" Orientation="Horizontal">
+                <StackPanel x:Name="panel_5" Canvas.Left="535" Canvas.Top="115" Orientation="Horizontal">
                     <Line X1="0" X2="50" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center"/>
-                    <Border x:Name="border_5" Style="{StaticResource CustomBorderStyle}">
+                    <Border x:Name="border_5" Style="{StaticResource CustomBorderStyle}" Width="Auto">
                         <TextBlock x:Name="soc_5" Text="55%" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
                     </Border>
                 </StackPanel>
-                <StackPanel x:Name="panel_6"  Canvas.Left="565" Canvas.Top="245" Orientation="Horizontal">
+                <StackPanel x:Name="panel_6"  Canvas.Left="535" Canvas.Top="245" Orientation="Horizontal">
                     <Line X1="0" X2="50" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center"/>
-                    <Border x:Name="border_6" Style="{StaticResource CustomBorderStyle}">
+                    <Border x:Name="border_6" Style="{StaticResource CustomBorderStyle}" Width="Auto">
                         <TextBlock x:Name="soc_6" Text="55%" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
                     </Border>
                 </StackPanel>
-                <StackPanel x:Name="panel_7"  Canvas.Left="565" Canvas.Top="375" Orientation="Horizontal">
+                <StackPanel x:Name="panel_7"  Canvas.Left="535" Canvas.Top="375" Orientation="Horizontal">
                     <Line X1="0" X2="50" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center"/>
-                    <Border x:Name="border_7" Style="{StaticResource CustomBorderStyle}">
-                        <TextBlock x:Name="soc_7" Text="55%" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
+                    <Border x:Name="border_7" Style="{StaticResource CustomBorderStyle}" Width="Auto" Background="Red">
+                        <TextBlock x:Name="soc_7" Text=" 100% - 48V " HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
                     </Border>
                 </StackPanel>
-                <StackPanel x:Name="panel_8"  Canvas.Left="565" Canvas.Top="510" Orientation="Horizontal">
+                <StackPanel x:Name="panel_8"  Canvas.Left="535" Canvas.Top="510" Orientation="Horizontal">
                     <Line X1="0" X2="50" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center"/>
-                    <Border x:Name="border_8" Style="{StaticResource CustomBorderStyle}">
-                        <TextBlock x:Name="soc_8" Text="55%" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
+                    <Border x:Name="border_8" Style="{StaticResource CustomBorderStyle}" Width="Auto" Background="Red">
+                        <TextBlock x:Name="soc_8" Text=" 100% - 48V " HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
                     </Border>
                 </StackPanel>
                 <Image x:Name="img_1" Source="/Resources/batteryIn_doorOpen.png" Height="108" Width="124" Canvas.Left="224" Canvas.Top="75" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="Fill"/>

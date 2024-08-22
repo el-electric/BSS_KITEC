@@ -183,7 +183,7 @@ namespace EL_BSS.Serial
             Model.getInstance().list_MasterRecv[masterId - 1].floodingWarning = EL_Manager_Conversion.getFlagByByteArray(packet[20], 6);
             Model.getInstance().list_MasterRecv[masterId - 1].floodingDanger = EL_Manager_Conversion.getFlagByByteArray(packet[20], 7);
             Model.getInstance().list_MasterRecv[masterId - 1].DIP_Switch_Chaeck = packet[22];
-            Model.getInstance().list_MasterRecv[masterId - 1].Charger_UpperTemper = EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]);
+            Model.getInstance().list_MasterRecv[masterId - 1].Charger_UpperTemper = (EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]) - 40);
             Model.getInstance().list_MasterRecv[masterId - 1].Charger_LowerTemper = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
             Model.getInstance().list_MasterRecv[masterId - 1].Charger_Humidity = packet[27];
             Model.getInstance().list_MasterRecv[masterId - 1].Charger_WaveSensor = EL_Manager_Conversion.getInt_2Byte(packet[28], packet[29]);

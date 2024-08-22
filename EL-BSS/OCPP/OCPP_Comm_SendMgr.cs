@@ -448,8 +448,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(msg);
         }
 
-        public void Send_OCPP_CP_Req_AddInfoErrorEvent(int index , Battery_Error_Code errorName)
-        {
+        public void Send_OCPP_CP_Req_AddInfoErrorEvent(int index , Battery_Error errorName , bool isMeasure)
+        { 
             var data = new Object[]
             {
                 2,
@@ -462,8 +462,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         stationid = Model.getInstance().chargePointSerialNumber,
                         slotId = index,
                         eventName = errorName.ToString(),
-                        isMeasure = false,
-                        timeStampMeasure = 0
+                        isMeasure = isMeasure,
+                        timeStampMeasure = DateTime.Now.ToString()
                     }
             };
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);

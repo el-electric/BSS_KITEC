@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EL_BSS.Serial;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,48 +23,69 @@ namespace EL_BSS.Cycle
         protected int charger_step = 0;
         public void Slot_Charging_Manage() //슬롯마다 온도에 따라 충전 전류를 바꿈
         {
+            var model = Model.getInstance();
 
-            if (Model.getInstance().list_MasterRecv[0].floodingWarning || Model.getInstance().list_MasterRecv[0].floodingDanger)
+
+            if (model.list_SlaveRecv[slotid - 1].ProcessStatus == 100 &&
+                model.list_SlaveRecv[slotid - 1].WAKEUP_Signal &&
+                model.list_SlaveRecv[slotid - 1].FET_ON_State &&
+                model.list_SlaveSend[slotid - 1].BatteryOutput &&
+                !model.list_SlaveSend[slotid - 1].hmiManual)
             {
-                Flooding_Stop = true;
-            }
-            switch (charger_step)
-            {
-                case 0:
-                    if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper != null)
-                    {
-                        if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 92)
+                switch (charger_step)
+                {
+                    case 0:
+                        if (model.list_SlaveRecv[slotid - 1].FET_Temper != null)
                         {
-                            Model.getInstance().list_SlaveSend[slotid - 1].request_Wattage = 0;
-                            charger_step = 1;
+                            if (sp_Slave.getCurrent_Temp(slotid - 1) >= 92)
+                            {
+                                model.list_SlaveSend[slotid - 1].request_Wattage = 0;
+                                charger_step = 1;
+                            }
+                            else if (sp_Slave.getCurrent_Temp(slotid - 1) >= 72)
+                            {
+                                setHighTemp_Current(true, slotid);
+                            }
+                            else if (sp_Slave.getCurrent_Temp(slotid - 1) < 82)
+                            {
+                                setHighTemp_Current(false, slotid);
+                            }
                         }
-                        else if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 72)
-                        {
-                            setHighTemp_Current(true, slotid);
-                        }
-                        else if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper < 82)
+                        break;
+                    case 1:
+                        if (sp_Slave.getCurrent_Temp(slotid - 1) <= 60)
                         {
                             setHighTemp_Current(false, slotid);
+                            charger_step = 0;
                         }
-                    }
-                    break;
-                case 1:
-                    if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper <= 60)
-                    {
-                        setHighTemp_Current(false, slotid);
-                        charger_step = 0;
-                    }
-                    break;
+                        else if (sp_Slave.getCurrent_Temp(slotid - 1) >= 100)
+                        {
+                            model.ChargingStop_Slot(slotid - 1);
+                        }
+                        break;
+                }
             }
 
-            /*if (Model.getInstance().list_SlaveRecv[slotid - 1].BatteryCurrentWattage >= 160)
+            if (model.list_SlaveRecv[slotid - 1].Error_Occured) //에러 발생시
             {
-                OverCurrent_Count++;
+                model.list_SlaveSend[slotid - 1].BatteryFETON = false;
+                model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+            }
+
+            /*if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
+                !model.list_SlaveSend[slotid - 1].BatteryFETON &&
+                model.list_SlaveRecv[slotid - 1].SOC < 98 &&
+                !model.list_SlaveRecv[slotid - 1].Error_Occured)
+            {
+                model.list_SlaveSend[slotid - 1].BatteryFETON = true;
+                model.list_SlaveSend[slotid - 1].BatteryOutput = true;
             }*/
-            //과전류
-            //과전압
-            //저전압
-            //침수
+
+            if (model.list_SlaveRecv[slotid - 1].SOC == 100 && model.list_SlaveRecv[slotid - 1].ChargingStatus == 100) // 완충 종료
+            {
+                model.list_SlaveSend[slotid - 1].BatteryFETON = false;
+                model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+            }
         }
 
         private void setHighTemp_Current(bool high_temp, int slotId)
@@ -91,5 +113,6 @@ namespace EL_BSS.Cycle
                 }
             }
         }
+
     }
 }

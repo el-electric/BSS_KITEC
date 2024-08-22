@@ -39,6 +39,7 @@ namespace EL_BSS
         Bitmap empty = Properties.Resources.battery_empty;
         Bitmap batteryIn_doorOpen = Properties.Resources.batteryIn_doorOpen;
         Bitmap doorOpen = Properties.Resources.doorOpen;
+        Bitmap Danger = Properties.Resources.reddanger2;
         Ellipse[] slaveStatus;
         System.Windows.Shapes.Rectangle[] masterStatus;
 
@@ -48,6 +49,7 @@ namespace EL_BSS
         private BitmapImage cachedBatteryInDoorOpen;
         private BitmapImage cachedDoorOpen;
         private BitmapImage cachedEmpty;
+        private BitmapImage cashedDanger;
 
         public UC_Main()
         {
@@ -79,6 +81,7 @@ namespace EL_BSS
             cachedBatteryInDoorOpen = ConvertBitmapToBitmapImage(batteryIn_doorOpen);
             cachedDoorOpen = ConvertBitmapToBitmapImage(doorOpen);
             cachedEmpty = ConvertBitmapToBitmapImage(empty);
+            cashedDanger = ConvertBitmapToBitmapImage(Danger);
 
             redBrush = (Brush)new BrushConverter().ConvertFrom("#f32b10");
             purpleBrush = (Brush)new BrushConverter().ConvertFrom("#a618f0");
@@ -106,19 +109,32 @@ namespace EL_BSS
                     if (Model.getInstance().list_SlaveRecv[i].BatterArrive && Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
                         images[i].Source = cachedBatteryInDoorOpen;
+                        /*images[i].Source = cashedDanger;
+                        images[i].Height = 60;
+                        images[i].Width = 60;
+                        images[i].Margin = new Thickness(25, 25, 0, 0);*/
                     }
                     else if (Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
                         images[i].Source = null;
+                        /*images[i].Height = 108;
+                        images[i].Width = 124;
+                        images[i].Margin = new Thickness(0, 0, 0, 0);*/
                     }
                     else if (!Model.getInstance().list_SlaveRecv[i].BatterArrive && Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
                         images[i].Source = cachedDoorOpen;
+                        /*images[i].Height = 108;
+                        images[i].Width = 124;
+                        images[i].Margin = new Thickness(0, 0, 0, 0);*/
 
                     }
                     else if (!Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
                         images[i].Source = cachedEmpty;
+                        /*images[i].Height = 108;
+                        images[i].Width = 124;
+                        images[i].Margin = new Thickness(0, 0, 0, 0);*/
                     }
                     ////////////////////////////////////////////////////////////////////////////////////////
 
