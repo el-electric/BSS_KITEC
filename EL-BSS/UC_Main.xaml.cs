@@ -39,7 +39,8 @@ namespace EL_BSS
         Bitmap empty = Properties.Resources.battery_empty;
         Bitmap batteryIn_doorOpen = Properties.Resources.batteryIn_doorOpen;
         Bitmap doorOpen = Properties.Resources.doorOpen;
-        Bitmap Danger = Properties.Resources.reddanger2;
+        Bitmap batteryIn_doorOpen_Error = Properties.Resources.dooropen_batteryin_error;
+        Bitmap batteryin_doorclose_Error = Properties.Resources.doorclose_batteryout_error;
         Ellipse[] slaveStatus;
         System.Windows.Shapes.Rectangle[] masterStatus;
 
@@ -49,6 +50,8 @@ namespace EL_BSS
         private BitmapImage cachedBatteryInDoorOpen;
         private BitmapImage cachedDoorOpen;
         private BitmapImage cachedEmpty;
+        private BitmapImage cachedbatteryIn_doorOpen_Error;
+        private BitmapImage cachedbatteryin_doorclose_Error;
 
         public UC_Main()
         {
@@ -80,6 +83,9 @@ namespace EL_BSS
             cachedBatteryInDoorOpen = ConvertBitmapToBitmapImage(batteryIn_doorOpen);
             cachedDoorOpen = ConvertBitmapToBitmapImage(doorOpen);
             cachedEmpty = ConvertBitmapToBitmapImage(empty);
+            cachedbatteryIn_doorOpen_Error = ConvertBitmapToBitmapImage(batteryIn_doorOpen_Error);
+            cachedbatteryin_doorclose_Error = ConvertBitmapToBitmapImage(batteryin_doorclose_Error);
+
 
             redBrush = (Brush)new BrushConverter().ConvertFrom("#f32b10");
             purpleBrush = (Brush)new BrushConverter().ConvertFrom("#a618f0");
@@ -106,7 +112,17 @@ namespace EL_BSS
                     ///////////////////////////////// DOOR ///////////////////////////////////////////
                     if (Model.getInstance().list_SlaveRecv[i].BatterArrive && Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
-                        images[i].Source = cachedBatteryInDoorOpen;
+                        if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
+                        {
+                            
+                            images[i].Source = cachedbatteryIn_doorOpen_Error;
+                        }
+                        else 
+                        {
+                            images[i].Source = cachedBatteryInDoorOpen;
+                        }
+                        //images[i].Source = cachedBatteryInDoorOpen;
+
                         /*images[i].Source = cashedDanger;
                         images[i].Height = 60;
                         images[i].Width = 60;
@@ -114,7 +130,16 @@ namespace EL_BSS
                     }
                     else if (Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
-                        images[i].Source = null;
+                        if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
+                        {
+                            images[i].Source = cachedbatteryin_doorclose_Error;
+                        }
+                        else 
+                        {
+                            images[i].Source = null;
+                        }
+
+
                         /*images[i].Height = 108;
                         images[i].Width = 124;
                         images[i].Margin = new Thickness(0, 0, 0, 0);*/

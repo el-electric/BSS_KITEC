@@ -115,6 +115,8 @@ namespace EL_BSS.Cycle
                 else if (!Model.getInstance().list_SlaveRecv[i - 1].BatterArrive || Model.getInstance().list_SlaveRecv[i - 1].isDoor)
                 {
                     Model.getInstance().list_SlaveSend[i - 1].BatteryWakeup = false;
+                    Model.getInstance().list_SlaveSend[i - 1].BatteryFETON = false;
+                    Model.getInstance().list_SlaveSend[i - 1].BatteryOutput = false;
                 }
             }
         }

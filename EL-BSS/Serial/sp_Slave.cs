@@ -417,7 +417,7 @@ namespace EL_BSS.Serial
             {
                 if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
                     Model.getInstance().list_SlaveRecv[i - 1].SOC >= 90 &&
-                    Model.getInstance().list_SlaveRecv[i - 1].Check_BatteryVoltage_Type == Model.getInstance().Authorize.type &&
+                    Model.getInstance().list_SlaveRecv[i - 1].Check_BatteryVoltage_Type == Model.getInstance().Authorize.batteryType &&
                     check_Retreive_slot_Count != 2
                     )
                 {

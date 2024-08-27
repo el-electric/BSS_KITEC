@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
 using System.Runtime.Remoting.Contexts;
@@ -20,10 +21,11 @@ namespace EL_BSS.Cycle
     public static class CsWork
     {
         public static int CurrentStep = 0;
-        public static int _slot_Count = 0;
 
         public async static void Main_WorkCycle() //자동동작 시퀀스
         {
+            Sound_Player sound_Player = new Sound_Player();
+
             if (Model.Dt_SendInterval.AddSeconds(Model.SendInterval) < DateTime.Now && Model.getInstance().Send_bootnotification)
             {
                 ///////////////////////////////////
@@ -50,8 +52,7 @@ namespace EL_BSS.Cycle
                     getInstance().Retreive_slot[1] = 0;
                     getInstance().Lent_slot[0] = 0;
                     getInstance().Lent_slot[1] = 0;
-                    _slot_Count = 0;
-                    getInstance().frmFrame.GetfrmMain().setting_button_visible(false);
+                    /*getInstance().Authorize = null;*/
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 1:
@@ -60,7 +61,7 @@ namespace EL_BSS.Cycle
                         "배터리 세트 : " + getInstance().Authorize.batterySetName + "\n" +
                         "구독 여부 : " + getInstance().Authorize.ticketAvailable_value + "\n" +
                         "잔여캐시 : " + getInstance().Authorize.cashBalance + "원" + "\n" +
-                        "배터리 종류 : " + "V" + getInstance().Authorize.type; 
+                        "배터리 종류 : " +  getInstance().Authorize.batteryType + "V"; 
                     getInstance().frmFrame.showNotiForm(puttext);
                     NextStep();
                     break;
@@ -75,26 +76,32 @@ namespace EL_BSS.Cycle
                         {
                             if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
                             {
-                                getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
-                                getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
-
-                                frmFrame.deleMenuClick(0);
-                                mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
-                                NextStep();
+                                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.success.ToString());
                             }
                             else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
                             {
-                                getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
-                                getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
-
-                                frmFrame.deleMenuClick(0);
-                                mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
-                                NextStep();
 
                             }
+
+                            getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                            getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+
+                            frmFrame.deleMenuClick(0);
+                            mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
+                            NextStep();
                         }
                         else  // 없을 경우
                         {
+                            if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
+                            {
+                                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.fail.ToString());
+                            }
+                            else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
+                            {
+                                
+                            }
+
+
                             frmFrame.deleMenuClick(0);
                             getInstance().frmFrame.NotiShow("사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요", 1000);
                             CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
@@ -173,7 +180,7 @@ namespace EL_BSS.Cycle
                         !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
                         mainFormLabelUpdate("감사합니다. 안녕히가세요.");
-                        Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished();
+                        Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.finished.ToString()); ;
                         NextStep();
                     }
                     else if (!Model.getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive)
@@ -191,10 +198,7 @@ namespace EL_BSS.Cycle
                         !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive &&
                         CsDefine.Delayed[CsDefine.CYC_RUN] >= 30000)
                     {
-                        Sound_Player sound_Player = new Sound_Player();
-                        mainFormLabelUpdate("문을 닫아주세요");
-                        sound_Player.play_Sound();
-                        NextStep();
+                        JumpStep(CsDefine.CYC_DOOR_ERROR);
                     }
                     break;
                 case CsDefine.CYC_MAIN + 11:
@@ -254,6 +258,23 @@ namespace EL_BSS.Cycle
 
                 case CsDefine.CYC_TEMP + 1:
 
+                    break;
+
+                case CsDefine.CYC_DOOR_ERROR:
+                    sound_Player = new Sound_Player();
+                    mainFormLabelUpdate("문을 닫아주세요");
+                    sound_Player.play_Sound(true);
+                    NextStep();
+                    break;
+                case CsDefine.CYC_DOOR_ERROR + 1:
+                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive &&
+                        !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
+                    {
+                        sound_Player.Stop_play();
+                        mainFormLabelUpdate("감사합니다. 안녕히가세요.");
+                        Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.finished.ToString());
+                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                    }
                     break;
 
             }

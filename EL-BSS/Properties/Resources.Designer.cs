@@ -152,9 +152,29 @@ namespace EL_BSS.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap doorclose_batteryout_error {
+            get {
+                object obj = ResourceManager.GetObject("doorclose_batteryout_error", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap doorOpen {
             get {
                 object obj = ResourceManager.GetObject("doorOpen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap dooropen_batteryin_error {
+            get {
+                object obj = ResourceManager.GetObject("dooropen_batteryin_error", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -305,7 +305,8 @@ namespace ocppServerTEst
                     returnBatteryIds = returnBatteryId,
                     ticketAvailable= true,
                     cashBalance= 100,
-                    type ="72"
+                    batteryType = 72,
+                    errCode = "00000"
                     }
             };
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);

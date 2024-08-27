@@ -13,7 +13,7 @@ namespace EL_BSS
 {
     public class Sound_Player
     {
-        public async void play_Sound()
+        public async void play_Sound(bool loop)
         {
             /*string strFilePath = string.Empty;
 
@@ -34,7 +34,7 @@ namespace EL_BSS
 
             //Stream audioStream = new MemoryStream(Properties.Resources.beep);
             //string fileFullName = global::EL_BSS.Properties.Resources.beep;
-            playWaveFile(false);
+            playWaveFile(loop);
         }
 
         public void Stop_play()

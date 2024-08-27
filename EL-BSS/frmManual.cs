@@ -21,6 +21,7 @@ namespace EL_BSS
         protected frmSubManual[] mLayouts = new frmSubManual[8];
         public System.Timers.Timer timer = new System.Timers.Timer();
         Vkeyvoard VKeyboard = new Vkeyvoard();
+        public Sound_Player sound_Player;
         public frmManual()
         {
             InitializeComponent();
@@ -229,17 +230,24 @@ namespace EL_BSS
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            Sound_Player sound_Player = new Sound_Player();
-            sound_Player.play_Sound();
-        }
-
         private void AutoStart_Popup_Click(object sender, EventArgs e)
         {
             frmAutoStartPopup frmAutoStartPopup = new frmAutoStartPopup();
             frmAutoStartPopup.Show();
+        }
 
+        private void btn_buzzer_Stop_Click(object sender, EventArgs e)
+        {
+            if (sound_Player != null)
+            {
+                sound_Player.Stop_play();
+            }
+        }
+
+        private void btn_buzzer_start_Click(object sender, EventArgs e)
+        {
+            sound_Player = new Sound_Player();
+            sound_Player.play_Sound(true);
         }
     }
 }

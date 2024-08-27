@@ -200,8 +200,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         batteryId=getInstance().list_SlaveRecv[ChannelIdx].Serial_Number,
                         SOC = getInstance().list_SlaveRecv[ChannelIdx].SOC,
                         SOH = getInstance().list_SlaveRecv[ChannelIdx].SOH,
-                        batteryPackVoltage=getInstance().list_SlaveRecv[ChannelIdx].BatteryCurrentVoltage,
-                        batteryPackCurrent=getInstance().list_SlaveRecv[ChannelIdx].BatteryCurrentWattage,
+                        batteryPackVoltage=getInstance().list_SlaveRecv[ChannelIdx].BatteryCurrentVoltage / 10,
+                        batteryPackCurrent=getInstance().list_SlaveRecv[ChannelIdx].BatteryCurrentWattage / 10,
                         batteryModuleTempMax=getInstance().list_SlaveRecv[ChannelIdx].BatteryMaxTemper,
                         batteryModuleTempMin=getInstance().list_SlaveRecv[ChannelIdx].BatteryMinTemper,
                         batteryFetTemp=getInstance().list_SlaveRecv[ChannelIdx].FET_Temper,
@@ -357,6 +357,11 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(json);
 
+            if (response == null)
+            {
+                returnvlaue = "응답없음";
+                return returnvlaue;
+            }
 
 
             JArray responseObject = JArray.Parse(response);
@@ -427,14 +432,13 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(msg);
         }
 
-        public void Send_OCPP_CP_Req_battery_Excange_Finished()
+        public void Send_OCPP_CP_Req_battery_Excange_Finished(string finishedSignal)
         {
             var data = new
             {
                 stationId = Model.getInstance().chargeBoxSerialNumber,
-                //userNo = Model.getInstance().Authorize.userNo,
-                userNo = "1",
-                finishedSignal = enumData.finished.ToString()
+                userNo = Model.getInstance().Authorize.userNo,
+                finishedSignal = finishedSignal
             };
 
             string msg = makeMessage(enumData.battery_exchange_finished.ToString(), data);
@@ -509,21 +513,14 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                     case 2:
                         if (messageName == enumData.Authorize.ToString())
                         {
-                            if (sp_Slave.Check_able_battery_slot())
-                            {
-                                sendOCPP_CP_Conf_Authorize(_uid, enumData.success.ToString()); //답장
+                            Model.getInstance().Authorize = JsonConvert.DeserializeObject<Req_Authorize>(jsonArray[3].ToString());
+                            Model.getInstance().Authorize.setting_Authorize_value();
 
-                                Model.getInstance().Authorize = JsonConvert.DeserializeObject<Req_Authorize>(jsonArray[3].ToString());
-                                Model.getInstance().Authorize.setting_Authorize_value();
+                            Model.getInstance().Authorize.uid = _uid;
 
-                                Model.getInstance().Authorize_Type = enumData.APP.ToString();
+                            Model.getInstance().Authorize_Type = enumData.APP.ToString();
 
-                                CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
-                            }
-                            else
-                            {
-                                sendOCPP_CP_Conf_Authorize(_uid, enumData.fail.ToString());
-                            }
+                            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
                         }
                         break;
                     //응답

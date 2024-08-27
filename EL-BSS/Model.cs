@@ -895,6 +895,8 @@ namespace EL_BSS
             VCU_Error,                              // VCU 에러
             Pre_Charge_Error,                       // Pre Charge 에러
             BMS_Error,                              // BMS 에러
+            Over_Current,
+            
 
 
 

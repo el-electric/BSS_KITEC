@@ -12,6 +12,7 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
     {
         // public String idTag;
 
+        public String uid;
         public String errCode;
         public String staionId;
         public int userNo;
@@ -21,7 +22,7 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
         public List<string> returnBatteryIds;
         public bool ticketAvailable;
         public int cashBalance;
-        public int type = 48;
+        public int batteryType = 48;
         public string[] returnbatteryId = new string[2];
         public string ticketAvailable_value;
         public string errMsg;
@@ -42,8 +43,10 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
                 }
                 this.returnbatteryId = returnbatteryIdList.ToArray();
 
-                if (ticketAvailable) ticketAvailable_value = "구독중";
-                else ticketAvailable_value = "구독 취소";
+                if (ticketAvailable)
+                { ticketAvailable_value = "구독중"; }
+                else
+                { ticketAvailable_value = "구독 취소"; }
             }
         }
     }
