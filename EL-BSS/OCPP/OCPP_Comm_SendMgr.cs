@@ -87,6 +87,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             };
             string msg = makeMessage(enumData.AddInforBootNotification.ToString(), data);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
+            Model.getInstance().Send_bootnotification = true;
             return response;
         }
 
@@ -182,9 +183,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             {
                 mjobSequenceName = enumData.SLOT_EMPTY.ToString();
             }
-            
-            
-            
+
             var data = new Object[]
            {
                 2,
@@ -200,6 +199,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         batteryId=getInstance().list_SlaveRecv[ChannelIdx].Serial_Number,
                         SOC = getInstance().list_SlaveRecv[ChannelIdx].SOC,
                         SOH = getInstance().list_SlaveRecv[ChannelIdx].SOH,
+                        SlotTemper = getInstance().list_SlaveRecv[ChannelIdx].Battery_Slot_Temp,
                         batteryPackVoltage=getInstance().list_SlaveRecv[ChannelIdx].BatteryCurrentVoltage / 10,
                         batteryPackCurrent=getInstance().list_SlaveRecv[ChannelIdx].BatteryCurrentWattage / 10,
                         batteryModuleTempMax=getInstance().list_SlaveRecv[ChannelIdx].BatteryMaxTemper,
@@ -209,20 +209,20 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         BatteryCellVoltageMin=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Low_Voltage,
                         cellBalancingFlag=getInstance().list_SlaveRecv[ChannelIdx].Cell_Belancing_Flag,
                         batteryModuleVoltage=getInstance().list_SlaveRecv[ChannelIdx].Battery_Moduel_Voltage,
-                        batteryCellVoltage01=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_01,
-                        batteryCellVoltage02=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_02,
-                        batteryCellVoltage03=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_03,
-                        batteryCellVoltage04=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_04,
-                        batteryCellVoltage05=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_05,
-                        batteryCellVoltage06=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_06,
-                        batteryCellVoltage07=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_07,
-                        batteryCellVoltage08=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_08,
-                        batteryCellVoltage09=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_09,
-                        batteryCellVoltage10=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_10,
-                        batteryCellVoltage11=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_11,
-                        batteryCellVoltage12=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_12,
-                        batteryCellVoltage13=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_13,
-                        batteryCellVoltage14=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_14,
+                        batteryCellVoltage01=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_01 / 1000,
+                        batteryCellVoltage02=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_02 / 1000,
+                        batteryCellVoltage03=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_03 / 1000,
+                        batteryCellVoltage04=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_04 / 1000,
+                        batteryCellVoltage05=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_05 / 1000,
+                        batteryCellVoltage06=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_06 / 1000,
+                        batteryCellVoltage07=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_07 / 1000,
+                        batteryCellVoltage08=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_08 / 1000,
+                        batteryCellVoltage09=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_09 / 1000,
+                        batteryCellVoltage10=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_10 / 1000,
+                        batteryCellVoltage11=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_11 / 1000,
+                        batteryCellVoltage12=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_12 / 1000,
+                        batteryCellVoltage13=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_13 / 1000,
+                        batteryCellVoltage14=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_14 / 1000,
                         slotConnectState=getInstance().list_SlaveRecv[ChannelIdx].charger_Connect,
                         stationConnectState=getInstance().list_SlaveRecv[ChannelIdx].chargeStationConnect,
                         chargingState=chargingState,

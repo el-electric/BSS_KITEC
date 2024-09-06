@@ -47,6 +47,7 @@ namespace EL_BSS.Cycle
                     { Battery_Error.VCU_Error,                                    false},
                     { Battery_Error.Pre_Charge_Error,                             false},
                     { Battery_Error.BMS_Error,                                    false},
+                    { Battery_Error.Over_Current,                                 false},
 
                     { Battery_Error.Slot_Temperature_Error,                       false},
                     { Battery_Error.FET_On_Error,                                 false},
@@ -72,19 +73,9 @@ namespace EL_BSS.Cycle
                         model.frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
                         model.list_MasterRecv[m].Error_Occured = true;
                     }
-                    else if (model.list_MasterRecv[m].floodingDanger)  //침수
-                    {
-                        model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                        model.list_MasterRecv[m].Error_Occured = true;
-                    }
                     else if (model.list_MasterRecv[m].floodingWarning)  // 침수
                     {
                         model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                        model.list_MasterRecv[m].Error_Occured = true;
-                    }
-                    else if (model.list_MasterRecv[m].Charger_Humidity > 90) // 습도 90%이상
-                    {
-                        model.frmFrame.GetfrmMain().show_p("습도가 높아서 사용이 불가합니다.\n관리자에게 문의해주세요.");
                         model.list_MasterRecv[m].Error_Occured = true;
                     }
                     else if (model.list_MasterRecv[m].Charger_UpperTemper > 100) // 온도가 100도를 넘었을때
@@ -92,7 +83,10 @@ namespace EL_BSS.Cycle
                         model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
                         model.list_MasterRecv[m].Error_Occured = true;
                     }
-                    else if (model.list_MasterRecv[m].Error_Occured)
+                    else if (model.list_MasterRecv[m].Error_Occured 
+                            &&!model.list_MasterRecv[m].vibrationWarning 
+                            && !model.list_MasterRecv[m].floodingWarning 
+                            && model.list_MasterRecv[m].Charger_UpperTemper < 100)
                     {
                         model.frmFrame.GetfrmMain().close_p();
                         model.list_MasterRecv[m].Error_Occured = false;
@@ -137,7 +131,7 @@ namespace EL_BSS.Cycle
                                                 
                     if (model.Battery_Error_Code[s][Battery_Error.BMS_Error] != model.list_SlaveRecv[s].BMS_ERR_State) { Is_Slot_Error(s, Battery_Error.BMS_Error, model.list_SlaveRecv[s].BMS_ERR_State); }
 
-                if (model.list_SlaveRecv[s].ProcessStatus == 100)  //충전중일때 
+                /*if (model.list_SlaveRecv[s].ProcessStatus == 100 && !model.Battery_Error_Code[s][Battery_Error.Over_Current])  //충전중일때 
                 {
                     switch (model.list_SlaveRecv[s].Check_BatteryVoltage_Type)  // 과전류 
                     {
@@ -148,14 +142,39 @@ namespace EL_BSS.Cycle
                             if (model.list_SlaveRecv[s].PowerPackWattage > 110) Is_Slot_Error(s, Battery_Error.Over_Current, true);
                             break;
                     }
+                }*/
+
+                /*if (!model.Battery_Error_Code[s][Battery_Error.Slot_Temperature_Error] && (model.list_SlaveRecv[s].Battery_Slot_Temp == 0 || model.list_SlaveRecv[s].Battery_Slot_Temp == 256))
+                {
+                    Is_Slot_Error(s, Battery_Error.Slot_Temperature_Error, true);
+                }
+                else if (model.Battery_Error_Code[s][Battery_Error.Slot_Temperature_Error] && model.list_SlaveRecv[s].Battery_Slot_Temp != 0 && model.list_SlaveRecv[s].Battery_Slot_Temp != 256)
+                {
+                    Is_Slot_Error(s, Battery_Error.Slot_Temperature_Error, false);
+                }*/
+
+                if (!model.Battery_Error_Code[s][Battery_Error.Door_Opening_Error])
+                {
+                    if (model.list_SlaveSend[s].doorOpen)
+                    {
+                        if (!model.list_SlaveRecv[s].isDoor)
+                        {
+                            Is_Slot_Error(s, Battery_Error.Door_Opening_Error, true);
+                        }
+                    }
                 }
 
-                /*if (!model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) < DateTime.Now) 
-                { 
-                    Is_Slot_Error(s, Battery_Error.Control_Board_Error, true); 
+                /*if (!model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].FET_ON_State && !model.list_SlaveRecv[s].PowerPackStatus)
+                {
+                    Is_Slot_Error(s, Battery_Error.Power_Pack_Error, true);
                 }
-                else if(model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) > DateTime.Now)
-                { 
+
+                if (!model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) < DateTime.Now)
+                {
+                    Is_Slot_Error(s, Battery_Error.Control_Board_Error, true);
+                }
+                else if (model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) > DateTime.Now)
+                {
                     Is_Slot_Error(s, Battery_Error.Control_Board_Error, false);
                 }*/
             }

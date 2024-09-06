@@ -11,25 +11,21 @@ namespace EL_BSS.OCPP.packet.cp2csms
     {
         public bool vibrationWarning;
         public bool floodingWarning;
-        public bool floodingDanger;
         public int Charger_UpperTemper;
         public int Charger_Humidity;
-        public int Charger_WaveSensor;
         public bool Control_Board_Error;
         public StaionInfo(int index) 
         {
             vibrationWarning = Model.getInstance().list_MasterRecv[index].vibrationWarning;
             floodingWarning = Model.getInstance().list_MasterRecv[index].floodingWarning;
-            floodingDanger = Model.getInstance().list_MasterRecv[index].floodingDanger;
             Charger_UpperTemper = Model.getInstance().list_MasterRecv[index].Charger_UpperTemper;
             Charger_Humidity = Model.getInstance().list_MasterRecv[index].Charger_Humidity;
-            Charger_WaveSensor = Model.getInstance().list_MasterRecv[index].Charger_WaveSensor;
             Control_Board_Error = false;
 
-            if (Model.getInstance().list_MasterDataRecvDatetime[index].AddSeconds(5) > DateTime.Now)
+            /*if (Model.getInstance().list_MasterDataRecvDatetime[index].AddSeconds(5) > DateTime.Now)
             {
                 Control_Board_Error = true;
-            }
+            }*/
 
         }
 

@@ -211,14 +211,17 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].isDoor = EL_Manager_Conversion.getFlagByByteArray(packet[18], 6);
 
             if (Model.getInstance().list_SlaveRecv[idx - 1].isDoor)
+            {
                 Model.getInstance().list_SlaveSend[idx - 1].doorOpen = false;
+                Model.getInstance().list_SlaveRecv[idx - 1].dt_DoorOpening_Time = DateTime.Now;
+            }
 
             Model.getInstance().list_SlaveRecv[idx - 1].SeqNum = packet[19];
             Model.getInstance().list_SlaveRecv[idx - 1].PowerPackStatus = EL_Manager_Conversion.getFlagByByteArray(packet[20], 7);
             Model.getInstance().list_SlaveRecv[idx - 1].PowerPackVoltage = EL_Manager_Conversion.getInt_2Byte(packet[21], packet[22]);
             Model.getInstance().list_SlaveRecv[idx - 1].PowerPackWattage = EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryCurrentVoltage = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
-            Model.getInstance().list_SlaveRecv[idx - 1].BatteryCurrentWattage = EL_Manager_Conversion.getInt_2Byte(packet[27], packet[28]);
+            Model.getInstance().list_SlaveRecv[idx - 1].BatteryCurrentWattage = EL_Manager_Conversion.getInt_2Byte_with_minus(packet[27], packet[28]);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage = EL_Manager_Conversion.getInt_2Byte(packet[29], packet[30]);
 
             if (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage == 0)

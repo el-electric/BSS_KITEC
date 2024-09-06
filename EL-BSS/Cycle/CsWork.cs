@@ -28,6 +28,7 @@ namespace EL_BSS.Cycle
 
             if (Model.Dt_SendInterval.AddSeconds(Model.SendInterval) < DateTime.Now && Model.getInstance().Send_bootnotification)
             {
+                Model.Dt_SendInterval = DateTime.Now;
                 ///////////////////////////////////
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(1);
@@ -38,7 +39,6 @@ namespace EL_BSS.Cycle
                 }
 
                 ///////////////////////////////////
-                Model.Dt_SendInterval = DateTime.Now;
             }
 
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
@@ -98,7 +98,7 @@ namespace EL_BSS.Cycle
                             }
                             else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
                             {
-                                
+                                // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.fail.ToString());
                             }
 
 
@@ -180,7 +180,7 @@ namespace EL_BSS.Cycle
                         !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
                         mainFormLabelUpdate("감사합니다. 안녕히가세요.");
-                        Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.finished.ToString()); ;
+                        Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.finished.ToString());
                         NextStep();
                     }
                     else if (!Model.getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive)
@@ -194,12 +194,13 @@ namespace EL_BSS.Cycle
                         mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
                     }
 
-                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive &&
-                        !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive &&
-                        CsDefine.Delayed[CsDefine.CYC_RUN] >= 30000)
+                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 3000 && 
+                        (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive) ||
+                        (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive))
                     {
                         JumpStep(CsDefine.CYC_DOOR_ERROR);
                     }
+
                     break;
                 case CsDefine.CYC_MAIN + 11:
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
@@ -279,8 +280,12 @@ namespace EL_BSS.Cycle
 
             }
 
-            CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
-            Model.getInstance().csErrorControl.Check_Error_Occured();
+
+            if (Model.getInstance().Send_bootnotification)
+            {
+                CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
+                Model.getInstance().csErrorControl.Check_Error_Occured();
+            }
         }
 
 
@@ -289,6 +294,13 @@ namespace EL_BSS.Cycle
         static DateTime nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
         public static void OCPP_IntervalCycle()
         {
+            /*if (DateTime.Now >= Server_Disconnect_Time)
+            {
+                if (Model.getInstance().oCPP_Comm_Manager.get_WebSocket_State() == WebSocket4Net.WebSocketState.Closed)
+                {
+                    
+                }
+            }*/
             if (DateTime.Now >= nextHeartBeatTime)
             {
                 //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_HeartBeat();

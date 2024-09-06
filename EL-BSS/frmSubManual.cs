@@ -121,7 +121,7 @@ namespace EL_BSS
                 Battery_get_Voltage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryRequestVoltage / 10).ToString();
                 Battery_get_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryRequestWattage / 10).ToString();
                 Battery_Current_Voltage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryCurrentVoltage / 10).ToString();
-                Battery_Current_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryCurrentWattage / 10).ToString();
+                Battery_Current_Wattage.Text = ((double)Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryCurrentWattage / 100).ToString();
                 Battery_Highest_temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMaxTemper.ToString() + " / " + Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryMinTemper.ToString();
 
                 /*Bettery_Type.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatteryType.ToString();*/

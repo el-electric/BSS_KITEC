@@ -19,7 +19,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using static EL_BSS.Model;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.AxHost;
 using Brush = System.Windows.Media.Brush;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -96,7 +98,8 @@ namespace EL_BSS
             barcodeWriter.Options.Margin = 0;
             barcodeWriter.Options.Width = 180;
             barcodeWriter.Options.Height = 180;
-            string qr_data = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\Config.ini", "CSMS", "chargeBoxSerialNumber");
+            //string qr_data = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\Config.ini", "CSMS", "chargeBoxSerialNumber");
+            string qr_data = "https://voltymos.com/%ED%94%84%EB%A6%AC%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98/BSSStation01";
             if (qr_data != "")
                 img_qr.Source = ConvertBitmapToBitmapImage(barcodeWriter.Write(qr_data));
 
@@ -233,7 +236,13 @@ namespace EL_BSS
 
             // Model.getInstance().oCPP_Comm_Manager.WebSocketclose();
 
-            Model.getInstance().frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
+            // Model.getInstance().frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
+
+            // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(1);
+            //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
+
+            // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(0, Battery_Error.Over_Current, true);
+            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(0, Battery_Error.Over_Current, false);
         }
     }
 }

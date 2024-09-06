@@ -32,6 +32,7 @@ namespace BatteryChangeCharger.OCPP
         //bool isStop = false;
         private static ConcurrentDictionary<string, TaskCompletionSource<string>> responseTasks = new ConcurrentDictionary<string, TaskCompletionSource<string>>();
 
+
         string url;
         public OCPP_Comm_Manager()
         {
@@ -81,9 +82,11 @@ namespace BatteryChangeCharger.OCPP
             {
                 CsUtil.WriteLog("WEBSOCKET_CLOSE", "WSS");
             }
-                MessageBox.Show("WebSocket connection closed.");
-                Console.WriteLine("WebSocket connection closed.");
-                Model.getInstance().frmFrame.lamp_ems.On = false;
+            MessageBox.Show("WebSocket connection closed.");
+            Console.WriteLine("WebSocket connection closed.");
+            Model.getInstance().frmFrame.lamp_ems.On = false;
+
+            // WebSocketOpen();
         }
 
         private async void WebSocket_Opened(object sender, EventArgs e)
@@ -96,11 +99,12 @@ namespace BatteryChangeCharger.OCPP
             if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
             {
                 Model.SendInterval = (int)jsonArray[2]["interval"];
-                Model.getInstance().Send_bootnotification = true;
                 Model.getInstance().frmFrame.viewForm(0);
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
             }
         }
+
+        public WebSocketState get_WebSocket_State() => websocket.State;
 
         public async Task<string> SendMessageAndWaitForResponseAsync(string message)
         {

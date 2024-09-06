@@ -21,6 +21,7 @@ using EL_BSS.Cycle;
 using System.Security.Cryptography.Xml;
 using System.Reflection;
 using System.Collections;
+using System.Data.SqlTypes;
 
 namespace EL_BSS
 {
@@ -232,8 +233,8 @@ namespace EL_BSS
             public bool PowerPackStatus;
             public int PowerPackVoltage;
             public int PowerPackWattage;
-            public int BatteryCurrentVoltage;
-            public int BatteryCurrentWattage;
+            public float BatteryCurrentVoltage;
+            public float BatteryCurrentWattage;
             public int BatteryRequestVoltage;
             public int BatteryRequestWattage;
             public int BatteryMaxTemper;
@@ -332,23 +333,24 @@ namespace EL_BSS
             public int Battery_Cell_Low_Voltage;
             public int Cell_Belancing_Flag;
             public int Battery_Moduel_Voltage;
-            public int Battery_Cell_Vol_01;
-            public int Battery_Cell_Vol_02;
-            public int Battery_Cell_Vol_03;
-            public int Battery_Cell_Vol_04;
-            public int Battery_Cell_Vol_05;
-            public int Battery_Cell_Vol_06;
-            public int Battery_Cell_Vol_07;
-            public int Battery_Cell_Vol_08;
-            public int Battery_Cell_Vol_09;
-            public int Battery_Cell_Vol_10;
-            public int Battery_Cell_Vol_11;
-            public int Battery_Cell_Vol_12;
-            public int Battery_Cell_Vol_13;
-            public int Battery_Cell_Vol_14;
+            public float Battery_Cell_Vol_01;
+            public float Battery_Cell_Vol_02;
+            public float Battery_Cell_Vol_03;
+            public float Battery_Cell_Vol_04;
+            public float Battery_Cell_Vol_05;
+            public float Battery_Cell_Vol_06;
+            public float Battery_Cell_Vol_07;
+            public float Battery_Cell_Vol_08;
+            public float Battery_Cell_Vol_09;
+            public float Battery_Cell_Vol_10;
+            public float Battery_Cell_Vol_11;
+            public float Battery_Cell_Vol_12;
+            public float Battery_Cell_Vol_13;
+            public float Battery_Cell_Vol_14;
 
             // 최초 안착 신호 들어온 시간
             public Nullable<DateTime> dt_First_BatterArrive_Time = null;
+            public Nullable<DateTime> dt_DoorOpening_Time = null; 
 
             // 배터리 타입 구분
             public int Check_BatteryVoltage_Type;
@@ -895,11 +897,8 @@ namespace EL_BSS
             VCU_Error,                              // VCU 에러
             Pre_Charge_Error,                       // Pre Charge 에러
             BMS_Error,                              // BMS 에러
-            Over_Current,
+            Over_Current,                           // 과전류 에러
             
-
-
-
             Slot_Temperature_Error,     // 슬롯 온도센서 에러
             FET_On_Error,               // FET ON 에러
             Wake_Up_Error,              // Wake Up 에러
@@ -907,7 +906,7 @@ namespace EL_BSS
             Door_Opening_Error,         // 문 열림 에러
             Power_Pack_Error,            // 파워팩 에러
             Control_Board_Error          // 제어보드 통신 에러
-        }  // 과전류 배터리 고온, 
+        } 
 
 
     }
