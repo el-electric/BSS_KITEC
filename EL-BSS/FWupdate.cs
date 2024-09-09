@@ -11,6 +11,9 @@ using System.IO;
 using System.IO.Ports;
 using EL_BSS.Serial;
 using DrakeUI.Framework;
+using System.Diagnostics;
+using System.Threading;
+using System.Net;
 
 namespace EL_BSS
 {
@@ -144,7 +147,7 @@ namespace EL_BSS
                     // 현재 위치에서부터 chunkSize만큼 또는 배열의 끝까지의 길이를 계산
                     int length = Math.Min(chunkSize, Model.getInstance().binFile.Length - i);
                     byte[] chunk = new byte[length];
-                    Array.Copy(Model    .getInstance().binFile, i, chunk, 0, length);
+                    Array.Copy(Model.getInstance().binFile, i, chunk, 0, length);
                     Model.getInstance().binFileBuffer.Add(chunk);
                 }
 
@@ -302,6 +305,61 @@ namespace EL_BSS
         public void UpdateForm(string data)
         {
             throw new NotImplementedException();
+        }
+
+        private void drakeUIButton1_Click(object sender, EventArgs e)
+        {
+            //임시로 구현
+
+
+            string ftpUrl = "ftp://el.synology.me:21/update/EL-BSS.exe";
+            string username = "updater";
+            string password = "Elcable1";
+            // 현재 실행 중인 프로그램 경로
+            string currentFilePath = Process.GetCurrentProcess().MainModule.FileName;
+
+            // 임시 다운로드 파일 경로 (현재 실행 경로에 temp 파일로 다운로드)
+            string tempFilePath = Path.Combine(Path.GetDirectoryName(currentFilePath), "temp.exe");
+
+            // FTP에서 파일 다운로드
+            DownloadFileFromFtp(ftpUrl, username, password, tempFilePath);
+
+            // 프로그램 종료 후 잠시 대기
+            Console.WriteLine("프로그램을 업데이트하기 위해 종료합니다.");
+            Thread.Sleep(2000);  // 2초 대기
+
+            // 덮어쓰기 후 새로 받은 파일로 재실행
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                Arguments = $"/c timeout /t 2 & move /y \"{tempFilePath}\" \"{currentFilePath}\" & \"{currentFilePath}\"",
+                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = true
+            };
+
+            // cmd 명령을 통해 덮어씌운 후 프로그램 재실행
+            Process.Start(startInfo);
+
+            // 현재 프로그램 종료
+            Environment.Exit(0);
+        }
+        // FTP에서 파일을 다운로드하는 메서드
+        static void DownloadFileFromFtp(string ftpUrl, string username, string password, string localFilePath)
+        {
+            using (WebClient client = new WebClient())
+            {
+                client.Credentials = new NetworkCredential(username, password);
+                try
+                {
+                    // FTP에서 파일 다운로드
+                    client.DownloadFile(ftpUrl, localFilePath);
+                    Console.WriteLine("파일이 성공적으로 다운로드되었습니다.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("파일 다운로드 중 오류 발생: " + ex.Message);
+                }
+            }
         }
     }
 }

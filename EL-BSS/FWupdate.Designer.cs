@@ -69,6 +69,7 @@
             this.Slave_5 = new DrakeUI.Framework.DrakeUILabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.drakeUIButton1 = new DrakeUI.Framework.DrakeUIButton();
             this.notify_table_layout.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -596,7 +597,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(131, 30);
             this.tableLayoutPanel1.TabIndex = 58;
             // 
@@ -623,6 +624,22 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(139, 149);
             this.tableLayoutPanel2.TabIndex = 59;
             // 
+            // drakeUIButton1
+            // 
+            this.drakeUIButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.drakeUIButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.drakeUIButton1.FillPressColor = System.Drawing.Color.Blue;
+            this.drakeUIButton1.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton1.Location = new System.Drawing.Point(29, 343);
+            this.drakeUIButton1.Name = "drakeUIButton1";
+            this.drakeUIButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
+            this.drakeUIButton1.RectDisableColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.drakeUIButton1.Size = new System.Drawing.Size(121, 44);
+            this.drakeUIButton1.Style = DrakeUI.Framework.UIStyle.Custom;
+            this.drakeUIButton1.TabIndex = 60;
+            this.drakeUIButton1.Text = "SW 업데이트";
+            this.drakeUIButton1.Click += new System.EventHandler(this.drakeUIButton1_Click);
+            // 
             // FWupdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -630,6 +647,7 @@
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1017, 586);
             this.ControlBox = false;
+            this.Controls.Add(this.drakeUIButton1);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.Jump_Packet_Button);
@@ -711,5 +729,6 @@
         private DrakeUI.Framework.DrakeUILabel Slave_5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private DrakeUI.Framework.DrakeUIButton drakeUIButton1;
     }
 }
