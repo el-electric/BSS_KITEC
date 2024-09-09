@@ -388,25 +388,11 @@ namespace EL_BSS.Serial
             CsSlotchargingManager[idx - 1].Slot_Charging_Manage();
         }
 
-        public static bool Check_100SOC_Battery()
+        public static void Stop_Charging_all_Slot()
         {
-            int Check_Slot_Count = 0;
             for (int i = 0; i < 8; i++)
             {
-                if (Model.getInstance().list_SlaveRecv[i].SOC == 0 &&
-                    Model.getInstance().list_SlaveRecv[i].dt_First_BatterArrive_Time != null &&
-                    Model.getInstance().list_SlaveRecv[i].dt_First_BatterArrive_Time.Value.AddMinutes(5) <= DateTime.Now)
-                {
-                    Check_Slot_Count++;
-                }
-            }
-            if (Check_Slot_Count < 2)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
+                Model.getInstance().list_SlaveSend[i].BatteryOutput = false;
             }
         }
 
@@ -545,25 +531,6 @@ namespace EL_BSS.Serial
             Model.getInstance().app2_Version_Patch = packet[17];
 
             Model.getInstance().FirmwareUpdate = false;
-        }
-
-        public static int getCurrent_Temp(int slotid)
-        {
-            int fet_temper = Model.getInstance().list_SlaveRecv[slotid].FET_Temper;
-            int slot_temper = Model.getInstance().list_SlaveRecv[slotid].Battery_Slot_Temp;
-
-            if (fet_temper > slot_temper)
-            {
-                return fet_temper;
-            }
-            else if (fet_temper < slot_temper)
-            {
-                return slot_temper;
-            }
-            else
-            {
-                return fet_temper;
-            }
         }
 
         public static void Write(byte[] bytes)

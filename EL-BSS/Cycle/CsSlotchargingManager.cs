@@ -37,37 +37,34 @@ namespace EL_BSS.Cycle
                     case 0:
                         if (model.list_SlaveRecv[slotid - 1].FET_Temper != null)
                         {
-                            /*if (sp_Slave.getCurrent_Temp(slotid - 1) >= 92)
-                            {
-                                model.list_SlaveSend[slotid - 1].request_Wattage = 0;
-                                charger_step = 1;
-                            }
-                            else if (sp_Slave.getCurrent_Temp(slotid - 1) >= 72)
-                            {
-                                setHighTemp_Current(true, slotid);
-                            }
-                            else if (sp_Slave.getCurrent_Temp(slotid - 1) < 82)
-                            {
-                                setHighTemp_Current(false, slotid);
-                            }*/
-
-                            if (sp_Slave.getCurrent_Temp(slotid - 1) >= 50)
+                            if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 50)
                             {
                                 model.list_SlaveSend[slotid - 1].BatteryOutput = false;
                                 charger_step = 1;
                             }
+
+                            if (Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 60)
+                            {
+                                model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+                                charger_step = 1;
+                            }
+                            else if (Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 50)
+                            {
+                                setHighTemp_Current(true, slotid);
+                            }
+                            else if(Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp < 50)
+                            {
+                                setHighTemp_Current(false, slotid);
+                            }
                         }
                         break;
                     case 1:
-                        if (sp_Slave.getCurrent_Temp(slotid - 1) <= 60)
+                        if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper <= 40 && Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp <= 40)
                         {
-                            setHighTemp_Current(false, slotid);
+                            model.list_SlaveSend[slotid - 1].BatteryOutput = true;
                             charger_step = 0;
                         }
-                        else if (sp_Slave.getCurrent_Temp(slotid - 1) >= 100)
-                        {
-                            model.ChargingStop_Slot(slotid - 1);
-                        }
+                        
                         break;
                 }
             }
@@ -79,17 +76,24 @@ namespace EL_BSS.Cycle
             }
 
             if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
-                !model.list_SlaveSend[slotid - 1].BatteryFETON &&
                 model.list_SlaveRecv[slotid - 1].SOC < 100 &&
-                !model.list_SlaveRecv[slotid - 1].Error_Occured)
+                !model.list_SlaveRecv[slotid - 1].Error_Occured &&
+                Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper <= 40 &&
+                Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp <= 40)
             {
                 model.list_SlaveSend[slotid - 1].BatteryFETON = true;
                 model.list_SlaveSend[slotid - 1].BatteryOutput = true;
             }
-            else if (model.list_SlaveRecv[slotid - 1].SOC == 100) // 완충 종료
+
+            if (model.list_SlaveRecv[slotid - 1].SOC == 100) // 완충 종료
             {
                 model.list_SlaveSend[slotid - 1].BatteryFETON = false;
                 model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+            }
+
+            if (model.list_MasterRecv[0].Error_Occured || model.list_MasterRecv[1].Error_Occured)
+            {
+                sp_Slave.Stop_Charging_all_Slot();
             }
         }
 

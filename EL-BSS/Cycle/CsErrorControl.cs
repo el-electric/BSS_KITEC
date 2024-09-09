@@ -78,7 +78,7 @@ namespace EL_BSS.Cycle
                         model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
                         model.list_MasterRecv[m].Error_Occured = true;
                     }
-                    else if (model.list_MasterRecv[m].Charger_UpperTemper > 100) // 온도가 100도를 넘었을때
+                    else if (model.list_MasterRecv[m].Charger_UpperTemper > 70) // 온도가 100도를 넘었을때
                     {
                         model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
                         model.list_MasterRecv[m].Error_Occured = true;
@@ -86,17 +86,10 @@ namespace EL_BSS.Cycle
                     else if (model.list_MasterRecv[m].Error_Occured
                             && !model.list_MasterRecv[m].vibrationWarning
                             && !model.list_MasterRecv[m].floodingWarning
-                            && model.list_MasterRecv[m].Charger_UpperTemper < 100)
+                            && model.list_MasterRecv[m].Charger_UpperTemper < 70)
                     {
                         model.frmFrame.GetfrmMain().close_p();
                         model.list_MasterRecv[m].Error_Occured = false;
-                    }
-                    else if (model.list_MasterRecv[m].Error_Occured)
-                    {
-                        for (int i = 0; i < 8; i++)
-                        {
-                            model.list_SlaveSend[i].BatteryOutput = false;
-                        }
                     }
                 }
             }

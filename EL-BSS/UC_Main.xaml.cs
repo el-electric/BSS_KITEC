@@ -193,7 +193,7 @@ namespace EL_BSS
 
                     if (Model.getInstance().list_SlaveRecv[i].BatterArrive)
                     {
-                        colorBoders[i].Background = new SolidColorBrush(Colors.Blue);
+                        colorBoders[i].Background = blueBrush;
                     }
                     if (!Model.getInstance().list_SlaveRecv[i].BatterArrive)
                     {
