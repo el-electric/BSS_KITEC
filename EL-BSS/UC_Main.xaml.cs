@@ -37,6 +37,7 @@ namespace EL_BSS
         System.Windows.Controls.TextBlock[] socs;
         StackPanel[] panels;
         Border[] borders;
+        Border[] colorBoders;
 
         Bitmap empty = Properties.Resources.battery_empty;
         Bitmap batteryIn_doorOpen = Properties.Resources.batteryIn_doorOpen;
@@ -78,6 +79,7 @@ namespace EL_BSS
             socs = new TextBlock[] { soc_1, soc_2, soc_3, soc_4, soc_5, soc_6, soc_7, soc_8 };
             borders = new Border[] { border_1, border_2, border_3, border_4, border_5, border_6, border_7, border_8 };
             panels = new StackPanel[] { panel_1, panel_2, panel_3, panel_4, panel_5, panel_6, panel_7, panel_8 };
+            colorBoders = new Border[] { color_bar1, color_bar2, color_bar3, color_bar4, color_bar5, color_bar6, color_bar7, color_bar8 };
             slaveStatus = new Ellipse[] { status_1, status_2, status_3, status_4, status_5, status_6, status_7, status_8 };
             masterStatus = new System.Windows.Shapes.Rectangle[] { masterStatus_1, MasterStatus_2 };
 
@@ -117,10 +119,10 @@ namespace EL_BSS
                     {
                         if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
                         {
-                            
+
                             images[i].Source = cachedbatteryIn_doorOpen_Error;
                         }
-                        else 
+                        else
                         {
                             images[i].Source = cachedBatteryInDoorOpen;
                         }
@@ -137,7 +139,7 @@ namespace EL_BSS
                         {
                             images[i].Source = cachedbatteryin_doorclose_Error;
                         }
-                        else 
+                        else
                         {
                             images[i].Source = null;
                         }
@@ -187,6 +189,22 @@ namespace EL_BSS
                     }
                     /////////////////////////////////////////////////////////////////////////////////
 
+                    ///////////////////////////////////
+
+                    if (Model.getInstance().list_SlaveRecv[i].BatterArrive)
+                    {
+                        colorBoders[i].Background = new SolidColorBrush(Colors.Blue);
+                    }
+                    if (!Model.getInstance().list_SlaveRecv[i].BatterArrive)
+                    {
+                        colorBoders[i].Background = new SolidColorBrush(Colors.White);
+                    }
+                    else if (Model.getInstance().list_SlaveRecv[i].ProcessStatus == 100)
+                    {
+                        colorBoders[i].Background = new SolidColorBrush(Colors.Lime);
+                    }
+
+                    //////////////////////////////////
                     if (Model.getInstance().list_SlaveDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
                         slaveStatus[i].Fill = new SolidColorBrush(Colors.Lime);
                     else

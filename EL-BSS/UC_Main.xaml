@@ -28,12 +28,21 @@
                 </Image.RenderTransform>
             </Image>
             <Canvas>
+                <Border x:Name="color_bar1" Width="15.5" Height="66" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="106" Canvas.Left="190.5"/>
+                <Border x:Name="color_bar2" Width="15.5" Height="67" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="236" Canvas.Left="190.5"/>
+                <Border x:Name="color_bar3" Width="15.5" Height="68" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="366" Canvas.Left="190.5"/>
+                <Border x:Name="color_bar4" Width="15.5" Height="67.5" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="497.5" Canvas.Left="190.5"/>
+                <Border x:Name="color_bar5" Width="15.5" Height="66" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="106" Canvas.Left="399"/>
+                <Border x:Name="color_bar6" Width="15.5" Height="67" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="236" Canvas.Left="399"/>
+                <Border x:Name="color_bar7" Width="15.5" Height="68" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="366" Canvas.Left="399"/>
+                <Border x:Name="color_bar8" Width="15.5" Height="67.5" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="497.5" Canvas.Left="399"/>
                 <StackPanel x:Name="panel_1" Canvas.Left="40" Canvas.Top="115" Orientation="Horizontal">
                     <Border  x:Name="border_1" Style="{StaticResource CustomBorderStyle}" Background="Red" Width="Auto">
                         <TextBlock x:Name="soc_1" Text=" 55% - 48V " HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
                     </Border>
                     <Line X1="0" X2="50" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center"/>
                 </StackPanel>
+                
                 <StackPanel x:Name="panel_2" Canvas.Left="40" Canvas.Top="245" Orientation="Horizontal">
                     <Border  x:Name="border_2" Style="{StaticResource CustomBorderStyle}" Background="#a618f0" Width="Auto">
                         <TextBlock x:Name="soc_2" Text="55%" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Tahoma" FontSize="20" Foreground="White" FontWeight="Bold"/>
