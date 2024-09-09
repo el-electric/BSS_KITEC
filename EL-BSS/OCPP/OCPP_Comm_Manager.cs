@@ -20,6 +20,7 @@ using WebSocket4Net;
 using SuperSocket.ClientEngine;
 using System.Security.Cryptography;
 using System.Windows;
+using System.Windows.Ink;
 
 namespace BatteryChangeCharger.OCPP
 {
@@ -31,6 +32,8 @@ namespace BatteryChangeCharger.OCPP
         //public System.Timers.Timer connectionCheckTimer;
         //bool isStop = false;
         private static ConcurrentDictionary<string, TaskCompletionSource<string>> responseTasks = new ConcurrentDictionary<string, TaskCompletionSource<string>>();
+
+        public DateTime Server_Disconnect_Time = DateTime.Now;
 
 
         string url;
@@ -86,6 +89,7 @@ namespace BatteryChangeCharger.OCPP
             Console.WriteLine("WebSocket connection closed.");
             Model.getInstance().frmFrame.lamp_ems.On = false;
 
+            Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time = DateTime.Now;
             // WebSocketOpen();
         }
 
@@ -104,7 +108,17 @@ namespace BatteryChangeCharger.OCPP
             }
         }
 
-        public WebSocketState get_WebSocket_State() => websocket.State;
+        public bool get_WebSocket_State()
+        {
+            if (websocket.State == WebSocketState.Open)
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
 
         public async Task<string> SendMessageAndWaitForResponseAsync(string message)
         {

@@ -27,6 +27,7 @@ using System.IdentityModel.Protocols.WSTrust;
 using System.Windows.Interop;
 using EL_BSS.OCPP.packet.cp2csms;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -191,7 +192,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 enumData.AddInfoStationBatteryState.ToString(),
                     new
                     {
-                        timeStamp = DateTime.Now.ToString(),
+                        timestamp = DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss", new CultureInfo("ko-KR")),
                         stationId = getInstance().chargeBoxSerialNumber,
                         slotId=ChannelIdx,
                         jobSequenceName=mjobSequenceName,
@@ -282,7 +283,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 enumData.AddInfoStationBatteryState.ToString(),
                     new
                     {
-                        timeStamp = DateTime.Now.ToString(),
+                        timestamp = DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss", new CultureInfo("ko-KR")),
                     }
             };
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);

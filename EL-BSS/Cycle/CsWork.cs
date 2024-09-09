@@ -14,6 +14,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+using WebSocket4Net;
 using static EL_BSS.Model;
 
 namespace EL_BSS.Cycle
@@ -294,12 +295,9 @@ namespace EL_BSS.Cycle
         static DateTime nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
         public static void OCPP_IntervalCycle()
         {
-            /*if (DateTime.Now >= Server_Disconnect_Time)
+            /*if (Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time.AddSeconds(5).IsAfter(DateTime.Now) && !Model.getInstance().oCPP_Comm_Manager.get_WebSocket_State())
             {
-                if (Model.getInstance().oCPP_Comm_Manager.get_WebSocket_State() == WebSocket4Net.WebSocketState.Closed)
-                {
-                    
-                }
+                Model.getInstance().oCPP_Comm_Manager.WebSocketOpen();
             }*/
             if (DateTime.Now >= nextHeartBeatTime)
             {

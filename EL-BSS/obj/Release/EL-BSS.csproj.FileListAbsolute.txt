@@ -61,3 +61,12 @@ C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL-BSS.csproj.CopyComplete
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL-BSS.exe
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL-BSS.pdb
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL_BSS.frmunuseablePopup.resources
+C:\1016 git\BSS_KITEC\EL-BSS\bin\Release\SuperSocket.ClientEngine.dll
+C:\1016 git\BSS_KITEC\EL-BSS\bin\Release\WebSocket4Net.dll
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\UC_Main.g.cs
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL-BSS_Content.g.cs
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL-BSS_MarkupCompile.cache
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL-BSS_MarkupCompile.lref
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\UC_Main.baml
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL-BSS.g.resources
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL_BSS.frmMaster_Manual.resources

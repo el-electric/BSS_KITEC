@@ -74,14 +74,14 @@
             this.set_Current = new System.Windows.Forms.Button();
             this.put_Battery_curent = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Slot_Temp = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.lb_battery_arrive = new System.Windows.Forms.Label();
             this.lb_serial_num = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.FET_Temp = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.manual_on = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.Slot_Temp = new System.Windows.Forms.Label();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -125,6 +125,7 @@
             // 
             this.LED_BLUE_Button.BackColor = System.Drawing.Color.White;
             this.LED_BLUE_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LED_BLUE_Button.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LED_BLUE_Button.Location = new System.Drawing.Point(294, 17);
             this.LED_BLUE_Button.Name = "LED_BLUE_Button";
             this.LED_BLUE_Button.Size = new System.Drawing.Size(93, 51);
@@ -137,6 +138,7 @@
             // 
             this.LED_GREEN_Button.BackColor = System.Drawing.Color.White;
             this.LED_GREEN_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LED_GREEN_Button.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LED_GREEN_Button.Location = new System.Drawing.Point(195, 17);
             this.LED_GREEN_Button.Name = "LED_GREEN_Button";
             this.LED_GREEN_Button.Size = new System.Drawing.Size(93, 51);
@@ -149,6 +151,7 @@
             // 
             this.LED_RED_Button.BackColor = System.Drawing.Color.White;
             this.LED_RED_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.LED_RED_Button.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.LED_RED_Button.Location = new System.Drawing.Point(96, 17);
             this.LED_RED_Button.Name = "LED_RED_Button";
             this.LED_RED_Button.Size = new System.Drawing.Size(93, 51);
@@ -161,7 +164,7 @@
             // 
             this.button9.BackColor = System.Drawing.Color.White;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button9.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button9.Location = new System.Drawing.Point(302, 94);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(93, 51);
@@ -174,7 +177,7 @@
             // 
             this.button10.BackColor = System.Drawing.Color.White;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button10.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button10.Location = new System.Drawing.Point(203, 94);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(93, 51);
@@ -187,7 +190,7 @@
             // 
             this.button11.BackColor = System.Drawing.Color.White;
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button11.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button11.Location = new System.Drawing.Point(104, 94);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(93, 51);
@@ -210,7 +213,7 @@
             // label7
             // 
             this.label7.BackColor = System.Drawing.Color.White;
-            this.label7.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label7.Location = new System.Drawing.Point(6, 17);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(84, 37);
@@ -221,7 +224,7 @@
             // label8
             // 
             this.label8.BackColor = System.Drawing.Color.White;
-            this.label8.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label8.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label8.Location = new System.Drawing.Point(6, 94);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 37);
@@ -321,7 +324,7 @@
             // 
             this.button3.BackColor = System.Drawing.Color.White;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button3.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button3.Location = new System.Drawing.Point(401, 94);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(93, 51);
@@ -571,7 +574,7 @@
             // 
             this.button1.BackColor = System.Drawing.Color.White;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.button1.Location = new System.Drawing.Point(500, 94);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(93, 51);
@@ -631,6 +634,28 @@
             this.groupBox2.TabIndex = 49;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "배터리";
+            // 
+            // Slot_Temp
+            // 
+            this.Slot_Temp.BackColor = System.Drawing.Color.White;
+            this.Slot_Temp.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.Slot_Temp.Location = new System.Drawing.Point(549, 242);
+            this.Slot_Temp.Name = "Slot_Temp";
+            this.Slot_Temp.Size = new System.Drawing.Size(78, 37);
+            this.Slot_Temp.TabIndex = 52;
+            this.Slot_Temp.Text = "57.4";
+            this.Slot_Temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Location = new System.Drawing.Point(457, 242);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 37);
+            this.label4.TabIndex = 51;
+            this.label4.Text = "슬롯 온도";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lb_battery_arrive
             // 
@@ -696,28 +721,6 @@
             this.manual_on.Text = "매뉴얼";
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
-            // 
-            // label4
-            // 
-            this.label4.BackColor = System.Drawing.Color.White;
-            this.label4.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.Location = new System.Drawing.Point(457, 242);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 37);
-            this.label4.TabIndex = 51;
-            this.label4.Text = "슬롯 온도";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Slot_Temp
-            // 
-            this.Slot_Temp.BackColor = System.Drawing.Color.White;
-            this.Slot_Temp.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Slot_Temp.Location = new System.Drawing.Point(549, 242);
-            this.Slot_Temp.Name = "Slot_Temp";
-            this.Slot_Temp.Size = new System.Drawing.Size(78, 37);
-            this.Slot_Temp.TabIndex = 52;
-            this.Slot_Temp.Text = "57.4";
-            this.Slot_Temp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmSubManual
             // 

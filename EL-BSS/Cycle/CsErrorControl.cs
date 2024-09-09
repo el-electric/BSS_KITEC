@@ -83,13 +83,20 @@ namespace EL_BSS.Cycle
                         model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
                         model.list_MasterRecv[m].Error_Occured = true;
                     }
-                    else if (model.list_MasterRecv[m].Error_Occured 
-                            &&!model.list_MasterRecv[m].vibrationWarning 
-                            && !model.list_MasterRecv[m].floodingWarning 
+                    else if (model.list_MasterRecv[m].Error_Occured
+                            && !model.list_MasterRecv[m].vibrationWarning
+                            && !model.list_MasterRecv[m].floodingWarning
                             && model.list_MasterRecv[m].Charger_UpperTemper < 100)
                     {
                         model.frmFrame.GetfrmMain().close_p();
                         model.list_MasterRecv[m].Error_Occured = false;
+                    }
+                    else if (model.list_MasterRecv[m].Error_Occured)
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            model.list_SlaveSend[i].BatteryOutput = false;
+                        }
                     }
                 }
             }
@@ -153,7 +160,7 @@ namespace EL_BSS.Cycle
                     Is_Slot_Error(s, Battery_Error.Slot_Temperature_Error, false);
                 }*/
 
-                if (!model.Battery_Error_Code[s][Battery_Error.Door_Opening_Error])
+                /*if (!model.Battery_Error_Code[s][Battery_Error.Door_Opening_Error])
                 {
                     if (model.list_SlaveSend[s].doorOpen)
                     {
@@ -162,7 +169,7 @@ namespace EL_BSS.Cycle
                             Is_Slot_Error(s, Battery_Error.Door_Opening_Error, true);
                         }
                     }
-                }
+                }*/
 
                 /*if (!model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].FET_ON_State && !model.list_SlaveRecv[s].PowerPackStatus)
                 {

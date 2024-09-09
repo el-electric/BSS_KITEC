@@ -19,6 +19,7 @@ namespace EL_BSS
     public partial class frmManual : Form, IObserver
     {
         protected frmSubManual[] mLayouts = new frmSubManual[8];
+        protected frmMaster_Manual master_layout = new frmMaster_Manual();
         public System.Timers.Timer timer = new System.Timers.Timer();
         Vkeyvoard VKeyboard = new Vkeyvoard();
         public Sound_Player sound_Player;
@@ -28,6 +29,10 @@ namespace EL_BSS
 
             timer.Interval = 100;
             timer.Elapsed += Timer_Elapsed;
+
+            master_layout.TopLevel = false;
+            flowLayoutPanel2.Controls.Add(master_layout);
+            master_layout.Show();
 
             for (int i = 1; i < 9; i++)
             {
@@ -46,6 +51,7 @@ namespace EL_BSS
         {
             this.BeginInvoke(new MethodInvoker(delegate ()
             {
+                master_layout.updateView();
                 for (int i = 1; i < 9; i++)
                 {
                     mLayouts[i - 1].updateView();

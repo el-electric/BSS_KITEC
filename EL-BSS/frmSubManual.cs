@@ -138,6 +138,13 @@ namespace EL_BSS
 
             Slot_Temp.Text = Model.getInstance().list_SlaveRecv[mSLot_Number - 1].Battery_Slot_Temp.ToString();
 
+            if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].SOC == 100)
+            {
+                Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryFETON = false;
+                Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
+                Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
+            }
+
         }
 
 

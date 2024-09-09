@@ -210,6 +210,12 @@
     <Compile Include="frmCSMSSetting.Designer.cs">
       <DependentUpon>frmCSMSSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMaster_Manual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMaster_Manual.Designer.cs">
+      <DependentUpon>frmMaster_Manual.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmNoti.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -389,6 +395,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCSMSSetting.resx">
       <DependentUpon>frmCSMSSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMaster_Manual.resx">
+      <DependentUpon>frmMaster_Manual.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNoti.resx">
       <DependentUpon>frmNoti.cs</DependentUpon>

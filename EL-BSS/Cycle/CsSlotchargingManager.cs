@@ -37,7 +37,7 @@ namespace EL_BSS.Cycle
                     case 0:
                         if (model.list_SlaveRecv[slotid - 1].FET_Temper != null)
                         {
-                            if (sp_Slave.getCurrent_Temp(slotid - 1) >= 92)
+                            /*if (sp_Slave.getCurrent_Temp(slotid - 1) >= 92)
                             {
                                 model.list_SlaveSend[slotid - 1].request_Wattage = 0;
                                 charger_step = 1;
@@ -49,6 +49,12 @@ namespace EL_BSS.Cycle
                             else if (sp_Slave.getCurrent_Temp(slotid - 1) < 82)
                             {
                                 setHighTemp_Current(false, slotid);
+                            }*/
+
+                            if (sp_Slave.getCurrent_Temp(slotid - 1) >= 50)
+                            {
+                                model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+                                charger_step = 1;
                             }
                         }
                         break;
@@ -72,16 +78,15 @@ namespace EL_BSS.Cycle
                 model.list_SlaveSend[slotid - 1].BatteryOutput = false;
             }
 
-            /*if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
+            if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
                 !model.list_SlaveSend[slotid - 1].BatteryFETON &&
-                model.list_SlaveRecv[slotid - 1].SOC < 98 &&
+                model.list_SlaveRecv[slotid - 1].SOC < 100 &&
                 !model.list_SlaveRecv[slotid - 1].Error_Occured)
             {
                 model.list_SlaveSend[slotid - 1].BatteryFETON = true;
                 model.list_SlaveSend[slotid - 1].BatteryOutput = true;
-            }*/
-
-            if (model.list_SlaveRecv[slotid - 1].SOC == 100 && model.list_SlaveRecv[slotid - 1].ChargingStatus == 100) // 완충 종료
+            }
+            else if (model.list_SlaveRecv[slotid - 1].SOC == 100) // 완충 종료
             {
                 model.list_SlaveSend[slotid - 1].BatteryFETON = false;
                 model.list_SlaveSend[slotid - 1].BatteryOutput = false;
