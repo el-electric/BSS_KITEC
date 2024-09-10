@@ -139,23 +139,11 @@ namespace EL_BSS.Cycle
                         switch (model.list_SlaveRecv[s].Check_BatteryVoltage_Type)  // 과전류 
                         {
                             case 48:
-                                if (model.list_SlaveRecv[s].PowerPackWattage > 165) Is_Slot_Error(s, Battery_Error.Over_Current, true);
+                                if (model.list_SlaveRecv[s].PowerPackWattage > 165) 
+                                    Is_Slot_Error(s, Battery_Error.Over_Current, true);
                                 break;
                             case 72:
                                 if (model.list_SlaveRecv[s].PowerPackWattage > 110) Is_Slot_Error(s, Battery_Error.Over_Current, true);
-                                break;
-                        }
-                    }
-
-                    if (!model.Battery_Error_Code[s][Battery_Error.Over_Voltage])
-                    {
-                        switch (model.list_SlaveRecv[s].Check_BatteryVoltage_Type)  // 과전류 
-                        {
-                            case 48:
-                                if (model.list_SlaveRecv[s].PowerPackVoltage > 600) Is_Slot_Error(s, Battery_Error.Over_Voltage, true);
-                                break;
-                            case 72:
-                                if (model.list_SlaveRecv[s].PowerPackVoltage > 800) Is_Slot_Error(s, Battery_Error.Over_Voltage, true);
                                 break;
                         }
                     }

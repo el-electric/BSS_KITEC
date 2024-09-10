@@ -22,7 +22,7 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
         public List<string> returnBatteryIds;
         public bool ticketAvailable;
         public int cashBalance;
-        public int batteryType = 48;
+        public int batteryType;
         public string[] returnbatteryId = new string[2];
         public string ticketAvailable_value;
         public string errMsg;
@@ -32,6 +32,7 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
 
         public void setting_Authorize_value()
         {
+            errCode = "00000";
             if (this.errCode == "00000")
             {
                 List<string> returnbatteryIdList = new List<string>();

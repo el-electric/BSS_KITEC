@@ -160,6 +160,8 @@ namespace EL_BSS
         public DateTime Total_WakeUp_Time = DateTime.Now;
         public bool TouchManagerInit = false;
 
+        public bool debug_overcurrent = false;
+
         Manager_Touch touch_manager;
         public void setTouchManger(Form c)
         {

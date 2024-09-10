@@ -380,39 +380,6 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             return errCode;
         }
 
-        public void sendOCPP_CP_Req_StartTrnasaction(int ConnectorId)
-        {
-            var data = new
-            {
-                connectorId = ConnectorId,
-                //userNo = Model.getInstance().Authorize.userNo,
-                userNo = 1,
-                //SOC = Model.getInstance().list_SlaveRecv[ConnectorId].SOC,
-                SOC = 46,
-                reservationId = 0,
-                timestamp = DateTime.Now.ToString(),
-            };
-            string msg = makeMessage(enumData.StartTransaction.ToString(), data);
-            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(msg);
-            /*string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponse(msg);
-            return response;*/
-        }
-
-        public void sendOCPP_CP_Req_StopTransaction(int ConnectorId, string reason)
-        {
-            var data = new
-            {
-                idTag = ConnectorId,
-                meterStop = Model.getInstance().list_SlaveRecv[ConnectorId - 1].SOC,
-                timestamp = DateTime.Now.ToString(),
-                transactionId = 0,
-                reason = reason,
-                trasactiondData = 0,
-            };
-            string msg = makeMessage(enumData.StopTransaction.ToString(), data);
-            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(msg);
-        }
-
         public void Send_OCPP_CP_Req_battery_Excange_Finished(string finishedSignal)
         {
             var data = new
@@ -447,6 +414,42 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
         }
+
+        public void Send_OCPP_CP_Req_StationAddInfoErrorEvent(int index, Battery_Error errorName, bool isMeansure)
+        {
+            string division;
+
+
+            if (index == 0)
+            {
+                division = "Master";
+            }
+            else
+            {
+                division = "Slave";
+            }
+
+            var data = new Object[]
+            {
+                2,
+                Guid.NewGuid().ToString(),
+                enumData.StationAddInfoErrorEvent.ToString(),
+                    new
+                    {
+                        timeStamp = DateTime.Now.ToString(),
+                        division = division,
+                        eventName = errorName.ToString(),
+                        isMeasure = isMeansure
+                    }
+            };
+
+            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
+        }
+
+
+
+
 
         private void setSendPacket_Call_CP(String actionName, String payloadString)
         {

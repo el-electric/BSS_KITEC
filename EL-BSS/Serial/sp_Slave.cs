@@ -441,7 +441,7 @@ namespace EL_BSS.Serial
             {
                 return enumData.Finishing.ToString();
             }
-            else if (Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            else if (Model.getInstance().list_SlaveRecv[i].BatterArrive && Model.getInstance().list_SlaveRecv[i].WAKEUP_Signal)
             {
                 return enumData.Preparing.ToString();
             }

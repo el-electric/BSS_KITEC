@@ -272,6 +272,9 @@ namespace EL_BSS
 
             // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(0, Battery_Error.Over_Current, true);
             Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(0, Battery_Error.Over_Current, false);
+
+            if(!Model.getInstance().debug_overcurrent) Model.getInstance().debug_overcurrent = true;
+            else Model.getInstance().debug_overcurrent = false;
         }
     }
 }
