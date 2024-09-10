@@ -192,6 +192,8 @@ namespace EL_BSS
             public int Charger_WaveSensor;
             public int Charger_LightSensor;
 
+            public string FW_ver;
+
             public bool Error_Occured = false;
 
         }
@@ -357,6 +359,8 @@ namespace EL_BSS
 
             //
             public bool Error_Occured = false;
+
+            public bool isSequence = false;
 
             ////////////
 

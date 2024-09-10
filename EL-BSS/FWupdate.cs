@@ -62,7 +62,7 @@ namespace EL_BSS
 
                 this.Invoke(new MethodInvoker(delegate ()
                 {
-                    show_Notify("업데이트 " + temp);
+                    // show_Notify("업데이트 " + temp);
                 }));
             }
 
@@ -107,7 +107,7 @@ namespace EL_BSS
 
                 this.Invoke(new MethodInvoker(delegate ()
                 {
-                    show_Notify("주소 점프 " + temp);
+                    // show_Notify("주소 점프 " + temp);
                 }));
             }
 

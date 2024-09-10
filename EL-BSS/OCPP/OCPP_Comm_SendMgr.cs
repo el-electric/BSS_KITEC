@@ -28,6 +28,7 @@ using System.Windows.Interop;
 using EL_BSS.OCPP.packet.cp2csms;
 using System.Diagnostics;
 using System.Globalization;
+using System.Reflection;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -48,7 +49,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 chargePointModel = Model.getInstance().chargePointModel,
                 chargePointSerialNumber = Model.getInstance().chargePointSerialNumber,
                 chargePointVendor = Model.getInstance().chargePointVendor,
-                firmwareVersion = "1.1.1", //임시
+                firmwareVersion = Model.getInstance().list_MasterRecv[0].FW_ver, //임시
                 iccid = "EMPTY",
                 imsi = "EMPTY",
 
@@ -65,8 +66,11 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
             return response;
         }
+        
         public async Task<string> sendOCPP_CP_Req_AddInforBootNotification()
         {
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            string versionString = $"{version.Major}.{version.Minor}.{version.Build}";
             var data = new
             {
 
@@ -83,7 +87,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 makeDate = Model.getInstance().makeDate,
                 runDate = Model.getInstance().runDate,
                 manager = Model.getInstance().Manager,
-                swVersion = "1.1.1"
+                swVersion = versionString
 
             };
             string msg = makeMessage(enumData.AddInforBootNotification.ToString(), data);
@@ -92,35 +96,11 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             return response;
         }
 
-        public string sendOCPP_CP_Req_StatusNotification(int ChannelIdx, string status, int errorLevel = 0)
-        {
-            var data = new Object[]
-            {
-                2,
-                Guid.NewGuid().ToString(),
-                enumData.StatusNotification.ToString(),
-                    new
-                    {
-                        stationId = Model.getInstance().chargePointSerialNumber,
-                        chargePointSerialNumber = "empty",
-                        connectorId = ChannelIdx,
-                        status = status,
-                        errorCode = "0000",
-                        errorLevel =  errorLevel.ToString(),
-                        info = "empty",
-                        batteryId = "empty", 
-                        soc = Model.getInstance().list_SlaveRecv[ChannelIdx - 1].SOC.ToString(), 
-                        timestamp = DateTime.Now.ToString(),
 
-        }
-    };
-            string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
-
-            return json;
-        }
 
         public void sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status, string info = "Ready")
         {
+
             var data = new Object[]
             {
                 2,
@@ -446,8 +426,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(msg);
         }
 
-        public void Send_OCPP_CP_Req_AddInfoErrorEvent(int index , Battery_Error errorName , bool isMeasure)
-        { 
+        public void Send_OCPP_CP_Req_AddInfoErrorEvent(int index, Battery_Error errorName, bool isMeasure)
+        {
             var data = new Object[]
             {
                 2,

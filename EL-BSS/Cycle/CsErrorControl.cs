@@ -68,17 +68,18 @@ namespace EL_BSS.Cycle
             {
                 for (int m = 0; m < 2; m++)
                 {
-                    if (model.list_MasterRecv[m].vibrationWarning)  //지진
+                    
+                    if (!model.list_MasterRecv[m].Error_Occured && model.list_MasterRecv[m].vibrationWarning)  //지진
                     {
                         model.frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
                         model.list_MasterRecv[m].Error_Occured = true;
                     }
-                    else if (model.list_MasterRecv[m].floodingWarning)  // 침수
+                    else if (!model.list_MasterRecv[m].Error_Occured && model.list_MasterRecv[m].floodingWarning)  // 침수
                     {
                         model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
                         model.list_MasterRecv[m].Error_Occured = true;
                     }
-                    else if (model.list_MasterRecv[m].Charger_UpperTemper > 70) // 온도가 100도를 넘었을때
+                    else if (!model.list_MasterRecv[m].Error_Occured && model.list_MasterRecv[m].Charger_UpperTemper > 70) // 온도가 100도를 넘었을때
                     {
                         model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
                         model.list_MasterRecv[m].Error_Occured = true;
@@ -131,18 +132,34 @@ namespace EL_BSS.Cycle
                                                 
                     if (model.Battery_Error_Code[s][Battery_Error.BMS_Error] != model.list_SlaveRecv[s].BMS_ERR_State) { Is_Slot_Error(s, Battery_Error.BMS_Error, model.list_SlaveRecv[s].BMS_ERR_State); }
 
-                /*if (model.list_SlaveRecv[s].ProcessStatus == 100 && !model.Battery_Error_Code[s][Battery_Error.Over_Current])  //충전중일때 
+                if (model.list_SlaveRecv[s].ProcessStatus == 100)  //충전중일때 
                 {
-                    switch (model.list_SlaveRecv[s].Check_BatteryVoltage_Type)  // 과전류 
+                    if (!model.Battery_Error_Code[s][Battery_Error.Over_Current])
                     {
-                        case 48:
-                            if (model.list_SlaveRecv[s].PowerPackWattage > 165) Is_Slot_Error(s, Battery_Error.Over_Current, true);
-                            break;
-                        case 72:
-                            if (model.list_SlaveRecv[s].PowerPackWattage > 110) Is_Slot_Error(s, Battery_Error.Over_Current, true);
-                            break;
+                        switch (model.list_SlaveRecv[s].Check_BatteryVoltage_Type)  // 과전류 
+                        {
+                            case 48:
+                                if (model.list_SlaveRecv[s].PowerPackWattage > 165) Is_Slot_Error(s, Battery_Error.Over_Current, true);
+                                break;
+                            case 72:
+                                if (model.list_SlaveRecv[s].PowerPackWattage > 110) Is_Slot_Error(s, Battery_Error.Over_Current, true);
+                                break;
+                        }
                     }
-                }*/
+
+                    if (!model.Battery_Error_Code[s][Battery_Error.Over_Voltage])
+                    {
+                        switch (model.list_SlaveRecv[s].Check_BatteryVoltage_Type)  // 과전류 
+                        {
+                            case 48:
+                                if (model.list_SlaveRecv[s].PowerPackVoltage > 600) Is_Slot_Error(s, Battery_Error.Over_Voltage, true);
+                                break;
+                            case 72:
+                                if (model.list_SlaveRecv[s].PowerPackVoltage > 800) Is_Slot_Error(s, Battery_Error.Over_Voltage, true);
+                                break;
+                        }
+                    }
+                }
 
                 /*if (!model.Battery_Error_Code[s][Battery_Error.Slot_Temperature_Error] && (model.list_SlaveRecv[s].Battery_Slot_Temp == 0 || model.list_SlaveRecv[s].Battery_Slot_Temp == 256))
                 {

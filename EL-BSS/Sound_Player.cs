@@ -41,7 +41,7 @@ namespace EL_BSS
         {
             _SoundPlayer.Stop();
             _SoundPlayer.Dispose();
-            _SoundPlayer = null;
+
         }
 
         SM.SoundPlayer _SoundPlayer;
@@ -78,7 +78,6 @@ namespace EL_BSS
             {
                 _SoundPlayer.Stop();
                 _SoundPlayer.Dispose();
-                _SoundPlayer = null;
             }
 
             /*if (string.IsNullOrWhiteSpace(filePath))

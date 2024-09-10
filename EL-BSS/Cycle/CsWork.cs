@@ -23,9 +23,10 @@ namespace EL_BSS.Cycle
     {
         public static int CurrentStep = 0;
 
+        private static Sound_Player sound_Player;
+
         public async static void Main_WorkCycle() //자동동작 시퀀스
         {
-            Sound_Player sound_Player = new Sound_Player();
 
             if (Model.Dt_SendInterval.AddSeconds(Model.SendInterval) < DateTime.Now && Model.getInstance().Send_bootnotification)
             {
@@ -44,6 +45,11 @@ namespace EL_BSS.Cycle
 
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
             {
+
+                case CsDefine.CYC_INIT:
+                    mainFormLabelUpdate("");
+                    break;
+
                 case CsDefine.CYC_MAIN:
                     //반납 //status // 충전 
                     CurrentStep = CsDefine.CYC_MAIN;
@@ -53,6 +59,11 @@ namespace EL_BSS.Cycle
                     getInstance().Retreive_slot[1] = 0;
                     getInstance().Lent_slot[0] = 0;
                     getInstance().Lent_slot[1] = 0;
+
+                    for (int i = 0; i < 8; i++)
+                    {
+                        getInstance().list_SlaveRecv[i].isSequence = false;
+                    }
                     /*getInstance().Authorize = null;*/
                     NextStep();
                     break;
@@ -62,7 +73,7 @@ namespace EL_BSS.Cycle
                         "배터리 세트 : " + getInstance().Authorize.batterySetName + "\n" +
                         "구독 여부 : " + getInstance().Authorize.ticketAvailable_value + "\n" +
                         "잔여캐시 : " + getInstance().Authorize.cashBalance + "원" + "\n" +
-                        "배터리 종류 : " +  getInstance().Authorize.batteryType + "V"; 
+                        "배터리 종류 : " + getInstance().Authorize.batteryType + "V";
                     getInstance().frmFrame.showNotiForm(puttext);
                     NextStep();
                     break;
@@ -164,6 +175,7 @@ namespace EL_BSS.Cycle
                     if (CsCharging.isCharging(getInstance().Lent_slot[0]) && CsCharging.isCharging(getInstance().Lent_slot[1]))
                     {
                         mainFormLabelUpdate("반납이 완료 되었습니다.");
+                        frmFrame.deleMenuClick(0);
                         NextStep();
                     }
                     break;
@@ -195,7 +207,7 @@ namespace EL_BSS.Cycle
                         mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
                     }
 
-                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 3000 && 
+                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 13000 &&
                         (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive) ||
                         (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive))
                     {
@@ -230,29 +242,46 @@ namespace EL_BSS.Cycle
                                 break;
                             case "11101":
                                 getInstance().frmFrame.showNotiForm("배터리를 찾을 수 없습니다.");
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                                frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             case "11102":
                                 getInstance().frmFrame.showNotiForm("배터리 세트를 찾을 수 없습니다.");
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                                frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             case "10002":
                                 getInstance().frmFrame.showNotiForm("이용자가 없습니다.");
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                                frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             case "12102":
                                 getInstance().frmFrame.showNotiForm("스테이션이 존재하지 않습니다");
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                                frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             default:
                                 getInstance().frmFrame.showNotiForm("없는 애러코드");
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                                Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                                frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                         }
                     }
                     else
                     {
-                        getInstance().frmFrame.NotiShow("배터리의 ID가 일치하지 않습니다.\n고객센터에 문의해주세요.", 1000);
+                        getInstance().frmFrame.NotiShow("배터리의 ID가 일치하지 않습니다.\n고객센터에 문의해주세요.", 10000);
+                        Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                        Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                         frmFrame.deleMenuClick(0);
                         CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                     }
@@ -276,6 +305,12 @@ namespace EL_BSS.Cycle
                         mainFormLabelUpdate("감사합니다. 안녕히가세요.");
                         Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.finished.ToString());
                         CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                    }
+                    else if (getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor &&
+                        getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor)
+                    {
+                        Model.getInstance().list_SlaveSend[getInstance().Retreive_slot[0] - 1].doorOpen = true;
+                        Model.getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
                     }
                     break;
 

@@ -164,6 +164,10 @@ namespace EL_BSS.Serial
         static int slaveId = 0;
         static int masterId = 0;
         static int idx = 0;
+
+        static int FW_Major;
+        static int FW_Minor;
+        static int FW_Patch;
         private static void HandlePacket(byte[] packet)
         {
             // Console.WriteLine(BitConverter.ToString(packet) + " LEN " + packet.Length);
@@ -171,7 +175,7 @@ namespace EL_BSS.Serial
             masterId = packet[4];
             slaveId = packet[5];
 
-
+             
             ///////////////// TEMP LOG ///////////////
             TimeSpan difference = DateTime.Now - Model.getInstance().list_MasterDataRecvDatetime[masterId - 1];
             CsUtil.WriteLog("," + idx + ", Receive TERM : " + difference.ToString(@"hh\:mm\:ss\.fff"), "MASTER");
@@ -183,11 +187,17 @@ namespace EL_BSS.Serial
             Model.getInstance().list_MasterRecv[masterId - 1].floodingWarning = EL_Manager_Conversion.getFlagByByteArray(packet[20], 6);
             Model.getInstance().list_MasterRecv[masterId - 1].floodingDanger = EL_Manager_Conversion.getFlagByByteArray(packet[20], 7);
             Model.getInstance().list_MasterRecv[masterId - 1].DIP_Switch_Chaeck = packet[22];
-            Model.getInstance().list_MasterRecv[masterId - 1].Charger_UpperTemper = (EL_Manager_Conversion.getInt_2Byte(packet[23], packet[24]) - 40);
+            Model.getInstance().list_MasterRecv[masterId - 1].Charger_UpperTemper = (EL_Manager_Conversion.getInt_2Byte_with_minus_1(packet[23], packet[24]) - 40);
             Model.getInstance().list_MasterRecv[masterId - 1].Charger_LowerTemper = EL_Manager_Conversion.getInt_2Byte(packet[25], packet[26]);
             Model.getInstance().list_MasterRecv[masterId - 1].Charger_Humidity = packet[27];
             Model.getInstance().list_MasterRecv[masterId - 1].Charger_WaveSensor = EL_Manager_Conversion.getInt_2Byte(packet[28], packet[29]);
             Model.getInstance().list_MasterRecv[masterId - 1].Charger_LightSensor = EL_Manager_Conversion.getInt_2Byte(packet[30], packet[31]);
+
+            FW_Major = packet[32];
+            FW_Minor = packet[33];
+            FW_Patch = packet[34];
+
+            Model.getInstance().list_MasterRecv[masterId - 1].FW_ver = FW_Major + "." + FW_Minor + "." + FW_Patch;
         }
 
         private static void HandlePacket_f1(byte[] packet)

@@ -171,7 +171,6 @@ namespace BatteryChangeCharger.OCPP
             if (websocket.State == WebSocketState.Open)
             {
                 Console.WriteLine("Send to Server > " + message);
-                Logger.d("Send to Server > " + message);
                 websocket.Send(message);
             }
 

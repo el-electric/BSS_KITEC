@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -66,6 +67,11 @@ namespace EL_BSS
             btn_test.Visibility = Visibility.Visible;
 #endif
 
+            /*Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            string versionString = $"{version.Major}.{version.Minor}.{version.Build}";
+
+            sw_version.Text = versionString;
+            fw_version.Text = Model.getInstance().list_MasterRecv[0].FW_ver;*/
         }
 
         private void UC_Main_Loaded(object sender, RoutedEventArgs e)
@@ -105,6 +111,11 @@ namespace EL_BSS
             if (qr_data != "")
                 img_qr.Source = ConvertBitmapToBitmapImage(barcodeWriter.Write(qr_data));
 
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            string versionString = $"{version.Major}.{version.Minor}.{version.Build}";
+
+            sw_version.Text = "SW Ver : " +versionString;
+            fw_version.Text = "FW Ver : "+Model.getInstance().list_MasterRecv[0].FW_ver;
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)

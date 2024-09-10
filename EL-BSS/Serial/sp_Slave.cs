@@ -405,19 +405,21 @@ namespace EL_BSS.Serial
             for (int i = 1; i <= 8; i++)
             {
                 if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
-                    Model.getInstance().list_SlaveRecv[i - 1].SOC >= 90 &&
+                    Model.getInstance().list_SlaveRecv[i - 1].SOC == 100 &&
                     Model.getInstance().list_SlaveRecv[i - 1].Check_BatteryVoltage_Type == Model.getInstance().Authorize.batteryType &&
                     check_Retreive_slot_Count != 2
                     )
                 {
                     check_Retreive_slot_Count++;
                     Model.getInstance().Retreive_slot[check_Retreive_slot_Count - 1] = i;
+                    Model.getInstance().list_SlaveRecv[i -1].isSequence = true;
 
                 }
                 else if (!Model.getInstance().list_SlaveRecv[i - 1].BatterArrive && check_lent_Slot_Count != 2)
                 {
                     check_lent_Slot_Count++;
                     Model.getInstance().Lent_slot[check_lent_Slot_Count - 1] = i;
+                    Model.getInstance().list_SlaveRecv[i - 1].isSequence = true;
                 }
 
                 if (check_Retreive_slot_Count == 2 && check_lent_Slot_Count == 2)
@@ -435,7 +437,7 @@ namespace EL_BSS.Serial
             {
                 return enumData.Charging.ToString();
             }
-            else if (Model.getInstance().list_SlaveRecv[i].SOC == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            else if ( Model.getInstance().Check_statusnotification[i] == enumData.Charging.ToString() && Model.getInstance().list_SlaveRecv[i].SOC == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
                 return enumData.Finishing.ToString();
             }

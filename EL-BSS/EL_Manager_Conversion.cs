@@ -453,6 +453,20 @@ namespace EL_BSS
             return result2;
         }
 
+        public static short getInt_2Byte_with_minus_1(byte data1, byte data2)
+        {
+            int result = ((data2 << 8) | (data1 & 0xFF));
+
+            short result2 = (short)result;
+
+            if ((result2 & 0x8000) != 0)
+            {
+                result2 |= unchecked((short)0xFFFF0000);
+            }
+
+            return result2;
+        }
+
         public static int getint_2Byte(byte data1, byte data2) => (data2 << 8 | data1) & 0x0000ffff;
         public static int getInt(byte data) => data & 0x000000ff;
         public static int getInt(string data)

@@ -115,7 +115,7 @@ namespace EL_BSS
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-      
+
             //ZXing.BarcodeWriter barcodeWriter = new ZXing.BarcodeWriter();
             //barcodeWriter.Format = ZXing.BarcodeFormat.QR_CODE;
 
@@ -184,16 +184,25 @@ namespace EL_BSS
 
         public void show_p(string message)
         {
-            frmunuseablePopup frmunuseablePopup = new frmunuseablePopup(message);
+            Form currentForm = this;
+            frmunuseablePopup = new frmunuseablePopup(message);
             frmunuseablePopup.StartPosition = FormStartPosition.Manual;
-            frmunuseablePopup.Location = new System.Drawing.Point(ParentForm.Top, ParentForm.Top + 74);
 
-            frmunuseablePopup.ShowDialog();
+            frmunuseablePopup.Location = this.PointToScreen(new System.Drawing.Point(0, 0));
+            frmunuseablePopup.Owner = this;
+
+            this.BeginInvoke(new Action(() =>
+            {
+                frmunuseablePopup.ShowDialog();
+            }));
         }
 
         public void close_p()
         {
-            frmunuseablePopup.Close();
+            if (this.InvokeRequired) // Invoke 예외 처리
+            {
+                frmunuseablePopup.Close();
+            }
         }
     }
 }
