@@ -354,7 +354,7 @@ namespace EL_BSS
 
             // 최초 안착 신호 들어온 시간
             public Nullable<DateTime> dt_First_BatterArrive_Time = null;
-            public Nullable<DateTime> dt_DoorOpening_Time = null; 
+            public Nullable<DateTime> dt_DoorOpening_Time = null;
 
             // 배터리 타입 구분
             public int Check_BatteryVoltage_Type;
@@ -554,9 +554,9 @@ namespace EL_BSS
 
             if (list_SlaveSend[idx - 1].z1CommandDisregard)
                 bytes[17] |= 0x04;
-            if (list_SlaveSend[idx - 1].doorOpen)      
+            if (list_SlaveSend[idx - 1].doorOpen)
                 bytes[17] |= 0x02;
-            
+
 
             bytes[18] = 0;
 
@@ -800,7 +800,7 @@ namespace EL_BSS
             Model.getInstance().list_SlaveSend[index].BatteryWakeup = false;
             Model.getInstance().list_SlaveSend[index].BatteryFETON = false;
             Model.getInstance().list_SlaveSend[index].BatteryOutput = false;
-            Model.getInstance().list_SlaveSend[index].Output = false;   
+            Model.getInstance().list_SlaveSend[index].Output = false;
         }
 
         public void ChargingStop_All_Slot()
@@ -861,6 +861,7 @@ namespace EL_BSS
             STATION,
             battery_exchange_finished,
             AddInfoErrorEvent,
+            StationAddInfoErrorEvent,
             Ready,
             WakeUp,
             FETON,
@@ -870,7 +871,7 @@ namespace EL_BSS
         }
 
         public Dictionary<Battery_Error, bool>[] Battery_Error_Code = new Dictionary<Battery_Error, bool>[8];
-
+        public Dictionary<Battery_Error, bool>[] dic_Station_Error_Code = new Dictionary<Battery_Error, bool>[2];
         public enum Battery_Error
         {
             Low_Voltage,                            // 저전압 알림
@@ -904,15 +905,24 @@ namespace EL_BSS
             Pre_Charge_Error,                       // Pre Charge 에러
             BMS_Error,                              // BMS 에러
             Over_Current,                           // 과전류 에러
-            
+
             Slot_Temperature_Error,     // 슬롯 온도센서 에러
             FET_On_Error,               // FET ON 에러
             Wake_Up_Error,              // Wake Up 에러
             Door_Closing_Error,         // 문 닫힘 에러
             Door_Opening_Error,         // 문 열림 에러
             Power_Pack_Error,            // 파워팩 에러
-            Control_Board_Error          // 제어보드 통신 에러
-        } 
+            Control_Board_Error,          // 제어보드 통신 에러
+
+            vibrationWarning,  //지진 (진동)
+            floodingWarning,   //침수
+            Charger_Humidity,  //과습
+            Charger_UpperTemper, // 스테이션 고온            
+
+
+        }
+
+
 
 
     }

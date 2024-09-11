@@ -114,7 +114,7 @@ namespace BatteryChangeCharger.OCPP
             {
                 return true;
             }
-            else 
+            else
             {
                 return false;
             }
@@ -154,8 +154,15 @@ namespace BatteryChangeCharger.OCPP
         private void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
             Console.WriteLine("Message received: " + e.Message);
-
-            String messageId = JsonConvert.DeserializeObject<JArray>(e.Message)?[1]?.ToString();
+            string messageId = null;
+            try
+            {
+                messageId = JsonConvert.DeserializeObject<JArray>(e.Message)?[1]?.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Message received Error: " + ex.Message);
+            }
 
             if (messageId != null && responseTasks.TryRemove(messageId, out var tcs))
             {

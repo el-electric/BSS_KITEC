@@ -48,8 +48,12 @@ namespace EL_BSS.Cycle
 
                 case CsDefine.CYC_INIT:
                     mainFormLabelUpdate("");
+                    for (int i = 1; i <= 8; i++)
+                    {
+                        Model.getInstance().list_SlaveRecv[i - 1].isSequence = false;
+                    }
+                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_END;
                     break;
-
                 case CsDefine.CYC_MAIN:
                     //반납 //status // 충전 
                     CurrentStep = CsDefine.CYC_MAIN;
@@ -232,7 +236,7 @@ namespace EL_BSS.Cycle
                         (getInstance().Authorize.returnbatteryId[1] == getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString() &&
                          getInstance().Authorize.returnbatteryId[0] == getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString()))
                     {
-                        string response = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(Model.getInstance().Retreive_slot, Model.getInstance().Lent_slot);
+                        string response = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(Model.getInstance().Lent_slot, Model.getInstance().Retreive_slot);
 
                         switch (response)
                         {
