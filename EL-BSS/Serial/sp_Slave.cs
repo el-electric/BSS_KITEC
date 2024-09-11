@@ -239,12 +239,12 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = (EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]) - 40);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = (EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]) - 40);
 
-            if (Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal) 
+            if (Model.getInstance().list_SlaveRecv[idx - 1].WAKEUP_Signal)
             {
                 Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = (EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]) - 40);
                 Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = (EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]) - 40);
             }
-            else 
+            else
             {
                 Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]);
                 Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]);
@@ -283,7 +283,7 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].cell_HighTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 5);
             Model.getInstance().list_SlaveRecv[idx - 1].FET_LowTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 6);
             Model.getInstance().list_SlaveRecv[idx - 1].FET_HighTemp = EL_Manager_Conversion.getFlagByByteArray(packet[53], 7);
-            
+
 
             Model.getInstance().list_SlaveRecv[idx - 1].lowVoltageProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 0);
             Model.getInstance().list_SlaveRecv[idx - 1].highVoltageProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 1);
@@ -293,7 +293,7 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].packRecycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 5);
             Model.getInstance().list_SlaveRecv[idx - 1].overDischargeProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 6);
             Model.getInstance().list_SlaveRecv[idx - 1].overChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[54], 7);
-            
+
 
             Model.getInstance().list_SlaveRecv[idx - 1].reCycleOverChargingProtection = EL_Manager_Conversion.getFlagByByteArray(packet[55], 0);
             Model.getInstance().list_SlaveRecv[idx - 1].cellLowTempProtection = EL_Manager_Conversion.getFlagByByteArray(packet[55], 1);
@@ -412,7 +412,7 @@ namespace EL_BSS.Serial
                 {
                     check_Retreive_slot_Count++;
                     Model.getInstance().Retreive_slot[check_Retreive_slot_Count - 1] = i;
-                    Model.getInstance().list_SlaveRecv[i -1].isSequence = true;
+                    Model.getInstance().list_SlaveRecv[i - 1].isSequence = true;
 
                 }
                 else if (!Model.getInstance().list_SlaveRecv[i - 1].BatterArrive && check_lent_Slot_Count != 2)
@@ -433,11 +433,11 @@ namespace EL_BSS.Serial
 
         private static string Check_Status(int i)
         {
-            if (Model.getInstance().list_SlaveRecv[i].SeqNum == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
-            {
-                return enumData.Charging.ToString();
-            }
-            else if ( Model.getInstance().Check_statusnotification[i] == enumData.Charging.ToString() && Model.getInstance().list_SlaveRecv[i].SOC == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            //if (Model.getInstance().list_SlaveRecv[i].ProcessStatus == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            //{
+            //    return enumData.Charging.ToString();
+            //}
+            if (Model.getInstance().Check_statusnotification[i] == enumData.Charging.ToString() && Model.getInstance().list_SlaveRecv[i].SOC == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
                 return enumData.Finishing.ToString();
             }

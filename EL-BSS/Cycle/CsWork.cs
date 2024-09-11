@@ -178,6 +178,11 @@ namespace EL_BSS.Cycle
                 case CsDefine.CYC_MAIN + 8:
                     if (CsCharging.isCharging(getInstance().Lent_slot[0]) && CsCharging.isCharging(getInstance().Lent_slot[1]))
                     {
+                        ///////////////////////////////////////////////////
+                        getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(getInstance().Lent_slot[0]);
+                        getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(getInstance().Lent_slot[1]);
+                        ///////////////////////////////////////////////////
+                        
                         mainFormLabelUpdate("반납이 완료 되었습니다.");
                         frmFrame.deleMenuClick(0);
                         NextStep();

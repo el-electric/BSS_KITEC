@@ -32,6 +32,7 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
 
         public void setting_Authorize_value()
         {
+            //PMS에서 안준다함.
             errCode = "00000";
             if (this.errCode == "00000")
             {
