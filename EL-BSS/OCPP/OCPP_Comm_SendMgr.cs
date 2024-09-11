@@ -66,7 +66,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
             return response;
         }
-        
+
         public async Task<string> sendOCPP_CP_Req_AddInforBootNotification()
         {
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -436,6 +436,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                 enumData.StationAddInfoErrorEvent.ToString(),
                     new
                     {
+                        stationId = Model.getInstance().chargePointSerialNumber,
                         timeStamp = DateTime.Now.ToString(),
                         division = division,
                         eventName = errorName.ToString(),
