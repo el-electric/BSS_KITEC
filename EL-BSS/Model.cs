@@ -599,21 +599,8 @@ namespace EL_BSS
             }
             else
             {
-                if (Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type == 72)
-                {
-                    bytes[23] = (byte)((100 >> 8) & 0x000000ff);
-                    bytes[24] = (byte)((100) & 0x000000ff);
-                }
-                else if (Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type == 48)
-                {
-                    bytes[23] = (byte)((150 >> 8) & 0x000000ff);
-                    bytes[24] = (byte)((150) & 0x000000ff);
-                }
-                else
-                {
-                    bytes[23] = (byte)((0 >> 8) & 0x000000ff);
-                    bytes[24] = (byte)((0) & 0x000000ff);
-                }
+                bytes[23] = (byte)((Model.getInstance().list_SlaveSend[idx - 1].request_Wattage >> 8) & 0x000000ff);
+                bytes[24] = (byte)(Model.getInstance().list_SlaveSend[idx - 1].request_Wattage & 0x000000ff);
             }
 
             byte[] temp;

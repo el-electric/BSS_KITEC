@@ -137,7 +137,7 @@ namespace BatteryChangeCharger.OCPP
             websocket.Send(message);
 
             // 응답 대기 (타임아웃을 설정할 수도 있음)
-            using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
+            using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)))
             {
                 cts.Token.Register(() => tcs.TrySetCanceled());
                 try

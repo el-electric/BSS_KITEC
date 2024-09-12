@@ -46,9 +46,9 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
                 this.returnbatteryId = returnbatteryIdList.ToArray();
 
                 if (ticketAvailable)
-                { ticketAvailable_value = "구독중"; }
+                { ticketAvailable_value = "O"; }
                 else
-                { ticketAvailable_value = "구독 취소"; }
+                { ticketAvailable_value = "X"; }
             }
         }
     }

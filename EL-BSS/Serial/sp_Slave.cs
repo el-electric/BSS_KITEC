@@ -254,6 +254,16 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].ProcessStatus = EL_Manager_Conversion.getInt(packet[37]);
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
+
+            if (EL_Manager_Conversion.getInt(packet[40]) >= 99)
+            {
+                Model.getInstance().list_SlaveRecv[idx - 1].SOC = 100;
+            }
+            else
+            {
+                Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]) + 1;
+            }
+
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
 

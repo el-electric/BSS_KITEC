@@ -51,8 +51,8 @@ namespace EL_BSS.Cycle
                     if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 50)
                     {
                         model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+                        Model.getInstance().csErrorControl.Is_Slot_Error(slotid - 1, Battery_Error.Slot_Temperature_Error, true);
                     }
-                    Model.getInstance().list_SlaveRecv[1].Battery_Slot_Temp = 65;
                     if (Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 60)
                     {
                         model.list_SlaveSend[slotid - 1].BatteryOutput = false;
@@ -72,20 +72,18 @@ namespace EL_BSS.Cycle
                     Model.getInstance().csErrorControl.Is_Slot_Error(slotid - 1, Battery_Error.Slot_Temperature_Error, false);
                 }
 
-                if (model.list_SlaveRecv[slotid - 1].Error_Occured || model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor) //에러 발생시
+                if (model.list_SlaveRecv[slotid - 1].Error_Occured || model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor) //에러 발생시 그리고 완속 
                 {
                     model.list_SlaveSend[slotid - 1].BatteryFETON = false;
                     model.list_SlaveSend[slotid - 1].BatteryOutput = false;
                 }
-
-                if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
+                else if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
                     model.list_SlaveRecv[slotid - 1].SOC < 100 &&
                     !model.list_SlaveRecv[slotid - 1].Error_Occured &&
                       (!model.list_MasterRecv[0].Error_Occured || !model.list_MasterRecv[1].Error_Occured) &&
                     Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper <= 40 &&
                     Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp <= 40 &&
-                    !Model.getInstance().list_SlaveRecv[slotid - 1].isSequence
-                    )
+                    !Model.getInstance().list_SlaveRecv[slotid - 1].isSequence)
                 {
                     model.list_SlaveSend[slotid - 1].BatteryFETON = true;
                     model.list_SlaveSend[slotid - 1].BatteryOutput = true;

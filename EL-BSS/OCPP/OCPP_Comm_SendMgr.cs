@@ -114,7 +114,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         info = info,
                         batteryId = Model.getInstance().list_SlaveRecv[ChannelIdx].Serial_Number,
                         soc = Model.getInstance().list_SlaveRecv[ChannelIdx].SOC,
-                        timestamp = DateTime.Now.ToString(),
+                        timestamp = DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss", new CultureInfo("ko-KR")),
 
         }
     };
@@ -127,23 +127,6 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
 
-        }
-
-        public async Task<string> sendOCPP_CP_Req_StatusNotification_for_authorize(string status, int errorLevel, string errormessage)
-        {
-            var data = new
-            {
-                stationId = Model.getInstance().chargePointSerialNumber,
-                status = status,
-                // errorCode =  
-                errorLevel = errorLevel.ToString(),
-                errorMassege = errormessage,
-                timestamp = DateTime.Now.ToString(),
-            };
-
-            string msg = makeMessage(enumData.StatusNotification.ToString(), data);
-            string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
-            return response;
         }
 
         public void sendOCPP_CP_Req_AddInfoStationBatteryState(int ChannelIdx)
@@ -331,7 +314,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         batterySetNo = Model.getInstance().Authorize.batterySetNo,
                         returnBatteries = returnBatteries,
                         lendingBattteries = lentBatteries,
-                        timestamp = DateTime.Now.ToString(),
+                        timestamp = DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss", new CultureInfo("ko-KR")),
                     }
             };
             string returnvlaue = "";
@@ -408,7 +391,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         slotId = index,
                         eventName = errorName.ToString(),
                         isMeasure = isMeasure,
-                        timeStampMeasure = DateTime.Now.ToString()
+                        timeStampMeasure = DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss", new CultureInfo("ko-KR"))
                     }
             };
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
@@ -437,7 +420,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                     new
                     {
                         stationId = Model.getInstance().chargePointSerialNumber,
-                        timeStamp = DateTime.Now.ToString(),
+                        timeStamp = DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss", new CultureInfo("ko-KR")),
                         division = division,
                         eventName = errorName.ToString(),
                         isMeasure = isMeansure

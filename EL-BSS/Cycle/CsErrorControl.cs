@@ -190,16 +190,6 @@ namespace EL_BSS.Cycle
                     //}
 
 
-
-                    /*if (!model.Battery_Error_Code[s][Battery_Error.Slot_Temperature_Error] && (model.list_SlaveRecv[s].Battery_Slot_Temp == 0 || model.list_SlaveRecv[s].Battery_Slot_Temp == 256))
-                    {
-                        Is_Slot_Error(s, Battery_Error.Slot_Temperature_Error, true);
-                    }
-                    else if (model.Battery_Error_Code[s][Battery_Error.Slot_Temperature_Error] && model.list_SlaveRecv[s].Battery_Slot_Temp != 0 && model.list_SlaveRecv[s].Battery_Slot_Temp != 256)
-                    {
-                        Is_Slot_Error(s, Battery_Error.Slot_Temperature_Error, false);
-                    }*/
-
                     /*if (!model.Battery_Error_Code[s][Battery_Error.Door_Opening_Error])
                     {
                         if (model.list_SlaveSend[s].doorOpen)
