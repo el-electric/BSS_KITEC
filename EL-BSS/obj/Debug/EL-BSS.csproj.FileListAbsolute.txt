@@ -109,3 +109,4 @@ C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL-BSS_MarkupCompile.lref
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\UC_Main.baml
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL-BSS.g.resources
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL_BSS.frmMaster_Manual.resources
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Debug\EL_BSS.frmDoorClosePopup.resources

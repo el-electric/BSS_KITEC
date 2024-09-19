@@ -142,6 +142,16 @@ namespace EL_BSS.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap bss_illust_usingwarning {
+            get {
+                object obj = ResourceManager.GetObject("bss_illust_usingwarning", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap bssStation {
             get {
                 object obj = ResourceManager.GetObject("bssStation", resourceCulture);

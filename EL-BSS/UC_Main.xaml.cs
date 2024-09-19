@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EL_BSS.Cycle;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -229,6 +230,19 @@ namespace EL_BSS
                     else
                         masterStatus[i].Fill = new SolidColorBrush(Colors.Red);
                 }
+
+                if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] == CsDefine.CYC_END)
+                {
+                    btn_home.Visibility = Visibility.Collapsed;
+                    Right_Colunm.Width = new GridLength(3, GridUnitType.Star);
+                    property_Canvas.Margin = new Thickness(0, 0, 0, 0);
+                }
+                else
+                {
+                    btn_home.Visibility = Visibility.Visible;
+                    Right_Colunm.Width = new GridLength(0);
+                    property_Canvas.Margin = new Thickness(150, 0, 0, 0);
+                }
             }));
 
             timer.Start();
@@ -258,23 +272,29 @@ namespace EL_BSS
             Keyboard.ClearFocus();
         }
 
+        private bool test = false;
+
         private void btn_test_Click_1(object sender, RoutedEventArgs e)
         {
-            //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
-            //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(0);
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (test)
+                {
+                    Right_Colunm.Width = new GridLength(3, GridUnitType.Star);
+                    property_Canvas.Margin = new Thickness(0, 0, 0, 0);
+                }
+                else if(!test)
+                {
+                    Right_Colunm.Width = new GridLength(0);
+                    property_Canvas.Margin = new Thickness(150, 0, 0, 0);
+                }
+            }));
 
-            // Model.getInstance().oCPP_Comm_Manager.WebSocketclose();
+        }
 
-            // Model.getInstance().frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
-
-            // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(1);
-            //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
-
-            // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(0, Battery_Error.Over_Current, true);
-            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(0, Battery_Error.Over_Current, false);
-
-            if(!Model.getInstance().debug_overcurrent) Model.getInstance().debug_overcurrent = true;
-            else Model.getInstance().debug_overcurrent = false;
+        private void btn_home_Click(object sender, RoutedEventArgs e)
+        {
+            Model.getInstance().bis_Click_Home_button = true;
         }
     }
 }

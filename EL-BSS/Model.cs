@@ -22,6 +22,7 @@ using System.Security.Cryptography.Xml;
 using System.Reflection;
 using System.Collections;
 using System.Data.SqlTypes;
+using System.Security.Policy;
 
 namespace EL_BSS
 {
@@ -160,8 +161,6 @@ namespace EL_BSS
         public DateTime Total_WakeUp_Time = DateTime.Now;
         public bool TouchManagerInit = false;
 
-        public bool debug_overcurrent = false;
-
         Manager_Touch touch_manager;
         public void setTouchManger(Form c)
         {
@@ -171,6 +170,8 @@ namespace EL_BSS
         public DateTime DT_Screen_Touch_Time = DateTime.Now;
 
         public bool is_Master_Errror_occured = false;
+
+        public bool bis_Click_Home_button = false;
 
         public class MasterSend
         {

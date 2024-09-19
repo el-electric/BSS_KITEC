@@ -32,7 +32,7 @@ namespace EL_BSS
 
         private void NumClick(object sender, EventArgs e)
         {
-            if (tb_intput.Text.Length < 10)
+            if (tb_intput.Text.Length < 4)
             {
                 tb_intput.Text += ((DrakeUIButton)sender).Text;
             }
@@ -78,6 +78,7 @@ namespace EL_BSS
                     // JArray jsonArray = JArray.Parse(_packet);
                     try
                     {
+                        Model.getInstance().Authorize_Type = enumData.STATION.ToString();
                         JArray responseObject = JArray.Parse(response);
                         Model.getInstance().Authorize = JsonConvert.DeserializeObject<Req_Authorize>(responseObject[2].ToString());
                         Model.getInstance().Authorize.setting_Authorize_value();
@@ -88,7 +89,6 @@ namespace EL_BSS
                         {
                             case "00000":
                                 lbl_sub_status.Text = "인증 성공";
-                                Model.getInstance().Authorize_Type = enumData.STATION.ToString();
 
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
                                 break;

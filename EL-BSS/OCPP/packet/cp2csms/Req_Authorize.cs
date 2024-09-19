@@ -1,10 +1,12 @@
 ﻿using DrakeUI.Framework;
+using EL_BSS;
 using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static EL_BSS.Model;
 
 namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
 {
@@ -32,8 +34,10 @@ namespace EL_DC_Charger.ocpp.ver16.packet.cp2csms
 
         public void setting_Authorize_value()
         {
-            //PMS에서 안준다함.
-            errCode = "00000";
+
+            if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
+            { errCode = "00000"; }
+
             if (this.errCode == "00000")
             {
                 List<string> returnbatteryIdList = new List<string>();

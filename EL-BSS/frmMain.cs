@@ -25,6 +25,7 @@ namespace EL_BSS
     {
         frmManual showfrmManual = new frmManual();
         frmunuseablePopup frmunuseablePopup;
+        frmDoorClosePopup frmDoorClosePopup;
 
         public frmMain()
         {
@@ -202,6 +203,27 @@ namespace EL_BSS
             if (this.InvokeRequired) // Invoke 예외 처리
             {
                 frmunuseablePopup.Close();
+            }
+        }
+
+        public void show_Door_Close_Popup(int slot1 , int slot2)
+        {
+            Form currentForm = this;
+            frmDoorClosePopup = new frmDoorClosePopup(slot1 , slot2);
+            frmDoorClosePopup.StartPosition = FormStartPosition.CenterScreen;
+            frmDoorClosePopup.Owner = this;
+
+            this.BeginInvoke(new Action(() =>
+            {
+                frmDoorClosePopup.Show();
+            }));
+        }
+
+        public void close_Door_Close_Popup()
+        {
+            if (this.InvokeRequired) // Invoke 예외 처리
+            {
+                frmDoorClosePopup.Close();
             }
         }
     }
