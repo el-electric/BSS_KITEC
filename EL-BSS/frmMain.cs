@@ -52,27 +52,6 @@ namespace EL_BSS
 
         }
 
-
-        private async void button1_Click(object sender, EventArgs e)
-        {
-
-            int[] returnid = new int[2];
-            returnid[0] = 0;
-            returnid[1] = 1;
-
-            int[] lentid = new int[2];
-            lentid[0] = 2;
-            lentid[1] = 3;
-
-            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(returnid, lentid);
-
-            // string response = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(returnid, lentid);
-
-            //Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(0);
-
-            /*Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_1(0, enumData.Availaable.ToString(), 0);*/
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
 

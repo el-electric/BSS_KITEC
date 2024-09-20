@@ -29,6 +29,9 @@ using EL_BSS.OCPP.packet.cp2csms;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
+using Newtonsoft.Json.Converters;
+using ZXing;
+using System.Text.RegularExpressions;
 
 namespace EL_DC_Charger.ocpp.ver16.comm
 {
@@ -98,8 +101,29 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
 
 
-        public void sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status, string info = "Ready")
+        public void sendOCPP_CP_Req_StatusNotification_for_Check_Battery(int ChannelIdx, string status)
         {
+            string Info = "";
+
+                List<Battery_Error> info_array = new List<Battery_Error>();
+
+                var dic_Battery_Error_Code = Model.getInstance().Battery_Error_Code[ChannelIdx];
+
+                foreach (var error in dic_Battery_Error_Code)
+                {
+                    if (error.Value == true)
+                    {
+                        info_array.Add(error.Key);
+                    }
+                }
+
+            Info = JsonConvert.SerializeObject(info_array, new StringEnumConverter());
+                /*info = info.Replace("\", "");*/
+                //string subStringList = "[\\]";
+                //Info = Regex.Replace(enum_info, subStringList, "");
+
+                var json_Info = JsonConvert.DeserializeObject<List<string>>(Info); // 보낼때 \가 붙어서 다시 json으로 바꿈
+            
 
             var data = new Object[]
             {
@@ -111,7 +135,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         stationId = Model.getInstance().chargePointSerialNumber,
                         connectorId = ChannelIdx,
                         status = status,
-                        info = info,
+                        info = json_Info,
                         batteryId = Model.getInstance().list_SlaveRecv[ChannelIdx].Serial_Number,
                         soc = Model.getInstance().list_SlaveRecv[ChannelIdx].SOC,
                         timestamp = DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss", new CultureInfo("ko-KR")),
@@ -134,19 +158,45 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             bool chargingState = false;
             string mjobSequenceName;
 
-            if (getInstance().list_SlaveRecv[ChannelIdx].ChargingStatus == 100)
+            List<Battery_Error> info_array = new List<Battery_Error>();
+            List<string> charging_info_array = new List<string>();
+
+            if (getInstance().list_SlaveRecv[ChannelIdx].Error_Occured)
+            {
+                var dic_Battery_Error_Code = Model.getInstance().Battery_Error_Code[ChannelIdx];
+
+                foreach (var error in dic_Battery_Error_Code)
+                {
+                    if (error.Value == true)
+                    {
+                        info_array.Add(error.Key);
+                    }
+                }
+
+                mjobSequenceName = JsonConvert.SerializeObject(info_array, new StringEnumConverter());
+            }
+            else if (getInstance().list_SlaveRecv[ChannelIdx].ChargingStatus == 100)
             {
                 chargingState = true;
-                mjobSequenceName = enumData.CHARGING.ToString();
+                charging_info_array.Add(enumData.CHARGING.ToString());
+
+                mjobSequenceName = JsonConvert.SerializeObject(charging_info_array);
             }
             else if (getInstance().list_SlaveRecv[ChannelIdx].BatterArrive)
             {
-                mjobSequenceName = enumData.BATTERY_INSERT.ToString();
+                charging_info_array.Add(enumData.BATTERY_INSERT.ToString());
+
+                mjobSequenceName = JsonConvert.SerializeObject(charging_info_array);
             }
             else
             {
-                mjobSequenceName = enumData.SLOT_EMPTY.ToString();
+                charging_info_array.Add(enumData.SLOT_EMPTY.ToString());
+
+                mjobSequenceName = JsonConvert.SerializeObject(charging_info_array);
             }
+
+            var json_mjobSequenceName = JsonConvert.DeserializeObject<List<string>>(mjobSequenceName);
+
 
             var data = new Object[]
            {
@@ -158,7 +208,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         timestamp = DateTime.Now.ToString("yyyy-MM-dd tt hh:mm:ss", new CultureInfo("ko-KR")),
                         stationId = getInstance().chargeBoxSerialNumber,
                         slotId=ChannelIdx,
-                        jobSequenceName=mjobSequenceName,
+                        jobSequenceName=json_mjobSequenceName,
                         isErrorOccured=0,
                         batteryId=getInstance().list_SlaveRecv[ChannelIdx].Serial_Number,
                         SOC = getInstance().list_SlaveRecv[ChannelIdx].SOC,
@@ -398,7 +448,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
         }
 
-        public void Send_OCPP_CP_Req_StationAddInfoErrorEvent(int index, Battery_Error errorName, bool isMeansure)
+        public void Send_OCPP_CP_Req_StationAddInfoErrorEvent(int index, Station_Error errorName, bool isMeansure)
         {
             string division;
 
@@ -481,12 +531,11 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                     case 2:
                         if (messageName == enumData.Authorize.ToString())
                         {
+                            Model.getInstance().Authorize_Type = enumData.APP.ToString();
                             Model.getInstance().Authorize = JsonConvert.DeserializeObject<Req_Authorize>(jsonArray[3].ToString());
                             Model.getInstance().Authorize.setting_Authorize_value();
 
                             Model.getInstance().Authorize.uid = _uid;
-
-                            Model.getInstance().Authorize_Type = enumData.APP.ToString();
 
                             CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_MAIN;
                         }

@@ -29,6 +29,17 @@ namespace EL_BSS.Cycle
 
         public async static void Main_WorkCycle() //자동동작 시퀀스
         {
+            if (CsDefine.Delayed[CsDefine.CYC_BAR_COLOR] >= 1000)
+            {
+                CsDefine.Delayed[CsDefine.CYC_BAR_COLOR] = 0;
+                Model.getInstance().frmFrame.Set_Change_progress_Color();
+            }
+
+            if (Model.getInstance().bis_Click_Home_button)
+            {
+                Model.getInstance().bis_Click_Home_button = false;
+                Model.getInstance().frmFrame.GetfrmMain().show_Door_Close_Popup(1, 2);
+            }
 
             if (Model.Dt_SendInterval.AddSeconds(Model.SendInterval) < DateTime.Now && Model.getInstance().Send_bootnotification)
             {
@@ -90,7 +101,7 @@ namespace EL_BSS.Cycle
                 case CsDefine.CYC_MAIN + 3:
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
                     {
-                        if (sp_Slave.Check_able_battery_slot())  // 사용가능한 슬롯이 있을 경우 반납받을 슬롯과 대여할 슬롯을 결정해둔다
+                        if (!sp_Slave.Check_able_battery_slot())  // 사용가능한 슬롯이 있을 경우 반납받을 슬롯과 대여할 슬롯을 결정해둔다
                         {
                             if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
                             {

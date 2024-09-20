@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.ServiceModel.Description;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
@@ -236,12 +237,20 @@ namespace EL_BSS
                     btn_home.Visibility = Visibility.Collapsed;
                     Right_Colunm.Width = new GridLength(3, GridUnitType.Star);
                     property_Canvas.Margin = new Thickness(0, 0, 0, 0);
+
+                    Model.getInstance().frmFrame.Set_Bottom_Progressbar(false);
+                    Image_translateTrnasform.Y = 60;
+                    Canvas_translateTrnasform.Y = 0;
                 }
                 else
                 {
                     btn_home.Visibility = Visibility.Visible;
                     Right_Colunm.Width = new GridLength(0);
                     property_Canvas.Margin = new Thickness(150, 0, 0, 0);
+
+                    Model.getInstance().frmFrame.Set_Bottom_Progressbar(true);
+                    Image_translateTrnasform.Y = 30;
+                    Canvas_translateTrnasform.Y = -30;
                 }
             }));
 
@@ -276,19 +285,43 @@ namespace EL_BSS
 
         private void btn_test_Click_1(object sender, RoutedEventArgs e)
         {
-            Dispatcher.BeginInvoke(new Action(() =>
+            /*Dispatcher.BeginInvoke(new Action(() =>
             {
                 if (test)
                 {
                     Right_Colunm.Width = new GridLength(3, GridUnitType.Star);
                     property_Canvas.Margin = new Thickness(0, 0, 0, 0);
+                    Model.getInstance().frmFrame.Set_Bottom_Progressbar(false);
+                    Image_translateTrnasform.Y = 60;
+                    Canvas_translateTrnasform.Y = 0;
                 }
-                else if(!test)
+                else if (!test)
                 {
                     Right_Colunm.Width = new GridLength(0);
                     property_Canvas.Margin = new Thickness(150, 0, 0, 0);
+                    Model.getInstance().frmFrame.Set_Bottom_Progressbar(true);
+                    Image_translateTrnasform.Y = 0;
+                    Canvas_translateTrnasform.Y = -60;
                 }
-            }));
+            }));*/
+
+            Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(1, enumData.ERROR.ToString());
+            // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(1);
+
+            /*if (test)
+            {
+                test = false;
+                Model.getInstance().frmFrame.Set_Bottom_Progressbar(false);
+                Image_translateTrnasform.Y = 60;
+                Canvas_translateTrnasform.Y = 0;
+            }
+            else
+            {
+                test = true;
+                Model.getInstance().frmFrame.Set_Bottom_Progressbar(true);
+                Image_translateTrnasform.Y = 30;
+                Canvas_translateTrnasform.Y = -30;
+            }*/
 
         }
 

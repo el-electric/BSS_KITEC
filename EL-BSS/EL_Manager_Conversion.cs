@@ -468,6 +468,8 @@ namespace EL_BSS
         }
 
         public static int getint_2Byte(byte data1, byte data2) => (data2 << 8 | data1) & 0x0000ffff;
+
+        public static double getdouble_2Byte(byte data1, byte data2) => (data2 << 8 | data1) & 0x0000ffff;
         public static int getInt(byte data) => data & 0x000000ff;
         public static int getInt(string data)
         {

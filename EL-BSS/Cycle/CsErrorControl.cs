@@ -61,13 +61,13 @@ namespace EL_BSS.Cycle
             }
             for (int i = 0; i < 2; i++)
             {
-                Model.getInstance().dic_Station_Error_Code[i] = new Dictionary<Battery_Error, bool>
+                Model.getInstance().dic_Station_Error_Code[i] = new Dictionary<Station_Error, bool>
                 {
-                    { Battery_Error.vibrationWarning,                               false},
-                    { Battery_Error.floodingWarning,                                false},
-                    { Battery_Error.Charger_Humidity,                               false },
-                    { Battery_Error.Charger_UpperTemper,                            false},
-                    { Battery_Error.Control_Board_Error,                            false},
+                    { Station_Error.vibrationWarning,                               false},
+                    { Station_Error.floodingWarning,                                false},
+                    { Station_Error.Charger_Humidity,                               false },
+                    { Station_Error.Charger_UpperTemper,                            false},
+                    { Station_Error.Control_Board_Error,                            false},
                 };
             }
         }
@@ -87,47 +87,47 @@ namespace EL_BSS.Cycle
                         {
                             model.frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
                             model.list_MasterRecv[m].Error_Occured = true;
-                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Battery_Error.vibrationWarning, true);
-                            Model.getInstance().dic_Station_Error_Code[m][Battery_Error.vibrationWarning] = true;
+                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.vibrationWarning, true);
+                            Model.getInstance().dic_Station_Error_Code[m][Station_Error.vibrationWarning] = true;
                         }
                         else if (model.list_MasterRecv[m].floodingWarning)
                         {
                             model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
                             model.list_MasterRecv[m].Error_Occured = true;
-                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Battery_Error.floodingWarning, true);
-                            Model.getInstance().dic_Station_Error_Code[m][Battery_Error.floodingWarning] = true;
+                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.floodingWarning, true);
+                            Model.getInstance().dic_Station_Error_Code[m][Station_Error.floodingWarning] = true;
                         }
                         else if (model.list_MasterRecv[m].Charger_UpperTemper > 70)
                         {
                             model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
                             model.list_MasterRecv[m].Error_Occured = true;
-                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Battery_Error.Charger_UpperTemper, true);
-                            Model.getInstance().dic_Station_Error_Code[m][Battery_Error.Charger_UpperTemper] = true;
+                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.Charger_UpperTemper, true);
+                            Model.getInstance().dic_Station_Error_Code[m][Station_Error.Charger_UpperTemper] = true;
                         }
                     }
                     else if (model.list_MasterRecv[m].Error_Occured)
                     {
-                        if (Model.getInstance().dic_Station_Error_Code[m][Battery_Error.vibrationWarning] && !model.list_MasterRecv[m].vibrationWarning)
+                        if (Model.getInstance().dic_Station_Error_Code[m][Station_Error.vibrationWarning] && !model.list_MasterRecv[m].vibrationWarning)
                         {
-                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Battery_Error.vibrationWarning, false);
-                            Model.getInstance().dic_Station_Error_Code[m][Battery_Error.vibrationWarning] = false;
+                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.vibrationWarning, false);
+                            Model.getInstance().dic_Station_Error_Code[m][Station_Error.vibrationWarning] = false;
                         }
-                        if (Model.getInstance().dic_Station_Error_Code[m][Battery_Error.floodingWarning] && !model.list_MasterRecv[m].floodingWarning)
+                        if (Model.getInstance().dic_Station_Error_Code[m][Station_Error.floodingWarning] && !model.list_MasterRecv[m].floodingWarning)
                         {
-                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Battery_Error.floodingWarning, false);
-                            Model.getInstance().dic_Station_Error_Code[m][Battery_Error.floodingWarning] = false;
-                        }
-
-
-                        if (Model.getInstance().dic_Station_Error_Code[m][Battery_Error.Charger_UpperTemper] && model.list_MasterRecv[m].Charger_UpperTemper < 70)
-                        {
-                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Battery_Error.Charger_UpperTemper, false);
-                            Model.getInstance().dic_Station_Error_Code[m][Battery_Error.Charger_UpperTemper] = false;
+                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.floodingWarning, false);
+                            Model.getInstance().dic_Station_Error_Code[m][Station_Error.floodingWarning] = false;
                         }
 
 
-                        if (!Model.getInstance().dic_Station_Error_Code[m][Battery_Error.vibrationWarning] && !Model.getInstance().dic_Station_Error_Code[m][Battery_Error.floodingWarning] &&
-                            !Model.getInstance().dic_Station_Error_Code[m][Battery_Error.Charger_UpperTemper])
+                        if (Model.getInstance().dic_Station_Error_Code[m][Station_Error.Charger_UpperTemper] && model.list_MasterRecv[m].Charger_UpperTemper < 70)
+                        {
+                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.Charger_UpperTemper, false);
+                            Model.getInstance().dic_Station_Error_Code[m][Station_Error.Charger_UpperTemper] = false;
+                        }
+
+
+                        if (!Model.getInstance().dic_Station_Error_Code[m][Station_Error.vibrationWarning] && !Model.getInstance().dic_Station_Error_Code[m][Station_Error.floodingWarning] &&
+                            !Model.getInstance().dic_Station_Error_Code[m][Station_Error.Charger_UpperTemper])
                         {
                             model.frmFrame.GetfrmMain().close_p();
                             model.list_MasterRecv[m].Error_Occured = false;

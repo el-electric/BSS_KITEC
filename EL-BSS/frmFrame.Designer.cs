@@ -40,8 +40,21 @@
             this.drakeUISymbolLabel1 = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.lamp_ems = new DrakeUI.Framework.DrakeUILampLED();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.visual = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.drakeUISymbolLabel5 = new DrakeUI.Framework.DrakeUISymbolLabel();
+            this.drakeUISymbolLabel4 = new DrakeUI.Framework.DrakeUISymbolLabel();
+            this.drakeUISymbolLabel3 = new DrakeUI.Framework.DrakeUISymbolLabel();
+            this.drakeUISymbolLabel2 = new DrakeUI.Framework.DrakeUISymbolLabel();
+            this.lb_authorize_user = new DrakeUI.Framework.DrakeUILabel();
+            this.lb_battery_return = new DrakeUI.Framework.DrakeUILabel();
+            this.lb_battery_authorize = new DrakeUI.Framework.DrakeUILabel();
+            this.lb_battery_lent = new DrakeUI.Framework.DrakeUILabel();
+            this.lb_finish = new DrakeUI.Framework.DrakeUILabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.visual.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ui_timer_500ms
@@ -66,10 +79,10 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.Gainsboro;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 74);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1024, 694);
+            this.panel2.Size = new System.Drawing.Size(1024, 657);
             this.panel2.TabIndex = 5;
             // 
             // lbl_Notify_Tv
@@ -161,13 +174,157 @@
             this.panel1.Size = new System.Drawing.Size(1024, 74);
             this.panel1.TabIndex = 3;
             // 
+            // visual
+            // 
+            this.visual.ColumnCount = 1;
+            this.visual.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.visual.Controls.Add(this.tableLayoutPanel2, 0, 0);
+            this.visual.Controls.Add(this.panel2, 0, 0);
+            this.visual.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.visual.Location = new System.Drawing.Point(0, 74);
+            this.visual.Name = "visual";
+            this.visual.RowCount = 2;
+            this.visual.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.73684F));
+            this.visual.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.263158F));
+            this.visual.Size = new System.Drawing.Size(1024, 694);
+            this.visual.TabIndex = 6;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 9;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
+            this.tableLayoutPanel2.Controls.Add(this.lb_finish, 8, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lb_battery_lent, 6, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lb_battery_authorize, 4, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lb_battery_return, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.drakeUISymbolLabel5, 7, 0);
+            this.tableLayoutPanel2.Controls.Add(this.drakeUISymbolLabel4, 5, 0);
+            this.tableLayoutPanel2.Controls.Add(this.drakeUISymbolLabel3, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.drakeUISymbolLabel2, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lb_authorize_user, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 660);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1018, 31);
+            this.tableLayoutPanel2.TabIndex = 6;
+            // 
+            // drakeUISymbolLabel5
+            // 
+            this.drakeUISymbolLabel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUISymbolLabel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.drakeUISymbolLabel5.Location = new System.Drawing.Point(801, 3);
+            this.drakeUISymbolLabel5.Name = "drakeUISymbolLabel5";
+            this.drakeUISymbolLabel5.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
+            this.drakeUISymbolLabel5.Size = new System.Drawing.Size(44, 25);
+            this.drakeUISymbolLabel5.Symbol = 61537;
+            this.drakeUISymbolLabel5.TabIndex = 8;
+            // 
+            // drakeUISymbolLabel4
+            // 
+            this.drakeUISymbolLabel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUISymbolLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.drakeUISymbolLabel4.Location = new System.Drawing.Point(589, 3);
+            this.drakeUISymbolLabel4.Name = "drakeUISymbolLabel4";
+            this.drakeUISymbolLabel4.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
+            this.drakeUISymbolLabel4.Size = new System.Drawing.Size(44, 25);
+            this.drakeUISymbolLabel4.Symbol = 61537;
+            this.drakeUISymbolLabel4.TabIndex = 7;
+            // 
+            // drakeUISymbolLabel3
+            // 
+            this.drakeUISymbolLabel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUISymbolLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.drakeUISymbolLabel3.Location = new System.Drawing.Point(377, 3);
+            this.drakeUISymbolLabel3.Name = "drakeUISymbolLabel3";
+            this.drakeUISymbolLabel3.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
+            this.drakeUISymbolLabel3.Size = new System.Drawing.Size(44, 25);
+            this.drakeUISymbolLabel3.Symbol = 61537;
+            this.drakeUISymbolLabel3.TabIndex = 6;
+            // 
+            // drakeUISymbolLabel2
+            // 
+            this.drakeUISymbolLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.drakeUISymbolLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.drakeUISymbolLabel2.Location = new System.Drawing.Point(165, 3);
+            this.drakeUISymbolLabel2.Name = "drakeUISymbolLabel2";
+            this.drakeUISymbolLabel2.Padding = new System.Windows.Forms.Padding(28, 0, 0, 0);
+            this.drakeUISymbolLabel2.Size = new System.Drawing.Size(44, 25);
+            this.drakeUISymbolLabel2.Symbol = 61537;
+            this.drakeUISymbolLabel2.TabIndex = 5;
+            // 
+            // lb_authorize_user
+            // 
+            this.lb_authorize_user.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_authorize_user.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_authorize_user.Location = new System.Drawing.Point(3, 0);
+            this.lb_authorize_user.Name = "lb_authorize_user";
+            this.lb_authorize_user.Size = new System.Drawing.Size(156, 31);
+            this.lb_authorize_user.TabIndex = 9;
+            this.lb_authorize_user.Text = "사용자 인증";
+            this.lb_authorize_user.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_battery_return
+            // 
+            this.lb_battery_return.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_battery_return.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_return.Location = new System.Drawing.Point(215, 0);
+            this.lb_battery_return.Name = "lb_battery_return";
+            this.lb_battery_return.Size = new System.Drawing.Size(156, 31);
+            this.lb_battery_return.TabIndex = 10;
+            this.lb_battery_return.Text = "배터리 반납";
+            this.lb_battery_return.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_battery_authorize
+            // 
+            this.lb_battery_authorize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_battery_authorize.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_authorize.Location = new System.Drawing.Point(427, 0);
+            this.lb_battery_authorize.Name = "lb_battery_authorize";
+            this.lb_battery_authorize.Size = new System.Drawing.Size(156, 31);
+            this.lb_battery_authorize.TabIndex = 11;
+            this.lb_battery_authorize.Text = "배터리 인증";
+            this.lb_battery_authorize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_battery_lent
+            // 
+            this.lb_battery_lent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_battery_lent.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_lent.Location = new System.Drawing.Point(639, 0);
+            this.lb_battery_lent.Name = "lb_battery_lent";
+            this.lb_battery_lent.Size = new System.Drawing.Size(156, 31);
+            this.lb_battery_lent.TabIndex = 12;
+            this.lb_battery_lent.Text = "배터리 대여";
+            this.lb_battery_lent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_finish
+            // 
+            this.lb_finish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_finish.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_finish.Location = new System.Drawing.Point(851, 0);
+            this.lb_finish.Name = "lb_finish";
+            this.lb_finish.Size = new System.Drawing.Size(164, 31);
+            this.lb_finish.TabIndex = 13;
+            this.lb_finish.Text = "사용 완료";
+            this.lb_finish.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(1024, 768);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.visual);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmFrame";
@@ -176,6 +333,8 @@
             this.Load += new System.EventHandler(this.frmFrame_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.visual.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -192,5 +351,16 @@
         private DrakeUI.Framework.DrakeUISymbolLabel drakeUISymbolLabel1;
         public DrakeUI.Framework.DrakeUILampLED lamp_ems;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TableLayoutPanel visual;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private DrakeUI.Framework.DrakeUISymbolLabel drakeUISymbolLabel4;
+        private DrakeUI.Framework.DrakeUISymbolLabel drakeUISymbolLabel3;
+        private DrakeUI.Framework.DrakeUISymbolLabel drakeUISymbolLabel2;
+        private DrakeUI.Framework.DrakeUISymbolLabel drakeUISymbolLabel5;
+        private DrakeUI.Framework.DrakeUILabel lb_authorize_user;
+        private DrakeUI.Framework.DrakeUILabel lb_finish;
+        private DrakeUI.Framework.DrakeUILabel lb_battery_lent;
+        private DrakeUI.Framework.DrakeUILabel lb_battery_authorize;
+        private DrakeUI.Framework.DrakeUILabel lb_battery_return;
     }
 }

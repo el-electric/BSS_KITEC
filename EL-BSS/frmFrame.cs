@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,9 +45,8 @@ namespace EL_BSS
 
             CheckForIllegalCrossThreadCalls = false;
 
-
-
-
+            visual.RowCount = 1;
+            tableLayoutPanel2.Visible = false;
         }
         protected override CreateParams CreateParams
         {
@@ -453,6 +453,64 @@ namespace EL_BSS
         private void frmFrame_FormClosing(object sender, FormClosingEventArgs e)
         {
 
+        }
+
+        public void Set_Bottom_Progressbar(bool usingbar)
+        {
+            if (usingbar)
+            {
+                visual.RowCount = 2;
+                tableLayoutPanel2.Visible = true;
+            }
+            else 
+            {
+                visual.RowCount = 1;
+                tableLayoutPanel2.Visible = false;
+            }
+        }
+
+        public void Set_Change_progress_Color()
+        {
+            DrakeUILabel need_lb = new DrakeUILabel();
+
+            if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] < CsDefine.CYC_MAIN + 3) // 사용자 인증
+            {
+                need_lb = lb_authorize_user;
+            }
+            else if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] <= CsDefine.CYC_MAIN + 4) // 배터리 반납
+            {
+                need_lb= lb_battery_return;
+            }
+            else if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] < CsDefine.CYC_MAIN + 9 || CsDefine.Cyc_Rail[CsDefine.CYC_RUN] < CsDefine.CYC_TEMP || CsDefine.Cyc_Rail[CsDefine.CYC_RUN] < CsDefine.CYC_TEMP + 1) // 배터리 인증
+            {
+                need_lb = lb_battery_authorize;
+            }
+            else if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] < CsDefine.CYC_MAIN + 10) // 배터리 대여
+            {
+                need_lb = lb_battery_lent;
+            }
+            else if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] == CsDefine.CYC_MAIN + 11) // 사용 완료
+            {
+                need_lb = lb_finish;
+            }
+
+            foreach (Control control in tableLayoutPanel2.Controls)
+            {
+                if (control is DrakeUILabel drakeUILabel)
+                {
+                    if (drakeUILabel.Name == need_lb.Name)
+                    {
+                        if (need_lb.ForeColor == Color.FromArgb(255, 48, 48, 48))
+                        {
+                            need_lb.ForeColor = Color.Red;
+                        }
+                        else
+                        {
+                            need_lb.ForeColor = Color.FromArgb(255, 48, 48, 48);
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -255,14 +255,16 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
 
-            if (EL_Manager_Conversion.getInt(packet[40]) >= 99)
+            /*if (EL_Manager_Conversion.getInt(packet[40]) >= 99)
             {
                 Model.getInstance().list_SlaveRecv[idx - 1].SOC = 100;
             }
             else
             {
                 Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]) + 1;
-            }
+            }*/
+
+            Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
 
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
@@ -354,8 +356,8 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].Serial_Number = EL_Manager_Conversion.getInt_2Byte(packet[66], packet[67]);
 
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68]) - 40);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[69], packet[70]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Low_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[71], packet[72]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = (EL_Manager_Conversion.getdouble_2Byte(packet[69], packet[70]) * 0.05);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Low_Voltage = (EL_Manager_Conversion.getInt_2Byte(packet[71], packet[72]) * 0.05);
             Model.getInstance().list_SlaveRecv[idx - 1].Cell_Belancing_Flag = EL_Manager_Conversion.getInt_2Byte(packet[73], packet[74]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Moduel_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[75], packet[76]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_01 = EL_Manager_Conversion.getInt_2Byte(packet[77], packet[78]);
@@ -447,7 +449,11 @@ namespace EL_BSS.Serial
             //{
             //    return enumData.Charging.ToString();
             //}
-            if (Model.getInstance().Check_statusnotification[i] == enumData.Charging.ToString() && Model.getInstance().list_SlaveRecv[i].SOC == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
+            {
+                return enumData.ERROR.ToString();
+            }
+            else if (Model.getInstance().Check_statusnotification[i] == enumData.Charging.ToString() && Model.getInstance().list_SlaveRecv[i].SOC == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
                 return enumData.Finishing.ToString();
             }

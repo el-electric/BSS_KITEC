@@ -334,8 +334,8 @@ namespace EL_BSS
             public int Serial_Number;
 
             public int Battery_Slot_Temp;
-            public int Battery_Cell_High_Voltage;
-            public int Battery_Cell_Low_Voltage;
+            public double Battery_Cell_High_Voltage;
+            public double Battery_Cell_Low_Voltage;
             public int Cell_Belancing_Flag;
             public int Battery_Moduel_Voltage;
             public float Battery_Cell_Vol_01;
@@ -855,11 +855,12 @@ namespace EL_BSS
             FETON,
             SLOT_EMPTY,
             BATTERY_INSERT,
-            CHARGING
+            CHARGING,
+            ERROR
         }
 
         public Dictionary<Battery_Error, bool>[] Battery_Error_Code = new Dictionary<Battery_Error, bool>[8];
-        public Dictionary<Battery_Error, bool>[] dic_Station_Error_Code = new Dictionary<Battery_Error, bool>[2];
+        public Dictionary<Station_Error, bool>[] dic_Station_Error_Code = new Dictionary<Station_Error, bool>[2];
         public enum Battery_Error
         {
             Low_Voltage,                            // 저전압 알림
@@ -900,14 +901,16 @@ namespace EL_BSS
             Door_Closing_Error,         // 문 닫힘 에러
             Door_Opening_Error,         // 문 열림 에러
             Power_Pack_Error,            // 파워팩 에러
-            Control_Board_Error,          // 제어보드 통신 에러
+            Control_Board_Error,          // 제어보드 통신 에러            
+        }
 
+        public enum Station_Error
+        {
+            Control_Board_Error,          // 제어보드 통신 에러
             vibrationWarning,  //지진 (진동)
             floodingWarning,   //침수
             Charger_Humidity,  //과습
-            Charger_UpperTemper, // 스테이션 고온            
-
-
+            Charger_UpperTemper, // 스테이션 고온
         }
 
 
