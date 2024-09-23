@@ -329,6 +329,7 @@ namespace EL_BSS.Cycle
                     mainFormLabelUpdate("문을 닫아주세요");
                     Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(getInstance().Retreive_slot[0] - 1, Battery_Error.Door_Closing_Error, true);
                     Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(getInstance().Retreive_slot[1] - 1, Battery_Error.Door_Closing_Error, true);
+                    Model.getInstance().frmFrame.GetfrmMain().show_Door_Close_Popup(getInstance().Retreive_slot[0], getInstance().Retreive_slot[1]);
                     sound_Player.play_Sound(true);
                     NextStep();
                     break;
