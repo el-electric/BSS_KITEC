@@ -509,6 +509,10 @@ namespace EL_BSS
                             need_lb.ForeColor = Color.FromArgb(255, 48, 48, 48);
                         }
                     }
+                    else
+                    {
+                        drakeUILabel.ForeColor = Color.FromArgb(255, 48, 48, 48);
+                    }
                 }
             }
         }
