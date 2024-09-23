@@ -305,7 +305,15 @@ namespace EL_BSS
                 }
             }));*/
 
-            Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(1, enumData.ERROR.ToString());
+            // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(1, enumData.ERROR.ToString());
+
+            if(!Model.getInstance().test_button) Model.getInstance().test_button = true;
+            else Model.getInstance().test_button = false;
+
+            // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(1, Battery_Error.Low_Voltage, true);
+
+            // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(0, Station_Error.floodingWarning, true);
+
             // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(1);
 
             /*if (test)

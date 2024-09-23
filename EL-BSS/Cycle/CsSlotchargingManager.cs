@@ -67,12 +67,12 @@ namespace EL_BSS.Cycle
                         setHighTemp_Current(false, slotid);
                     }
                 }
-                else if (Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp < 60 && Model.getInstance().Battery_Error_Code[slotid - 1][Battery_Error.Slot_Temperature_Error])
+                else if (Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp < 50 && Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper < 40 && Model.getInstance().Battery_Error_Code[slotid - 1][Battery_Error.Slot_Temperature_Error])
                 {
                     Model.getInstance().csErrorControl.Is_Slot_Error(slotid - 1, Battery_Error.Slot_Temperature_Error, false);
                 }
 
-                if (model.list_SlaveRecv[slotid - 1].Error_Occured || model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor) //에러 발생시 그리고 완속 
+                if (model.list_SlaveRecv[slotid - 1].Error_Occured || model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor) //에러 발생시 그리고 완충
                 {
                     model.list_SlaveSend[slotid - 1].BatteryFETON = false;
                     model.list_SlaveSend[slotid - 1].BatteryOutput = false;

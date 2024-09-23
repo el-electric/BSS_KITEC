@@ -173,6 +173,8 @@ namespace EL_BSS
 
         public bool bis_Click_Home_button = false;
 
+        public bool test_button = false;
+
         public class MasterSend
         {
             public bool boardReset;

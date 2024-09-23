@@ -255,17 +255,6 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
 
-            /*if (EL_Manager_Conversion.getInt(packet[40]) >= 99)
-            {
-                Model.getInstance().list_SlaveRecv[idx - 1].SOC = 100;
-            }
-            else
-            {
-                Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]) + 1;
-            }*/
-
-            Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
-
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
 
@@ -280,6 +269,12 @@ namespace EL_BSS.Serial
             temp[0] = packet[50];
             temp[1] = packet[51];
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
+
+            /*if (idx == 1 && Model.getInstance().test_button)
+            {
+                Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage = true;
+            }
+            else { Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 0); }*/
 
             Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 0);
             Model.getInstance().list_SlaveRecv[idx - 1].highVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 1);
@@ -356,8 +351,15 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].Serial_Number = EL_Manager_Conversion.getInt_2Byte(packet[66], packet[67]);
 
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68]) - 40);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = (EL_Manager_Conversion.getdouble_2Byte(packet[69], packet[70]) * 0.05);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Low_Voltage = (EL_Manager_Conversion.getInt_2Byte(packet[71], packet[72]) * 0.05);
+            
+            /*if (idx == 1 && Model.getInstance().test_button)
+            { Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = 100; }
+            else
+            { Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68]) - 40); }*/
+
+
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = Math.Round((EL_Manager_Conversion.getdouble_2Byte(packet[69], packet[70]) * 0.05),2);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Low_Voltage = Math.Round((EL_Manager_Conversion.getInt_2Byte(packet[71], packet[72]) * 0.05) , 2);
             Model.getInstance().list_SlaveRecv[idx - 1].Cell_Belancing_Flag = EL_Manager_Conversion.getInt_2Byte(packet[73], packet[74]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Moduel_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[75], packet[76]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_01 = EL_Manager_Conversion.getInt_2Byte(packet[77], packet[78]);
@@ -445,10 +447,10 @@ namespace EL_BSS.Serial
 
         private static string Check_Status(int i)
         {
-            //if (Model.getInstance().list_SlaveRecv[i].ProcessStatus == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
-            //{
-            //    return enumData.Charging.ToString();
-            //}
+            if (Model.getInstance().list_SlaveRecv[i].ProcessStatus == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            {
+                return enumData.Charging.ToString();
+            }
             if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
             {
                 return enumData.ERROR.ToString();

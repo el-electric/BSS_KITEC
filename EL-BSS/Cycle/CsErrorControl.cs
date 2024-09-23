@@ -18,8 +18,8 @@ namespace EL_BSS.Cycle
             {
                 Model.getInstance().Battery_Error_Code[i] = new Dictionary<Battery_Error, bool>
                 {
-                    { Battery_Error.Low_Voltage,                                  true},
-                    { Battery_Error.Over_Voltage,                                 true},
+                    { Battery_Error.Low_Voltage,                                  false},
+                    { Battery_Error.Over_Voltage,                                 false},
                     { Battery_Error.Pack_Low_Voltage,                             false},
                     { Battery_Error.Pack_High_Voltage,                            false},
                     { Battery_Error.Cell_Regeneration_OverCharge,                 false},
@@ -137,8 +137,8 @@ namespace EL_BSS.Cycle
 
                 for (int s = 0; s < 8; s++)
                 {
-                    /*if (model.Battery_Error_Code[s][Battery_Error.Low_Voltage] != model.list_SlaveRecv[s].rowVoltage) { Is_Slot_Error(s, Battery_Error.Low_Voltage, model.list_SlaveRecv[s].rowVoltage); }
-                    if (model.Battery_Error_Code[s][Battery_Error.Over_Voltage] != model.list_SlaveRecv[s].highVoltage) { Is_Slot_Error(s, Battery_Error.Over_Voltage, model.list_SlaveRecv[s].highVoltage); }*/
+                    if (model.Battery_Error_Code[s][Battery_Error.Low_Voltage] != model.list_SlaveRecv[s].rowVoltage) { Is_Slot_Error(s, Battery_Error.Low_Voltage, model.list_SlaveRecv[s].rowVoltage); }
+                    if (model.Battery_Error_Code[s][Battery_Error.Over_Voltage] != model.list_SlaveRecv[s].highVoltage) { Is_Slot_Error(s, Battery_Error.Over_Voltage, model.list_SlaveRecv[s].highVoltage); }
                     if (model.Battery_Error_Code[s][Battery_Error.Pack_Low_Voltage] != model.list_SlaveRecv[s].packLowVoltage) { Is_Slot_Error(s, Battery_Error.Pack_Low_Voltage, model.list_SlaveRecv[s].packLowVoltage); }
                     if (model.Battery_Error_Code[s][Battery_Error.Pack_High_Voltage] != model.list_SlaveRecv[s].packHighVoltage) { Is_Slot_Error(s, Battery_Error.Pack_High_Voltage, model.list_SlaveRecv[s].packHighVoltage); }
                     if (model.Battery_Error_Code[s][Battery_Error.Cell_Regeneration_OverCharge] != model.list_SlaveRecv[s].cellRecycleOverCharging) { Is_Slot_Error(s, Battery_Error.Cell_Regeneration_OverCharge, model.list_SlaveRecv[s].cellRecycleOverCharging); }
@@ -224,6 +224,7 @@ namespace EL_BSS.Cycle
             Model.getInstance().Battery_Error_Code[slotid][errorName] = state;
             Model.getInstance().list_SlaveRecv[slotid].Error_Occured = state;
             Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(slotid, errorName, state);
+            // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(slotid, enumData.ERROR.ToString());
         }
     }
 }
