@@ -305,7 +305,7 @@ namespace EL_BSS
                 }
             }));*/
 
-            Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(1, enumData.ERROR.ToString());
+            // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(1, enumData.ERROR.ToString());
             // Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(1);
 
             /*if (test)
@@ -322,6 +322,9 @@ namespace EL_BSS
                 Image_translateTrnasform.Y = 30;
                 Canvas_translateTrnasform.Y = -30;
             }*/
+
+            if(!Model.getInstance().test_button) Model.getInstance().test_button = true;
+            else Model.getInstance().test_button = false;
 
         }
 

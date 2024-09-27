@@ -86,6 +86,8 @@ namespace EL_BSS
         public int PWUpdate_MasterID;
         public int PWUpdate_Receive_MasterID = 1;
 
+        public bool test_button = false;
+
 
         /*public bool slaveFirmwareUpdate;
         public int slaveFirmwareUpdate_step = 0;
@@ -158,7 +160,6 @@ namespace EL_BSS
 
         public string Authorize_Type;
 
-        public DateTime Total_WakeUp_Time = DateTime.Now;
         public bool TouchManagerInit = false;
 
         Manager_Touch touch_manager;

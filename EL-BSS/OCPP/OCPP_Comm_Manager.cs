@@ -33,7 +33,7 @@ namespace BatteryChangeCharger.OCPP
         //bool isStop = false;
         private static ConcurrentDictionary<string, TaskCompletionSource<string>> responseTasks = new ConcurrentDictionary<string, TaskCompletionSource<string>>();
 
-        public DateTime Server_Disconnect_Time = DateTime.Now;
+        public Nullable<DateTime> Server_Disconnect_Time = null;
 
 
         string url;

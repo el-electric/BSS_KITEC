@@ -224,6 +224,12 @@ namespace EL_BSS.Cycle
             Model.getInstance().Battery_Error_Code[slotid][errorName] = state;
             Model.getInstance().list_SlaveRecv[slotid].Error_Occured = state;
             Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(slotid, errorName, state);
+           
+            for (int i = 0; i < 8; i++)
+            {
+                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(i);
+                Model.Dt_SendInterval = DateTime.Now;
+            }
         }
     }
 }

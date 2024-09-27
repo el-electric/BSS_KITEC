@@ -175,7 +175,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
                 mjobSequenceName = JsonConvert.SerializeObject(info_array, new StringEnumConverter());
             }
-            else if (getInstance().list_SlaveRecv[ChannelIdx].ChargingStatus == 100)
+            else if (getInstance().list_SlaveRecv[ChannelIdx].ProcessStatus == 100)
             {
                 chargingState = true;
                 charging_info_array.Add(enumData.CHARGING.ToString());

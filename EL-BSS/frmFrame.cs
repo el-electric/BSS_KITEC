@@ -383,12 +383,6 @@ namespace EL_BSS
                 CsWork.OCPP_IntervalCycle();
                 //CsFirmwareUpdate.Main_WorkCycle();
                 Thread.Sleep(1);
-
-                /*if (Model.getInstance().Total_WakeUp_Time.AddSeconds(60).IsAfter(DateTime.Now))
-                {
-                    Model.getInstance().Total_WakeUp_Time = DateTime.Now;
-                    CsWakeup.interverWakeUP();
-                }*/
             }
         }
 
