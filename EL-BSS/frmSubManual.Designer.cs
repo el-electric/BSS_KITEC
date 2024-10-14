@@ -82,6 +82,7 @@
             this.FET_Temp = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.manual_on = new System.Windows.Forms.Button();
+            this.cb_discharging = new System.Windows.Forms.CheckBox();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -618,6 +619,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cb_discharging);
             this.groupBox2.Controls.Add(this.Slot_Temp);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.lb_battery_arrive);
@@ -722,6 +724,17 @@
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
             // 
+            // cb_discharging
+            // 
+            this.cb_discharging.AutoSize = true;
+            this.cb_discharging.Location = new System.Drawing.Point(565, 135);
+            this.cb_discharging.Name = "cb_discharging";
+            this.cb_discharging.Size = new System.Drawing.Size(58, 20);
+            this.cb_discharging.TabIndex = 53;
+            this.cb_discharging.Text = "방전";
+            this.cb_discharging.UseVisualStyleBackColor = true;
+            this.cb_discharging.CheckedChanged += new System.EventHandler(this.cb_discharging_CheckedChanged);
+            // 
             // frmSubManual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -760,6 +773,7 @@
             this.gb_Slot.ResumeLayout(false);
             this.gb_Slot.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -819,5 +833,6 @@
         private System.Windows.Forms.Label lb_battery_arrive;
         private System.Windows.Forms.Label Slot_Temp;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox cb_discharging;
     }
 }

@@ -78,8 +78,13 @@ namespace EL_BSS.Cycle
 
                 if (model.list_SlaveRecv[slotid - 1].Error_Occured || model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor) //에러 발생시 그리고 완속 
                 {
-                    model.list_SlaveSend[slotid - 1].BatteryFETON = false;
-                    model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+                    if (Model.getInstance().list_SlaveRecv[slotid - 1].DischargingMode)
+                    { model.list_SlaveSend[slotid - 1].BatteryOutput = false; }
+                    else 
+                    {
+                        model.list_SlaveSend[slotid - 1].BatteryFETON = false;
+                        model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+                    }
                 }
                 else if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
                     !model.list_SlaveRecv[slotid - 1].Error_Occured &&
@@ -87,28 +92,12 @@ namespace EL_BSS.Cycle
                       (!model.list_MasterRecv[0].Error_Occured || !model.list_MasterRecv[1].Error_Occured) &&
                     Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper <= 40 &&
                     Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp <= 40 &&
-                    !Model.getInstance().list_SlaveRecv[slotid - 1].isSequence)
+                    !Model.getInstance().list_SlaveRecv[slotid - 1].isSequence &&
+                    !Model.getInstance().list_SlaveRecv[slotid -1].DischargingMode)
                 {
-                    /*if (this.soc_Low_High)
-                    {
-                        if (model.list_SlaveRecv[slotid - 1].SOC < 98)
-                        {
-                            this.soc_Low_High = false;
-                        }
-                    }
-                    else
-                    {
-                        model.list_SlaveSend[slotid - 1].BatteryFETON = true;
-                        model.list_SlaveSend[slotid - 1].BatteryOutput = true;
-
-                        if (model.list_SlaveRecv[slotid - 1].SOC == 100)
-                        {
-                            this.soc_Low_High = true;
-                        }
-
-                    }*/
-                    /*model.list_SlaveSend[slotid - 1].BatteryFETON = true;
-                    model.list_SlaveSend[slotid - 1].BatteryOutput = true;*/
+                    
+                    model.list_SlaveSend[slotid - 1].BatteryFETON = true;
+                    model.list_SlaveSend[slotid - 1].BatteryOutput = true;
                 }
             }
         }

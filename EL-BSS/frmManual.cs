@@ -115,6 +115,14 @@ namespace EL_BSS
 
         private void Back_Main_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < 8; i++)
+            {
+                Model.getInstance().list_SlaveRecv[i].DischargingMode = false;
+                Model.getInstance().list_SlaveSend[i].hmiManual = false;
+                Model.getInstance().list_SlaveSend[i].LED_Red = false;
+                Model.getInstance().list_SlaveSend[i].LED_Blue = false;
+                Model.getInstance().list_SlaveSend[i].LED_Green = false;
+            }
             frmFrame.deleMenuClick(0);
         }
 

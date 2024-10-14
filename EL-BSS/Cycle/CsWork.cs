@@ -232,9 +232,9 @@ namespace EL_BSS.Cycle
                     }
 
                     if (
-                        CsDefine.Delayed[CsDefine.CYC_RUN] >= 3000 ||
-                        ((!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive) ||
-                        (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive))
+                        CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000
+                        /*((!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive) ||
+                        (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive))*/
                         )
                     {
                         JumpStep(CsDefine.CYC_DOOR_ERROR);

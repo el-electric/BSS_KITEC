@@ -366,6 +366,8 @@ namespace EL_BSS
 
             public bool isSequence = false;
 
+            public bool DischargingMode = false;
+
             ////////////
 
             /////C1/////

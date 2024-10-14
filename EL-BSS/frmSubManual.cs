@@ -94,13 +94,25 @@ namespace EL_BSS
                 {
                     val = "충전 중";
                 }
+                else if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].ProcessStatus == 102)
+                {
+                    val = "방전 츌력";
+                }
                 else if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].FET_ON_State)
                 {
                     val = "FET ON";
                 }
+                else if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryFETON)
+                {
+                    val = "FET ON 요청중";
+                }
                 else if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].WAKEUP_Signal == true)
                 {
                     val = "Wake Up";
+                }
+                else if (Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryWakeup)
+                {
+                    val = "Wake Up 요청중";
                 }
                 else if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].BatterArrive)
                 {
@@ -140,11 +152,18 @@ namespace EL_BSS
 
             if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].SOC == 100)
             {
-                Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryFETON = false;
-                Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
-                Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
+                if (!Model.getInstance().list_SlaveRecv[mSLot_Number - 1].DischargingMode)
+                {
+                    Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryFETON = false;
+                    Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
+                    Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
+                }
+                else
+                {
+                    Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
+                    Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = false;
+                }
             }
-
         }
 
 
@@ -312,6 +331,11 @@ namespace EL_BSS
             {
                 Model.getInstance().frmFrame.NotiShow("Slot : " + mSLot_Number + " 전압과 전류는 매뉴얼중에서 설정할수 있습니다.", 1000, IconName.BlueNotify.ToString());
             }
+        }
+
+        private void cb_discharging_CheckedChanged(object sender, EventArgs e)
+        {
+            Model.getInstance().list_SlaveRecv[mSLot_Number - 1].DischargingMode = cb_discharging.Checked;
         }
     }
 }
