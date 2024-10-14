@@ -348,11 +348,58 @@ namespace EL_BSS.Cycle
             }
 
 
-            if (Model.getInstance().Send_bootnotification)
+            /*if (Model.getInstance().Send_bootnotification)
             {
                 CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
                 Model.getInstance().csErrorControl.Check_Error_Occured();
+            }*/
+
+            CsWakeup.interverWakeUP();
+
+
+            if (CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] >= 300000)
+            {
+
+                CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] = 0;
+                make_log(0);
             }
+        }
+
+        public static void make_log(int midx)
+        {
+            string logmessage = "";
+
+            logmessage = "날짜," + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ",," + "\n";
+            logmessage += "\n";
+            logmessage += ",내부온도" + "," + "습도" + "\n";
+            logmessage += "마스터," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "\n";
+            logmessage += "슬레이브," + Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[1].Charger_Humidity + "\n" + "\n";
+            logmessage += ",Received,SOC,SOH,Present_Voltage,Present_Current,FET_Temp,Slot_Temp,Serial_Number" + "\n";
+            for (int i = 0; i < 8; i++)
+            {
+                logmessage += "슬롯" + (i + 1) + ",";
+                if (Model.getInstance().list_SlaveRecv[i].BatterArrive)  // 안착여부
+                {
+                    logmessage += "true";
+                }
+                else
+                {
+                    logmessage += "false";
+                }
+
+                logmessage += "," + Model.getInstance().list_SlaveRecv[i].SOC.ToString(); //SOC
+                logmessage += "," + Model.getInstance().list_SlaveRecv[i].SOH.ToString(); //SOH
+                logmessage += "," + ((double)Model.getInstance().list_SlaveRecv[i].BatteryCurrentVoltage / 10).ToString();  // 현재 전압
+                logmessage += "," + ((double)Model.getInstance().list_SlaveRecv[i].BatteryCurrentWattage / 100).ToString();  // 현재 전류
+                logmessage += "," + Model.getInstance().list_SlaveRecv[i].FET_Temper.ToString(); // FET 온도
+                logmessage += "," + Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp.ToString(); // 슬롯 온도
+                logmessage += "," + Model.getInstance().list_SlaveRecv[i].Serial_Number.ToString(); // 배터리ID
+
+               
+                logmessage += "\n";
+            }
+            logmessage += "\n";
+            CsUtil.WriteLog_CSV(logmessage, "CHAMBER_TEMP_LOG");
         }
 
 

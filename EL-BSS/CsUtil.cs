@@ -157,6 +157,47 @@ namespace EL_BSS
             }
         }
 
+        public static async void WriteLog_CSV(string LogMessage, string fileName = "Log_For_Test")
+        {
+            try
+            {
+                string LogDate;
+
+                string LogContent;
+
+                LogDate = DateTime.Now.ToString("yyyyMMdd");
+
+                LogContent = /*"[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "] " + */ LogMessage;
+
+                if (!Directory.Exists(Application.StartupPath + "\\" + fileName + "\\" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0')))
+                {
+                    Directory.CreateDirectory(Application.StartupPath + "\\" + fileName + "\\" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0'));
+                }
+
+                if (!File.Exists(Application.StartupPath + "\\" + fileName + "\\" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + @"\" + LogDate + ".csv"))
+                {
+                    using (StreamWriter stream = File.CreateText(Application.StartupPath + "\\" + fileName + "\\" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + @"\" + LogDate + ".csv"))
+                    {
+                        stream.WriteLine(LogContent);
+                    }
+                }
+                else
+                {
+
+                    using (StreamWriter stream = File.AppendText(Application.StartupPath + "\\" + fileName + "\\" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + @"\" + LogDate + ".csv"))
+                    {
+                        stream.WriteLine(LogContent);
+                    }
+                    await Task.Delay(100);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         static byte[] CCITT_Tab_H = {
         0x00,(byte) 0xC1,(byte) 0x81,0x40,0x01,(byte) 0xC0,(byte) 0x80,0x41,0x01,(byte) 0xC0,(byte) 0x80,0x41,0x00,(byte) 0xC1,(byte) 0x81,
         0x40,0x01,(byte) 0xC0,(byte) 0x80,0x41,0x00,(byte) 0xC1,(byte)0x81,0x40,0x00,(byte)0xC1,(byte)0x81,0x40,0x01,(byte) 0xC0,

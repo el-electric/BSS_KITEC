@@ -404,7 +404,7 @@ namespace EL_BSS.Serial
                 }
             }
 
-            // CsSlotchargingManager[idx - 1].Slot_Charging_Manage();
+            CsSlotchargingManager[idx - 1].Slot_Charging_Manage();
         }
 
         public static void Stop_Charging_all_Slot()

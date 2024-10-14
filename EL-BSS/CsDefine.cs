@@ -35,6 +35,7 @@ namespace EL_BSS.Cycle
         public const int CYC_CHARGING = 4;
         public const int CYC_FETON = 5;
         public const int CYC_BAR_COLOR = 6;
+        public const int CYC_TEMP_LOG = 7;
         //public const int CYC_Firmware = 2;
 
         public static int[] Cyc_Rail = new int[10];
