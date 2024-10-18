@@ -343,6 +343,7 @@ namespace EL_BSS
                     {
                         byte[] bytes = getInstance().makeSlavePacket(slaveIdx++);
                         sp_Slave.Write(bytes);
+                        CsUtil.WriteLog("," + (slaveIdx - 1) + ", Receive TERM : " + DateTime.Now, "SLAVE_SEND");
                         if (slaveIdx > getInstance().slaveCount)
                         {
                             slaveIdx = 1;

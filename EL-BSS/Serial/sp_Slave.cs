@@ -18,12 +18,14 @@ namespace EL_BSS.Serial
 {
     public class sp_Slave
     {
-        static SerialPort serial;
+        public static SerialPort serial;
         private static List<byte> mReceive_Data = new List<byte>();
-        public static CsSlotchargingManager[] CsSlotchargingManager = new CsSlotchargingManager[8];
+        public static CsSlotchargingManager[] CsSlotchargingManager;
 
         public static bool Open(string PortName)
         {
+            CsSlotchargingManager = new CsSlotchargingManager[8];
+
             for (int i = 1; i <= 8; i++)
             {
                 CsSlotchargingManager[i - 1] = new CsSlotchargingManager(i);
@@ -51,6 +53,7 @@ namespace EL_BSS.Serial
 
         public static void Close()
         {
+            CsSlotchargingManager = null;
             serial.Close();
         }
         private static void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)

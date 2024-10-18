@@ -357,11 +357,25 @@ namespace EL_BSS.Cycle
             CsWakeup.interverWakeUP();
 
 
-            if (CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] >= 300000)
+            if (CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] >= 10)
             {
-
                 CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] = 0;
                 make_log(0);
+            }
+
+            if (sp_Slave.serial != null && sp_Master.serial != null)
+            {
+                if (!sp_Slave.serial.IsOpen)
+                {
+                    sp_Slave.Close();
+                    sp_Slave.Open(Model.getInstance().Slave_PortName); 
+                }
+
+                if (!sp_Master.serial.IsOpen)
+                {
+                    sp_Master.Close();
+                    sp_Master.Open(Model.getInstance().Master_PortName);
+                }
             }
         }
 

@@ -10,7 +10,7 @@ namespace EL_BSS.Serial
 {
     public class sp_Master
     {
-        static SerialPort serial;
+        public static SerialPort serial;
         private static List<byte> mReceive_Data = new List<byte>();
 
         public static bool Open(string PortName)
