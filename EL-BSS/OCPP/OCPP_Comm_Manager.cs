@@ -102,7 +102,7 @@ namespace BatteryChangeCharger.OCPP
             JArray jsonArray = JArray.Parse(response);
             if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
             {
-                Model.SendInterval = (int)jsonArray[2]["interval"];
+                Model.getInstance().StationInfoInterval = (int)jsonArray[2]["interval"];
                 Model.getInstance().frmFrame.viewForm(0);
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
             }

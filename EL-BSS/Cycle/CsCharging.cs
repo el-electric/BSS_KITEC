@@ -3,6 +3,7 @@ using EL_DC_Charger.ocpp.ver16.comm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,11 +34,48 @@ namespace EL_BSS.Cycle
             {
                 if (Model.getInstance().list_SlaveRecv[slotid - 1].ProcessStatus == 100)
                 {
-                    // Model.getInstance().list_SlaveSend[slotid - 1].BatteryFETON = true;
                     break;
 
                 }
                 else if (CsDefine.Delayed[CsDefine.CYC_CHARGING] >= 3000)
+                {
+                    return false;
+                }
+
+                Thread.Sleep(10);
+            }
+            return true;
+        }
+
+        public static bool isCharging_Two_Slot(int[] slot)
+        {
+            Model.getInstance().list_SlaveSend[slot[0] - 1].BatteryOutput = true;
+            Model.getInstance().list_SlaveSend[slot[1] - 1].BatteryOutput = true;
+
+            if (Model.getInstance().list_SlaveRecv[slot[0] - 1].Check_BatteryVoltage_Type == (int)enumData.Type48 &&
+                Model.getInstance().list_SlaveRecv[slot[1] - 1].Check_BatteryVoltage_Type == (int)enumData.Type48)
+            {
+                Model.getInstance().list_SlaveSend[slot[0] - 1].request_Wattage = 150;
+                Model.getInstance().list_SlaveSend[slot[1] - 1].request_Wattage = 150;
+            }
+            else if (Model.getInstance().list_SlaveRecv[slot[0] - 1].Check_BatteryVoltage_Type == (int)enumData.Type72 &&
+                    Model.getInstance().list_SlaveRecv[slot[1] - 1].Check_BatteryVoltage_Type == (int)enumData.Type72)
+            {
+                Model.getInstance().list_SlaveSend[slot[0] - 1].request_Wattage = 100;
+                Model.getInstance().list_SlaveSend[slot[1] - 1].request_Wattage = 100;
+            }
+
+            CsDefine.Delayed[CsDefine.CYC_CHARGING] = 0;
+
+            while (true)
+            {
+                if (Model.getInstance().list_SlaveRecv[slot[0] - 1].ProcessStatus == 100 &&
+                    Model.getInstance().list_SlaveRecv[slot[1] - 1].ProcessStatus == 100)
+                {
+                    break;
+
+                }
+                else if (CsDefine.Delayed[CsDefine.CYC_CHARGING] >= 10000)
                 {
                     return false;
                 }

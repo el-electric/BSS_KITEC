@@ -147,8 +147,6 @@ namespace EL_BSS
 
         public CsErrorControl csErrorControl;
 
-        public static int SendInterval = 300;
-        public static DateTime Dt_SendInterval = DateTime.Now;
         public int HeartBeatInterval = 10;
         public int StationInfoInterval = 10;
         public int MeterValuesInterval = 10;

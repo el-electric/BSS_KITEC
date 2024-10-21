@@ -172,22 +172,22 @@ namespace EL_BSS.Cycle
 
                     if (model.Battery_Error_Code[s][Battery_Error.BMS_Error] != model.list_SlaveRecv[s].BMS_ERR_State) { Is_Slot_Error(s, Battery_Error.BMS_Error, model.list_SlaveRecv[s].BMS_ERR_State); }
 
-                    //if (model.list_SlaveRecv[s].ProcessStatus == 100)  //충전중일때 
-                    //{
-                    //    if (!model.Battery_Error_Code[s][Battery_Error.Over_Current])
-                    //    {
-                    //        switch (model.list_SlaveRecv[s].Check_BatteryVoltage_Type)  // 과전류 
-                    //        {
-                    //            case 48:
-                    //                if (model.list_SlaveRecv[s].PowerPackWattage > 165)
-                    //                    Is_Slot_Error(s, Battery_Error.Over_Current, true);
-                    //                break;
-                    //            case 72:
-                    //                if (model.list_SlaveRecv[s].PowerPackWattage > 110) Is_Slot_Error(s, Battery_Error.Over_Current, true);
-                    //                break;
-                    //        }
-                    //    }
-                    //}
+                    if (model.list_SlaveRecv[s].ProcessStatus == 100)  //충전중일때 
+                    {
+                        if (!model.Battery_Error_Code[s][Battery_Error.Over_Current])
+                        {
+                            switch (model.list_SlaveRecv[s].Check_BatteryVoltage_Type)  // 과전류 
+                            {
+                                case 48:
+                                    if (model.list_SlaveRecv[s].PowerPackWattage > 165)
+                                        Is_Slot_Error(s, Battery_Error.Over_Current, true);
+                                    break;
+                                case 72:
+                                    if (model.list_SlaveRecv[s].PowerPackWattage > 110) Is_Slot_Error(s, Battery_Error.Over_Current, true);
+                                    break;
+                            }
+                        }
+                    }
 
 
                     /*if (!model.Battery_Error_Code[s][Battery_Error.Door_Opening_Error])
@@ -228,7 +228,7 @@ namespace EL_BSS.Cycle
             for (int i = 0; i < 8; i++)
             {
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(i);
-                Model.Dt_SendInterval = DateTime.Now;
+                CsWork.nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
             }
         }
     }

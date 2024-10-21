@@ -36,22 +36,7 @@ namespace EL_BSS.Cycle
             if (Model.getInstance().bis_Click_Home_button)
             {
                 Model.getInstance().bis_Click_Home_button = false;
-                Model.getInstance().frmFrame.GetfrmMain().show_Door_Close_Popup(1, 2);
-            }
-
-            if (Model.Dt_SendInterval.AddSeconds(Model.SendInterval) < DateTime.Now && Model.getInstance().Send_bootnotification)
-            {
-                Model.Dt_SendInterval = DateTime.Now;
-                ///////////////////////////////////
-                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
-                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(1);
-
-                for (int i = 0; i < 8; i++)
-                {
-                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(i);
-                }
-
-                ///////////////////////////////////
+                CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_HOME_BUTTON;
             }
 
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
@@ -93,47 +78,46 @@ namespace EL_BSS.Cycle
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 2:
-                    /*CsWakeup.interverWakeUP();*/
-                    NextStep();
-                    break;
-                case CsDefine.CYC_MAIN + 3:
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
                     {
-                        if (sp_Slave.Check_able_battery_slot())  // 사용가능한 슬롯이 있을 경우 반납받을 슬롯과 대여할 슬롯을 결정해둔다
-                        {
-                            if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
-                            {
-                                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.success.ToString());
-                            }
-                            else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
-                            {
-
-                            }
-
-                            getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
-                            getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
-
-                            frmFrame.deleMenuClick(0);
-                            mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
-                            NextStep();
-                        }
-                        else  // 없을 경우
-                        {
-                            if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
-                            {
-                                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.fail.ToString());
-                            }
-                            else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
-                            {
-                                // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.fail.ToString());
-                            }
-
-
-                            frmFrame.deleMenuClick(0);
-                            getInstance().frmFrame.NotiShow("사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요", 1000);
-                            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
-                        }
+                        NextStep();
                     }
+                    break;
+                case CsDefine.CYC_MAIN + 3:
+                     if (!sp_Slave.Check_able_battery_slot())  // 사용가능한 슬롯이 있을 경우 반납받을 슬롯과 대여할 슬롯을 결정해둔다
+                     {
+                         if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
+                         {
+                             Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.success.ToString());
+                         }
+                         else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
+                         {
+
+                         }
+
+                         getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                         getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+
+                         frmFrame.deleMenuClick(0);
+                         mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
+                         NextStep();
+                     }
+                     else  // 없을 경우
+                     {
+                         if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
+                         {
+                             Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.fail.ToString());
+                         }
+                         else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
+                         {
+                             Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.fail.ToString());
+                         }
+
+
+                         frmFrame.deleMenuClick(0);
+                         getInstance().frmFrame.NotiShow("사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요", 1000);
+                         CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                     }
                     break;
                 case CsDefine.CYC_MAIN + 4:
                     if (getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].BatterArrive && getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].isDoor == false &&  // 배터리가 들어있고 문이 닫혔다면
@@ -187,14 +171,23 @@ namespace EL_BSS.Cycle
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 8:
-                    if (CsCharging.isCharging(getInstance().Lent_slot[0]) && CsCharging.isCharging(getInstance().Lent_slot[1]))
+                    /*if (CsCharging.isCharging(getInstance().Lent_slot[0]) && CsCharging.isCharging(getInstance().Lent_slot[1]))
                     {
                         ///////////////////////////////////////////////////
-                        /*getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(getInstance().Lent_slot[0]);
-                        getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(getInstance().Lent_slot[1]);*/
+                        getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(getInstance().Lent_slot[0], enumData.Charging.ToString());
+                        getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(getInstance().Lent_slot[1], enumData.Charging.ToString());
+                        ///////////////////////////////////////////////////
 
-                        /*getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(getInstance().Lent_slot[0], enumData.Charging.ToString());
-                        getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(getInstance().Lent_slot[1], enumData.Charging.ToString());*/
+                        mainFormLabelUpdate("반납이 완료 되었습니다.");
+                        frmFrame.deleMenuClick(0);
+                        NextStep();
+                    }*/
+
+                    if (CsCharging.isCharging_Two_Slot(getInstance().Lent_slot))
+                    {
+                        ///////////////////////////////////////////////////
+                        getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(getInstance().Lent_slot[0], enumData.Charging.ToString());
+                        getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StatusNotification_for_Check_Battery(getInstance().Lent_slot[1], enumData.Charging.ToString());
                         ///////////////////////////////////////////////////
 
                         mainFormLabelUpdate("반납이 완료 되었습니다.");
@@ -231,11 +224,7 @@ namespace EL_BSS.Cycle
                         mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
                     }
 
-                    if (
-                        CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000
-                        /*((!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive) ||
-                        (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive))*/
-                        )
+                    if ( CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000)
                     {
                         JumpStep(CsDefine.CYC_DOOR_ERROR);
                     }
@@ -344,21 +333,17 @@ namespace EL_BSS.Cycle
                         Model.getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
                     }
                     break;
+                case CsDefine.CYC_HOME_BUTTON:
+                    JumpStep(CsDefine.CYC_INIT);
+                    break;
 
-            }
-
-
-            if (Model.getInstance().Send_bootnotification)
-            {
-                CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
-                Model.getInstance().csErrorControl.Check_Error_Occured();
             }
         }
 
 
         static DateTime nextHeartBeatTime = DateTime.Now.AddSeconds(getInstance().HeartBeatInterval);
         static DateTime nextMeterValues = DateTime.Now.AddSeconds(getInstance().MeterValuesInterval);
-        static DateTime nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
+        public static DateTime nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
         public static void OCPP_IntervalCycle()
         {
             /*if (Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time.Value.AddSeconds(5) <= DateTime.Now && !Model.getInstance().oCPP_Comm_Manager.get_WebSocket_State())
@@ -375,9 +360,17 @@ namespace EL_BSS.Cycle
             {
                 nextMeterValues = DateTime.Now.AddSeconds(getInstance().MeterValuesInterval);
             }
-            if (DateTime.Now >= nextStationInfo)
+            if (DateTime.Now >= nextStationInfo && Model.getInstance().Send_bootnotification)  // stationinfo 와 addinfostaionBatterystate 전송주기
             {
                 nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
+
+                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
+                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(1);
+
+                for (int i = 0; i < 8; i++)
+                {
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(i);
+                }
             }
         }
 

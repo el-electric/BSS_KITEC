@@ -404,7 +404,7 @@ namespace EL_BSS.Serial
                 }
             }
 
-            // CsSlotchargingManager[idx - 1].Slot_Charging_Manage();
+            CsSlotchargingManager[idx - 1].Slot_Charging_Manage();
         }
 
         public static void Stop_Charging_all_Slot()
@@ -452,10 +452,10 @@ namespace EL_BSS.Serial
 
         private static string Check_Status(int i)
         {
-            if (Model.getInstance().list_SlaveRecv[i].ProcessStatus == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            /*if (Model.getInstance().list_SlaveRecv[i].ProcessStatus == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
                 return enumData.Charging.ToString();
-            }
+            }*/
             if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
             {
                 return enumData.ERROR.ToString();

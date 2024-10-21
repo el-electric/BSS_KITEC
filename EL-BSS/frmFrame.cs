@@ -381,7 +381,13 @@ namespace EL_BSS
             {
                 CsWork.Main_WorkCycle();
                 CsWork.OCPP_IntervalCycle();
-                //CsFirmwareUpdate.Main_WorkCycle();
+                
+                if (Model.getInstance().Send_bootnotification)
+                {
+                    CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
+                    Model.getInstance().csErrorControl.Check_Error_Occured();
+                
+                }
                 Thread.Sleep(1);
             }
         }

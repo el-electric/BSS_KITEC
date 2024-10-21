@@ -36,7 +36,7 @@
                         <TranslateTransform  x:Name="Canvas_translateTrnasform"/>
                     </TransformGroup>
                 </Canvas.RenderTransform>
-                <Button x:Name="btn_home" Height="50" Width="120" Background="White" Visibility="Collapsed" Margin="0,0,0,0" Content="HOME" FontSize="25" FontFamily="/Font/Spoqa-Han-Sans" Click="btn_home_Click" FontWeight="Bold"/>
+                <Button x:Name="btn_home" Height="50" Width="150" Background="White" Visibility="Visible" Margin="0,50,0,0" Content="뒤로가기" FontSize="25" FontFamily="/Font/Spoqa-Han-Sans" Click="btn_home_Click" FontWeight="Bold"/>
 
                 <Border x:Name="color_bar1" Width="15.5" Height="67" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="106" Canvas.Left="190.5"/>
                 <Border x:Name="color_bar2" Width="15.5" Height="68" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="236" Canvas.Left="190.5"/>
