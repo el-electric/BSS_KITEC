@@ -383,15 +383,15 @@ namespace EL_BSS.Cycle
         {
             string logmessage = "";
 
-            logmessage = "날짜," + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ",," + "\n";
+            logmessage = "Date," + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ",," + "\n";
             logmessage += "\n";
-            logmessage += ",내부온도" + "," + "습도" + "\n";
-            logmessage += "마스터," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "\n";
-            logmessage += "슬레이브," + Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[1].Charger_Humidity + "\n" + "\n";
+            logmessage += ",ChargerTemp" + "," + "Huminity" + "\n";
+            logmessage += "Master," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "\n";
+            logmessage += "Slave," + Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[1].Charger_Humidity + "\n" + "\n";
             logmessage += ",Received,SOC,SOH,Present_Voltage,Present_Current,FET_Temp,Slot_Temp,Serial_Number" + "\n";
             for (int i = 0; i < 8; i++)
             {
-                logmessage += "슬롯" + (i + 1) + ",";
+                logmessage += "SLOT" + (i + 1) + ",";
                 if (Model.getInstance().list_SlaveRecv[i].BatterArrive)  // 안착여부
                 {
                     logmessage += "true";
