@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EL_BSS.Serial;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -204,16 +205,20 @@ namespace EL_BSS.Cycle
                     /*if (!model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].FET_ON_State && !model.list_SlaveRecv[s].PowerPackStatus)
                     {
                         Is_Slot_Error(s, Battery_Error.Power_Pack_Error, true);
+                    }*/
+
+
+                    if (Check_Slave_Port_isAlive())
+                    {
+                        sp_Slave.Close();
+                        sp_Slave.Open(Model.getInstance().Slave_PortName);
                     }
 
-                    if (!model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) < DateTime.Now)
+                    if (Check_Master_Port_isAlive())
                     {
-                        Is_Slot_Error(s, Battery_Error.Control_Board_Error, true);
+                        sp_Master.Close();
+                        sp_Master.Open(Model.getInstance().Master_PortName);
                     }
-                    else if (model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) > DateTime.Now)
-                    {
-                        Is_Slot_Error(s, Battery_Error.Control_Board_Error, false);
-                    }*/
                 }
 
             }
@@ -230,6 +235,27 @@ namespace EL_BSS.Cycle
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(i);
                 CsWork.nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
             }
+        }
+
+        public bool Check_Slave_Port_isAlive()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (Model.getInstance().list_SlaveDataRecvDatetime[i].AddSeconds(5) < DateTime.Now)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool Check_Master_Port_isAlive()
+        {
+            if (Model.getInstance().list_MasterDataRecvDatetime[0].AddSeconds(5) < DateTime.Now || Model.getInstance().list_MasterDataRecvDatetime[1].AddSeconds(5) < DateTime.Now)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
