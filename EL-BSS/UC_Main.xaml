@@ -126,7 +126,7 @@
                 </Button.Effect>
             </Button>
 
-            <Button x:Name="btn_test" Content="test" Width="50" Height="50" Margin="0,100,0,0"  HorizontalAlignment="Center" Click="btn_test_Click_1" Visibility="Collapsed"/>
+            <Button x:Name="btn_test" Content="test" Width="50" Height="50" Margin="0,100,0,0"  HorizontalAlignment="Center" Click="btn_test_Click_1" Visibility="Visible"/>
 
 
         </StackPanel>

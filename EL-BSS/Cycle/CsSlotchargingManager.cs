@@ -56,13 +56,14 @@ namespace EL_BSS.Cycle
                     setHighTemp_Current(false, slotid);
                 }
 
-                if (model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor) //에러 발생시 그리고 완속 
+                if (model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor || !model.test_button) //에러 발생시 그리고 완속 
                 {
                     model.list_SlaveSend[slotid - 1].BatteryFETON = false;
                     model.list_SlaveSend[slotid - 1].BatteryOutput = false;
                 }
                 else if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
-                    model.list_SlaveRecv[slotid - 1].SOC < 100)
+                    model.list_SlaveRecv[slotid - 1].SOC < 100 ||
+                    model.test_button)
                 {
                     model.list_SlaveSend[slotid - 1].BatteryFETON = true;
                     model.list_SlaveSend[slotid - 1].BatteryOutput = true;

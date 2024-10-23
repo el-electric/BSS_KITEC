@@ -357,7 +357,7 @@ namespace EL_BSS.Cycle
             CsWakeup.interverWakeUP();
 
 
-            if (CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] >= 10)
+            if (CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] >= 300000)
             {
                 CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] = 0;
                 make_log(0);
@@ -387,7 +387,7 @@ namespace EL_BSS.Cycle
             logmessage += "\n";
             logmessage += ",ChargerTemp" + "," + "Huminity" + "\n";
             logmessage += "Master," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "\n";
-            logmessage += "Slave," + Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[1].Charger_Humidity + "\n" + "\n";
+            logmessage += "Slave," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "\n" + "\n";
             logmessage += ",Received,SOC,SOH,Present_Voltage,Present_Current,FET_Temp,Slot_Temp,Serial_Number" + "\n";
             for (int i = 0; i < 8; i++)
             {

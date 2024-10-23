@@ -52,7 +52,7 @@ namespace EL_BSS
         }
 
         private void btn_BoardReset_m_Click(object sender, EventArgs e)
-        { Model.getInstance().list_MasterSend[0].hmiManual = true; }
+        { Model.getInstance().list_MasterSend[0].boardReset = true; }
 
         private void btn_fan_s_Click(object sender, EventArgs e)
         {
@@ -68,7 +68,7 @@ namespace EL_BSS
 
         private void btn_BoardReset_s_Click(object sender, EventArgs e)
         {
-            Model.getInstance().list_MasterSend[1].hmiManual = true;
+            Model.getInstance().list_MasterSend[1].boardReset = true;
         }
     }
 }
