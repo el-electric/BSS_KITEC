@@ -7,9 +7,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Permissions;
 using System.ServiceModel.Channels;
@@ -364,7 +366,7 @@ namespace EL_BSS.Cycle
                 make_log();
             }
 
-            if (sp_Slave.serial != null && sp_Master.serial != null)
+            /*if (sp_Slave.serial != null && sp_Master.serial != null)
             {
                 if (!sp_Slave.serial.IsOpen)
                 {
@@ -377,20 +379,27 @@ namespace EL_BSS.Cycle
                     sp_Master.Close();
                     sp_Master.Open(Model.getInstance().Master_PortName);
                 }
-            }
+            }*/
         }
 
-        public static float inversion_bt_temp(int temp)  // 온습도 온도 역산 공식
+        public static string inversion_bt_temp(int temp)  // 온습도 온도 역산 공식
         {
-            return (temp + 46.85f) * 65536.0f / 175.72f;
+            int value = Convert.ToInt32((temp + 46.85f) * 65536.0f / 175.72f);
+            return "0x" + value.ToString("X");
         }
 
-        public static float inversion_bt_humi(int humi)  // 온습도 습도 역산 공식
+        public static string inversion_bt_humi(int humi)  // 온습도 습도 역산 공식
         {
-            return (humi + 6.0f) * 65536.0f / 125.0f;
+            int value = Convert.ToInt32((humi + 6.0f) * 65536.0f / 125.0f);
+            return "0x" + value.ToString("X");
         }
 
-        public static double inversion_slot_temp(double temp)  // 슬롯온도 역산 공식
+        public static string int_to_hex(int value)
+        {
+            return "0x" + value.ToString("X");
+        }
+
+        public static string inversion_slot_temp(double temp)  // 슬롯온도 역산 공식
         {
             double Vo = 0.0;
             double R2 = 0.0;
@@ -409,7 +418,9 @@ namespace EL_BSS.Cycle
             // Step 3: Vo를 통해 adct 계산
             adct = 4095 - (Vo * 4095 / 3.3);
 
-            return adct;
+            int value = Convert.ToInt32(adct);
+
+            return "0x" + value.ToString("X");
         }
 
 
@@ -419,9 +430,9 @@ namespace EL_BSS.Cycle
 
             logmessage = "Date," + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ",," + "\n";
             logmessage += "\n";
-            logmessage += ",ChargerTemp" + "," + "Huminity" + "." + "ChargerTemp_Raw" +","+ "Huminity_Raw" +"," + "Wave_Sensor"+ "\n";
-            logmessage += "Master," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "," + inversion_bt_temp(Model.getInstance().list_MasterRecv[0].Charger_UpperTemper) + "," + inversion_bt_humi(Model.getInstance().list_MasterRecv[0].Charger_Humidity) + "," + Model.getInstance().list_MasterRecv[0].Charger_WaveSensor + "\n";
-            logmessage += "Slave," + Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[1].Charger_Humidity + "," + inversion_bt_temp(Model.getInstance().list_MasterRecv[0].Charger_UpperTemper) + "," + inversion_bt_humi(Model.getInstance().list_MasterRecv[0].Charger_Humidity) + "," + Model.getInstance().list_MasterRecv[0].Charger_WaveSensor + "\n" + "\n";
+            logmessage += ",ChargerTemp" + "," + "Huminity" + "," + "ChargerTemp_Raw" +","+ "Huminity_Raw" +"," + "Wave_Sensor"+  "\n";
+            logmessage += "Master," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "," + inversion_bt_temp(Model.getInstance().list_MasterRecv[0].Charger_UpperTemper) + "," + inversion_bt_humi(Model.getInstance().list_MasterRecv[0].Charger_Humidity) + "," + int_to_hex(Model.getInstance().list_MasterRecv[0].Charger_WaveSensor) + "\n";
+            logmessage += "Slave," + Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[1].Charger_Humidity + "," + inversion_bt_temp(Model.getInstance().list_MasterRecv[1].Charger_UpperTemper) + "," + inversion_bt_humi(Model.getInstance().list_MasterRecv[1].Charger_Humidity) + "," + int_to_hex(Model.getInstance().list_MasterRecv[1].Charger_WaveSensor) + "\n" + "\n";
             logmessage += ",Received,SOC,SOH,Present_Voltage,Present_Current,Powerpack_Voltage,Powerpack_Current,FET_Temp,Slot_Temp,Cell_max_Temp,Cell_Mini_Temp,Serial_Number,Raw_slot_Temp," + "\n";
             for (int i = 0; i < 8; i++)
             {
