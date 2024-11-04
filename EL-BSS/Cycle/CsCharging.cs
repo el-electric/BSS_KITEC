@@ -91,9 +91,17 @@ namespace EL_BSS.Cycle
             return true;
         }
 
+        public static bool is_first = false;
+
         public static void Slot_Charging_Control(int slotid)
         {
             var model = Model.getInstance();
+
+            if (!is_first)
+            {
+                sw_first.Start();
+                is_first = true;
+            }
 
             if (!firstboot)
             {
@@ -105,6 +113,16 @@ namespace EL_BSS.Cycle
                     firstboot = true;
                 }
             }
+
+            if (Model.getInstance().list_SlaveRecv[slotid - 1].Check_BatteryVoltage_Type == 48)
+            {
+                Model.getInstance().list_SlaveSend[slotid - 1].request_Wattage = 150;
+            }
+            else if(Model.getInstance().list_SlaveRecv[slotid - 1].Check_BatteryVoltage_Type == 72)
+            {
+                Model.getInstance().list_SlaveSend[slotid - 1].request_Wattage = 100;
+            }
+
 
             if (model.list_MasterRecv[0].Error_Occured || model.list_MasterRecv[1].Error_Occured)
             {
