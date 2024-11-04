@@ -363,7 +363,8 @@ namespace EL_BSS.Cycle
             if (CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] >= 300000)
             {
                 CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] = 0;
-                make_log();
+                // make_log();
+                maek_log_simple();
             }
 
             /*if (sp_Slave.serial != null && sp_Master.serial != null)
@@ -464,6 +465,48 @@ namespace EL_BSS.Cycle
             }
             logmessage += "\n";
             CsUtil.WriteLog_CSV(logmessage, "CHAMBER_TEMP_LOG");
+
+        }
+        public static bool first_log = false;
+
+        public static void maek_log_simple()
+        {
+            string log = "";
+
+            if (!first_log)
+            {
+                log += "time_stamp,master_temp_raw,master_temp,master_humi_raw,master_humi,Slot1_raw,Slot1,Slot2_raw,Slot2,Slot3_raw,Slot3,Slot4_raw,Slot4,slave_temp_raw,slave_temp,slave_humi_raw,slave_humi,slot5_raw,slot5,slot6_raw,slot6,slot7_raw,slot7,slot8_raw,slot8,isfan1,isfan2" + "\n";
+                first_log = true;
+            }
+
+            log += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ",";
+            log += inversion_bt_temp(Model.getInstance().list_MasterRecv[0].Charger_UpperTemper) + ",";
+            log += Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + ",";
+            log += inversion_bt_humi(Model.getInstance().list_MasterRecv[0].Charger_Humidity) + ",";
+            log += Model.getInstance().list_MasterRecv[0].Charger_Humidity + ",";
+
+            for (int i = 0; i < 4; i++)
+            {
+                log += inversion_slot_temp(Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp) + ",";
+                log += Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp + ",";
+            }
+
+            log += inversion_bt_temp(Model.getInstance().list_MasterRecv[1].Charger_UpperTemper) + ",";
+            log += Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + ",";
+            log += inversion_bt_humi(Model.getInstance().list_MasterRecv[1].Charger_Humidity) + ",";
+            log += Model.getInstance().list_MasterRecv[1].Charger_Humidity + ",";
+            
+            for (int i = 4; i < 8; i++)
+            {
+                log += inversion_slot_temp(Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp) + ",";
+                log += Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp + ",";
+            }
+
+            if (Model.getInstance().list_MasterRecv[0].Charger_UpperTemper >= 40) { log += "true,"; } else { log += "false,"; }
+            if (Model.getInstance().list_MasterRecv[1].Charger_UpperTemper >= 40) { log += "true"; } else { log += "false"; }
+
+            CsUtil.WriteLog_CSV(log, "CHAMBER_TEMP_LOG_SIMPLE");
+
         }
 
 
