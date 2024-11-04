@@ -241,6 +241,18 @@ namespace EL_BSS
                     Model.getInstance().frmFrame.Set_Bottom_Progressbar(false);
                     Image_translateTrnasform.Y = 60;
                     Canvas_translateTrnasform.Y = 0;
+
+
+                    Canvas.SetLeft(color_bar1, 190.5);
+                    Canvas.SetLeft(color_bar2, 190.5);
+                    Canvas.SetLeft(color_bar3, 190.5);
+                    Canvas.SetLeft(color_bar4, 190.5);
+                    Canvas.SetLeft(color_bar5, 399);
+                    Canvas.SetLeft(color_bar6, 399);
+                    Canvas.SetLeft(color_bar7, 399);
+                    Canvas.SetLeft(color_bar8, 399);
+
+
                 }
                 else
                 {
@@ -251,6 +263,18 @@ namespace EL_BSS
                     Model.getInstance().frmFrame.Set_Bottom_Progressbar(true);
                     Image_translateTrnasform.Y = 30;
                     Canvas_translateTrnasform.Y = -30;
+
+                    Canvas.SetLeft(color_bar1, 194.2);
+                    Canvas.SetLeft(color_bar2, 194.2);
+                    Canvas.SetLeft(color_bar3, 194.2);
+                    Canvas.SetLeft(color_bar4, 194.2);
+                    Canvas.SetLeft(color_bar5, 402.5);
+                    Canvas.SetLeft(color_bar6, 402.5);
+                    Canvas.SetLeft(color_bar7, 402.5);
+                    Canvas.SetLeft(color_bar8, 402.5);
+
+
+
                 }
             }));
 

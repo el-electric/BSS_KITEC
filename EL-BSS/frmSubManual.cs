@@ -58,37 +58,6 @@ namespace EL_BSS
                     Power_Pack_State.Text = "OFF";
                 }
                 ///////////////////////////////////////////////////////////////////////////////////////////
-                /*switch (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].ProcessStatus.ToString())
-                {
-
-                    case "1":
-                        val = "대기중";
-                        break;
-                    case "2":
-                        val = "초기화 성공";
-                        break;
-                    case "3":
-                        val = "충전 대기";
-                        break;
-                    case "10":
-                        val = "Wake Up";
-                        break;
-                    case "11":
-                        val = "통신 시작";
-                        break;
-                    case "100":
-                        val = "충전 중";
-                        break;
-                    case "101":
-                        val = "충전 완료";
-                        break;
-                    case "102":
-                        val = "충전 오류";
-                        break;
-                    default:
-                        val = "";
-                        break;
-                }*/
 
                 if (Model.getInstance().list_SlaveRecv[mSLot_Number - 1].ProcessStatus == 100)
                 {

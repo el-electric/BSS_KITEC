@@ -22,7 +22,7 @@ namespace EL_BSS
     public partial class frmFrame : Form, IObserver
     {
 
-        public delegate void ClickEvent(int idx);
+        public delegate void ClickEvent(int idx, string context = "");
         public static event ClickEvent MenuClick;
         private bool ThreadRun = true;
 
@@ -76,6 +76,7 @@ namespace EL_BSS
 
 
             showNotiForm("Attempt to connect to server");
+            
             //viewForm(0);
 
             for (int i = 0; i < Model.getInstance().slaveCount; i++)
@@ -108,16 +109,16 @@ namespace EL_BSS
                 MessageBox.Show("슬레이브 포트 오픈 실패");
 
             getInstance().oCPP_Comm_Manager.WebSocketOpen();
-
+            
         }
 
-        public static void deleMenuClick(int idx)
+        public static void deleMenuClick(int idx , string context = "")
         {
-            MenuClick(idx);
+            MenuClick(idx , context);
         }
-        private void FrmFrame_MenuClick(int idx)
+        private void FrmFrame_MenuClick(int idx , string context ="")
         {
-            viewForm(idx);
+            viewForm(idx , context);
         }
 
         private void initForm()
@@ -169,8 +170,6 @@ namespace EL_BSS
             switch (idx)
             {
                 case 0:
-
-
                     panel2.Controls.Add(frmMain);
                     //재접속때 await 이라 invoke 안하면 timer 실행이 안되는거 같아 추가
                     //this.Invoke(new MethodInvoker(delegate ()
@@ -225,13 +224,7 @@ namespace EL_BSS
 
         public void showNotiForm(string context)
         {
-
             viewForm(5, context);
-            //this.Invoke(new MethodInvoker(delegate ()
-            //{
-            //    panel2.Controls.Add(frmNoti);
-            //    observers.Find(observer => observer is frmNoti).UpdateForm(context);
-            //}));
         }
 
         private void ui_timer_500ms_Tick(object sender, EventArgs e)

@@ -218,30 +218,12 @@ namespace EL_BSS
 
         private void btn_fan_1_Click(object sender, EventArgs e)
         {
-            if (!Model.getInstance().list_MasterSend[0].isFan)
-            {
-                Model.getInstance().list_MasterSend[0].hmiManual = true;
-                Model.getInstance().list_MasterSend[0].isFan = true; 
-            }
-            else 
-            {
-                Model.getInstance().list_MasterSend[0].hmiManual = false;
-                Model.getInstance().list_MasterSend[0].isFan = false; 
-            } 
+
         }
 
         private void btn_fan_2_Click(object sender, EventArgs e)
         {
-            if (!Model.getInstance().list_MasterSend[1].isFan)
-            {
-                Model.getInstance().list_MasterSend[1].hmiManual = true;
-                Model.getInstance().list_MasterSend[1].isFan = true;
-            }
-            else
-            {
-                Model.getInstance().list_MasterSend[1].hmiManual = false;
-                Model.getInstance().list_MasterSend[1].isFan = false;
-            }
+
         }
 
         private void AutoStart_Popup_Click(object sender, EventArgs e)

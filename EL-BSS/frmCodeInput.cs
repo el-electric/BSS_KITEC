@@ -55,6 +55,7 @@ namespace EL_BSS
                     tb_intput.Text = string.Empty;
 
                     lbl_sub_status.Text = "앱에 표시된 4자리 보안코드를 입력하세요";
+                    lbl_main_status.Text = "보안 코드 입력";
                 }
             }
             else
@@ -113,6 +114,7 @@ namespace EL_BSS
         public void InitForm()
         {
             lbl_sub_status.Text = "앱에 표시된 4자리 식별코드를 입력하세요";
+            lbl_main_status.Text = "식별 코드 입력";
             tb_intput.Text = string.Empty;
         }
 

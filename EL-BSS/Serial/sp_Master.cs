@@ -267,6 +267,7 @@ namespace EL_BSS.Serial
         }
         public static void Write(byte[] bytes)
         {
+            if(serial.IsOpen)
             serial.Write(bytes, 0, bytes.Length);
         }
     }

@@ -20,15 +20,9 @@ namespace EL_BSS.Serial
     {
         static SerialPort serial;
         private static List<byte> mReceive_Data = new List<byte>();
-        public static CsSlotchargingManager[] CsSlotchargingManager = new CsSlotchargingManager[8];
 
         public static bool Open(string PortName)
         {
-            for (int i = 1; i <= 8; i++)
-            {
-                CsSlotchargingManager[i - 1] = new CsSlotchargingManager(i);
-            }
-
             try
             {
                 serial = new SerialPort();
@@ -255,17 +249,6 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].ErrorCode = EL_Manager_Conversion.getInt_2Byte(packet[38], packet[39]);
             Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
 
-            /*if (EL_Manager_Conversion.getInt(packet[40]) >= 99)
-            {
-                Model.getInstance().list_SlaveRecv[idx - 1].SOC = 100;
-            }
-            else
-            {
-                Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]) + 1;
-            }*/
-
-            Model.getInstance().list_SlaveRecv[idx - 1].SOC = EL_Manager_Conversion.getInt(packet[40]);
-
             Model.getInstance().list_SlaveRecv[idx - 1].SOH = EL_Manager_Conversion.getInt(packet[41]);
             Model.getInstance().list_SlaveRecv[idx - 1].RemainTime = EL_Manager_Conversion.getInt_2Byte(packet[42], packet[43]);
 
@@ -281,12 +264,7 @@ namespace EL_BSS.Serial
             temp[1] = packet[51];
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryType = EL_Manager_Conversion.ByteArrayToString(temp);
 
-            // Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 7);
-            if (Model.getInstance().test_button && idx == 2)
-            {
-                Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage = true;
-            }
-            else { Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 7); }
+            Model.getInstance().list_SlaveRecv[idx - 1].rowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 7);
 
             Model.getInstance().list_SlaveRecv[idx - 1].highVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 6);
             Model.getInstance().list_SlaveRecv[idx - 1].packLowVoltage = EL_Manager_Conversion.getFlagByByteArray(packet[52], 5);
@@ -404,13 +382,13 @@ namespace EL_BSS.Serial
                 }
             }
 
-            CsSlotchargingManager[idx - 1].Slot_Charging_Manage();
+            CsCharging.Slot_Charging_Control(idx);
         }
 
         public static void Stop_Charging_all_Slot()
         {
             for (int i = 0; i < 8; i++)
-            {
+            {https://elelectric.daouoffice.com/app/welfare
                 Model.getInstance().list_SlaveSend[i].BatteryOutput = false;
             }
         }

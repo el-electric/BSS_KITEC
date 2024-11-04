@@ -22,6 +22,7 @@ namespace EL_BSS.Cycle
     public static class CsWork
     {
         public static int CurrentStep = 0;
+        public static bool is_Retreived = false;
 
         private static Sound_Player sound_Player;
 
@@ -36,6 +37,7 @@ namespace EL_BSS.Cycle
             if (Model.getInstance().bis_Click_Home_button)
             {
                 Model.getInstance().bis_Click_Home_button = false;
+                Model.getInstance().test_button = false;
                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_HOME_BUTTON;
             }
 
@@ -74,7 +76,7 @@ namespace EL_BSS.Cycle
                         "구독 여부 : " + getInstance().Authorize.ticketAvailable_value + "\n" +
                         "잔여캐시 : " + getInstance().Authorize.cashBalance + "원" + "\n" +
                         "배터리 종류 : " + getInstance().Authorize.batteryType + "V";
-                    getInstance().frmFrame.showNotiForm(puttext);
+                    frmFrame.deleMenuClick(5, puttext);
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 2:
@@ -84,7 +86,7 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 case CsDefine.CYC_MAIN + 3:
-                     if (!sp_Slave.Check_able_battery_slot())  // 사용가능한 슬롯이 있을 경우 반납받을 슬롯과 대여할 슬롯을 결정해둔다
+                     if (sp_Slave.Check_able_battery_slot())  // 사용가능한 슬롯이 있을 경우 반납받을 슬롯과 대여할 슬롯을 결정해둔다
                      {
                          if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
                          {
@@ -110,7 +112,7 @@ namespace EL_BSS.Cycle
                          }
                          else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
                          {
-                             Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.fail.ToString());
+                             // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.fail.ToString());
                          }
 
 
@@ -253,39 +255,39 @@ namespace EL_BSS.Cycle
                         switch (response)
                         {
                             case "00000":
-                                getInstance().frmFrame.showNotiForm("배터리 인증 성공");
+                                frmFrame.deleMenuClick(5 , "배터리 인증 성공");
                                 NextStep();
                                 break;
                             case "11101":
-                                getInstance().frmFrame.showNotiForm("배터리를 찾을 수 없습니다.");
+                                frmFrame.deleMenuClick(5, "배터리를 찾을 수 없습니다.");
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             case "11102":
-                                getInstance().frmFrame.showNotiForm("배터리 세트를 찾을 수 없습니다.");
+                                frmFrame.deleMenuClick(5, "배터리 세트를 찾을 수 없습니다.");
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             case "10002":
-                                getInstance().frmFrame.showNotiForm("이용자가 없습니다.");
+                                frmFrame.deleMenuClick(5, "이용자가 없습니다.");
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             case "12102":
-                                getInstance().frmFrame.showNotiForm("스테이션이 존재하지 않습니다");
+                                frmFrame.deleMenuClick(5, "스테이션이 존재하지 않습니다.");
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             default:
-                                getInstance().frmFrame.showNotiForm("없는 애러코드");
+                                frmFrame.deleMenuClick(5, "없는 애러코드");
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
@@ -334,7 +336,21 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 case CsDefine.CYC_HOME_BUTTON:
-                    JumpStep(CsDefine.CYC_INIT);
+                    CurrentStep = CsDefine.CYC_HOME_BUTTON;
+
+                    if (!is_Retreived) JumpStep(CsDefine.CYC_INIT);  // 배터리를 반납하지 않고 취소를 한다면
+                    else NextStep(); // 배터리를 반납하고 취소를 요청 한다면
+
+                    break;
+                case CsDefine.CYC_HOME_BUTTON + 1:
+                    Model.getInstance().list_SlaveSend[getInstance().Retreive_slot[0] - 1].doorOpen = true;
+                    Model.getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
+                    break;
+                case CsDefine.CYC_HOME_BUTTON + 2:
+                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor)
+                    {
+                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                    }
                     break;
 
             }
@@ -346,14 +362,15 @@ namespace EL_BSS.Cycle
         public static DateTime nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
         public static void OCPP_IntervalCycle()
         {
-            /*if (Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time.Value.AddSeconds(5) <= DateTime.Now && !Model.getInstance().oCPP_Comm_Manager.get_WebSocket_State())
+            /*if (Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time != null && Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time.Value.AddSeconds(10) <= DateTime.Now &&
+                !Model.getInstance().oCPP_Comm_Manager.get_WebSocket_State())
             {
                 Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time = null;
                 Model.getInstance().oCPP_Comm_Manager.WebSocketOpen();
             }*/
+
             if (DateTime.Now >= nextHeartBeatTime)
             {
-                //Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_HeartBeat();
                 nextHeartBeatTime = DateTime.Now.AddSeconds(getInstance().HeartBeatInterval);
             }
             if (DateTime.Now >= nextMeterValues)

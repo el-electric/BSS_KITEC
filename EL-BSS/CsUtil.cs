@@ -153,7 +153,7 @@ namespace EL_BSS
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("로그저장중 오류" + ex.Message);
             }
         }
 

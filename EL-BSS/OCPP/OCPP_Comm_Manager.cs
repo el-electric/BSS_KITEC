@@ -58,10 +58,6 @@ namespace BatteryChangeCharger.OCPP
         {
             websocket.Open();
         }
-        public void WebSocketclose()
-        {
-            websocket.Close();
-        }
         private void WebSocket_Error(object sender, ErrorEventArgs e)
         {
             MessageBox.Show("error " + e.Exception.Message);
@@ -103,6 +99,7 @@ namespace BatteryChangeCharger.OCPP
             if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
             {
                 Model.getInstance().StationInfoInterval = (int)jsonArray[2]["interval"];
+                Model.getInstance().StationInfoInterval = 3600;  // 테스트 진행
                 Model.getInstance().frmFrame.viewForm(0);
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
             }
@@ -177,6 +174,7 @@ namespace BatteryChangeCharger.OCPP
         {
             if (websocket.State == WebSocketState.Open)
             {
+                Logger.d("☆Send☆ OCPP CP->CSMS Call => " + message);
                 Console.WriteLine("Send to Server > " + message);
                 websocket.Send(message);
             }

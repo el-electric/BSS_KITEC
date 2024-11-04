@@ -31,10 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_buzzer_Stop = new System.Windows.Forms.Button();
             this.AutoStart_Popup = new System.Windows.Forms.Button();
             this.btn_buzzer_start = new System.Windows.Forms.Button();
-            this.btn_fan_2 = new System.Windows.Forms.Button();
-            this.btn_fan_1 = new System.Windows.Forms.Button();
             this.Chage_To_FW = new System.Windows.Forms.Button();
             this.Vkey_OFF_button = new System.Windows.Forms.Button();
             this.Vkey_ON_button = new System.Windows.Forms.Button();
@@ -52,7 +51,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btn_buzzer_Stop = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -73,8 +71,6 @@
             this.groupBox1.Controls.Add(this.btn_buzzer_Stop);
             this.groupBox1.Controls.Add(this.AutoStart_Popup);
             this.groupBox1.Controls.Add(this.btn_buzzer_start);
-            this.groupBox1.Controls.Add(this.btn_fan_2);
-            this.groupBox1.Controls.Add(this.btn_fan_1);
             this.groupBox1.Controls.Add(this.Chage_To_FW);
             this.groupBox1.Controls.Add(this.Vkey_OFF_button);
             this.groupBox1.Controls.Add(this.Vkey_ON_button);
@@ -91,6 +87,16 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "전체충전전력변경";
+            // 
+            // btn_buzzer_Stop
+            // 
+            this.btn_buzzer_Stop.Location = new System.Drawing.Point(454, 54);
+            this.btn_buzzer_Stop.Name = "btn_buzzer_Stop";
+            this.btn_buzzer_Stop.Size = new System.Drawing.Size(45, 36);
+            this.btn_buzzer_Stop.TabIndex = 38;
+            this.btn_buzzer_Stop.Text = "정지";
+            this.btn_buzzer_Stop.UseVisualStyleBackColor = true;
+            this.btn_buzzer_Stop.Click += new System.EventHandler(this.btn_buzzer_Stop_Click);
             // 
             // AutoStart_Popup
             // 
@@ -111,26 +117,6 @@
             this.btn_buzzer_start.Text = "경고음 재생";
             this.btn_buzzer_start.UseVisualStyleBackColor = true;
             this.btn_buzzer_start.Click += new System.EventHandler(this.btn_buzzer_start_Click);
-            // 
-            // btn_fan_2
-            // 
-            this.btn_fan_2.Location = new System.Drawing.Point(421, 17);
-            this.btn_fan_2.Name = "btn_fan_2";
-            this.btn_fan_2.Size = new System.Drawing.Size(63, 29);
-            this.btn_fan_2.TabIndex = 35;
-            this.btn_fan_2.Text = "팬 2";
-            this.btn_fan_2.UseVisualStyleBackColor = true;
-            this.btn_fan_2.Click += new System.EventHandler(this.btn_fan_2_Click);
-            // 
-            // btn_fan_1
-            // 
-            this.btn_fan_1.Location = new System.Drawing.Point(352, 17);
-            this.btn_fan_1.Name = "btn_fan_1";
-            this.btn_fan_1.Size = new System.Drawing.Size(63, 29);
-            this.btn_fan_1.TabIndex = 34;
-            this.btn_fan_1.Text = "팬 1";
-            this.btn_fan_1.UseVisualStyleBackColor = true;
-            this.btn_fan_1.Click += new System.EventHandler(this.btn_fan_1_Click);
             // 
             // Chage_To_FW
             // 
@@ -293,16 +279,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // btn_buzzer_Stop
-            // 
-            this.btn_buzzer_Stop.Location = new System.Drawing.Point(454, 54);
-            this.btn_buzzer_Stop.Name = "btn_buzzer_Stop";
-            this.btn_buzzer_Stop.Size = new System.Drawing.Size(45, 36);
-            this.btn_buzzer_Stop.TabIndex = 38;
-            this.btn_buzzer_Stop.Text = "정지";
-            this.btn_buzzer_Stop.UseVisualStyleBackColor = true;
-            this.btn_buzzer_Stop.Click += new System.EventHandler(this.btn_buzzer_Stop_Click);
-            // 
             // frmManual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 12F);
@@ -343,8 +319,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button Chage_To_FW;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btn_fan_2;
-        private System.Windows.Forms.Button btn_fan_1;
         private System.Windows.Forms.Button btn_buzzer_start;
         private System.Windows.Forms.Button AutoStart_Popup;
         private System.Windows.Forms.Button btn_buzzer_Stop;

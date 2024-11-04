@@ -118,8 +118,6 @@ namespace EL_BSS.Cycle
                             Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.floodingWarning, false);
                             Model.getInstance().dic_Station_Error_Code[m][Station_Error.floodingWarning] = false;
                         }
-
-
                         if (Model.getInstance().dic_Station_Error_Code[m][Station_Error.Charger_UpperTemper] && model.list_MasterRecv[m].Charger_UpperTemper < 70)
                         {
                             Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.Charger_UpperTemper, false);
@@ -190,25 +188,13 @@ namespace EL_BSS.Cycle
                         }
                     }
 
-
-                    /*if (!model.Battery_Error_Code[s][Battery_Error.Door_Opening_Error])
-                    {
-                        if (model.list_SlaveSend[s].doorOpen)
-                        {
-                            if (!model.list_SlaveRecv[s].isDoor)
-                            {
-                                Is_Slot_Error(s, Battery_Error.Door_Opening_Error, true);
-                            }
-                        }
-                    }*/
-
-                    /*if (!model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].FET_ON_State && !model.list_SlaveRecv[s].PowerPackStatus)
+                    if (!model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].FET_ON_State && !model.list_SlaveRecv[s].PowerPackStatus)
                     {
                         Is_Slot_Error(s, Battery_Error.Power_Pack_Error, true);
-                    }*/
+                    }
 
 
-                    if (Check_Slave_Port_isAlive())
+                    /*if (Check_Slave_Port_isAlive())  //예외 발생: 'System.IO.IOException'(System.dll)
                     {
                         sp_Slave.Close();
                         sp_Slave.Open(Model.getInstance().Slave_PortName);
@@ -218,7 +204,7 @@ namespace EL_BSS.Cycle
                     {
                         sp_Master.Close();
                         sp_Master.Open(Model.getInstance().Master_PortName);
-                    }
+                    }*/
                 }
 
             }
