@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Runtime.Remoting.Contexts;
 using System.Security.Permissions;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using WebSocket4Net;
@@ -360,7 +361,7 @@ namespace EL_BSS.Cycle
             if (CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] >= 300000)
             {
                 CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] = 0;
-                make_log(0);
+                make_log();
             }
 
             if (sp_Slave.serial != null && sp_Master.serial != null)
@@ -379,16 +380,49 @@ namespace EL_BSS.Cycle
             }
         }
 
-        public static void make_log(int midx)
+        public static float inversion_bt_temp(int temp)  // 온습도 온도 역산 공식
+        {
+            return (temp + 46.85f) * 65536.0f / 175.72f;
+        }
+
+        public static float inversion_bt_humi(int humi)  // 온습도 습도 역산 공식
+        {
+            return (humi + 6.0f) * 65536.0f / 125.0f;
+        }
+
+        public static double inversion_slot_temp(double temp)  // 슬롯온도 역산 공식
+        {
+            double Vo = 0.0;
+            double R2 = 0.0;
+            double T = 0.0;
+            double R1 = 10000.0;
+            double B_param = 3435.0;
+            double TO = 298.15;
+            double adct = 0.0;
+
+            // Step 1: T와 R1을 통해 R2 계산
+            R2 = R1 * Math.Exp(B_param * (1 / (temp + 273.15) - 1 / TO));
+
+            // Step 2: R2와 R1을 통해 Vo 계산
+            Vo = (R2 * 3.3) / (R1 + R2);
+
+            // Step 3: Vo를 통해 adct 계산
+            adct = 4095 - (Vo * 4095 / 3.3);
+
+            return adct;
+        }
+
+
+        public static void make_log()
         {
             string logmessage = "";
 
             logmessage = "Date," + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ",," + "\n";
             logmessage += "\n";
-            logmessage += ",ChargerTemp" + "," + "Huminity" + "\n";
-            logmessage += "Master," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "\n";
-            logmessage += "Slave," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "\n" + "\n";
-            logmessage += ",Received,SOC,SOH,Present_Voltage,Present_Current,FET_Temp,Slot_Temp,Serial_Number" + "\n";
+            logmessage += ",ChargerTemp" + "," + "Huminity" + "." + "ChargerTemp_Raw" +","+ "Huminity_Raw" +"," + "Wave_Sensor"+ "\n";
+            logmessage += "Master," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "," + inversion_bt_temp(Model.getInstance().list_MasterRecv[0].Charger_UpperTemper) + "," + inversion_bt_humi(Model.getInstance().list_MasterRecv[0].Charger_Humidity) + "," + Model.getInstance().list_MasterRecv[0].Charger_WaveSensor + "\n";
+            logmessage += "Slave," + Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[1].Charger_Humidity + "," + inversion_bt_temp(Model.getInstance().list_MasterRecv[0].Charger_UpperTemper) + "," + inversion_bt_humi(Model.getInstance().list_MasterRecv[0].Charger_Humidity) + "," + Model.getInstance().list_MasterRecv[0].Charger_WaveSensor + "\n" + "\n";
+            logmessage += ",Received,SOC,SOH,Present_Voltage,Present_Current,Powerpack_Voltage,Powerpack_Current,FET_Temp,Slot_Temp,Cell_max_Temp,Cell_Mini_Temp,Serial_Number,Raw_slot_Temp," + "\n";
             for (int i = 0; i < 8; i++)
             {
                 logmessage += "SLOT" + (i + 1) + ",";
@@ -405,11 +439,16 @@ namespace EL_BSS.Cycle
                 logmessage += "," + Model.getInstance().list_SlaveRecv[i].SOH.ToString(); //SOH
                 logmessage += "," + ((double)Model.getInstance().list_SlaveRecv[i].BatteryCurrentVoltage / 10).ToString();  // 현재 전압
                 logmessage += "," + ((double)Model.getInstance().list_SlaveRecv[i].BatteryCurrentWattage / 100).ToString();  // 현재 전류
+                logmessage += "," + ((double)Model.getInstance().list_SlaveRecv[i].PowerPackVoltage / 10).ToString();
+                logmessage += "," + ((double)Model.getInstance().list_SlaveRecv[i].PowerPackWattage / 10).ToString();
                 logmessage += "," + Model.getInstance().list_SlaveRecv[i].FET_Temper.ToString(); // FET 온도
                 logmessage += "," + Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp.ToString(); // 슬롯 온도
+                logmessage += "," + Model.getInstance().list_SlaveRecv[i].BatteryMaxTemper.ToString(); // 배터리 셀 최대 온도
+                logmessage += "," + Model.getInstance().list_SlaveRecv[i].BatteryMinTemper.ToString(); // 배터리 셀 최소 온도
                 logmessage += "," + Model.getInstance().list_SlaveRecv[i].Serial_Number.ToString(); // 배터리ID
+                logmessage += "," + inversion_slot_temp(Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp); // 슬롯 온도 센서 raw 값
 
-               
+
                 logmessage += "\n";
             }
             logmessage += "\n";

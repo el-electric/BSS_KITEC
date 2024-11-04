@@ -361,15 +361,24 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].Serial_Number = EL_Manager_Conversion.getInt_2Byte(packet[66], packet[67]);
 
             
-                Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68]) - 40);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68]) - 40);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = (EL_Manager_Conversion.getdouble_2Byte(packet[69], packet[70]) * 0.05);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Low_Voltage = (EL_Manager_Conversion.getInt_2Byte(packet[71], packet[72]) * 0.05);
             Model.getInstance().list_SlaveRecv[idx - 1].Cell_Belancing_Flag = EL_Manager_Conversion.getInt_2Byte(packet[73], packet[74]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Moduel_Voltage = EL_Manager_Conversion.getInt_2Byte(packet[75], packet[76]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_01 = EL_Manager_Conversion.getInt_2Byte(packet[77], packet[78]);
+
+
+            /*Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_01 = EL_Manager_Conversion.getInt_2Byte(packet[77], packet[78]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_02 = EL_Manager_Conversion.getInt_2Byte(packet[79], packet[80]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_03 = EL_Manager_Conversion.getInt_2Byte(packet[81], packet[82]);
-            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_04 = EL_Manager_Conversion.getInt_2Byte(packet[83], packet[84]);
+            Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_04 = EL_Manager_Conversion.getInt_2Byte(packet[83], packet[84]);*/
+
+            Model.getInstance().list_SlaveRecv[idx - 1].raw_temp = EL_Manager_Conversion.getint_2Byte(packet[77], packet[78]);
+            Model.getInstance().list_SlaveRecv[idx - 1].raw_humi = EL_Manager_Conversion.getint_2Byte(packet[79], packet[80]);
+            Model.getInstance().list_SlaveRecv[idx - 1].raw_vibration = EL_Manager_Conversion.getInt_2Byte(packet[81], packet[82]);
+            Model.getInstance().list_SlaveRecv[idx - 1].raw_battery_temp = EL_Manager_Conversion.getint_2Byte(packet[83], packet[84]);
+
+
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_05 = EL_Manager_Conversion.getInt_2Byte(packet[85], packet[86]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_06 = EL_Manager_Conversion.getInt_2Byte(packet[87], packet[88]);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Vol_07 = EL_Manager_Conversion.getInt_2Byte(packet[89], packet[90]);
