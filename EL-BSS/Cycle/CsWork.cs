@@ -37,8 +37,7 @@ namespace EL_BSS.Cycle
             if (Model.getInstance().bis_Click_Home_button)
             {
                 Model.getInstance().bis_Click_Home_button = false;
-                Model.getInstance().test_button = false;
-                CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_HOME_BUTTON;
+                JumpStep(CsDefine.CYC_HOME_BUTTON);
             }
 
             switch (CsDefine.Cyc_Rail[CsDefine.CYC_RUN])
@@ -226,7 +225,7 @@ namespace EL_BSS.Cycle
                         mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
                     }
 
-                    if ( CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000)
+                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000 && (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive))
                     {
                         JumpStep(CsDefine.CYC_DOOR_ERROR);
                     }
@@ -255,7 +254,7 @@ namespace EL_BSS.Cycle
                         switch (response)
                         {
                             case "00000":
-                                frmFrame.deleMenuClick(5 , "배터리 인증 성공");
+                                frmFrame.deleMenuClick(5, "배터리 인증 성공");
                                 NextStep();
                                 break;
                             case "11101":
@@ -306,12 +305,12 @@ namespace EL_BSS.Cycle
                     break;
 
                 case CsDefine.CYC_TEMP + 1:
-
                     break;
 
                 case CsDefine.CYC_DOOR_ERROR:
                     sound_Player = new Sound_Player();
                     mainFormLabelUpdate("문을 닫아주세요");
+                    getInstance().frmFrame.GetfrmMain().show_Door_Close_Popup(getInstance().Retreive_slot);
                     Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(getInstance().Retreive_slot[0] - 1, Battery_Error.Door_Closing_Error, true);
                     Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(getInstance().Retreive_slot[1] - 1, Battery_Error.Door_Closing_Error, true);
                     sound_Player.play_Sound(true);
@@ -322,6 +321,7 @@ namespace EL_BSS.Cycle
                         !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
                         sound_Player.Stop_play();
+                        sound_Player = null;
                         mainFormLabelUpdate("감사합니다. 안녕히가세요.");
                         Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.finished.ToString());
                         Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(getInstance().Retreive_slot[0] - 1, Battery_Error.Door_Closing_Error, false);
@@ -335,6 +335,7 @@ namespace EL_BSS.Cycle
                         Model.getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
                     }
                     break;
+
                 case CsDefine.CYC_HOME_BUTTON:
                     CurrentStep = CsDefine.CYC_HOME_BUTTON;
 

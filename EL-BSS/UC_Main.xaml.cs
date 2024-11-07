@@ -47,6 +47,8 @@ namespace EL_BSS
         Bitmap doorOpen = Properties.Resources.doorOpen;
         Bitmap batteryIn_doorOpen_Error = Properties.Resources.dooropen_batteryin_error;
         Bitmap batteryin_doorclose_Error = Properties.Resources.doorclose_batteryout_error;
+        Bitmap doorOpen_Error = Properties.Resources.doorOpen_danger;
+        Bitmap empty_Error = Properties.Resources.battery_empty_danger;
         Ellipse[] slaveStatus;
         System.Windows.Shapes.Rectangle[] masterStatus;
 
@@ -58,6 +60,8 @@ namespace EL_BSS
         private BitmapImage cachedEmpty;
         private BitmapImage cachedbatteryIn_doorOpen_Error;
         private BitmapImage cachedbatteryin_doorclose_Error;
+        private BitmapImage cachedDoorOpen_Error;
+        private BitmapImage cachedDoorClose_Error;
 
         public UC_Main()
         {
@@ -97,6 +101,8 @@ namespace EL_BSS
             cachedEmpty = ConvertBitmapToBitmapImage(empty);
             cachedbatteryIn_doorOpen_Error = ConvertBitmapToBitmapImage(batteryIn_doorOpen_Error);
             cachedbatteryin_doorclose_Error = ConvertBitmapToBitmapImage(batteryin_doorclose_Error);
+            cachedDoorOpen_Error = ConvertBitmapToBitmapImage(doorOpen_Error);
+            cachedDoorClose_Error = ConvertBitmapToBitmapImage(empty_Error);
 
 
             redBrush = (Brush)new BrushConverter().ConvertFrom("#f32b10");
@@ -164,18 +170,35 @@ namespace EL_BSS
                     }
                     else if (!Model.getInstance().list_SlaveRecv[i].BatterArrive && Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
-                        images[i].Source = cachedDoorOpen;
                         /*images[i].Height = 108;
                         images[i].Width = 124;
                         images[i].Margin = new Thickness(0, 0, 0, 0);*/
 
+
+                        if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
+                        {
+                            images[i].Source = cachedDoorOpen_Error;
+                        }
+                        else 
+                        {
+                            images[i].Source = cachedDoorOpen;
+                        }
+
                     }
                     else if (!Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
-                        images[i].Source = cachedEmpty;
                         /*images[i].Height = 108;
                         images[i].Width = 124;
                         images[i].Margin = new Thickness(0, 0, 0, 0);*/
+
+                        if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
+                        {
+                            images[i].Source = cachedDoorClose_Error;
+                        }
+                        else
+                        {
+                            images[i].Source = cachedEmpty;
+                        }
                     }
                     ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -347,8 +370,10 @@ namespace EL_BSS
                 Canvas_translateTrnasform.Y = -30;
             }*/
 
-            if(!Model.getInstance().test_button) Model.getInstance().test_button = true;
-            else Model.getInstance().test_button = false;
+            /*if(!Model.getInstance().test_button) Model.getInstance().test_button = true;
+            else Model.getInstance().test_button = false;*/
+
+            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_DOOR_ERROR;
 
         }
 

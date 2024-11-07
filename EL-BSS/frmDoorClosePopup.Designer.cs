@@ -69,7 +69,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::EL_BSS.Properties.Resources.bss_illust_usingwarning;
+            this.pictureBox1.Image = global::EL_BSS.Properties.Resources.usingwarning;
             this.pictureBox1.Location = new System.Drawing.Point(169, 128);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(160, 82);

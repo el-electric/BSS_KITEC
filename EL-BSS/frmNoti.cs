@@ -8,6 +8,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace EL_BSS
 {
@@ -33,6 +34,21 @@ namespace EL_BSS
         public void UpdateForm(string data)
         {
             lbl_content.Text = data;
+
+            if (data == "Attempt to connect to server")
+            {
+                lb_Title.Text = "접속중 입니다..";
+            }
+            else
+            {
+                lb_Title.Text = "인증중 입니다..";
+            }
+        }
+
+        public void UpdateForm(string title, string label)
+        {
+            lb_Title.Text = title;
+            lbl_content.Text = label;
         }
     }
 }

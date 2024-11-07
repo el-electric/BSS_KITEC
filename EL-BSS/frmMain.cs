@@ -185,10 +185,10 @@ namespace EL_BSS
             }
         }
 
-        public void show_Door_Close_Popup(int slot1 , int slot2)
+        public void show_Door_Close_Popup(int[] slot)
         {
             Form currentForm = this;
-            frmDoorClosePopup = new frmDoorClosePopup(slot1 , slot2);
+            frmDoorClosePopup = new frmDoorClosePopup(slot);
             frmDoorClosePopup.StartPosition = FormStartPosition.CenterScreen;
             frmDoorClosePopup.Owner = this;
 

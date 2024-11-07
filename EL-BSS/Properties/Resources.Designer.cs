@@ -73,6 +73,16 @@ namespace EL_BSS.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap battery_empty_danger {
+            get {
+                object obj = ResourceManager.GetObject("battery_empty_danger", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap battery_in {
             get {
                 object obj = ResourceManager.GetObject("battery_in", resourceCulture);
@@ -142,16 +152,6 @@ namespace EL_BSS.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap bss_illust_usingwarning {
-            get {
-                object obj = ResourceManager.GetObject("bss_illust_usingwarning", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
         internal static System.Drawing.Bitmap bssStation {
             get {
                 object obj = ResourceManager.GetObject("bssStation", resourceCulture);
@@ -192,6 +192,16 @@ namespace EL_BSS.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap doorOpen_danger {
+            get {
+                object obj = ResourceManager.GetObject("doorOpen_danger", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap empty {
             get {
                 object obj = ResourceManager.GetObject("empty", resourceCulture);
@@ -225,6 +235,16 @@ namespace EL_BSS.Properties {
         internal static System.Drawing.Bitmap speechbubble1 {
             get {
                 object obj = ResourceManager.GetObject("speechbubble1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap usingwarning {
+            get {
+                object obj = ResourceManager.GetObject("usingwarning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
