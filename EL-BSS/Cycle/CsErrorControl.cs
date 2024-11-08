@@ -98,7 +98,7 @@ namespace EL_BSS.Cycle
                             Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.floodingWarning, true);
                             Model.getInstance().dic_Station_Error_Code[m][Station_Error.floodingWarning] = true;
                         }
-                        else if (model.list_MasterRecv[m].Charger_UpperTemper > 70)
+                        else if (model.list_MasterRecv[m].Charger_UpperTemper > 70 || model.test_button)
                         {
                             model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
                             model.list_MasterRecv[m].Error_Occured = true;

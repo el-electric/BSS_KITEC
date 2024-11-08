@@ -36,7 +36,7 @@
                         <TranslateTransform  x:Name="Canvas_translateTrnasform"/>
                     </TransformGroup>
                 </Canvas.RenderTransform>
-                <Button x:Name="btn_home" Height="50" Width="150" Background="White" Visibility="Visible" Margin="0,50,0,0" Content="뒤로가기" FontSize="25" FontFamily="/Font/Spoqa-Han-Sans" Click="btn_home_Click" FontWeight="Bold"/>
+                <Button x:Name="btn_home" Height="50" Width="150" Background="White" Visibility="Collapsed" Margin="0,50,0,0" Content="뒤로가기" FontSize="25" FontFamily="/Font/Spoqa-Han-Sans" Click="btn_home_Click" FontWeight="Bold"/>
 
                 <Border x:Name="color_bar1" Width="15.5" Height="67" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="106" Canvas.Left="190.5"/>
                 <Border x:Name="color_bar2" Width="15.5" Height="68" Background="White"  BorderThickness="2" CornerRadius="0,0,4,4" Canvas.Top="236" Canvas.Left="190.5"/>
@@ -112,10 +112,10 @@
                     <DropShadowEffect Color="Gray" Opacity="0.5" BlurRadius="10" Direction="320" ShadowDepth="2"/>
                 </Border.Effect>
             </Border>
-            <TextBlock Text=" QR CODE " Foreground="#3e4759" HorizontalAlignment="Center" FontSize="32" Margin="0,10,0,0" FontWeight="Bold"/>
+            <TextBlock Text=" QR CODE " Foreground="#3e4759" HorizontalAlignment="Center" FontSize="32" Margin="0,10,0,0" FontWeight="Bold" FontFamily="/Resources/Pretendard"/>
 
 
-            <Button x:Name="btn_stop" Foreground="white" FontSize="28" Content="STATION START" BorderBrush="#3e4759" Background="#2f89f5" Width="280" Height="85" HorizontalAlignment="Center" Margin="0,100,0,0" Click="btn_stop_Click" FocusVisualStyle="{x:Null}">
+            <Button x:Name="btn_stop" Foreground="white" FontSize="28" Content="STATION START" BorderBrush="#3e4759" Background="#2f89f5" Width="280" Height="85" HorizontalAlignment="Center" Margin="0,100,0,0" Click="btn_stop_Click" FocusVisualStyle="{x:Null}" FontFamily="/Resources/Pretendard">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"/>

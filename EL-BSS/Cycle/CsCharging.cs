@@ -137,12 +137,12 @@ namespace EL_BSS.Cycle
                 !model.list_SlaveSend[slotid - 1].hmiManual &&
                 model.list_SlaveRecv[slotid - 1].FET_Temper != null)
                 {
-                    if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 45 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 60)
+                    if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 75 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 75)
                     {
                         model.list_SlaveSend[slotid - 1].BatteryOutput = false;
                         Model.getInstance().csErrorControl.Is_Slot_Error(slotid - 1, Battery_Error.Slot_Temperature_Error, true);
                     }
-                    else if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 40 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 40)
+                    else if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 45 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 45)
                     {
                         setHighTemp_Current(true, slotid);
                     }
@@ -151,7 +151,7 @@ namespace EL_BSS.Cycle
                         setHighTemp_Current(false, slotid);
                     }
                 }
-                else if ((Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp < 60 || Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper <= 40) && Model.getInstance().Battery_Error_Code[slotid - 1][Battery_Error.Slot_Temperature_Error])
+                else if ((Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp < 40 || Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper <= 40) && Model.getInstance().Battery_Error_Code[slotid - 1][Battery_Error.Slot_Temperature_Error])
                 {
                     Model.getInstance().csErrorControl.Is_Slot_Error(slotid - 1, Battery_Error.Slot_Temperature_Error, false);
                 }

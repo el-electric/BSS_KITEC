@@ -241,19 +241,19 @@ namespace EL_BSS
                     }
 
                     //////////////////////////////////
-                    if (Model.getInstance().list_SlaveDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
+                    /*if (Model.getInstance().list_SlaveDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
                         slaveStatus[i].Fill = new SolidColorBrush(Colors.Lime);
                     else
-                        slaveStatus[i].Fill = new SolidColorBrush(Colors.Red);
+                        slaveStatus[i].Fill = new SolidColorBrush(Colors.Red);*/
                 }
 
-                for (int i = 0; i < 2; i++)
+                /*for (int i = 0; i < 2; i++)
                 {
                     if (Model.getInstance().list_MasterDataRecvDatetime[i].AddSeconds(5) > DateTime.Now)
                         masterStatus[i].Fill = new SolidColorBrush(Colors.Lime);
                     else
                         masterStatus[i].Fill = new SolidColorBrush(Colors.Red);
-                }
+                }*/
 
                 if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] == CsDefine.CYC_END)
                 {
@@ -370,10 +370,10 @@ namespace EL_BSS
                 Canvas_translateTrnasform.Y = -30;
             }*/
 
-            /*if(!Model.getInstance().test_button) Model.getInstance().test_button = true;
-            else Model.getInstance().test_button = false;*/
+            if (!Model.getInstance().test_button) Model.getInstance().test_button = true;
+            else Model.getInstance().test_button = false;
 
-            CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_DOOR_ERROR;
+            // CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_DOOR_ERROR;
 
         }
 

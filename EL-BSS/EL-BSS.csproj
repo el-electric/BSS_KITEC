@@ -197,6 +197,18 @@
     <Compile Include="frmAutoStartPopup.Designer.cs">
       <DependentUpon>frmAutoStartPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCheckConnction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCheckConnction.Designer.cs">
+      <DependentUpon>frmCheckConnction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCheckCSMS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCheckCSMS.Designer.cs">
+      <DependentUpon>frmCheckCSMS.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCodeInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -395,6 +407,12 @@
       <DependentUpon>UC_Main.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vkeyvoard.cs" />
+    <EmbeddedResource Include="frmCheckConnction.resx">
+      <DependentUpon>frmCheckConnction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCheckCSMS.resx">
+      <DependentUpon>frmCheckCSMS.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCodeInput.resx">
       <DependentUpon>frmCodeInput.cs</DependentUpon>
     </EmbeddedResource>

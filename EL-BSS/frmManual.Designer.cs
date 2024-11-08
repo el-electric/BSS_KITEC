@@ -51,6 +51,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btn_check_connection = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -68,6 +69,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox1.Controls.Add(this.btn_check_connection);
             this.groupBox1.Controls.Add(this.btn_buzzer_Stop);
             this.groupBox1.Controls.Add(this.AutoStart_Popup);
             this.groupBox1.Controls.Add(this.btn_buzzer_start);
@@ -279,6 +281,16 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // btn_check_connection
+            // 
+            this.btn_check_connection.Location = new System.Drawing.Point(352, 11);
+            this.btn_check_connection.Name = "btn_check_connection";
+            this.btn_check_connection.Size = new System.Drawing.Size(96, 36);
+            this.btn_check_connection.TabIndex = 39;
+            this.btn_check_connection.Text = "통신확인";
+            this.btn_check_connection.UseVisualStyleBackColor = true;
+            this.btn_check_connection.Click += new System.EventHandler(this.btn_check_connection_Click);
+            // 
             // frmManual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 12F);
@@ -322,5 +334,6 @@
         private System.Windows.Forms.Button btn_buzzer_start;
         private System.Windows.Forms.Button AutoStart_Popup;
         private System.Windows.Forms.Button btn_buzzer_Stop;
+        private System.Windows.Forms.Button btn_check_connection;
     }
 }

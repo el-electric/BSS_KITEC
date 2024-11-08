@@ -245,5 +245,11 @@ namespace EL_BSS
             sound_Player = new Sound_Player();
             sound_Player.play_Sound(true);
         }
+
+        private void btn_check_connection_Click(object sender, EventArgs e)
+        {
+            frmCheckConnction frmCheckConnction = new frmCheckConnction();
+            frmCheckConnction.Show();
+        }
     }
 }
