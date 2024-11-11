@@ -21,6 +21,7 @@ using SuperSocket.ClientEngine;
 using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Ink;
+using System.Windows.Interop;
 
 namespace BatteryChangeCharger.OCPP
 {
@@ -95,11 +96,11 @@ namespace BatteryChangeCharger.OCPP
             Console.WriteLine("WebSocket connection opened.");
             Model.getInstance().frmFrame.lamp_ems.On = true;
             string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
+            Model.getInstance().set_test_csms_buffer(response);
             JArray jsonArray = JArray.Parse(response);
             if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
             {
                 Model.getInstance().StationInfoInterval = (int)jsonArray[2]["interval"];
-                Model.getInstance().StationInfoInterval = 3600;  // 테스트 진행
                 Model.getInstance().frmFrame.viewForm(0);
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
             }
@@ -132,13 +133,14 @@ namespace BatteryChangeCharger.OCPP
             Console.WriteLine("Message SEND : " + message);
             // 메시지 전송
             websocket.Send(message);
+            Model.getInstance().set_test_csms_buffer(message); // 프리테스트용
 
             // 응답 대기 (타임아웃을 설정할 수도 있음)
             using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)))
             {
                 cts.Token.Register(() => tcs.TrySetCanceled());
                 try
-                {
+                {                    
                     return await tcs.Task;
                 }
                 catch (TaskCanceledException)
@@ -176,6 +178,7 @@ namespace BatteryChangeCharger.OCPP
             {
                 Logger.d("☆Send☆ OCPP CP->CSMS Call => " + message);
                 Console.WriteLine("Send to Server > " + message);
+                Model.getInstance().set_test_csms_buffer(message);  // 프리테스트용
                 websocket.Send(message);
             }
 

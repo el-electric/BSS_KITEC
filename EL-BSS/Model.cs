@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Collections;
 using System.Data.SqlTypes;
 using System.Security.Policy;
+using Newtonsoft.Json.Linq;
 
 namespace EL_BSS
 {
@@ -171,6 +172,65 @@ namespace EL_BSS
         public bool is_Master_Errror_occured = false;
 
         public bool bis_Click_Home_button = false;
+
+        public frmTest_CSMS frmTest_CSMS = null;
+
+        public List<string> test_csms_buffer = new List<string>(); // 프리테스트 진행시 로그 확인을 위해 만듬
+        public int test_csms_buffer_length = 0;
+
+        public string[,] uid_array = new string[1024, 2];
+        public int test_uid_length = 0;
+
+        public void set_test_csms_buffer(string value)
+        {
+            string format_text = "";
+            string st_s_or_R = "";
+            string packet_name = "";
+
+            JArray jsonArray = JArray.Parse(value);
+
+            if (jsonArray[0].ToString() == "2")
+            {
+                uid_array[test_uid_length, 0] = jsonArray[2].ToString();
+                uid_array[test_uid_length, 1] = jsonArray[1].ToString();
+
+                test_uid_length++;
+
+                if (test_uid_length == 1024)
+                {
+                    uid_array = new string[1024, 2];
+                    test_uid_length = 0;
+                    test_csms_buffer = new List<string>();
+                }
+
+                packet_name = jsonArray[2].ToString();
+            }
+            else if(jsonArray[0].ToString() == "3")
+            {
+                for (int i = 0; i <= test_uid_length; i++)
+                {
+                    if (uid_array[i, 1] == jsonArray[1].ToString())
+                    {
+                        packet_name = uid_array[i, 0];
+                    }
+                }
+            }
+
+            if (jsonArray[0].ToString() == "2") st_s_or_R = "보냄";
+            else if(jsonArray[0].ToString() == "3") st_s_or_R = "받음";
+
+            if (packet_name == "") packet_name = "없음";
+
+            format_text = DateTime.Now.ToString() + " " + packet_name + " "+ st_s_or_R;
+            test_csms_buffer.Add(format_text);
+            test_csms_buffer_length++;
+
+            if (frmTest_CSMS != null)
+            {
+                frmTest_CSMS.input_text(format_text);
+            }
+
+        }
 
         public class MasterSend
         {

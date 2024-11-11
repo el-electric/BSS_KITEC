@@ -239,6 +239,12 @@
     <Compile Include="frmNotiPopup.Designer.cs">
       <DependentUpon>frmNotiPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTest_CSMS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTest_CSMS.Designer.cs">
+      <DependentUpon>frmTest_CSMS.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmunuseablePopup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -421,6 +427,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmNotiPopup.resx">
       <DependentUpon>frmNotiPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTest_CSMS.resx">
+      <DependentUpon>frmTest_CSMS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmunuseablePopup.resx">
       <DependentUpon>frmunuseablePopup.cs</DependentUpon>

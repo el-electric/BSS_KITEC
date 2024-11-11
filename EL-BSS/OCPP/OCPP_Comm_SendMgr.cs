@@ -95,6 +95,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             };
             string msg = makeMessage(enumData.AddInforBootNotification.ToString(), data);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
+            Model.getInstance().set_test_csms_buffer(response);
             Model.getInstance().Send_bootnotification = true;
             return response;
         }
@@ -324,6 +325,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
 
             string msg = makeMessage(enumData.Authorize.ToString(), data);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(msg);
+            Model.getInstance().set_test_csms_buffer(response);
             return response;
         }
 
@@ -370,6 +372,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string returnvlaue = "";
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
             string response = await Model.getInstance().oCPP_Comm_Manager.SendMessageAndWaitForResponseAsync(json);
+            Model.getInstance().set_test_csms_buffer(response);
 
             if (response == null)
             {
@@ -519,6 +522,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
         public void ReceivedPacket(string _packet)
         {
             Logger.d("☆Receive☆ OCPP CSMS->CP Call => " + _packet.ToString());
+            Model.getInstance().set_test_csms_buffer(_packet); // 프리테스트용
+
             try
             {
                 JArray jsonArray = JArray.Parse(_packet);

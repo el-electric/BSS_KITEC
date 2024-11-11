@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_check_connection = new System.Windows.Forms.Button();
             this.btn_buzzer_Stop = new System.Windows.Forms.Button();
             this.AutoStart_Popup = new System.Windows.Forms.Button();
             this.btn_buzzer_start = new System.Windows.Forms.Button();
@@ -51,7 +52,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btn_check_connection = new System.Windows.Forms.Button();
+            this.sqLiteCommandBuilder1 = new System.Data.SQLite.SQLiteCommandBuilder();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -89,6 +90,16 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "전체충전전력변경";
+            // 
+            // btn_check_connection
+            // 
+            this.btn_check_connection.Location = new System.Drawing.Point(352, 11);
+            this.btn_check_connection.Name = "btn_check_connection";
+            this.btn_check_connection.Size = new System.Drawing.Size(96, 36);
+            this.btn_check_connection.TabIndex = 39;
+            this.btn_check_connection.Text = "통신확인";
+            this.btn_check_connection.UseVisualStyleBackColor = true;
+            this.btn_check_connection.Click += new System.EventHandler(this.btn_check_connection_Click);
             // 
             // btn_buzzer_Stop
             // 
@@ -281,15 +292,10 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // btn_check_connection
+            // sqLiteCommandBuilder1
             // 
-            this.btn_check_connection.Location = new System.Drawing.Point(352, 11);
-            this.btn_check_connection.Name = "btn_check_connection";
-            this.btn_check_connection.Size = new System.Drawing.Size(96, 36);
-            this.btn_check_connection.TabIndex = 39;
-            this.btn_check_connection.Text = "통신확인";
-            this.btn_check_connection.UseVisualStyleBackColor = true;
-            this.btn_check_connection.Click += new System.EventHandler(this.btn_check_connection_Click);
+            this.sqLiteCommandBuilder1.DataAdapter = null;
+            this.sqLiteCommandBuilder1.QuoteSuffix = "]";
             // 
             // frmManual
             // 
@@ -335,5 +341,6 @@
         private System.Windows.Forms.Button AutoStart_Popup;
         private System.Windows.Forms.Button btn_buzzer_Stop;
         private System.Windows.Forms.Button btn_check_connection;
+        private System.Data.SQLite.SQLiteCommandBuilder sqLiteCommandBuilder1;
     }
 }

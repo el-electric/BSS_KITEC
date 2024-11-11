@@ -370,8 +370,13 @@ namespace EL_BSS
                 Canvas_translateTrnasform.Y = -30;
             }*/
 
-            if (!Model.getInstance().test_button) Model.getInstance().test_button = true;
-            else Model.getInstance().test_button = false;
+            /*if (!Model.getInstance().test_button) Model.getInstance().test_button = true;
+            else Model.getInstance().test_button = false;*/
+
+           Model.getInstance().frmTest_CSMS = new frmTest_CSMS();
+           Model.getInstance().frmTest_CSMS.Show();
+
+
 
             // CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_DOOR_ERROR;
 
