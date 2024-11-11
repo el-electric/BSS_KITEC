@@ -19,6 +19,7 @@ namespace EL_BSS
 
             tb_csms.Text = "";
 
+            TopMost = true;
 
             for (int i = 0; i < Model.getInstance().test_csms_buffer.Count; i++)
             {

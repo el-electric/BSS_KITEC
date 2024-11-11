@@ -70,7 +70,7 @@ namespace EL_BSS
             Loaded += UC_Main_Loaded;
 
 #if DEBUG
-            btn_test.Visibility = Visibility.Visible;
+                        btn_test.Visibility = Visibility.Visible;
 #endif
 
             /*Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -373,8 +373,8 @@ namespace EL_BSS
             /*if (!Model.getInstance().test_button) Model.getInstance().test_button = true;
             else Model.getInstance().test_button = false;*/
 
-           Model.getInstance().frmTest_CSMS = new frmTest_CSMS();
-           Model.getInstance().frmTest_CSMS.Show();
+           /*Model.getInstance().frmTest_CSMS = new frmTest_CSMS();
+           Model.getInstance().frmTest_CSMS.Show();*/
 
 
 

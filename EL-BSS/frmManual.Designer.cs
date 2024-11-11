@@ -53,6 +53,7 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.sqLiteCommandBuilder1 = new System.Data.SQLite.SQLiteCommandBuilder();
+            this.btn_CheckCSMS = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -70,6 +71,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.groupBox1.Controls.Add(this.btn_CheckCSMS);
             this.groupBox1.Controls.Add(this.btn_check_connection);
             this.groupBox1.Controls.Add(this.btn_buzzer_Stop);
             this.groupBox1.Controls.Add(this.AutoStart_Popup);
@@ -297,6 +299,16 @@
             this.sqLiteCommandBuilder1.DataAdapter = null;
             this.sqLiteCommandBuilder1.QuoteSuffix = "]";
             // 
+            // btn_CheckCSMS
+            // 
+            this.btn_CheckCSMS.Location = new System.Drawing.Point(454, 10);
+            this.btn_CheckCSMS.Name = "btn_CheckCSMS";
+            this.btn_CheckCSMS.Size = new System.Drawing.Size(96, 36);
+            this.btn_CheckCSMS.TabIndex = 40;
+            this.btn_CheckCSMS.Text = "WSCheck";
+            this.btn_CheckCSMS.UseVisualStyleBackColor = true;
+            this.btn_CheckCSMS.Click += new System.EventHandler(this.btn_CheckCSMS_Click);
+            // 
             // frmManual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 12F);
@@ -342,5 +354,6 @@
         private System.Windows.Forms.Button btn_buzzer_Stop;
         private System.Windows.Forms.Button btn_check_connection;
         private System.Data.SQLite.SQLiteCommandBuilder sqLiteCommandBuilder1;
+        private System.Windows.Forms.Button btn_CheckCSMS;
     }
 }

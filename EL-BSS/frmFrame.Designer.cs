@@ -42,15 +42,15 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.visual = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lb_finish = new DrakeUI.Framework.DrakeUILabel();
+            this.lb_battery_lent = new DrakeUI.Framework.DrakeUILabel();
+            this.lb_battery_authorize = new DrakeUI.Framework.DrakeUILabel();
+            this.lb_battery_return = new DrakeUI.Framework.DrakeUILabel();
             this.drakeUISymbolLabel5 = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.drakeUISymbolLabel4 = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.drakeUISymbolLabel3 = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.drakeUISymbolLabel2 = new DrakeUI.Framework.DrakeUISymbolLabel();
             this.lb_authorize_user = new DrakeUI.Framework.DrakeUILabel();
-            this.lb_battery_return = new DrakeUI.Framework.DrakeUILabel();
-            this.lb_battery_authorize = new DrakeUI.Framework.DrakeUILabel();
-            this.lb_battery_lent = new DrakeUI.Framework.DrakeUILabel();
-            this.lb_finish = new DrakeUI.Framework.DrakeUILabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.visual.SuspendLayout();
@@ -118,7 +118,7 @@
             this.lbl_time.BackColor = System.Drawing.Color.Transparent;
             this.lbl_time.BackgroundImage = global::EL_BSS.Properties.Resources.empty;
             this.tableLayoutPanel1.SetColumnSpan(this.lbl_time, 3);
-            this.lbl_time.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_time.Font = new System.Drawing.Font("Pretendard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lbl_time.ForeColor = System.Drawing.Color.White;
             this.lbl_time.Location = new System.Drawing.Point(3, 3);
             this.lbl_time.Name = "lbl_time";
@@ -136,7 +136,7 @@
             // drakeUISymbolLabel1
             // 
             this.drakeUISymbolLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUISymbolLabel1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 14F);
+            this.drakeUISymbolLabel1.Font = new System.Drawing.Font("Pretendard", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUISymbolLabel1.ForeColor = System.Drawing.Color.White;
             this.drakeUISymbolLabel1.Location = new System.Drawing.Point(87, 40);
             this.drakeUISymbolLabel1.Name = "drakeUISymbolLabel1";
@@ -219,6 +219,50 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1018, 31);
             this.tableLayoutPanel2.TabIndex = 6;
             // 
+            // lb_finish
+            // 
+            this.lb_finish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_finish.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_finish.Location = new System.Drawing.Point(851, 0);
+            this.lb_finish.Name = "lb_finish";
+            this.lb_finish.Size = new System.Drawing.Size(164, 31);
+            this.lb_finish.TabIndex = 13;
+            this.lb_finish.Text = "사용 완료";
+            this.lb_finish.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_battery_lent
+            // 
+            this.lb_battery_lent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_battery_lent.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_lent.Location = new System.Drawing.Point(639, 0);
+            this.lb_battery_lent.Name = "lb_battery_lent";
+            this.lb_battery_lent.Size = new System.Drawing.Size(156, 31);
+            this.lb_battery_lent.TabIndex = 12;
+            this.lb_battery_lent.Text = "배터리 대여";
+            this.lb_battery_lent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_battery_authorize
+            // 
+            this.lb_battery_authorize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_battery_authorize.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_authorize.Location = new System.Drawing.Point(427, 0);
+            this.lb_battery_authorize.Name = "lb_battery_authorize";
+            this.lb_battery_authorize.Size = new System.Drawing.Size(156, 31);
+            this.lb_battery_authorize.TabIndex = 11;
+            this.lb_battery_authorize.Text = "배터리 인증";
+            this.lb_battery_authorize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lb_battery_return
+            // 
+            this.lb_battery_return.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_battery_return.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_return.Location = new System.Drawing.Point(215, 0);
+            this.lb_battery_return.Name = "lb_battery_return";
+            this.lb_battery_return.Size = new System.Drawing.Size(156, 31);
+            this.lb_battery_return.TabIndex = 10;
+            this.lb_battery_return.Text = "배터리 반납";
+            this.lb_battery_return.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // drakeUISymbolLabel5
             // 
             this.drakeUISymbolLabel5.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -273,50 +317,6 @@
             this.lb_authorize_user.TabIndex = 9;
             this.lb_authorize_user.Text = "사용자 인증";
             this.lb_authorize_user.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lb_battery_return
-            // 
-            this.lb_battery_return.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_battery_return.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_battery_return.Location = new System.Drawing.Point(215, 0);
-            this.lb_battery_return.Name = "lb_battery_return";
-            this.lb_battery_return.Size = new System.Drawing.Size(156, 31);
-            this.lb_battery_return.TabIndex = 10;
-            this.lb_battery_return.Text = "배터리 반납";
-            this.lb_battery_return.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lb_battery_authorize
-            // 
-            this.lb_battery_authorize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_battery_authorize.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_battery_authorize.Location = new System.Drawing.Point(427, 0);
-            this.lb_battery_authorize.Name = "lb_battery_authorize";
-            this.lb_battery_authorize.Size = new System.Drawing.Size(156, 31);
-            this.lb_battery_authorize.TabIndex = 11;
-            this.lb_battery_authorize.Text = "배터리 인증";
-            this.lb_battery_authorize.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lb_battery_lent
-            // 
-            this.lb_battery_lent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_battery_lent.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_battery_lent.Location = new System.Drawing.Point(639, 0);
-            this.lb_battery_lent.Name = "lb_battery_lent";
-            this.lb_battery_lent.Size = new System.Drawing.Size(156, 31);
-            this.lb_battery_lent.TabIndex = 12;
-            this.lb_battery_lent.Text = "배터리 대여";
-            this.lb_battery_lent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lb_finish
-            // 
-            this.lb_finish.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_finish.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_finish.Location = new System.Drawing.Point(851, 0);
-            this.lb_finish.Name = "lb_finish";
-            this.lb_finish.Size = new System.Drawing.Size(164, 31);
-            this.lb_finish.TabIndex = 13;
-            this.lb_finish.Text = "사용 완료";
-            this.lb_finish.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmFrame
             // 

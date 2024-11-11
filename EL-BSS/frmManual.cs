@@ -251,5 +251,11 @@ namespace EL_BSS
             frmCheckConnction frmCheckConnction = new frmCheckConnction();
             frmCheckConnction.Show();
         }
+
+        private void btn_CheckCSMS_Click(object sender, EventArgs e)
+        {
+            Model.getInstance().frmTest_CSMS = new frmTest_CSMS();
+            Model.getInstance().frmTest_CSMS.Show();
+        }
     }
 }

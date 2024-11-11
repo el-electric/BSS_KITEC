@@ -24,6 +24,7 @@ using System.Collections;
 using System.Data.SqlTypes;
 using System.Security.Policy;
 using Newtonsoft.Json.Linq;
+using System.Speech.Synthesis.TtsEngine;
 
 namespace EL_BSS
 {
@@ -186,6 +187,8 @@ namespace EL_BSS
             string format_text = "";
             string st_s_or_R = "";
             string packet_name = "";
+
+            if (value == null) return;
 
             JArray jsonArray = JArray.Parse(value);
 

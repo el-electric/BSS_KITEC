@@ -44,7 +44,7 @@ namespace EL_BSS
                     {
                         if (control.Name == "lb_slave_" + i)
                         {
-                            if (!Model.getInstance().list_SlaveDataRecvDatetime[i -1].IsAfter(DateTime.Now.AddSeconds(5)))
+                            if (Model.getInstance().list_SlaveDataRecvDatetime[i - 1].AddSeconds(5) < DateTime.Now)
                             {
                                 control.BackColor = System.Drawing.Color.Red;
                             }
@@ -59,7 +59,7 @@ namespace EL_BSS
                     {
                         if (control.Name == ("lb_slave_" + i + "_time"))
                         {
-                            if (!Model.getInstance().list_SlaveDataRecvDatetime[i - 1].IsAfter(DateTime.Now.AddSeconds(5)))
+                            if (Model.getInstance().list_SlaveDataRecvDatetime[i - 1].AddSeconds(5) < DateTime.Now)
                             {
                                 TimeSpan time = DateTime.Now - Model.getInstance().list_SlaveDataRecvDatetime[i -1];
                                 control.Text = time.Seconds.ToString() + "초 지남";
@@ -81,7 +81,7 @@ namespace EL_BSS
                     {
                         if (control.Name == "lb_master_" + i)
                         {
-                            if (!Model.getInstance().list_MasterDataRecvDatetime[i - 1].IsAfter(DateTime.Now.AddSeconds(5)))
+                            if (Model.getInstance().list_MasterDataRecvDatetime[i - 1].AddSeconds(5) < DateTime.Now)
                             {
                                 control.BackColor = System.Drawing.Color.Red;
                             }
@@ -96,7 +96,7 @@ namespace EL_BSS
                     {
                         if (control.Name == ("lb_master_" + i + "_time"))
                         {
-                            if (!Model.getInstance().list_MasterDataRecvDatetime[i - 1].IsAfter(DateTime.Now.AddSeconds(5)))
+                            if (Model.getInstance().list_MasterDataRecvDatetime[i - 1].AddSeconds(5) < DateTime.Now)
                             {
                                 TimeSpan time = DateTime.Now - Model.getInstance().list_MasterDataRecvDatetime[i - 1];
                                 control.Text = time.Seconds.ToString() + "초 지남";
