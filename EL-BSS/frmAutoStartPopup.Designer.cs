@@ -71,7 +71,7 @@
             this.btn_add_service.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_add_service.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_add_service.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.btn_add_service.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_add_service.Font = new System.Drawing.Font("Pretendard", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_add_service.Location = new System.Drawing.Point(23, 105);
             this.btn_add_service.Name = "btn_add_service";
             this.btn_add_service.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -87,7 +87,7 @@
             this.btn_remove_service.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_remove_service.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_remove_service.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.btn_remove_service.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_remove_service.Font = new System.Drawing.Font("Pretendard", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_remove_service.Location = new System.Drawing.Point(227, 105);
             this.btn_remove_service.Name = "btn_remove_service";
             this.btn_remove_service.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -103,7 +103,7 @@
             this.btn_confirm_service.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_confirm_service.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_confirm_service.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.btn_confirm_service.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_confirm_service.Font = new System.Drawing.Font("Pretendard", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_confirm_service.Location = new System.Drawing.Point(431, 105);
             this.btn_confirm_service.Name = "btn_confirm_service";
             this.btn_confirm_service.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -118,7 +118,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.lb_auto_start, 5);
             this.lb_auto_start.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_auto_start.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_auto_start.Font = new System.Drawing.Font("Pretendard", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_auto_start.Location = new System.Drawing.Point(23, 184);
             this.lb_auto_start.Name = "lb_auto_start";
             this.lb_auto_start.Size = new System.Drawing.Size(538, 55);
@@ -131,7 +131,7 @@
             this.btn_close.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_close.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_close.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.btn_close.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_close.Font = new System.Drawing.Font("Pretendard", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_close.Location = new System.Drawing.Point(431, 23);
             this.btn_close.Name = "btn_close";
             this.btn_close.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));

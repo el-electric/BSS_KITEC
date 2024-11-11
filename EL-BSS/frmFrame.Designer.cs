@@ -222,7 +222,7 @@
             // lb_finish
             // 
             this.lb_finish.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_finish.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_finish.Font = new System.Drawing.Font("Pretendard", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_finish.Location = new System.Drawing.Point(851, 0);
             this.lb_finish.Name = "lb_finish";
             this.lb_finish.Size = new System.Drawing.Size(164, 31);
@@ -233,7 +233,7 @@
             // lb_battery_lent
             // 
             this.lb_battery_lent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_battery_lent.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_lent.Font = new System.Drawing.Font("Pretendard", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_battery_lent.Location = new System.Drawing.Point(639, 0);
             this.lb_battery_lent.Name = "lb_battery_lent";
             this.lb_battery_lent.Size = new System.Drawing.Size(156, 31);
@@ -244,7 +244,7 @@
             // lb_battery_authorize
             // 
             this.lb_battery_authorize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_battery_authorize.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_authorize.Font = new System.Drawing.Font("Pretendard", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_battery_authorize.Location = new System.Drawing.Point(427, 0);
             this.lb_battery_authorize.Name = "lb_battery_authorize";
             this.lb_battery_authorize.Size = new System.Drawing.Size(156, 31);
@@ -255,7 +255,7 @@
             // lb_battery_return
             // 
             this.lb_battery_return.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_battery_return.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_battery_return.Font = new System.Drawing.Font("Pretendard", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_battery_return.Location = new System.Drawing.Point(215, 0);
             this.lb_battery_return.Name = "lb_battery_return";
             this.lb_battery_return.Size = new System.Drawing.Size(156, 31);
@@ -310,7 +310,7 @@
             // lb_authorize_user
             // 
             this.lb_authorize_user.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_authorize_user.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_authorize_user.Font = new System.Drawing.Font("Pretendard", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_authorize_user.Location = new System.Drawing.Point(3, 0);
             this.lb_authorize_user.Name = "lb_authorize_user";
             this.lb_authorize_user.Size = new System.Drawing.Size(156, 31);

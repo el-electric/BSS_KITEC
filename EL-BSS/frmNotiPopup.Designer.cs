@@ -59,7 +59,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.lbl_context, 2);
             this.lbl_context.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_context.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_context.Font = new System.Drawing.Font("Pretendard", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lbl_context.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lbl_context.Location = new System.Drawing.Point(3, 90);
             this.lbl_context.Name = "lbl_context";

@@ -77,7 +77,7 @@
             this.lbl_content.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.lbl_content, 2);
             this.lbl_content.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_content.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_content.Font = new System.Drawing.Font("Pretendard", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lbl_content.Location = new System.Drawing.Point(3, 396);
             this.lbl_content.Name = "lbl_content";
             this.lbl_content.Padding = new System.Windows.Forms.Padding(0, 30, 0, 0);
@@ -92,7 +92,7 @@
             this.lb_Title.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.lb_Title, 2);
             this.lb_Title.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_Title.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_Title.Font = new System.Drawing.Font("Pretendard", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_Title.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(137)))), ((int)(((byte)(245)))));
             this.lb_Title.Location = new System.Drawing.Point(3, 99);
             this.lb_Title.Name = "lb_Title";

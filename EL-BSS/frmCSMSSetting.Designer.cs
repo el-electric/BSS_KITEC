@@ -151,7 +151,7 @@
             // drakeUILabel1
             // 
             this.drakeUILabel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel1.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel1.Location = new System.Drawing.Point(3, 0);
             this.drakeUILabel1.Name = "drakeUILabel1";
             this.drakeUILabel1.Size = new System.Drawing.Size(163, 73);
@@ -162,7 +162,7 @@
             // drakeUILabel2
             // 
             this.drakeUILabel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel2.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel2.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel2.Location = new System.Drawing.Point(3, 73);
             this.drakeUILabel2.Name = "drakeUILabel2";
             this.drakeUILabel2.Size = new System.Drawing.Size(163, 73);
@@ -173,7 +173,7 @@
             // drakeUILabel3
             // 
             this.drakeUILabel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel3.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel3.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel3.Location = new System.Drawing.Point(3, 146);
             this.drakeUILabel3.Name = "drakeUILabel3";
             this.drakeUILabel3.Size = new System.Drawing.Size(163, 73);
@@ -184,7 +184,7 @@
             // drakeUILabel4
             // 
             this.drakeUILabel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel4.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel4.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel4.Location = new System.Drawing.Point(3, 219);
             this.drakeUILabel4.Name = "drakeUILabel4";
             this.drakeUILabel4.Size = new System.Drawing.Size(163, 73);
@@ -195,7 +195,7 @@
             // drakeUILabel5
             // 
             this.drakeUILabel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel5.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel5.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel5.Location = new System.Drawing.Point(3, 292);
             this.drakeUILabel5.Name = "drakeUILabel5";
             this.drakeUILabel5.Size = new System.Drawing.Size(163, 73);
@@ -224,7 +224,7 @@
             // drakeUILabel10
             // 
             this.drakeUILabel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel10.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel10.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel10.Location = new System.Drawing.Point(341, 219);
             this.drakeUILabel10.Name = "drakeUILabel10";
             this.drakeUILabel10.Size = new System.Drawing.Size(163, 73);
@@ -235,7 +235,7 @@
             // drakeUILabel6
             // 
             this.drakeUILabel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel6.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel6.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel6.Location = new System.Drawing.Point(341, 0);
             this.drakeUILabel6.Name = "drakeUILabel6";
             this.drakeUILabel6.Size = new System.Drawing.Size(163, 73);
@@ -246,7 +246,7 @@
             // drakeUILabel8
             // 
             this.drakeUILabel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel8.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel8.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel8.Location = new System.Drawing.Point(341, 73);
             this.drakeUILabel8.Name = "drakeUILabel8";
             this.drakeUILabel8.Size = new System.Drawing.Size(163, 73);
@@ -257,7 +257,7 @@
             // drakeUILabel9
             // 
             this.drakeUILabel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel9.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel9.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel9.Location = new System.Drawing.Point(341, 146);
             this.drakeUILabel9.Name = "drakeUILabel9";
             this.drakeUILabel9.Size = new System.Drawing.Size(163, 73);
@@ -332,7 +332,7 @@
             // 
             // drakeUILabel7
             // 
-            this.drakeUILabel7.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel7.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel7.Location = new System.Drawing.Point(679, 0);
             this.drakeUILabel7.Name = "drakeUILabel7";
             this.drakeUILabel7.Size = new System.Drawing.Size(163, 73);
@@ -342,7 +342,7 @@
             // 
             // drakeUILabel11
             // 
-            this.drakeUILabel11.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel11.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel11.Location = new System.Drawing.Point(679, 73);
             this.drakeUILabel11.Name = "drakeUILabel11";
             this.drakeUILabel11.Size = new System.Drawing.Size(163, 73);
@@ -353,7 +353,7 @@
             // drakeUILabel12
             // 
             this.drakeUILabel12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel12.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel12.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel12.Location = new System.Drawing.Point(3, 365);
             this.drakeUILabel12.Name = "drakeUILabel12";
             this.drakeUILabel12.Size = new System.Drawing.Size(163, 73);
@@ -364,7 +364,7 @@
             // drakeUILabel13
             // 
             this.drakeUILabel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel13.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel13.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel13.Location = new System.Drawing.Point(3, 438);
             this.drakeUILabel13.Name = "drakeUILabel13";
             this.drakeUILabel13.Size = new System.Drawing.Size(163, 73);
@@ -375,7 +375,7 @@
             // drakeUILabel14
             // 
             this.drakeUILabel14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel14.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel14.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel14.Location = new System.Drawing.Point(341, 292);
             this.drakeUILabel14.Name = "drakeUILabel14";
             this.drakeUILabel14.Size = new System.Drawing.Size(163, 73);
@@ -386,7 +386,7 @@
             // drakeUILabel15
             // 
             this.drakeUILabel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel15.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel15.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel15.Location = new System.Drawing.Point(341, 365);
             this.drakeUILabel15.Name = "drakeUILabel15";
             this.drakeUILabel15.Size = new System.Drawing.Size(163, 73);
@@ -397,7 +397,7 @@
             // drakeUILabel16
             // 
             this.drakeUILabel16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel16.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUILabel16.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel16.Location = new System.Drawing.Point(341, 438);
             this.drakeUILabel16.Name = "drakeUILabel16";
             this.drakeUILabel16.Size = new System.Drawing.Size(163, 73);
@@ -476,7 +476,7 @@
             // drakeUILabel17
             // 
             this.drakeUILabel17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.drakeUILabel17.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 12F, System.Drawing.FontStyle.Bold);
+            this.drakeUILabel17.Font = new System.Drawing.Font("Pretendard", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUILabel17.Location = new System.Drawing.Point(3, 511);
             this.drakeUILabel17.Name = "drakeUILabel17";
             this.drakeUILabel17.Size = new System.Drawing.Size(163, 75);

@@ -75,7 +75,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.lbl_main_status, 2);
             this.lbl_main_status.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_main_status.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_main_status.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lbl_main_status.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbl_main_status.Location = new System.Drawing.Point(3, 0);
             this.lbl_main_status.Name = "lbl_main_status";
@@ -88,7 +88,7 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.lbl_sub_status, 2);
             this.lbl_sub_status.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_sub_status.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_sub_status.Font = new System.Drawing.Font("Pretendard", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lbl_sub_status.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbl_sub_status.Location = new System.Drawing.Point(3, 138);
             this.lbl_sub_status.Name = "lbl_sub_status";
@@ -154,7 +154,7 @@
             this.drakeUIButton13.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton13.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton13.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton13.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton13.Location = new System.Drawing.Point(3, 139);
             this.drakeUIButton13.Name = "drakeUIButton13";
             this.drakeUIButton13.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -170,7 +170,7 @@
             this.drakeUIButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton1.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton1.Location = new System.Drawing.Point(3, 3);
             this.drakeUIButton1.Name = "drakeUIButton1";
             this.drakeUIButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -186,7 +186,7 @@
             this.drakeUIButton2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton2.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton2.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton2.Location = new System.Drawing.Point(257, 3);
             this.drakeUIButton2.Name = "drakeUIButton2";
             this.drakeUIButton2.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -202,7 +202,7 @@
             this.drakeUIButton3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton3.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton3.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton3.Location = new System.Drawing.Point(511, 3);
             this.drakeUIButton3.Name = "drakeUIButton3";
             this.drakeUIButton3.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -218,7 +218,7 @@
             this.drakeUIButton4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton4.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton4.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton4.Location = new System.Drawing.Point(3, 71);
             this.drakeUIButton4.Name = "drakeUIButton4";
             this.drakeUIButton4.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -234,7 +234,7 @@
             this.drakeUIButton5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton5.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton5.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton5.Location = new System.Drawing.Point(257, 71);
             this.drakeUIButton5.Name = "drakeUIButton5";
             this.drakeUIButton5.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -250,7 +250,7 @@
             this.drakeUIButton6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton6.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton6.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton6.Location = new System.Drawing.Point(511, 71);
             this.drakeUIButton6.Name = "drakeUIButton6";
             this.drakeUIButton6.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -266,7 +266,7 @@
             this.drakeUIButton7.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton7.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton7.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton7.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton7.Location = new System.Drawing.Point(257, 139);
             this.drakeUIButton7.Name = "drakeUIButton7";
             this.drakeUIButton7.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -282,7 +282,7 @@
             this.drakeUIButton8.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton8.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton8.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton8.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton8.Location = new System.Drawing.Point(257, 207);
             this.drakeUIButton8.Name = "drakeUIButton8";
             this.drakeUIButton8.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -298,7 +298,7 @@
             this.drakeUIButton9.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButton9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drakeUIButton9.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButton9.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButton9.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButton9.Location = new System.Drawing.Point(511, 139);
             this.drakeUIButton9.Name = "drakeUIButton9";
             this.drakeUIButton9.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -315,7 +315,7 @@
             this.btn_enter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_enter.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
             this.btn_enter.FillDisableColor = System.Drawing.Color.Silver;
-            this.btn_enter.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_enter.Font = new System.Drawing.Font("Pretendard", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_enter.Location = new System.Drawing.Point(765, 207);
             this.btn_enter.Name = "btn_enter";
             this.btn_enter.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -331,7 +331,7 @@
             // 
             this.drakeUIButtonIcon2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.drakeUIButtonIcon2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
-            this.drakeUIButtonIcon2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.drakeUIButtonIcon2.Font = new System.Drawing.Font("Pretendard", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButtonIcon2.Location = new System.Drawing.Point(511, 207);
             this.drakeUIButtonIcon2.Name = "drakeUIButtonIcon2";
             this.drakeUIButtonIcon2.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(136)))), ((int)(((byte)(229)))));
@@ -350,7 +350,7 @@
             this.drakeUIButtonIcon1.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(226)))), ((int)(((byte)(137)))));
             this.drakeUIButtonIcon1.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(228)))), ((int)(((byte)(137)))));
             this.drakeUIButtonIcon1.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(228)))), ((int)(((byte)(137)))));
-            this.drakeUIButtonIcon1.Font = new System.Drawing.Font("SpoqaHanSans-Regular", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.drakeUIButtonIcon1.Font = new System.Drawing.Font("Pretendard", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.drakeUIButtonIcon1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.drakeUIButtonIcon1.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
             this.drakeUIButtonIcon1.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lb_notify = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lb_notify = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -54,18 +54,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(500, 500);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // lb_notify
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.lb_notify, 3);
-            this.lb_notify.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_notify.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lb_notify.Location = new System.Drawing.Point(3, 213);
-            this.lb_notify.Name = "lb_notify";
-            this.lb_notify.Size = new System.Drawing.Size(494, 161);
-            this.lb_notify.TabIndex = 1;
-            this.lb_notify.Text = "1번,2번 슬롯의 문이 열려있습니다.\n문을 닫아주세요";
-            this.lb_notify.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -76,6 +64,18 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // lb_notify
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.lb_notify, 3);
+            this.lb_notify.Font = new System.Drawing.Font("Pretendard", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_notify.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lb_notify.Location = new System.Drawing.Point(3, 213);
+            this.lb_notify.Name = "lb_notify";
+            this.lb_notify.Size = new System.Drawing.Size(494, 161);
+            this.lb_notify.TabIndex = 1;
+            this.lb_notify.Text = "1번,2번 슬롯의 문이 열려있습니다.\n문을 닫아주세요";
+            this.lb_notify.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmDoorClosePopup
             // 

@@ -407,6 +407,9 @@
       <DependentUpon>UC_Main.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vkeyvoard.cs" />
+    <EmbeddedResource Include="frmAutoStartPopup.resx">
+      <DependentUpon>frmAutoStartPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCheckConnction.resx">
       <DependentUpon>frmCheckConnction.cs</DependentUpon>
     </EmbeddedResource>

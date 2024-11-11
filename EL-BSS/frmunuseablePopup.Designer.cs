@@ -38,7 +38,7 @@
             this.lb_Noti.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.lb_Noti, 3);
             this.lb_Noti.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_Noti.Font = new System.Drawing.Font("SpoqaHanSans-Bold", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lb_Noti.Font = new System.Drawing.Font("Pretendard", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.lb_Noti.ForeColor = System.Drawing.Color.White;
             this.lb_Noti.Location = new System.Drawing.Point(3, 139);
             this.lb_Noti.Name = "lb_Noti";
