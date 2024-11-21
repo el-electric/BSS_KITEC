@@ -360,11 +360,11 @@ namespace EL_BSS.Cycle
             CsWakeup.interverWakeUP();
 
 
-            if (CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] >= 300000)
+            if (CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] >= 300000) //300000
             {
                 CsDefine.Delayed[CsDefine.CYC_TEMP_LOG] = 0;
                 // make_log();
-                maek_log_simple();
+                make_Log_simple_2();
             }
 
             /*if (sp_Slave.serial != null && sp_Master.serial != null)
@@ -434,7 +434,7 @@ namespace EL_BSS.Cycle
             logmessage += ",ChargerTemp" + "," + "Huminity" + "," + "ChargerTemp_Raw" +","+ "Huminity_Raw" +"," + "Wave_Sensor"+  "\n";
             logmessage += "Master," + Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[0].Charger_Humidity + "," + inversion_bt_temp(Model.getInstance().list_MasterRecv[0].Charger_UpperTemper) + "," + inversion_bt_humi(Model.getInstance().list_MasterRecv[0].Charger_Humidity) + "," + int_to_hex(Model.getInstance().list_MasterRecv[0].Charger_WaveSensor) + "\n";
             logmessage += "Slave," + Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + "," + Model.getInstance().list_MasterRecv[1].Charger_Humidity + "," + inversion_bt_temp(Model.getInstance().list_MasterRecv[1].Charger_UpperTemper) + "," + inversion_bt_humi(Model.getInstance().list_MasterRecv[1].Charger_Humidity) + "," + int_to_hex(Model.getInstance().list_MasterRecv[1].Charger_WaveSensor) + "\n" + "\n";
-            logmessage += ",Received,SOC,SOH,Present_Voltage,Present_Current,Powerpack_Voltage,Powerpack_Current,FET_Temp,Slot_Temp,Cell_max_Temp,Cell_Mini_Temp,Serial_Number,Raw_slot_Temp," + "\n";
+            logmessage += ",Received,SOC,SOH,Present_Voltage,Present_Current,Powerpack_Voltage,Powerpack_Current,FET_Temp,Slot_Temp,Cell_max_Temp,Cell_Mini_Temp,Serial_Number,Raw_slot_Temp,cell_temp_pro,pet_temp_pro" + "\n";
             for (int i = 0; i < 8; i++)
             {
                 logmessage += "SLOT" + (i + 1) + ",";
@@ -459,8 +459,8 @@ namespace EL_BSS.Cycle
                 logmessage += "," + Model.getInstance().list_SlaveRecv[i].BatteryMinTemper.ToString(); // 배터리 셀 최소 온도
                 logmessage += "," + Model.getInstance().list_SlaveRecv[i].Serial_Number.ToString(); // 배터리ID
                 logmessage += "," + inversion_slot_temp(Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp); // 슬롯 온도 센서 raw 값
-
-
+                
+            
                 logmessage += "\n";
             }
             logmessage += "\n";
@@ -507,6 +507,78 @@ namespace EL_BSS.Cycle
 
             CsUtil.WriteLog_CSV(log, "CHAMBER_TEMP_LOG_SIMPLE");
 
+        }
+
+        public static void make_Log_simple_2()
+        {
+            string log = "";
+
+            if (!first_log)
+            {
+                log += "time_stamp,master_temp_raw,master_temp,master_humi_raw,master_humi,slave_temp_raw,slave_temp,slave_humi_raw,slave_humi,isfan1,isfan2,";
+
+                for (int i = 1; i < 9; i++)
+                {
+                    log += ",SLot" + i + ",Received,SOC,SOH,Present_Voltage,Present_Current,Powerpack_Voltage,Powerpack_Current,FET_Temp,Slot_Temp,Cell_max_Temp,Cell_Mini_Temp,Serial_Number,Raw_slot_Temp,cell_temp_pro,pet_temp_pro,";
+                }
+
+                log += "\n";
+
+                first_log = true;
+            }
+
+            log += DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ",";
+            
+            log += inversion_bt_temp(Model.getInstance().list_MasterRecv[0].Charger_UpperTemper) + ",";
+            log += Model.getInstance().list_MasterRecv[0].Charger_UpperTemper + ",";
+            log += inversion_bt_humi(Model.getInstance().list_MasterRecv[0].Charger_Humidity) + ",";
+            log += Model.getInstance().list_MasterRecv[0].Charger_Humidity + ",";
+
+            log += inversion_bt_temp(Model.getInstance().list_MasterRecv[1].Charger_UpperTemper) + ",";
+            log += Model.getInstance().list_MasterRecv[1].Charger_UpperTemper + ",";
+            log += inversion_bt_humi(Model.getInstance().list_MasterRecv[1].Charger_Humidity) + ",";
+            log += Model.getInstance().list_MasterRecv[1].Charger_Humidity + ",";
+
+            if (Model.getInstance().list_MasterRecv[0].Charger_UpperTemper >= 40) { log += "true,"; } else { log += "false,"; }
+            if (Model.getInstance().list_MasterRecv[1].Charger_UpperTemper >= 40) { log += "true"; } else { log += "false"; }
+
+            log += ",";
+
+            for (int i = 0; i < 8; i++)
+            {
+                log += ",,";
+
+                if (Model.getInstance().list_SlaveRecv[i].BatterArrive)  // 안착여부
+                {
+                    log += "true,";
+                }
+                else
+                {
+                    log += "false,";
+
+                }
+
+                log += Model.getInstance().list_SlaveRecv[i].SOC.ToString() + ","; //SOC
+                log += Model.getInstance().list_SlaveRecv[i].SOH.ToString() + ","; //SOH
+                log += ((double)Model.getInstance().list_SlaveRecv[i].BatteryCurrentVoltage / 10).ToString() + ",";  // 현재 전압
+                log += ((double)Model.getInstance().list_SlaveRecv[i].BatteryCurrentWattage / 100).ToString() + ",";  // 현재 전류
+                log += ((double)Model.getInstance().list_SlaveRecv[i].PowerPackVoltage / 10).ToString() + ",";
+                log += ((double)Model.getInstance().list_SlaveRecv[i].PowerPackWattage / 10).ToString() + ",";
+                log += Model.getInstance().list_SlaveRecv[i].FET_Temper.ToString() + ","; // FET 온도
+                log += Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp.ToString() + ","; // 슬롯 온도
+                log += Model.getInstance().list_SlaveRecv[i].BatteryMaxTemper.ToString() + ","; // 배터리 셀 최대 온도
+                log += Model.getInstance().list_SlaveRecv[i].BatteryMinTemper.ToString() + ","; // 배터리 셀 최소 온도
+                log += Model.getInstance().list_SlaveRecv[i].Serial_Number.ToString() + ","; // 배터리ID
+                log += inversion_slot_temp(Model.getInstance().list_SlaveRecv[i].Battery_Slot_Temp) + ","; // 슬롯 온도 센서 raw 값
+
+                if (Model.getInstance().list_SlaveRecv[i].cellHighTempProtection) log += "true,";
+                else log += "false,";
+
+                if (Model.getInstance().list_SlaveRecv[i].FETHighTempProtection) log += "true,";
+                else log += "false,";
+            }
+
+            CsUtil.WriteLog_CSV(log, "CHAMBER_TEMP_LOG_SIMPLE");
         }
 
 
