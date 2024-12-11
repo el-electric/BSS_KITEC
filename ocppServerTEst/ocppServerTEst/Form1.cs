@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Net.Sockets;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Policy;
 using System.Text;
@@ -22,6 +23,7 @@ namespace ocppServerTEst
     public partial class Form1 : Form
     {
         private List<IWebSocketConnection> allSockets;
+        
         public Form1()
         {
             InitializeComponent();
@@ -48,7 +50,7 @@ namespace ocppServerTEst
                     allSockets.Remove(socket);
                 };
                 socket.OnMessage = message =>
-                {
+                {               
                     textBox1.Text += (DateTime.Now.ToString("HH:mm:ss : " + message)) + Environment.NewLine;
                     Console.WriteLine("Message: " + message);
                     //allSockets.ForEach(s => s.Send("Echo: " + message));
@@ -99,8 +101,8 @@ namespace ocppServerTEst
 
                         List<string> returnBatteryId = new List<string>();
 
-                        returnBatteryId.Add("BT-001");
-                        returnBatteryId.Add("BT-002");
+                        returnBatteryId.Add("510");
+                        returnBatteryId.Add("512");
 
                         var data = new object[]
                         {
@@ -179,12 +181,12 @@ namespace ocppServerTEst
                     }
                     else if (message.IndexOf("DataTransfer") > 0)
                     {
-                        JArray jsonArray = JArray.Parse(message);
+                        /*JArray jsonArray = JArray.Parse(message);
                         string uid = jsonArray[1].ToString();
 
 
                         string json = Send_DataTransfer_Battery_exchange(uid);
-                        allSockets.ForEach(s => s.Send(json));
+                        allSockets.ForEach(s => s.Send(json));*/
                     }
                     else if (message.IndexOf("AddInfoStationBatteryState") > 0)
                     {
@@ -244,6 +246,23 @@ namespace ocppServerTEst
                         Console.WriteLine(json);
                     }
                     else if (message.IndexOf("AddInfoErrorEvent") > 0)
+                    {
+                        JArray jsonArray = JArray.Parse(message);
+                        string uid = jsonArray[1].ToString();
+
+                        var data = new object[]
+                        {
+                            3,
+                            uid,
+                                new
+                                {}
+                        };
+                        string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+                        allSockets.ForEach(s => s.Send(json));
+
+                        Console.WriteLine(json);
+                    }
+                    else if (message.IndexOf("StationAddInfoErrorEvent") > 0)
                     {
                         JArray jsonArray = JArray.Parse(message);
                         string uid = jsonArray[1].ToString();

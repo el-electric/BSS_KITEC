@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_CheckCSMS = new System.Windows.Forms.Button();
             this.btn_check_connection = new System.Windows.Forms.Button();
             this.btn_buzzer_Stop = new System.Windows.Forms.Button();
             this.AutoStart_Popup = new System.Windows.Forms.Button();
@@ -53,7 +54,6 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.sqLiteCommandBuilder1 = new System.Data.SQLite.SQLiteCommandBuilder();
-            this.btn_CheckCSMS = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -92,6 +92,16 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "전체충전전력변경";
+            // 
+            // btn_CheckCSMS
+            // 
+            this.btn_CheckCSMS.Location = new System.Drawing.Point(454, 10);
+            this.btn_CheckCSMS.Name = "btn_CheckCSMS";
+            this.btn_CheckCSMS.Size = new System.Drawing.Size(96, 36);
+            this.btn_CheckCSMS.TabIndex = 40;
+            this.btn_CheckCSMS.Text = "WSCheck";
+            this.btn_CheckCSMS.UseVisualStyleBackColor = true;
+            this.btn_CheckCSMS.Click += new System.EventHandler(this.btn_CheckCSMS_Click);
             // 
             // btn_check_connection
             // 
@@ -298,16 +308,6 @@
             // 
             this.sqLiteCommandBuilder1.DataAdapter = null;
             this.sqLiteCommandBuilder1.QuoteSuffix = "]";
-            // 
-            // btn_CheckCSMS
-            // 
-            this.btn_CheckCSMS.Location = new System.Drawing.Point(454, 10);
-            this.btn_CheckCSMS.Name = "btn_CheckCSMS";
-            this.btn_CheckCSMS.Size = new System.Drawing.Size(96, 36);
-            this.btn_CheckCSMS.TabIndex = 40;
-            this.btn_CheckCSMS.Text = "WSCheck";
-            this.btn_CheckCSMS.UseVisualStyleBackColor = true;
-            this.btn_CheckCSMS.Click += new System.EventHandler(this.btn_CheckCSMS_Click);
             // 
             // frmManual
             // 

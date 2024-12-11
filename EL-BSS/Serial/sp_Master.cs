@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace EL_BSS.Serial
 {
@@ -41,6 +42,15 @@ namespace EL_BSS.Serial
         public static void Close()
         {
             serial.Close();
+        }
+
+        public static bool is_master_open()
+        {
+            if (serial != null && !serial.IsOpen)
+            {
+                return false;
+            }
+            else return true;
         }
         private static void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {            

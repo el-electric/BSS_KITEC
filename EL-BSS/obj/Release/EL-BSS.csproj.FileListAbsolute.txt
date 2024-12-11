@@ -71,3 +71,9 @@ C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\UC_Main.baml
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL-BSS.g.resources
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL_BSS.frmMaster_Manual.resources
 C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL_BSS.frmDoorClosePopup.resources
+C:\1016 git\BSS_KITEC\EL-BSS\bin\Release\en\EL-BSS.resources.dll
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL_BSS.frmAutoStartPopup.resources
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL_BSS.frmCheckConnction.resources
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL_BSS.frmTest_CSMS.resources
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\EL_BSS.frmFrame.en.resources
+C:\1016 git\BSS_KITEC\EL-BSS\obj\Release\en\EL-BSS.resources.dll

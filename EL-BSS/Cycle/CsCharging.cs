@@ -53,7 +53,7 @@ namespace EL_BSS.Cycle
             return true;
         }
 
-        public static bool isCharging_Two_Slot(int[] slot)
+        public static void isCharging_Two_Slot(int[] slot)
         {
             Model.getInstance().list_SlaveSend[slot[0] - 1].BatteryOutput = true;
             Model.getInstance().list_SlaveSend[slot[1] - 1].BatteryOutput = true;
@@ -70,25 +70,6 @@ namespace EL_BSS.Cycle
                 Model.getInstance().list_SlaveSend[slot[0] - 1].request_Wattage = 100;
                 Model.getInstance().list_SlaveSend[slot[1] - 1].request_Wattage = 100;
             }
-
-            CsDefine.Delayed[CsDefine.CYC_CHARGING] = 0;
-
-            while (true)
-            {
-                if (Model.getInstance().list_SlaveRecv[slot[0] - 1].ProcessStatus == 100 &&
-                    Model.getInstance().list_SlaveRecv[slot[1] - 1].ProcessStatus == 100)
-                {
-                    break;
-
-                }
-                else if (CsDefine.Delayed[CsDefine.CYC_CHARGING] >= 10000)
-                {
-                    return false;
-                }
-
-                Thread.Sleep(10);
-            }
-            return true;
         }
 
         public static bool is_first = false;
@@ -130,54 +111,63 @@ namespace EL_BSS.Cycle
             }
             else
             {
-                if (model.list_SlaveRecv[slotid - 1].ProcessStatus == 100 &&  //충전중이고 wakeup 이며 feton이고 배터리 출력이며 매뉴얼 모드가 있고 fet Temper가 있으면
-                model.list_SlaveRecv[slotid - 1].WAKEUP_Signal &&
-                model.list_SlaveRecv[slotid - 1].FET_ON_State &&
-                model.list_SlaveSend[slotid - 1].BatteryOutput &&
-                !model.list_SlaveSend[slotid - 1].hmiManual &&
-                model.list_SlaveRecv[slotid - 1].FET_Temper != null)
+                if (!model.list_SlaveRecv[slotid - 1].Error_Occured) // 에러가 아니라면
                 {
-                    if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 75 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 75)
+                    if (is_charging(slotid))
                     {
-                        model.list_SlaveSend[slotid - 1].BatteryOutput = false;
-                        Model.getInstance().csErrorControl.Is_Slot_Error(slotid - 1, Battery_Error.Slot_Temperature_Error, true);
+                        if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 75 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 75)
+                        {
+                            model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+                        }
+                        else if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 45 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 45)
+                        {
+                            setHighTemp_Current(true, slotid);
+                        }
+                        else if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper < 40 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp < 40)
+                        {
+                            setHighTemp_Current(false, slotid);
+                        }
                     }
-                    else if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper >= 45 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp >= 45)
+
+                    if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
+                    model.list_SlaveRecv[slotid - 1].SOC < 100 &&
+                    !model.list_SlaveRecv[slotid - 1].isSequence)
                     {
-                        setHighTemp_Current(true, slotid);
-                    }
-                    else if (Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper < 40 || Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp < 40)
-                    {
-                        setHighTemp_Current(false, slotid);
+                        model.list_SlaveSend[slotid - 1].BatteryFETON = true;
+                        model.list_SlaveSend[slotid - 1].BatteryOutput = true;
                     }
                 }
-                else if ((Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp < 40 || Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper <= 40) && Model.getInstance().Battery_Error_Code[slotid - 1][Battery_Error.Slot_Temperature_Error])
+                else  // 에러라면
                 {
-                    Model.getInstance().csErrorControl.Is_Slot_Error(slotid - 1, Battery_Error.Slot_Temperature_Error, false);
+                    model.list_SlaveSend[slotid - 1].BatteryFETON = false;
+                    model.list_SlaveSend[slotid - 1].BatteryOutput = false;
                 }
 
-                if (model.list_SlaveRecv[slotid - 1].Error_Occured || model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor) //에러 발생시 그리고 완충
+                if (model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor)
                 {
-                    if (Model.getInstance().list_SlaveRecv[slotid - 1].DischargingMode)
-                    { model.list_SlaveSend[slotid - 1].BatteryOutput = false; }
-                    else
-                    {
-                        model.list_SlaveSend[slotid - 1].BatteryFETON = false;
-                        model.list_SlaveSend[slotid - 1].BatteryOutput = false;
-                    }
-                }
-                else if (model.list_SlaveRecv[slotid - 1].WAKEUP_Signal && // SOC가 반납을 할정도로 존재하지 못할때 충전 시켜줌
-                    !model.list_SlaveRecv[slotid - 1].Error_Occured &&
-                    model.list_SlaveRecv[slotid - 1].SOC < 100 &&
-                    Model.getInstance().list_SlaveRecv[slotid - 1].FET_Temper <= 40 &&
-                    Model.getInstance().list_SlaveRecv[slotid - 1].Battery_Slot_Temp <= 40 &&
-                    !Model.getInstance().list_SlaveRecv[slotid - 1].isSequence &&
-                    !Model.getInstance().list_SlaveRecv[slotid - 1].DischargingMode)
-                {
-                    model.list_SlaveSend[slotid - 1].BatteryFETON = true;
-                    model.list_SlaveSend[slotid - 1].BatteryOutput = true;
+                    model.list_SlaveSend[slotid - 1].BatteryFETON = false;
+                    model.list_SlaveSend[slotid - 1].BatteryOutput = false;
                 }
             }
+        }
+
+        public static bool is_charging(int slot_num)
+        {
+            if (Model.getInstance().list_SlaveRecv[slot_num - 1].ProcessStatus == 100) return true;
+
+            if (Model.getInstance().list_SlaveRecv[slot_num - 1].WAKEUP_Signal) return false;
+
+            if (Model.getInstance().list_SlaveRecv[slot_num - 1].FET_ON_State) return false; 
+
+            if(Model.getInstance().list_SlaveSend[slot_num - 1].BatteryOutput) return false;
+
+            if (!Model.getInstance().list_SlaveSend[slot_num - 1].hmiManual) return false;
+
+            if (Model.getInstance().list_SlaveRecv[slot_num - 1].FET_Temper != null) return false;
+
+            if (!Model.getInstance().list_SlaveRecv[slot_num - 1].Error_Occured) return false;
+
+            return true;
         }
 
         public static void Main_WorkCycle(int slotId) //자동동작 시퀀스

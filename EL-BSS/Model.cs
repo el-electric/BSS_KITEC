@@ -177,10 +177,12 @@ namespace EL_BSS
         public frmTest_CSMS frmTest_CSMS = null;
 
         public List<string> test_csms_buffer = new List<string>(); // 프리테스트 진행시 로그 확인을 위해 만듬
-        public int test_csms_buffer_length = 0;
+        public List<string> test_error_buffer = new List<string>();
 
         public string[,] uid_array = new string[1024, 2];
         public int test_uid_length = 0;
+
+        public bool is_station_isSequence = false;
 
         public void set_test_csms_buffer(string value)
         {
@@ -226,14 +228,12 @@ namespace EL_BSS
 
             format_text = DateTime.Now.ToString() + " " + packet_name + " "+ st_s_or_R;
             test_csms_buffer.Add(format_text);
-            test_csms_buffer_length++;
 
             if (frmTest_CSMS != null)
             {
-                frmTest_CSMS.input_text(format_text);
+                frmTest_CSMS.input_text(format_text, true);
             }
-
-        }
+        }       
 
         public class MasterSend
         {
@@ -260,6 +260,8 @@ namespace EL_BSS
             public string FW_ver;
 
             public bool Error_Occured = false;
+
+            public bool is_Send_ms_Error = false;
 
         }
         public class SlaveSend
@@ -428,6 +430,8 @@ namespace EL_BSS
             public bool isSequence = false;
 
             public bool DischargingMode = false;
+
+            public bool is_Send_ms_Error = false;
 
             ////////////
 

@@ -22,6 +22,7 @@ using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Ink;
 using System.Windows.Interop;
+using System.Windows.Forms;
 
 namespace BatteryChangeCharger.OCPP
 {
@@ -59,12 +60,28 @@ namespace BatteryChangeCharger.OCPP
         {
             websocket.Open();
         }
+        public void WebSocketClose() 
+        {
+            websocket.Close();
+        }
         private void WebSocket_Error(object sender, ErrorEventArgs e)
         {
-            MessageBox.Show("error " + e.Exception.Message);
+            System.Windows.Forms.MessageBox.Show("error " + e.Exception.Message);
             Console.WriteLine("WebSocket error: " + e.Exception.Message);
             CsUtil.WriteLog("WEBSOCKET_ERROR", "WSS");
             Model.getInstance().frmFrame.lamp_ems.On = false;
+        }
+
+        public List<string> buffer = new List<string>();
+        public void Send_Packet_Buffer(List<string> buffer)
+        {
+            if (buffer != null)
+            {
+                foreach (string packet in buffer)
+                {
+                    SendMessagePacket(packet);
+                }
+            }
         }
 
 
@@ -82,7 +99,7 @@ namespace BatteryChangeCharger.OCPP
             {
                 CsUtil.WriteLog("WEBSOCKET_CLOSE", "WSS");
             }
-            MessageBox.Show("WebSocket connection closed.");
+            System.Windows.Forms.MessageBox.Show("WebSocket connection closed.");
             Console.WriteLine("WebSocket connection closed.");
             Model.getInstance().frmFrame.lamp_ems.On = false;
 
@@ -101,7 +118,9 @@ namespace BatteryChangeCharger.OCPP
             if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
             {
                 Model.getInstance().StationInfoInterval = (int)jsonArray[2]["interval"];
+
                 Model.getInstance().frmFrame.viewForm(0);
+
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
             }
         }
@@ -140,7 +159,7 @@ namespace BatteryChangeCharger.OCPP
             {
                 cts.Token.Register(() => tcs.TrySetCanceled());
                 try
-                {                    
+                {
                     return await tcs.Task;
                 }
                 catch (TaskCanceledException)
@@ -152,7 +171,7 @@ namespace BatteryChangeCharger.OCPP
         }
         private void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            Console.WriteLine("Message received: " + e.Message);
+            Console.WriteLine("Message received: " + e.Message + " TIMESTAMP " + DateTime.Now.ToString("hh mm ss"));
             string messageId = null;
             try
             {
@@ -172,16 +191,25 @@ namespace BatteryChangeCharger.OCPP
                 Model.getInstance().oCPP_Comm_SendMgr.ReceivedPacket(e.Message);
             }
         }
-        public async Task SendMessagePacket(string message)
+        public void SendMessagePacket(string message)
         {
             if (websocket.State == WebSocketState.Open)
             {
                 Logger.d("☆Send☆ OCPP CP->CSMS Call => " + message);
-                Console.WriteLine("Send to Server > " + message);
+                // Console.WriteLine("Send to Server > " + message);
                 Model.getInstance().set_test_csms_buffer(message);  // 프리테스트용
                 websocket.Send(message);
             }
 
+        }
+
+        public async Task SendMessagePacket_without_log(string message)
+        {
+            if (websocket.State == WebSocketState.Open)
+            {
+                Model.getInstance().set_test_csms_buffer(message);  // 프리테스트용
+                websocket.Send(message);
+            }
         }
     }
 }

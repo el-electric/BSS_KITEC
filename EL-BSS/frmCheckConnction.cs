@@ -62,7 +62,7 @@ namespace EL_BSS
                             if (Model.getInstance().list_SlaveDataRecvDatetime[i - 1].AddSeconds(5) < DateTime.Now)
                             {
                                 TimeSpan time = DateTime.Now - Model.getInstance().list_SlaveDataRecvDatetime[i -1];
-                                control.Text = time.Seconds.ToString() + "초 지남";
+                                control.Text = time.Hours.ToString() + "시"+ time.Minutes.ToString() + "분" + time.Seconds.ToString() + "초 지남";
                             }
                             else
                             {
@@ -99,7 +99,7 @@ namespace EL_BSS
                             if (Model.getInstance().list_MasterDataRecvDatetime[i - 1].AddSeconds(5) < DateTime.Now)
                             {
                                 TimeSpan time = DateTime.Now - Model.getInstance().list_MasterDataRecvDatetime[i - 1];
-                                control.Text = time.Seconds.ToString() + "초 지남";
+                                control.Text = time.Hours.ToString() + "시" + time.Minutes.ToString() + "분" + time.Seconds.ToString() + "초 지남";
                             }
                             else
                             {

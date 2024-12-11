@@ -1,4 +1,5 @@
 ﻿using EL_BSS.Cycle;
+using EL_BSS.Serial;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,6 +23,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using static EL_BSS.frmNotiPopup;
 using static EL_BSS.Model;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.AxHost;
@@ -279,7 +281,7 @@ namespace EL_BSS
                 }
                 else
                 {
-                    btn_home.Visibility = Visibility.Visible;
+                    btn_home.Visibility = Visibility.Collapsed;
                     Right_Colunm.Width = new GridLength(0);
                     property_Canvas.Margin = new Thickness(150, 0, 0, 0);
 
@@ -326,6 +328,17 @@ namespace EL_BSS
             frmFrame.deleMenuClick(3);
 
             Keyboard.ClearFocus();
+
+            /*if (sp_Slave.Check_able_battery_slot())
+            {
+                frmFrame.deleMenuClick(3);
+
+                Keyboard.ClearFocus();
+            }
+            else
+            {
+                Model.getInstance().frmFrame.NotiShow("No slots available.\nPlease visit another Station", 1000, IconName.RedDanger.ToString());
+            }*/
         }
 
         private bool test = false;
@@ -370,13 +383,16 @@ namespace EL_BSS
                 Canvas_translateTrnasform.Y = -30;
             }*/
 
-            /*if (!Model.getInstance().test_button) Model.getInstance().test_button = true;
-            else Model.getInstance().test_button = false;*/
-
-           /*Model.getInstance().frmTest_CSMS = new frmTest_CSMS();
-           Model.getInstance().frmTest_CSMS.Show();*/
-
-
+            if (!Model.getInstance().test_button)
+            { 
+                Model.getInstance().test_button = true;
+                Model.getInstance().list_SlaveRecv[6].Battery_Slot_Temp = 100;
+            }
+            else
+            { 
+                Model.getInstance().test_button = false;
+                Model.getInstance().list_SlaveRecv[6].Battery_Slot_Temp = 0;
+            }
 
             // CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_DOOR_ERROR;
 

@@ -75,8 +75,6 @@ namespace EL_BSS
 
 
 
-            showNotiForm("Attempt to connect to server");
-            
             //viewForm(0);
 
             for (int i = 0; i < Model.getInstance().slaveCount; i++)
@@ -103,22 +101,22 @@ namespace EL_BSS
             MenuClick += FrmFrame_MenuClick;
 
 
-            if (!sp_Master.Open(Model.getInstance().Master_PortName))
-                MessageBox.Show("마스터 포트 오픈 실패");
-            if (!sp_Slave.Open(Model.getInstance().Slave_PortName))
-                MessageBox.Show("슬레이브 포트 오픈 실패");
+            sp_Master.Open(Model.getInstance().Master_PortName);
+            sp_Slave.Open(Model.getInstance().Slave_PortName);
 
             getInstance().oCPP_Comm_Manager.WebSocketOpen();
-            
+
+
+            showNotiForm("Attempt to connect to server");
         }
 
-        public static void deleMenuClick(int idx , string context = "")
+        public static void deleMenuClick(int idx, string context = "")
         {
-            MenuClick(idx , context);
+            MenuClick(idx, context);
         }
-        private void FrmFrame_MenuClick(int idx , string context ="")
+        private void FrmFrame_MenuClick(int idx, string context = "")
         {
-            viewForm(idx , context);
+            viewForm(idx, context);
         }
 
         private void initForm()
@@ -155,6 +153,7 @@ namespace EL_BSS
         }
         public async void viewForm(int idx, string context = "")
         {
+
             panel2.Controls.Clear();
             //frmManual.timer1.Enabled = false;
             frmManual.timer.Stop();
@@ -224,7 +223,8 @@ namespace EL_BSS
 
         public void showNotiForm(string context)
         {
-            viewForm(5, context);
+            // viewForm(5, context);
+            deleMenuClick(5, context);
         }
 
         private void ui_timer_500ms_Tick(object sender, EventArgs e)
@@ -368,19 +368,18 @@ namespace EL_BSS
         int max_soc;
         bool find_100SOC_Battery = false;
         DateTime minute2;
-        private void bck_Sequnce_DoWork(object sender, DoWorkEventArgs e)
+        private async void bck_Sequnce_DoWork(object sender, DoWorkEventArgs e)
         {
             while (ThreadRun)
             {
-                CsWork.Main_WorkCycle();
+                await CsWork.Main_WorkCycle();
                 CsWork.OCPP_IntervalCycle();
-                
-                if (Model.getInstance().Send_bootnotification)
-                {
-                    CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
-                    Model.getInstance().csErrorControl.Check_Error_Occured();
-                
-                }
+                CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
+
+                if (!sp_Slave.is_slave_opened()) sp_Slave.Open(Model.getInstance().Slave_PortName);
+                if (!sp_Master.is_master_open()) sp_Master.Open(Model.getInstance().Master_PortName);
+
+                Model.getInstance().csErrorControl.Check_Error_Occured();
                 Thread.Sleep(1);
             }
         }
@@ -455,7 +454,7 @@ namespace EL_BSS
                 visual.RowCount = 2;
                 tableLayoutPanel2.Visible = true;
             }
-            else 
+            else
             {
                 visual.RowCount = 1;
                 tableLayoutPanel2.Visible = false;
@@ -472,9 +471,9 @@ namespace EL_BSS
             }
             else if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] <= CsDefine.CYC_MAIN + 4) // 배터리 반납
             {
-                need_lb= lb_battery_return;
+                need_lb = lb_battery_return;
             }
-            else if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] < CsDefine.CYC_MAIN + 9 || CsDefine.Cyc_Rail[CsDefine.CYC_RUN] < CsDefine.CYC_TEMP || CsDefine.Cyc_Rail[CsDefine.CYC_RUN] < CsDefine.CYC_TEMP + 1) // 배터리 인증
+            else if (CsDefine.Cyc_Rail[CsDefine.CYC_RUN] < CsDefine.CYC_MAIN + 9 || CsDefine.Cyc_Rail[CsDefine.CYC_RUN] == CsDefine.CYC_TEMP || CsDefine.Cyc_Rail[CsDefine.CYC_RUN] == CsDefine.CYC_TEMP + 1) // 배터리 인증
             {
                 need_lb = lb_battery_authorize;
             }

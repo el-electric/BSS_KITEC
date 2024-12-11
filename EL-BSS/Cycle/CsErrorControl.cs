@@ -1,8 +1,11 @@
 ﻿using EL_BSS.Serial;
+using Microsoft.Win32.TaskScheduler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +22,7 @@ namespace EL_BSS.Cycle
             {
                 Model.getInstance().Battery_Error_Code[i] = new Dictionary<Battery_Error, bool>
                 {
+                    // 배터리 관련 에러
                     { Battery_Error.Low_Voltage,                                  false},
                     { Battery_Error.Over_Voltage,                                 false},
                     { Battery_Error.Pack_Low_Voltage,                             false},
@@ -51,6 +55,8 @@ namespace EL_BSS.Cycle
                     { Battery_Error.BMS_Error,                                    false},
                     { Battery_Error.Over_Current,                                 false},
 
+
+                    // 슬롯 관련 에러
                     { Battery_Error.Slot_Temperature_Error,                       false},
                     { Battery_Error.FET_On_Error,                                 false},
                     { Battery_Error.Wake_Up_Error,                                false},
@@ -64,6 +70,7 @@ namespace EL_BSS.Cycle
             {
                 Model.getInstance().dic_Station_Error_Code[i] = new Dictionary<Station_Error, bool>
                 {
+                    // 스테이션 에러
                     { Station_Error.vibrationWarning,                               false},
                     { Station_Error.floodingWarning,                                false},
                     { Station_Error.Charger_Humidity,                               false },
@@ -81,29 +88,22 @@ namespace EL_BSS.Cycle
             {
                 for (int m = 0; m < 2; m++)
                 {
-
                     if (!model.list_MasterRecv[m].Error_Occured)
                     {
                         if (model.list_MasterRecv[m].vibrationWarning)
                         {
                             model.frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                            model.list_MasterRecv[m].Error_Occured = true;
-                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.vibrationWarning, true);
-                            Model.getInstance().dic_Station_Error_Code[m][Station_Error.vibrationWarning] = true;
+                            is_station_error(m, Station_Error.vibrationWarning, true);
                         }
                         else if (model.list_MasterRecv[m].floodingWarning)
                         {
                             model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                            model.list_MasterRecv[m].Error_Occured = true;
-                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.floodingWarning, true);
-                            Model.getInstance().dic_Station_Error_Code[m][Station_Error.floodingWarning] = true;
+                            is_station_error(m, Station_Error.floodingWarning, true);
                         }
-                        else if (model.list_MasterRecv[m].Charger_UpperTemper > 70 || model.test_button)
+                        else if (model.list_MasterRecv[m].Charger_UpperTemper > 70)
                         {
                             model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
-                            model.list_MasterRecv[m].Error_Occured = true;
-                            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.Charger_UpperTemper, true);
-                            Model.getInstance().dic_Station_Error_Code[m][Station_Error.Charger_UpperTemper] = true;
+                            is_station_error(m, Station_Error.Charger_UpperTemper, true);
                         }
                     }
                     else if (model.list_MasterRecv[m].Error_Occured)
@@ -132,6 +132,17 @@ namespace EL_BSS.Cycle
                             model.list_MasterRecv[m].Error_Occured = false;
                         }
                     }
+
+                    /*if (!model.dic_Station_Error_Code[m][Station_Error.Control_Board_Error] && model.list_MasterDataRecvDatetime[m].AddSeconds(5) > DateTime.Now)
+                    {
+                        Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.Control_Board_Error, true);
+                        Model.getInstance().dic_Station_Error_Code[m][Station_Error.Control_Board_Error] = true;
+                    }
+                    else if (model.dic_Station_Error_Code[m][Station_Error.Control_Board_Error] && model.list_MasterDataRecvDatetime[m].AddSeconds(5) < DateTime.Now)
+                    {
+                        Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(m, Station_Error.Control_Board_Error, false);
+                        Model.getInstance().dic_Station_Error_Code[m][Station_Error.Control_Board_Error] = false;
+                    }*/
                 }
 
                 for (int s = 0; s < 8; s++)
@@ -188,10 +199,33 @@ namespace EL_BSS.Cycle
                         }
                     }
 
-                    if (!model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].FET_ON_State && !model.list_SlaveRecv[s].PowerPackStatus)
+                    if (!model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].FET_ON_State && !model.list_SlaveRecv[s].PowerPackStatus)  // 파워팩 에러
                     {
                         Is_Slot_Error(s, Battery_Error.Power_Pack_Error, true);
                     }
+                    else if(model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].PowerPackStatus)
+                    {
+                        Is_Slot_Error(s, Battery_Error.Power_Pack_Error, false);
+                    }
+
+                    if (!model.Battery_Error_Code[s][Battery_Error.Slot_Temperature_Error] && (model.list_SlaveRecv[s].FET_Temper >= 75 || model.list_SlaveRecv[s].Battery_Slot_Temp >= 75))  // 슬롯 온도 에러(충전중이 아닐떄)
+                    {
+                        Is_Slot_Error(s, Battery_Error.Slot_Temperature_Error, true);
+                    }
+                    else if(model.Battery_Error_Code[s][Battery_Error.Slot_Temperature_Error] && (model.list_SlaveRecv[s].FET_Temper <= 40 && model.list_SlaveRecv[s].Battery_Slot_Temp <= 40))
+                    {
+                        Is_Slot_Error(s, Battery_Error.Slot_Temperature_Error, false);
+                    }
+
+                    /*if (!model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) < DateTime.Now)  // 슬롯 제어보드 통신 에러
+                    {
+                        Is_Slot_Error(s, Battery_Error.Control_Board_Error, true);
+                    }
+                    else if (model.Battery_Error_Code[s][Battery_Error.Control_Board_Error] && model.list_SlaveDataRecvDatetime[s].AddSeconds(5) > DateTime.Now)
+                    {
+                        Is_Slot_Error(s, Battery_Error.Control_Board_Error, false);
+                    }*/
+
 
 
                     /*if (Check_Slave_Port_isAlive())  //예외 발생: 'System.IO.IOException'(System.dll)
@@ -210,17 +244,52 @@ namespace EL_BSS.Cycle
             }
 
         }
-        public void Is_Slot_Error(int slotid, Battery_Error errorName, bool state)
+        public void Is_Slot_Error(object slot, Battery_Error errorName, bool state)
         {
-            Model.getInstance().Battery_Error_Code[slotid][errorName] = state;
-            Model.getInstance().list_SlaveRecv[slotid].Error_Occured = state;
-            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(slotid, errorName, state);
-           
+            if (slot is int slot_num)
+            {
+                Model.getInstance().Battery_Error_Code[slot_num][errorName] = state;
+                Model.getInstance().list_SlaveRecv[slot_num].Error_Occured = state;
+                Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(slot_num, errorName, state);
+
+                int Slot = slot_num + 1;
+                string state_to_string = "";
+
+                if (state) state_to_string = "발생";
+                else state_to_string = "종료";
+
+                string format_text = DateTime.Now.ToString() + " " + Slot + "번" + " " + errorName.ToString() + " " + state_to_string;
+
+                Model.getInstance().test_error_buffer.Add(format_text);
+
+                if (Model.getInstance().frmTest_CSMS != null)
+                {
+                    Model.getInstance().frmTest_CSMS.input_text(format_text , false);
+                }
+            }
+            else if (slot is int[] idarray)
+            {
+                foreach (int id in idarray)
+                {
+                    Model.getInstance().Battery_Error_Code[id - 1][errorName] = state;
+                    Model.getInstance().list_SlaveRecv[id - 1].Error_Occured = state;
+                    Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(id - 1, errorName, state);
+                }
+            }
+
+
             for (int i = 0; i < 8; i++)
             {
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(i);
                 CsWork.nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
             }
+        }
+
+        public void is_station_error(int station, Station_Error errorname, bool state)
+        {
+            Model.getInstance().list_MasterRecv[station].Error_Occured = state;
+            Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_StationAddInfoErrorEvent(station, errorname, state);
+            Model.getInstance().dic_Station_Error_Code[station][errorname] = state;
         }
 
         public bool Check_Slave_Port_isAlive()

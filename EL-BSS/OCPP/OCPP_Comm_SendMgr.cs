@@ -220,8 +220,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
                         batteryModuleTempMax=getInstance().list_SlaveRecv[ChannelIdx].BatteryMaxTemper,
                         batteryModuleTempMin=getInstance().list_SlaveRecv[ChannelIdx].BatteryMinTemper,
                         batteryFetTemp=getInstance().list_SlaveRecv[ChannelIdx].FET_Temper,
-                        batteryCellVoltageMax=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_High_Voltage,
-                        BatteryCellVoltageMin=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Low_Voltage,
+                        batteryCellVoltageMax= Math.Round(getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_High_Voltage,2),
+                        BatteryCellVoltageMin=Math.Round(getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Low_Voltage,2),
                         cellBalancingFlag=getInstance().list_SlaveRecv[ChannelIdx].Cell_Belancing_Flag,
                         batteryModuleVoltage=getInstance().list_SlaveRecv[ChannelIdx].Battery_Moduel_Voltage,
                         batteryCellVoltage01=getInstance().list_SlaveRecv[ChannelIdx].Battery_Cell_Vol_01 / 1000,
@@ -253,6 +253,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
             // return json;
 
+            // Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
         }
 
@@ -286,6 +287,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
             // return json;
 
+            // Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
             Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
         }
         public string sendOCPP_CP_Req_AddInforBatteryExchange(int ChannelIdx)
@@ -481,7 +483,15 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             };
 
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
-            Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
+            
+            if (Model.getInstance().Send_bootnotification)
+            {
+                Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);
+            }
+            else
+            {
+                Model.getInstance().oCPP_Comm_Manager.buffer.Add(json);
+            }
         }
 
 

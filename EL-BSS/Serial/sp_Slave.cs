@@ -47,6 +47,15 @@ namespace EL_BSS.Serial
         {
             serial.Close();
         }
+
+        public static bool is_slave_opened()
+        {
+            if (serial != null && !serial.IsOpen)
+            {
+                return false;
+            }
+            else { return true; }
+        }
         private static void Comport1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             int bytesToRead = serial.BytesToRead;
@@ -339,8 +348,14 @@ namespace EL_BSS.Serial
 
             Model.getInstance().list_SlaveRecv[idx - 1].Serial_Number = EL_Manager_Conversion.getInt_2Byte(packet[66], packet[67]);
 
-            
+
+
+            if (Model.getInstance().test_button && idx == 7)
+                Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = 100;
+            else
                 Model.getInstance().list_SlaveRecv[idx - 1].Battery_Slot_Temp = (EL_Manager_Conversion.getInt(packet[68]) - 40);
+
+
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_High_Voltage = (EL_Manager_Conversion.getdouble_2Byte(packet[69], packet[70]) * 0.05);
             Model.getInstance().list_SlaveRecv[idx - 1].Battery_Cell_Low_Voltage = (EL_Manager_Conversion.getInt_2Byte(packet[71], packet[72]) * 0.05);
             Model.getInstance().list_SlaveRecv[idx - 1].Cell_Belancing_Flag = EL_Manager_Conversion.getInt_2Byte(packet[73], packet[74]);
@@ -388,7 +403,8 @@ namespace EL_BSS.Serial
         public static void Stop_Charging_all_Slot()
         {
             for (int i = 0; i < 8; i++)
-            {https://elelectric.daouoffice.com/app/welfare
+            {
+            https://elelectric.daouoffice.com/app/welfare
                 Model.getInstance().list_SlaveSend[i].BatteryOutput = false;
             }
         }
@@ -430,10 +446,10 @@ namespace EL_BSS.Serial
 
         private static string Check_Status(int i)
         {
-            /*if (Model.getInstance().list_SlaveRecv[i].ProcessStatus == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
+            if (Model.getInstance().list_SlaveRecv[i].ProcessStatus == 100 && Model.getInstance().list_SlaveRecv[i].BatterArrive)
             {
                 return enumData.Charging.ToString();
-            }*/
+            }
             if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
             {
                 return enumData.ERROR.ToString();
@@ -538,7 +554,8 @@ namespace EL_BSS.Serial
 
         public static void Write(byte[] bytes)
         {
-            serial.Write(bytes, 0, bytes.Length);   
+            if (serial.IsOpen)
+                serial.Write(bytes, 0, bytes.Length);
         }
 
         /*public static void Check_Over_V_C()
