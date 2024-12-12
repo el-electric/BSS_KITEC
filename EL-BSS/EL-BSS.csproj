@@ -488,7 +488,7 @@
     <Folder Include="OCPP\database\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\doorOpen_danger.png" />
+    <Resource Include="Resources\doorOpen_danger.png" />
     <None Include="Resources\bss_illust_usingwarning.png" />
     <None Include="Resources\dooropen_batteryin_error.png" />
     <None Include="Resources\doorclose_batteryout_error.png" />
@@ -500,7 +500,7 @@
     <Resource Include="Resources\battery_in.png" />
     <Resource Include="Resources\batteryIn_doorOpen.png" />
     <None Include="Resources\battery_empty.png" />
-    <None Include="Resources\battery_empty_danger.png" />
+    <Resource Include="Resources\battery_empty_danger.png" />
     <Content Include="Resources\bell.png" />
     <None Include="Resources\파란알림.png" />
     <None Include="Resources\파란체크.png" />

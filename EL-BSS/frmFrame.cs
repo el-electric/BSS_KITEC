@@ -376,8 +376,8 @@ namespace EL_BSS
                 CsWork.OCPP_IntervalCycle();
                 CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
 
-                if (!sp_Slave.is_slave_opened()) sp_Slave.Open(Model.getInstance().Slave_PortName);
-                if (!sp_Master.is_master_open()) sp_Master.Open(Model.getInstance().Master_PortName);
+                /*if (!sp_Slave.is_slave_opened()) sp_Slave.Open(Model.getInstance().Slave_PortName);
+                if (!sp_Master.is_master_open()) sp_Master.Open(Model.getInstance().Master_PortName);*/
 
                 Model.getInstance().csErrorControl.Check_Error_Occured();
                 Thread.Sleep(1);

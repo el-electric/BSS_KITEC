@@ -61,7 +61,7 @@ namespace EL_BSS.Cycle
                     getInstance().Lent_slot[0] = 0;
                     getInstance().Lent_slot[1] = 0;
 
-                    
+
 
                     for (int i = 0; i < 8; i++)
                     {
@@ -87,41 +87,41 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 case CsDefine.CYC_MAIN + 3:
-                     if (sp_Slave.Check_able_battery_slot())  // 사용가능한 슬롯이 있을 경우 반납받을 슬롯과 대여할 슬롯을 결정해둔다
-                     {
-                         if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
-                         {
-                             Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.success.ToString());
-                         }
-                         else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
-                         {
+                    if (sp_Slave.Check_able_battery_slot())  // 사용가능한 슬롯이 있을 경우 반납받을 슬롯과 대여할 슬롯을 결정해둔다
+                    {
+                        if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
+                        {
+                            Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.success.ToString());
+                        }
+                        else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
+                        {
 
-                         }
+                        }
 
-                         getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
-                         getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
-
-
-                         frmFrame.deleMenuClick(0);
-                         mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
-                         NextStep();
-                     }
-                     else  // 없을 경우
-                     {
-                         if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
-                         {
-                             Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.fail.ToString());
-                         }
-                         else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
-                         {
-                             // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.fail.ToString());
-                         }
+                        getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                        getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
 
 
-                         frmFrame.deleMenuClick(0);
-                         getInstance().frmFrame.NotiShow("사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요", 1000);
-                         CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
-                     }
+                        frmFrame.deleMenuClick(0);
+                        mainFormLabelUpdate("문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요.");
+                        NextStep();
+                    }
+                    else  // 없을 경우
+                    {
+                        if (Model.getInstance().Authorize_Type == enumData.APP.ToString())
+                        {
+                            Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Conf_Authorize(Model.getInstance().Authorize.uid, enumData.fail.ToString());
+                        }
+                        else if (Model.getInstance().Authorize_Type == enumData.STATION.ToString())
+                        {
+                            // Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.fail.ToString());
+                        }
+
+
+                        frmFrame.deleMenuClick(0);
+                        getInstance().frmFrame.NotiShow("사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요", 1000);
+                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                    }
                     break;
                 case CsDefine.CYC_MAIN + 4:
                     if (getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].BatterArrive && getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].isDoor == false &&  // 배터리가 들어있고 문이 닫혔다면
@@ -221,7 +221,7 @@ namespace EL_BSS.Cycle
                         mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
                     }
 
-                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000 && (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive))
+                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
                         JumpStep(CsDefine.CYC_DOOR_ERROR);
                     }
@@ -239,7 +239,7 @@ namespace EL_BSS.Cycle
 
                     //CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_TEMP + 1;
 
-                    
+
                     if ((getInstance().Authorize.returnbatteryId[0].Equals(getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString()) &&  // 서버에서 받은 batteryid와 배터리에서 받은 serialnum이 일치할때
                         getInstance().Authorize.returnbatteryId[1].Equals(getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString()))
                         ||
@@ -304,8 +304,22 @@ namespace EL_BSS.Cycle
 
                 case CsDefine.CYC_TEMP + 1:
                     break;
-
                 case CsDefine.CYC_DOOR_ERROR:
+
+                    
+                    if ((!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive) ||
+                        (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive))
+                    {
+                        JumpStep(CsDefine.CYC_MAIN + 10);
+                    }
+
+                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000)
+                    {
+                        NextStep();
+                    }
+                    break;
+
+                case CsDefine.CYC_DOOR_ERROR + 1:
                     sound_Player = new Sound_Player();
                     mainFormLabelUpdate("문을 닫아주세요");
                     getInstance().frmFrame.GetfrmMain().show_Door_Close_Popup(getInstance().Retreive_slot);
@@ -314,7 +328,7 @@ namespace EL_BSS.Cycle
                     sound_Player.play_Sound(true);
                     NextStep();
                     break;
-                case CsDefine.CYC_DOOR_ERROR + 1:
+                case CsDefine.CYC_DOOR_ERROR + 2:
                     if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive &&
                         !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
@@ -348,7 +362,7 @@ namespace EL_BSS.Cycle
         public static DateTime nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
         public static void OCPP_IntervalCycle()
         {
-            if (Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time != null && Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time.Value.AddSeconds(10) <= DateTime.Now &&
+            if (Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time != null && Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time.Value.AddSeconds(10) <= DateTime.Now &&  // 왭소켓 제연결
                 !Model.getInstance().oCPP_Comm_Manager.get_WebSocket_State())
             {
                 Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time = null;
@@ -370,13 +384,13 @@ namespace EL_BSS.Cycle
             {
                 nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
 
-                /*Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
+                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(0);
                 Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_StaionInfo(1);
 
                 for (int i = 0; i < 8; i++)
                 {
                     Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInfoStationBatteryState(i);
-                }*/
+                }
             }
         }
 
