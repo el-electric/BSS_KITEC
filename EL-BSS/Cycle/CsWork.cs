@@ -25,6 +25,7 @@ namespace EL_BSS.Cycle
         public static int CurrentStep = 0;
         static int recvSlot1;
         static int recvSlot2;
+        static Nullable<DateTime> dt_Door_Error = null;
 
         private static Sound_Player sound_Player;
 
@@ -203,6 +204,16 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 case CsDefine.CYC_MAIN + 10:
+                    
+
+                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive )
+                    {
+                        // JumpStep(CsDefine.CYC_DOOR_ERROR);
+                        NextStep();
+                    }
+                    
+                    break;
+                case CsDefine.CYC_MAIN + 11:
                     if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive &&
                         !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
@@ -221,13 +232,12 @@ namespace EL_BSS.Cycle
                         mainFormLabelUpdate("배터리를 빼고 문을 닫아주세요");
                     }
 
-                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
+                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000)
                     {
-                        JumpStep(CsDefine.CYC_DOOR_ERROR);
+                        
                     }
-
                     break;
-                case CsDefine.CYC_MAIN + 11:
+                case CsDefine.CYC_MAIN + 12:
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
                     {
                         JumpStep(CsDefine.CYC_INIT);
@@ -252,7 +262,6 @@ namespace EL_BSS.Cycle
                         {
                             case "00000":
                                 frmFrame.deleMenuClick(5, "배터리 인증 성공");
-
                                 JumpStep(CsDefine.CYC_MAIN + 7);
                                 break;
                             case "11101":
@@ -304,21 +313,7 @@ namespace EL_BSS.Cycle
 
                 case CsDefine.CYC_TEMP + 1:
                     break;
-                case CsDefine.CYC_DOOR_ERROR:
-
-                    
-                    if ((!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive) ||
-                        (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive))
-                    {
-                        JumpStep(CsDefine.CYC_MAIN + 10);
-                    }
-
-                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000)
-                    {
-                        NextStep();
-                    }
-                    break;
-
+                
                 case CsDefine.CYC_DOOR_ERROR + 1:
                     sound_Player = new Sound_Player();
                     mainFormLabelUpdate("문을 닫아주세요");
@@ -339,7 +334,7 @@ namespace EL_BSS.Cycle
                         Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_battery_Excange_Finished(enumData.finished.ToString());
                         Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(getInstance().Retreive_slot[0] - 1, Battery_Error.Door_Closing_Error, false);
                         Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(getInstance().Retreive_slot[1] - 1, Battery_Error.Door_Closing_Error, false);
-                        CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                        JumpStep(CsDefine.CYC_INIT);
                     }
                     else if (getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor &&
                         getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor)

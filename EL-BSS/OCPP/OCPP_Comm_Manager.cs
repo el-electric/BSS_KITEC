@@ -23,6 +23,9 @@ using System.Windows;
 using System.Windows.Ink;
 using System.Windows.Interop;
 using System.Windows.Forms;
+using System.Net.WebSockets;
+using WebSocket = WebSocket4Net.WebSocket;
+using WebSocketState = WebSocket4Net.WebSocketState;
 
 namespace BatteryChangeCharger.OCPP
 {
@@ -47,7 +50,7 @@ namespace BatteryChangeCharger.OCPP
             websocket.AutoSendPingInterval = 300;
             websocket.Opened += new EventHandler(WebSocket_Opened);
             websocket.Closed += new EventHandler(WebSocket_Closed);
-            websocket.MessageReceived += new EventHandler<MessageReceivedEventArgs>(WebSocket_MessageReceived);
+            websocket.MessageReceived += WebSocket_MessageReceived;
             websocket.Error += new EventHandler<SuperSocket.ClientEngine.ErrorEventArgs>(WebSocket_Error);
 
             //while (websocket.State != WebSocketState.Open)

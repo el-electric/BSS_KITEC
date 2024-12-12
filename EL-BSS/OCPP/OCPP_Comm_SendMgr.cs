@@ -106,25 +106,25 @@ namespace EL_DC_Charger.ocpp.ver16.comm
         {
             string Info = "";
 
-                List<Battery_Error> info_array = new List<Battery_Error>();
+            List<Battery_Error> info_array = new List<Battery_Error>();
 
-                var dic_Battery_Error_Code = Model.getInstance().Battery_Error_Code[ChannelIdx];
+            var dic_Battery_Error_Code = Model.getInstance().Battery_Error_Code[ChannelIdx];
 
-                foreach (var error in dic_Battery_Error_Code)
+            foreach (var error in dic_Battery_Error_Code)
+            {
+                if (error.Value == true)
                 {
-                    if (error.Value == true)
-                    {
-                        info_array.Add(error.Key);
-                    }
+                    info_array.Add(error.Key);
                 }
+            }
 
             Info = JsonConvert.SerializeObject(info_array, new StringEnumConverter());
-                /*info = info.Replace("\", "");*/
-                //string subStringList = "[\\]";
-                //Info = Regex.Replace(enum_info, subStringList, "");
+            /*info = info.Replace("\", "");*/
+            //string subStringList = "[\\]";
+            //Info = Regex.Replace(enum_info, subStringList, "");
 
-                var json_Info = JsonConvert.DeserializeObject<List<string>>(Info); // 보낼때 \가 붙어서 다시 json으로 바꿈
-            
+            var json_Info = JsonConvert.DeserializeObject<List<string>>(Info); // 보낼때 \가 붙어서 다시 json으로 바꿈
+
 
             var data = new Object[]
             {
@@ -347,6 +347,12 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             List<SET_Batteries_Value> returnBatteries = new List<SET_Batteries_Value>();
             List<SET_Batteries_Value> lentBatteries = new List<SET_Batteries_Value>();
 
+            returnid[0] = 1;
+            returnid[1] = 2;
+            lentid[0] = 3;
+            lentid[1] = 4;
+            getInstance().Authorize.userNo = 4226;
+            getInstance().Authorize.userName = "4226";
             for (int i = 0; i <= 1; i++)
             {
                 SET_Batteries_Value m_returnBatteries = new SET_Batteries_Value(returnid[i]);
@@ -483,7 +489,7 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             };
 
             string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
-            
+
             if (Model.getInstance().Send_bootnotification)
             {
                 Model.getInstance().oCPP_Comm_Manager.SendMessagePacket(json);

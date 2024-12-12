@@ -44,6 +44,7 @@ namespace EL_BSS.Cycle
         public static DateTime[] dt_beforeDealy = new DateTime[31];
         public static DateTime[] dt_beforeCount = new DateTime[31];
 
+        public static int recvErrorcode = -1;
 
 
     }
