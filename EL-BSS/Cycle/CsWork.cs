@@ -14,6 +14,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using WebSocket4Net;
 using static EL_BSS.Model;
 using static System.Windows.Forms.AxHost;
@@ -26,7 +27,6 @@ namespace EL_BSS.Cycle
         static int recvSlot1;
         static int recvSlot2;
         static Nullable<DateTime> dt_Door_Error = null;
-
         private static Sound_Player sound_Player;
 
         public async static Task Main_WorkCycle() //자동동작 시퀀스
@@ -204,14 +204,14 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 case CsDefine.CYC_MAIN + 10:
-                    
 
-                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive )
+
+                    if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
                         // JumpStep(CsDefine.CYC_DOOR_ERROR);
                         NextStep();
                     }
-                    
+
                     break;
                 case CsDefine.CYC_MAIN + 11:
                     if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive &&
@@ -234,7 +234,7 @@ namespace EL_BSS.Cycle
 
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000)
                     {
-                        
+
                     }
                     break;
                 case CsDefine.CYC_MAIN + 12:
@@ -313,7 +313,7 @@ namespace EL_BSS.Cycle
 
                 case CsDefine.CYC_TEMP + 1:
                     break;
-                
+
                 case CsDefine.CYC_DOOR_ERROR + 1:
                     sound_Player = new Sound_Player();
                     mainFormLabelUpdate("문을 닫아주세요");
@@ -357,12 +357,12 @@ namespace EL_BSS.Cycle
         public static DateTime nextStationInfo = DateTime.Now.AddSeconds(getInstance().StationInfoInterval);
         public static void OCPP_IntervalCycle()
         {
-            if (Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time != null && Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time.Value.AddSeconds(10) <= DateTime.Now &&  // 왭소켓 제연결
+            /*if (Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time != null && Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time.Value.AddSeconds(10) <= DateTime.Now &&  // 왭소켓 제연결
                 !Model.getInstance().oCPP_Comm_Manager.get_WebSocket_State())
             {
                 Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time = null;
                 Model.getInstance().oCPP_Comm_Manager.WebSocketOpen();
-            }
+            }*/
 
             if (Model.getInstance().Send_bootnotification) Model.getInstance().oCPP_Comm_Manager.Send_Packet_Buffer(Model.getInstance().oCPP_Comm_Manager.buffer);
 

@@ -347,12 +347,6 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             List<SET_Batteries_Value> returnBatteries = new List<SET_Batteries_Value>();
             List<SET_Batteries_Value> lentBatteries = new List<SET_Batteries_Value>();
 
-            returnid[0] = 1;
-            returnid[1] = 2;
-            lentid[0] = 3;
-            lentid[1] = 4;
-            getInstance().Authorize.userNo = 4226;
-            getInstance().Authorize.userName = "4226";
             for (int i = 0; i <= 1; i++)
             {
                 SET_Batteries_Value m_returnBatteries = new SET_Batteries_Value(returnid[i]);

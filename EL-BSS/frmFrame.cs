@@ -13,9 +13,11 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using static EL_BSS.frmNotiPopup;
 using static EL_BSS.Model;
+using Timer = System.Windows.Forms.Timer;
 
 namespace EL_BSS
 {
@@ -28,7 +30,7 @@ namespace EL_BSS
 
         public List<IObserver> observers = new List<IObserver>();
         private Model.SlaveSend slaveSend;
-
+        Timer timer;
         public UC_Main userControl1;
         frmMain frmMain;
         frmManual frmManual;
@@ -94,6 +96,10 @@ namespace EL_BSS
 
             if (!bck_Sequnce.IsBusy)
                 bck_Sequnce.RunWorkerAsync();
+            timer = new Timer();
+            timer.Interval = 1;
+            timer.Tick += Timer_Tick;
+            timer.Enabled = true;
 
             if (!bck_Counting.IsBusy)
                 bck_Counting.RunWorkerAsync();
@@ -108,6 +114,13 @@ namespace EL_BSS
 
 
             showNotiForm("Attempt to connect to server");
+        }
+
+        private async void Timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            await CsWork.Main_WorkCycle();
+            timer.Start();
         }
 
         public static void deleMenuClick(int idx, string context = "")
@@ -213,7 +226,8 @@ namespace EL_BSS
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message + ex.InnerException);
+                        // MessageBox.Show(ex.Message + ex.InnerException);
+                        CsUtil.WriteLog(ex.Message + ex.InnerException, "SCREEN_ERROR");
                     }
                     Application.ExitThread(); // 메시지 루프를 종료
                     Environment.Exit(0); // 프로세스를 강제 종료
@@ -368,16 +382,16 @@ namespace EL_BSS
         int max_soc;
         bool find_100SOC_Battery = false;
         DateTime minute2;
+
+
+
         private async void bck_Sequnce_DoWork(object sender, DoWorkEventArgs e)
         {
             while (ThreadRun)
             {
-                await CsWork.Main_WorkCycle();
+                //await CsWork.Main_WorkCycle();
                 CsWork.OCPP_IntervalCycle();
                 CsWakeup.interverWakeUP(); // 배터리가 슬롯에 왔을떄 wakeup을 시켜줌
-
-                /*if (!sp_Slave.is_slave_opened()) sp_Slave.Open(Model.getInstance().Slave_PortName);
-                if (!sp_Master.is_master_open()) sp_Master.Open(Model.getInstance().Master_PortName);*/
 
                 Model.getInstance().csErrorControl.Check_Error_Occured();
                 Thread.Sleep(1);
