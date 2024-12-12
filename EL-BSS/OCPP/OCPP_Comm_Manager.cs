@@ -63,7 +63,7 @@ namespace BatteryChangeCharger.OCPP
         {
             websocket.Open();
         }
-        public void WebSocketClose() 
+        public void WebSocketClose()
         {
             websocket.Close();
         }
@@ -148,51 +148,57 @@ namespace BatteryChangeCharger.OCPP
             // 메시지에서 UId 추출 및 멤버 변수에 대입
             string currentRequestId = JsonConvert.DeserializeObject<JArray>(message)?[1]?.ToString();
 
-            var tcs = new TaskCompletionSource<string>();
-            responseTasks.TryAdd(currentRequestId, tcs);
-
-
             Console.WriteLine("Message SEND : " + message);
+            var tcs = new TaskCompletionSource<string>();
+            responseTasks[currentRequestId] = tcs;
+
             // 메시지 전송
             websocket.Send(message);
             Model.getInstance().set_test_csms_buffer(message); // 프리테스트용
-
-            // 응답 대기 (타임아웃을 설정할 수도 있음)
-            using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)))
+            try
             {
-                cts.Token.Register(() => tcs.TrySetCanceled());
-                try
+                var timeoutTask = Task.Delay(5000); //타임아웃 설정
+                var completedTask = await Task.WhenAny(tcs.Task, timeoutTask);
+
+                if (completedTask == timeoutTask)
                 {
-                    return await tcs.Task;
+                    return "TIMEOUT";
                 }
-                catch (TaskCanceledException)
+                else
                 {
-                    Console.WriteLine("Timeout waiting for response.");
-                    return null;
+                    string response = await tcs.Task;
+                    return response;
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("메시지 전송 에러 : " + ex.Message);
+                return null;
+            }
+            finally
+            {
+                responseTasks.TryRemove(currentRequestId, out _);
             }
         }
         private void WebSocket_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
             Console.WriteLine("Message received: " + e.Message + " TIMESTAMP " + DateTime.Now.ToString("hh mm ss"));
-            string messageId = null;
+            string responseUid = JsonConvert.DeserializeObject<JArray>(e.Message)?[1]?.ToString();
             try
             {
-                messageId = JsonConvert.DeserializeObject<JArray>(e.Message)?[1]?.ToString();
+                Model.getInstance().oCPP_Comm_SendMgr.ReceivedPacket(e.Message);
+
+                if (responseUid != null && responseTasks.TryRemove(responseUid, out var tcs))
+                {
+                    tcs.SetResult(e.Message);
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Message received Error: " + ex.Message);
             }
 
-            if (messageId != null && responseTasks.TryRemove(messageId, out var tcs))
-            {
-                tcs.SetResult(e.Message);
-            }
-            else
-            {
-                Model.getInstance().oCPP_Comm_SendMgr.ReceivedPacket(e.Message);
-            }
+
         }
         public void SendMessagePacket(string message)
         {
