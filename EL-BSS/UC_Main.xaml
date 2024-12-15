@@ -115,7 +115,7 @@
             <TextBlock Text=" QR CODE " Foreground="#3e4759" HorizontalAlignment="Center" FontSize="32" Margin="0,10,0,0" FontWeight="Bold" FontFamily="/Resources/Pretendard"/>
 
 
-            <Button x:Name="btn_stop" Foreground="white" FontSize="28" Content="STATION START" BorderBrush="#3e4759" Background="#2f89f5" Width="280" Height="85" HorizontalAlignment="Center" Margin="0,100,0,0" Click="btn_stop_Click" FocusVisualStyle="{x:Null}" FontFamily="/Resources/Pretendard">
+            <Button x:Name="btn_stop" Foreground="white" FontSize="28" Content="STATION START" BorderBrush="#3e4759" Background="#2f89f5" Width="280" Height="85" HorizontalAlignment="Center" Margin="0,50,0,0" Click="btn_stop_Click" FocusVisualStyle="{x:Null}" FontFamily="/Resources/Pretendard">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"/>
@@ -125,6 +125,14 @@
                     <DropShadowEffect ShadowDepth="1"/>
                 </Button.Effect>
             </Button>
+
+            <Border x:Name="Border_Voltimos" CornerRadius="10" Width="130" Height="130" BorderThickness="3"  Background="White" Margin="0,30,0,0" BorderBrush="#262d39">
+                <Image Width="120" Height="120" x:Name="img_qr_voltimos"/>
+                <Border.Effect>
+                    <DropShadowEffect Color="Gray" Opacity="0.5" BlurRadius="10" Direction="320" ShadowDepth="2"/>
+                </Border.Effect>
+            </Border>
+            <TextBlock Text="INSTALL VOLTYMOS" Foreground="#3e4759" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" FontWeight="Bold" FontFamily="/Resources/Pretendard"/>
 
             <Button x:Name="btn_test" Content="test" Width="50" Height="50" Margin="0,100,0,0"  HorizontalAlignment="Center" Click="btn_test_Click_1" Visibility="Collapsed"/>
 

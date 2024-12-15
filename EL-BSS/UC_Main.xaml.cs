@@ -122,6 +122,16 @@ namespace EL_BSS
             if (qr_data != "")
                 img_qr.Source = ConvertBitmapToBitmapImage(barcodeWriter.Write(qr_data));
 
+            
+            ZXing.BarcodeWriter voltymos_qr = new ZXing.BarcodeWriter();
+            voltymos_qr.Format = ZXing.BarcodeFormat.QR_CODE;
+            voltymos_qr.Options.Margin = 0;
+            voltymos_qr.Options.Width = 110;
+            voltymos_qr.Options.Height = 110;
+            string qr_vos = "https://www.naver.com/";
+            if (qr_vos != "")
+                img_qr_voltimos.Source = ConvertBitmapToBitmapImage(voltymos_qr.Write(qr_vos));
+
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             string versionString = $"{version.Major}.{version.Minor}.{version.Build}";
 
