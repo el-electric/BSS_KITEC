@@ -234,7 +234,7 @@ namespace EL_BSS.Cycle
 
                     if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 15000)
                     {
-
+                        JumpStep(CsDefine.CYC_DOOR_ERROR);
                     }
                     break;
                 case CsDefine.CYC_MAIN + 12:
@@ -314,7 +314,7 @@ namespace EL_BSS.Cycle
                 case CsDefine.CYC_TEMP + 1:
                     break;
 
-                case CsDefine.CYC_DOOR_ERROR + 1:
+                case CsDefine.CYC_DOOR_ERROR:
                     sound_Player = new Sound_Player();
                     mainFormLabelUpdate("문을 닫아주세요");
                     getInstance().frmFrame.GetfrmMain().show_Door_Close_Popup(getInstance().Retreive_slot);
@@ -323,7 +323,7 @@ namespace EL_BSS.Cycle
                     sound_Player.play_Sound(true);
                     NextStep();
                     break;
-                case CsDefine.CYC_DOOR_ERROR + 2:
+                case CsDefine.CYC_DOOR_ERROR + 1:
                     if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive &&
                         !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {

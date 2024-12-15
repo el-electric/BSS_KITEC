@@ -73,6 +73,7 @@ namespace EL_BSS
 
 #if DEBUG
                         btn_test.Visibility = Visibility.Visible;
+                        panel_version.Visibility = Visibility.Visible;
 #endif
 
             /*Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -342,6 +343,7 @@ namespace EL_BSS
         }
 
         private bool test = false;
+        private bool test_1 = false;
 
         private void btn_test_Click_1(object sender, RoutedEventArgs e)
         {
@@ -384,15 +386,30 @@ namespace EL_BSS
             }*/
 
             if (!Model.getInstance().test_button)
-            { 
+            {
                 Model.getInstance().test_button = true;
                 Model.getInstance().list_SlaveRecv[6].Battery_Slot_Temp = 100;
             }
             else
-            { 
+            {
                 Model.getInstance().test_button = false;
                 Model.getInstance().list_SlaveRecv[6].Battery_Slot_Temp = 0;
             }
+
+            /* if (!this.test_1)
+             {
+                 this.test_1 = true;
+                 Model.getInstance().frmFrame.GetfrmMain().show_Door_Close_Popup(new int[2] {0,0});
+
+                 Task.Delay(3000).ContinueWith(t => {
+                     Model.getInstance().frmFrame.GetfrmMain().close_Door_Close_Popup();
+                 });
+             }*/
+            /*else
+            {
+                this.test_1 = false;
+                Model.getInstance().frmFrame.GetfrmMain().close_Door_Close_Popup();
+            }*/
 
             // CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_DOOR_ERROR;
 

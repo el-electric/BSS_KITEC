@@ -155,7 +155,7 @@
             <Rectangle x:Name="masterStatus_1" Width="10" Height="10" Grid.Column="0" Grid.Row="0" Fill="Red"/>
             <Rectangle x:Name="MasterStatus_2" Width="10" Height="10" Grid.Column="1" Grid.Row="0" Fill="Red"/>
         </Grid>
-        <StackPanel Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10">
+        <StackPanel Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" Visibility="Collapsed" x:Name="panel_version">
             <TextBlock x:Name="fw_version" Text="" Foreground="Black" VerticalAlignment="Bottom"/>
             <TextBlock x:Name="sw_version" Text="" Foreground="Black" VerticalAlignment="Bottom" Margin="0,10,0,0" />
         </StackPanel>

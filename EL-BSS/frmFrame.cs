@@ -448,11 +448,6 @@ namespace EL_BSS
                 frmNotiPopup.ShowNotification();
             }));
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            frmNotiPopup frmNotiPopup = new frmNotiPopup(this);
-            frmNotiPopup.ShowNotification();
-        }
 
         public frmMain GetfrmMain() { return frmMain; }
 
