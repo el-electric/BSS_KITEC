@@ -429,5 +429,11 @@ namespace EL_BSS
         {
             Model.getInstance().bis_Click_Home_button = true;
         }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+
+        }
     }
 }

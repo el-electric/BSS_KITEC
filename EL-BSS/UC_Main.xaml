@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EL_BSS"
              mc:Ignorable="d" 
-             d:DesignHeight="694" d:DesignWidth="1024">
+             d:DesignHeight="694" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <!-- Border 스타일 정의 -->
         <Style x:Key="CustomBorderStyle" TargetType="Border">
@@ -22,7 +22,7 @@
             <ColumnDefinition Width="3*" x:Name="Right_Colunm"/>
         </Grid.ColumnDefinitions>
         <Grid>
-            <Image Source="/Resources/bssStation.png" RenderTransformOrigin="0.5,0.5" >
+            <Image Source="/Resources/bssStation_change2.png" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TranslateTransform x:Name="Image_translateTrnasform" Y="60"/>
                 </Image.RenderTransform>
@@ -132,9 +132,10 @@
                     <DropShadowEffect Color="Gray" Opacity="0.5" BlurRadius="10" Direction="320" ShadowDepth="2"/>
                 </Border.Effect>
             </Border>
-            <TextBlock Text="INSTALL VOLTYMOS" Foreground="#3e4759" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" FontWeight="Bold" FontFamily="/Resources/Pretendard"/>
 
-            <Button x:Name="btn_test" Content="test" Width="50" Height="50" Margin="0,100,0,0"  HorizontalAlignment="Center" Click="btn_test_Click_1" Visibility="Collapsed"/>
+                <TextBlock Text="INSTALL VOLTYMOS" Foreground="#3e4759" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" FontWeight="Bold" FontFamily="/Resources/Pretendard"/>
+
+                <Button x:Name="btn_test" Content="test" Width="50" Height="50" Margin="0,100,0,0"  HorizontalAlignment="Center" Click="btn_test_Click_1" Visibility="Collapsed"/>
 
 
         </StackPanel>

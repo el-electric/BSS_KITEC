@@ -3,6 +3,7 @@ using EL_BSS.Cycle;
 using EL_DC_Charger.ocpp.ver16.comm;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data.Entity.Infrastructure;
 using System.IdentityModel;
 using System.IO.Ports;
@@ -404,10 +405,11 @@ namespace EL_BSS.Serial
         {
             for (int i = 0; i < 8; i++)
             {
-            https://elelectric.daouoffice.com/app/welfare
                 Model.getInstance().list_SlaveSend[i].BatteryOutput = false;
             }
         }
+
+        private static int[] Slot_Check_Array = new int[8] { 0, 4, 1, 5, 2, 6, 3, 7 };
 
         public static bool Check_able_battery_slot()
         {
@@ -415,24 +417,23 @@ namespace EL_BSS.Serial
             int check_Retreive_slot_Count = 0;
             int check_lent_Slot_Count = 0;
 
-            for (int i = 1; i <= 8; i++)
+            for (int i = 0; i <= 7; i++)
             {
-                if (Model.getInstance().list_SlaveRecv[i - 1].BatterArrive &&
-                    Model.getInstance().list_SlaveRecv[i - 1].SOC == 100 &&
-                    !Model.getInstance().list_SlaveRecv[i - 1].Error_Occured &&
-                    Model.getInstance().list_SlaveRecv[i - 1].Check_BatteryVoltage_Type == Model.getInstance().Authorize.batteryType &&
+                if (Model.getInstance().list_SlaveRecv[Slot_Check_Array[i]].BatterArrive &&
+                    Model.getInstance().list_SlaveRecv[Slot_Check_Array[i]].SOC == 100 &&
+                    !Model.getInstance().list_SlaveRecv[Slot_Check_Array[i]].Error_Occured &&
+                    Model.getInstance().list_SlaveRecv[Slot_Check_Array[i]].Check_BatteryVoltage_Type == Model.getInstance().Authorize.batteryType &&
                     check_Retreive_slot_Count != 2)
                 {
                     check_Retreive_slot_Count++;
-                    Model.getInstance().Retreive_slot[check_Retreive_slot_Count - 1] = i;
-                    Model.getInstance().list_SlaveRecv[i - 1].isSequence = true;
-
+                    Model.getInstance().Retreive_slot[check_Retreive_slot_Count - 1] = Slot_Check_Array[i] + 1;
+                    Model.getInstance().list_SlaveRecv[Slot_Check_Array[i]].isSequence = true;
                 }
-                else if (!Model.getInstance().list_SlaveRecv[i - 1].BatterArrive && check_lent_Slot_Count != 2)
+                else if (!Model.getInstance().list_SlaveRecv[Slot_Check_Array[i]].BatterArrive && check_lent_Slot_Count != 2)
                 {
                     check_lent_Slot_Count++;
-                    Model.getInstance().Lent_slot[check_lent_Slot_Count - 1] = i;
-                    Model.getInstance().list_SlaveRecv[i - 1].isSequence = true;
+                    Model.getInstance().Lent_slot[check_lent_Slot_Count - 1] = Slot_Check_Array[i] + 1;
+                    Model.getInstance().list_SlaveRecv[Slot_Check_Array[i]].isSequence = true;
                 }
 
                 if (check_Retreive_slot_Count == 2 && check_lent_Slot_Count == 2)

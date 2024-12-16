@@ -39,7 +39,21 @@ namespace EL_BSS
         {
             mSLot_Number = Slot_Number;
             gb_Slot.Text = mSLot_Number + "번 슬롯";
+
+
+            for (int i = 1; i < 9; i++)
+            {
+                cb_Slot_num.Items.Add(i);
+            }
+            cb_Slot_num.Text = "1";
         }
+
+        private void cb_Slot_num_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mSLot_Number = int.Parse(cb_Slot_num.Text);
+            gb_Slot.Text = mSLot_Number + "번 슬롯";
+        }
+
         string val;
         public void updateView()
         {
@@ -306,5 +320,7 @@ namespace EL_BSS
         {
             Model.getInstance().list_SlaveRecv[mSLot_Number - 1].DischargingMode = cb_discharging.Checked;
         }
+
+        
     }
 }

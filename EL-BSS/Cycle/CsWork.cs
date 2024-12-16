@@ -194,7 +194,7 @@ namespace EL_BSS.Cycle
                     NextStep();
                     break;
                 case CsDefine.CYC_MAIN + 9:
-                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 5000)
+                    if (CsDefine.Delayed[CsDefine.CYC_RUN] >= 1000)
                     {
                         getInstance().list_SlaveSend[getInstance().Retreive_slot[0] - 1].doorOpen = true;
                         getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
@@ -208,7 +208,6 @@ namespace EL_BSS.Cycle
 
                     if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
-                        // JumpStep(CsDefine.CYC_DOOR_ERROR);
                         NextStep();
                     }
 

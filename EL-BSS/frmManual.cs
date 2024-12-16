@@ -18,7 +18,7 @@ namespace EL_BSS
 {
     public partial class frmManual : Form, IObserver
     {
-        protected frmSubManual[] mLayouts = new frmSubManual[8];
+        protected frmSubManual frmSubManual = new frmSubManual();
         protected frmMaster_Manual master_layout = new frmMaster_Manual();
         public System.Timers.Timer timer = new System.Timers.Timer();
         Vkeyvoard VKeyboard = new Vkeyvoard();
@@ -34,13 +34,18 @@ namespace EL_BSS
             flowLayoutPanel2.Controls.Add(master_layout);
             master_layout.Show();
 
-            for (int i = 1; i < 9; i++)
+            /*for (int i = 1; i < 9; i++)
             {
                 mLayouts[i - 1] = new frmSubManual(i);  // 하나씩 래이아웃에 집어넣음
                 mLayouts[i - 1].TopLevel = false;  // topLevel를 false로                
                 flowLayoutPanel2.Controls.Add(mLayouts[i - 1]);
                 mLayouts[i - 1].Show();
-            }
+            }*/
+
+            frmSubManual = new frmSubManual(1);  // 하나씩 래이아웃에 집어넣음
+            frmSubManual.TopLevel = false;  // topLevel를 false로                
+            flowLayoutPanel2.Controls.Add(frmSubManual);
+            frmSubManual.Show();
 
             updateView();
 
@@ -52,10 +57,7 @@ namespace EL_BSS
             this.BeginInvoke(new MethodInvoker(delegate ()
             {
                 master_layout.updateView();
-                for (int i = 1; i < 9; i++)
-                {
-                    mLayouts[i - 1].updateView();
-                }
+                frmSubManual.updateView();
             }));
         }
 

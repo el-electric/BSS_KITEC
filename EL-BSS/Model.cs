@@ -203,7 +203,7 @@ namespace EL_BSS
 
                     test_uid_length++;
 
-                    if (test_uid_length == 1024)
+                    if (test_uid_length >= 1010)
                     {
                         uid_array = new string[1024, 2];
                         test_uid_length = 0;
