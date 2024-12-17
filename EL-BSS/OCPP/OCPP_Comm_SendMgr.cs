@@ -570,7 +570,8 @@ namespace EL_DC_Charger.ocpp.ver16.comm
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString() + " 패킷 json 변환 실패");
+                // Console.WriteLine(ex.ToString() + " 패킷 json 변환 실패");
+                CsUtil.WriteLog("변환실패" + ex.Message, "PACKET_ERROR" + _packet);
             }
         }
         private string getTime()

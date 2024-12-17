@@ -14,6 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static EL_BSS.Model;
 using EL_DC_Charger.ocpp.ver16.packet.cp2csms;
 using EL_BSS.Cycle;
+using System.Threading;
 
 namespace EL_BSS
 {
@@ -70,7 +71,7 @@ namespace EL_BSS
                     string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_Authorize(identificationCode , securityCode);
                     btn_enter.Enabled = true;
 
-                    if (response == null)
+                    if (response == null || response == "TIMEOUT")
                     {
                         lbl_sub_status.Text = "서버 응답 없음";
                         return;

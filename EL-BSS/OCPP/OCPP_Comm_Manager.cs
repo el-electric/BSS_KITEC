@@ -134,15 +134,24 @@ namespace BatteryChangeCharger.OCPP
             Console.WriteLine("WebSocket connection opened.");
             Model.getInstance().frmFrame.lamp_ems.On = true;
             string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
-            Model.getInstance().set_test_csms_buffer(response);
-            JArray jsonArray = JArray.Parse(response);
-            if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
+            
+            try
             {
-                Model.getInstance().StationInfoInterval = (int)jsonArray[2]["interval"];
+                Model.getInstance().set_test_csms_buffer(response);
+                JArray jsonArray = JArray.Parse(response);
+                if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
+                {
+                    Model.getInstance().StationInfoInterval = (int)jsonArray[2]["interval"];
 
-                Model.getInstance().frmFrame.viewForm(0);
+                    Model.getInstance().frmFrame.viewForm(0);
 
-                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
+                }
+            }
+            catch (Exception ex) 
+            {
+                CsUtil.WriteLog("Bootnotification error" + response, "PACKET_ERROR");
+                websocket.Close(); 
             }
         }
 

@@ -62,8 +62,6 @@ namespace EL_BSS.Cycle
                     getInstance().Lent_slot[0] = 0;
                     getInstance().Lent_slot[1] = 0;
 
-
-
                     for (int i = 0; i < 8; i++)
                     {
                         getInstance().list_SlaveRecv[i].isSequence = false;
@@ -204,8 +202,6 @@ namespace EL_BSS.Cycle
                     }
                     break;
                 case CsDefine.CYC_MAIN + 10:
-
-
                     if (!getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive)
                     {
                         NextStep();
@@ -249,11 +245,14 @@ namespace EL_BSS.Cycle
                     //CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_TEMP + 1;
 
 
-                    if ((getInstance().Authorize.returnbatteryId[0].Equals(getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString()) &&  // 서버에서 받은 batteryid와 배터리에서 받은 serialnum이 일치할때
+                    if (
+                        ((getInstance().Authorize.returnbatteryId[0].Equals(getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString()) &&  // 서버에서 받은 batteryid와 배터리에서 받은 serialnum이 일치할때
                         getInstance().Authorize.returnbatteryId[1].Equals(getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString()))
                         ||
                         (getInstance().Authorize.returnbatteryId[1].Equals(getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Serial_Number.ToString()) &&
-                         getInstance().Authorize.returnbatteryId[0].Equals(getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString())))
+                         getInstance().Authorize.returnbatteryId[0].Equals(getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Serial_Number.ToString()))) &&
+                         is_Same_Battery_Type()
+                         )
                     {
                         string response = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(Model.getInstance().Lent_slot, Model.getInstance().Retreive_slot);
 
@@ -264,35 +263,35 @@ namespace EL_BSS.Cycle
                                 JumpStep(CsDefine.CYC_MAIN + 7);
                                 break;
                             case "11101":
-                                frmFrame.deleMenuClick(5, "배터리를 찾을 수 없습니다.");
+                                getInstance().frmFrame.NotiShow("배터리를 찾을 수 없습니다.", 10000);
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             case "11102":
-                                frmFrame.deleMenuClick(5, "배터리 세트를 찾을 수 없습니다.");
+                                getInstance().frmFrame.NotiShow("배터리 세트를 찾을 수 없습니다.", 10000);
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             case "10002":
-                                frmFrame.deleMenuClick(5, "이용자가 없습니다.");
+                                getInstance().frmFrame.NotiShow("이용자가 없습니다.", 10000);
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             case "12102":
-                                frmFrame.deleMenuClick(5, "스테이션이 존재하지 않습니다.");
+                                getInstance().frmFrame.NotiShow("스테이션이 존재하지 않습니다.", 10000);
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
                                 CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
                                 break;
                             default:
-                                frmFrame.deleMenuClick(5, "없는 애러코드");
+                                getInstance().frmFrame.NotiShow("없는 에러코드 -" + response, 10000);
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
                                 Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
                                 frmFrame.deleMenuClick(0);
@@ -335,8 +334,8 @@ namespace EL_BSS.Cycle
                         Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(getInstance().Retreive_slot[1] - 1, Battery_Error.Door_Closing_Error, false);
                         JumpStep(CsDefine.CYC_INIT);
                     }
-                    else if (getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor &&
-                        getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive && !getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor)
+                    else if (getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].BatterArrive && getInstance().list_SlaveRecv[getInstance().Retreive_slot[0] - 1].isDoor &&
+                        getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].BatterArrive && getInstance().list_SlaveRecv[getInstance().Retreive_slot[1] - 1].isDoor)
                     {
                         Model.getInstance().list_SlaveSend[getInstance().Retreive_slot[0] - 1].doorOpen = true;
                         Model.getInstance().list_SlaveSend[getInstance().Retreive_slot[1] - 1].doorOpen = true;
@@ -411,6 +410,17 @@ namespace EL_BSS.Cycle
         {
             CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
             getInstance().frmFrame.NotiShow("문제가 발생하였습니다. 관리자에게 문의해주세요\n" + context, 1000);
+        }
+
+        private static bool is_Same_Battery_Type()
+        {
+            if (getInstance().list_SlaveRecv[getInstance().Lent_slot[1] - 1].Check_BatteryVoltage_Type != getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Check_BatteryVoltage_Type)
+                return false;
+
+            if (Model.getInstance().Authorize.batteryType != getInstance().list_SlaveRecv[getInstance().Lent_slot[0] - 1].Check_BatteryVoltage_Type)
+                return false;
+
+            return true;
         }
 
     }
