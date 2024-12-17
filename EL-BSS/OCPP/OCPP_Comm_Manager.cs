@@ -32,13 +32,14 @@ namespace BatteryChangeCharger.OCPP
     public class OCPP_Comm_Manager
     {
 
-        private static WebSocket websocket;
+        public static WebSocket websocket;
         //CancellationTokenSource cts = new CancellationTokenSource();
         //public System.Timers.Timer connectionCheckTimer;
         //bool isStop = false;
         private static ConcurrentDictionary<string, TaskCompletionSource<string>> responseTasks = new ConcurrentDictionary<string, TaskCompletionSource<string>>();
 
         public Nullable<DateTime> Server_Disconnect_Time = null;
+        private int Websocket_Error_Count = 0;
 
 
         string url;
@@ -59,21 +60,37 @@ namespace BatteryChangeCharger.OCPP
             //}
         }
 
-        private void Websocket_Closed(object sender, EventArgs e)
+        private async void Websocket_Closed(object sender, EventArgs e)
         {
-            websocket.Open();
-        }
+            // websocket.Open();
+
+            Console.WriteLine("WebSocket connection closed.");
+            Model.getInstance().frmFrame.lamp_ems.On = false;
+            Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time = DateTime.Now;
+
+            await Task.Delay(10000).ContinueWith(t => {
+                if(websocket.State != WebSocketState.Open || websocket.State != WebSocketState.Connecting)
+                websocket.Open(); 
+            });
+            }
 
         private void Websocket_Error(object sender, ErrorEventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show("error " + e.Exception.Message);
+            // System.Windows.Forms.MessageBox.Show("error " + e.Exception.Message);
             Console.WriteLine("WebSocket error: " + e.Exception.Message);
             CsUtil.WriteLog("WEBSOCKET_ERROR", "WSS");
             Model.getInstance().frmFrame.lamp_ems.On = false;
+
+            if (websocket.State != WebSocketState.Closed || websocket.State != WebSocketState.Closing)
+            {
+                websocket.Close();
+            }
+
         }
 
         public void WebSocketOpen()
         {
+            if(websocket.State != WebSocketState.Open && websocket.State != WebSocketState.Connecting)
             websocket.Open();
         }
         public void WebSocketClose()
@@ -88,7 +105,7 @@ namespace BatteryChangeCharger.OCPP
             //{
             //    CsUtil.WriteLog("WEBSOCKET_CLOSE", "WSS");
             //}
-            System.Windows.Forms.MessageBox.Show("WebSocket connection closed.");
+            websocket.Close();
             Console.WriteLine("WebSocket connection closed.");
             Model.getInstance().frmFrame.lamp_ems.On = false;
             Model.getInstance().oCPP_Comm_Manager.Server_Disconnect_Time = DateTime.Now;
@@ -117,15 +134,24 @@ namespace BatteryChangeCharger.OCPP
             Console.WriteLine("WebSocket connection opened.");
             Model.getInstance().frmFrame.lamp_ems.On = true;
             string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_BootNotification();
-            Model.getInstance().set_test_csms_buffer(response);
-            JArray jsonArray = JArray.Parse(response);
-            if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
+            
+            try
             {
-                Model.getInstance().StationInfoInterval = (int)jsonArray[2]["interval"];
+                Model.getInstance().set_test_csms_buffer(response);
+                JArray jsonArray = JArray.Parse(response);
+                if (jsonArray[2]["status"].ToString() == enumData.Accepted.ToString())
+                {
+                    Model.getInstance().StationInfoInterval = (int)jsonArray[2]["interval"];
 
-                Model.getInstance().frmFrame.viewForm(0);
+                    Model.getInstance().frmFrame.viewForm(0);
 
-                Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
+                    Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_AddInforBootNotification();
+                }
+            }
+            catch (Exception ex) 
+            {
+                CsUtil.WriteLog("Bootnotification error" + response, "PACKET_ERROR");
+                websocket.Close(); 
             }
         }
 

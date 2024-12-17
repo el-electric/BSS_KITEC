@@ -34,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DrakeUI.Framework, Version=1.3.5.0, Culture=neutral, PublicKeyToken=32bd1f5d97424e1c, processorArchitecture=MSIL">
@@ -422,9 +423,6 @@
     <EmbeddedResource Include="frmDoorClosePopup.resx">
       <DependentUpon>frmDoorClosePopup.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmFrame.en.resx">
-      <DependentUpon>frmFrame.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmMaster_Manual.resx">
       <DependentUpon>frmMaster_Manual.cs</DependentUpon>
     </EmbeddedResource>
@@ -488,9 +486,12 @@
     <Folder Include="OCPP\database\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\doorOpen_danger.png" />
+    <None Include="Resources\voltymoslogo.png" />
+    <Resource Include="Resources\bssStation_change2.png" />
+    <Resource Include="Resources\bssStation_change.png" />
+    <EmbeddedResource Include="Resources\doorOpen_danger.png" />
     <None Include="Resources\bss_illust_usingwarning.png" />
-    <None Include="Resources\dooropen_batteryin_error.png" />
+    <Resource Include="Resources\dooropen_batteryin_error.png" />
     <None Include="Resources\doorclose_batteryout_error.png" />
     <None Include="Resources\reddanger2.png" />
     <None Include="Resources\reddanger2.bmp" />

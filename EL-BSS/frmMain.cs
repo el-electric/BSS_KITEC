@@ -25,7 +25,6 @@ namespace EL_BSS
     {
         frmManual showfrmManual = new frmManual();
         frmunuseablePopup frmunuseablePopup;
-        frmDoorClosePopup frmDoorClosePopup;
 
         public frmMain()
         {
@@ -188,22 +187,23 @@ namespace EL_BSS
         public void show_Door_Close_Popup(int[] slot)
         {
             Form currentForm = this;
-            frmDoorClosePopup = new frmDoorClosePopup(slot);
-            frmDoorClosePopup.StartPosition = FormStartPosition.CenterScreen;
-            frmDoorClosePopup.Owner = this;
+            Model.getInstance().frmDoorClosePopup = new frmDoorClosePopup(slot);
+            Model.getInstance().frmDoorClosePopup.StartPosition = FormStartPosition.CenterScreen;
+            Model.getInstance().frmDoorClosePopup.Owner = this;
 
             this.BeginInvoke(new Action(() =>
             {
-                frmDoorClosePopup.Show();
+                Model.getInstance().frmDoorClosePopup.Show();
             }));
         }
 
         public void close_Door_Close_Popup()
         {
-            if (this.InvokeRequired) // Invoke 예외 처리
+            this.BeginInvoke(new Action(() =>
             {
-                frmDoorClosePopup.Close();
-            }
+                Model.getInstance().frmDoorClosePopup.Close();
+            }));
         }
+           
     }
 }

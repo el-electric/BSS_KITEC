@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Ink;
 using static EL_BSS.Model;
 
 namespace EL_BSS.Cycle
@@ -133,14 +134,28 @@ namespace EL_BSS.Cycle
                     model.list_SlaveRecv[slotid - 1].SOC < 100 &&
                     !model.list_SlaveRecv[slotid - 1].isSequence)
                     {
-                        model.list_SlaveSend[slotid - 1].BatteryFETON = true;
-                        model.list_SlaveSend[slotid - 1].BatteryOutput = true;
+                        if (model.list_SlaveRecv[slotid - 1].DischargingMode)
+                        {
+                            model.list_SlaveSend[slotid - 1].BatteryFETON = true;
+                        }
+                        else 
+                        {
+                            model.list_SlaveSend[slotid - 1].BatteryFETON = true;
+                            model.list_SlaveSend[slotid - 1].BatteryOutput = true;
+                        }
                     }
                 }
                 else  // 에러라면
                 {
-                    model.list_SlaveSend[slotid - 1].BatteryFETON = false;
-                    model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+                    if (!model.list_SlaveRecv[slotid - 1].isSequence)
+                    {
+                        model.list_SlaveSend[slotid - 1].BatteryFETON = false;
+                        model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+                    }
+                    else
+                    {
+                        model.list_SlaveSend[slotid - 1].BatteryOutput = false;
+                    }
                 }
 
                 if (model.list_SlaveRecv[slotid - 1].SOC == 100 || model.list_SlaveRecv[slotid - 1].isDoor)

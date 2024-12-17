@@ -28,7 +28,6 @@ using static EL_BSS.Model;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.AxHost;
 using Brush = System.Windows.Media.Brush;
-using Image = System.Windows.Controls.Image;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace EL_BSS
@@ -66,10 +65,6 @@ namespace EL_BSS
         private BitmapImage cachedDoorOpen_Error;
         private BitmapImage cachedDoorClose_Error;
 
-        //클릭으로 문열기
-        private DispatcherTimer longPressTimer;
-        private const int LongPressThreshold = 1000; // 롱클릭 시간 (밀리초)
-        private System.Windows.Controls.Image currentPressedImage;
         public UC_Main()
         {
             InitializeComponent();
@@ -77,7 +72,8 @@ namespace EL_BSS
             Loaded += UC_Main_Loaded;
 
 #if DEBUG
-            btn_test.Visibility = Visibility.Visible;
+                        btn_test.Visibility = Visibility.Visible;
+                        panel_version.Visibility = Visibility.Visible;
 #endif
 
             /*Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -95,22 +91,6 @@ namespace EL_BSS
             timer.Enabled = true;
 
             images = new System.Windows.Controls.Image[] { img_1, img_2, img_3, img_4, img_5, img_6, img_7, img_8 };
-
-            longPressTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(LongPressThreshold)
-            };
-            longPressTimer.Tick += LongPressTimer_Tick;
-            foreach (var image in images)
-            {
-                image.PreviewMouseLeftButtonDown += Image_MouseLeftButtonDown;
-                image.PreviewMouseLeftButtonUp += Image_MouseLeftButtonUp;
-                image.MouseLeave += Image_MouseLeave;
-            }
-
-
-
-
             socs = new TextBlock[] { soc_1, soc_2, soc_3, soc_4, soc_5, soc_6, soc_7, soc_8 };
             borders = new Border[] { border_1, border_2, border_3, border_4, border_5, border_6, border_7, border_8 };
             panels = new StackPanel[] { panel_1, panel_2, panel_3, panel_4, panel_5, panel_6, panel_7, panel_8 };
@@ -142,43 +122,21 @@ namespace EL_BSS
             if (qr_data != "")
                 img_qr.Source = ConvertBitmapToBitmapImage(barcodeWriter.Write(qr_data));
 
+            
+            ZXing.BarcodeWriter voltymos_qr = new ZXing.BarcodeWriter();
+            voltymos_qr.Format = ZXing.BarcodeFormat.QR_CODE;
+            voltymos_qr.Options.Margin = 0;
+            voltymos_qr.Options.Width = 110;
+            voltymos_qr.Options.Height = 110;
+            string qr_vos = "https://www.naver.com/";
+            if (qr_vos != "")
+                img_qr_voltimos.Source = ConvertBitmapToBitmapImage(voltymos_qr.Write(qr_vos));
+
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             string versionString = $"{version.Major}.{version.Minor}.{version.Build}";
 
-            sw_version.Text = "SW Ver : " + versionString;
-            fw_version.Text = "FW Ver : " + Model.getInstance().list_MasterRecv[0].FW_ver;
-        }
-
-        private void Image_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            longPressTimer.Stop();
-            currentPressedImage = null;
-        }
-
-        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            longPressTimer.Stop();
-            currentPressedImage = null;
-        }
-
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            currentPressedImage = sender as Image;
-            longPressTimer.Start();
-
-        }
-
-        private void LongPressTimer_Tick(object sender, EventArgs e)
-        {
-            longPressTimer.Stop();
-
-            if (currentPressedImage != null)
-            {
-                // 롱클릭 동작 처리
-                int idx = int.Parse(currentPressedImage.Name.Substring(4, 1)) - 1;
-                Model.getInstance().list_SlaveSend[idx].doorOpen = true;
-
-            }
+            sw_version.Text = "SW Ver : " +versionString;
+            fw_version.Text = "FW Ver : "+Model.getInstance().list_MasterRecv[0].FW_ver;
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -234,7 +192,7 @@ namespace EL_BSS
                         {
                             images[i].Source = cachedDoorOpen_Error;
                         }
-                        else
+                        else 
                         {
                             images[i].Source = cachedDoorOpen;
                         }
@@ -395,6 +353,7 @@ namespace EL_BSS
         }
 
         private bool test = false;
+        private bool test_1 = false;
 
         private void btn_test_Click_1(object sender, RoutedEventArgs e)
         {
@@ -447,6 +406,21 @@ namespace EL_BSS
                 Model.getInstance().list_SlaveRecv[6].Battery_Slot_Temp = 0;
             }
 
+            /* if (!this.test_1)
+             {
+                 this.test_1 = true;
+                 Model.getInstance().frmFrame.GetfrmMain().show_Door_Close_Popup(new int[2] {0,0});
+
+                 Task.Delay(3000).ContinueWith(t => {
+                     Model.getInstance().frmFrame.GetfrmMain().close_Door_Close_Popup();
+                 });
+             }*/
+            /*else
+            {
+                this.test_1 = false;
+                Model.getInstance().frmFrame.GetfrmMain().close_Door_Close_Popup();
+            }*/
+
             // CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_DOOR_ERROR;
 
         }
@@ -454,6 +428,12 @@ namespace EL_BSS
         private void btn_home_Click(object sender, RoutedEventArgs e)
         {
             Model.getInstance().bis_Click_Home_button = true;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+
         }
     }
 }

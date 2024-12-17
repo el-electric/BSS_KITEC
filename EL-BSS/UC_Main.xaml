@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EL_BSS"
              mc:Ignorable="d" 
-             d:DesignHeight="694" d:DesignWidth="1024">
+             d:DesignHeight="694" d:DesignWidth="1024" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <!-- Border 스타일 정의 -->
         <Style x:Key="CustomBorderStyle" TargetType="Border">
@@ -22,7 +22,7 @@
             <ColumnDefinition Width="3*" x:Name="Right_Colunm"/>
         </Grid.ColumnDefinitions>
         <Grid>
-            <Image Source="/Resources/bssStation.png" RenderTransformOrigin="0.5,0.5" >
+            <Image Source="/Resources/bssStation_change2.png" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TranslateTransform x:Name="Image_translateTrnasform" Y="60"/>
                 </Image.RenderTransform>
@@ -115,7 +115,7 @@
             <TextBlock Text=" QR CODE " Foreground="#3e4759" HorizontalAlignment="Center" FontSize="32" Margin="0,10,0,0" FontWeight="Bold" FontFamily="/Resources/Pretendard"/>
 
 
-            <Button x:Name="btn_stop" Foreground="white" FontSize="28" Content="STATION START" BorderBrush="#3e4759" Background="#2f89f5" Width="280" Height="85" HorizontalAlignment="Center" Margin="0,100,0,0" Click="btn_stop_Click" FocusVisualStyle="{x:Null}" FontFamily="/Resources/Pretendard">
+            <Button x:Name="btn_stop" Foreground="white" FontSize="28" Content="STATION START" BorderBrush="#3e4759" Background="#2f89f5" Width="280" Height="85" HorizontalAlignment="Center" Margin="0,50,0,0" Click="btn_stop_Click" FocusVisualStyle="{x:Null}" FontFamily="/Resources/Pretendard">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"/>
@@ -126,7 +126,16 @@
                 </Button.Effect>
             </Button>
 
-            <Button x:Name="btn_test" Content="test" Width="50" Height="50" Margin="0,100,0,0"  HorizontalAlignment="Center" Click="btn_test_Click_1" Visibility="Collapsed"/>
+            <Border x:Name="Border_Voltimos" CornerRadius="10" Width="130" Height="130" BorderThickness="3"  Background="White" Margin="0,30,0,0" BorderBrush="#262d39">
+                <Image Width="120" Height="120" x:Name="img_qr_voltimos"/>
+                <Border.Effect>
+                    <DropShadowEffect Color="Gray" Opacity="0.5" BlurRadius="10" Direction="320" ShadowDepth="2"/>
+                </Border.Effect>
+            </Border>
+
+                <TextBlock Text="INSTALL VOLTYMOS" Foreground="#3e4759" HorizontalAlignment="Center" FontSize="20" Margin="0,10,0,0" FontWeight="Bold" FontFamily="/Resources/Pretendard"/>
+
+                <Button x:Name="btn_test" Content="test" Width="50" Height="50" Margin="0,100,0,0"  HorizontalAlignment="Center" Click="btn_test_Click_1" Visibility="Collapsed"/>
 
 
         </StackPanel>
@@ -155,7 +164,7 @@
             <Rectangle x:Name="masterStatus_1" Width="10" Height="10" Grid.Column="0" Grid.Row="0" Fill="Red"/>
             <Rectangle x:Name="MasterStatus_2" Width="10" Height="10" Grid.Column="1" Grid.Row="0" Fill="Red"/>
         </Grid>
-        <StackPanel Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10">
+        <StackPanel Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" Visibility="Collapsed" x:Name="panel_version">
             <TextBlock x:Name="fw_version" Text="" Foreground="Black" VerticalAlignment="Bottom"/>
             <TextBlock x:Name="sw_version" Text="" Foreground="Black" VerticalAlignment="Bottom" Margin="0,10,0,0" />
         </StackPanel>

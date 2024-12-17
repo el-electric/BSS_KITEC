@@ -192,48 +192,65 @@ namespace EL_BSS
 
             if (value == null) return;
 
-            JArray jsonArray = JArray.Parse(value);
-
-            if (jsonArray[0].ToString() == "2")
+            try
             {
-                uid_array[test_uid_length, 0] = jsonArray[2].ToString();
-                uid_array[test_uid_length, 1] = jsonArray[1].ToString();
+                JArray jsonArray = JArray.Parse(value);
 
-                test_uid_length++;
-
-                if (test_uid_length == 1024)
+                if (jsonArray[0].ToString() == "2")
                 {
-                    uid_array = new string[1024, 2];
-                    test_uid_length = 0;
-                    test_csms_buffer = new List<string>();
-                }
+                    uid_array[test_uid_length, 0] = jsonArray[2].ToString();
+                    uid_array[test_uid_length, 1] = jsonArray[1].ToString();
 
-                packet_name = jsonArray[2].ToString();
-            }
-            else if(jsonArray[0].ToString() == "3")
-            {
-                for (int i = 0; i <= test_uid_length; i++)
-                {
-                    if (uid_array[i, 1] == jsonArray[1].ToString())
+                    test_uid_length++;
+
+                    if (test_uid_length >= 1010)
                     {
-                        packet_name = uid_array[i, 0];
+                        uid_array = new string[1024, 2];
+                        test_uid_length = 0;
+                        test_csms_buffer = new List<string>();
+                    }
+
+                    packet_name = jsonArray[2].ToString();
+                }
+                else if (jsonArray[0].ToString() == "3")
+                {
+                    for (int i = 0; i <= test_uid_length; i++)
+                    {
+                        if (uid_array[i, 1] == jsonArray[1].ToString())
+                        {
+                            packet_name = uid_array[i, 0];
+                        }
                     }
                 }
+
+                if (jsonArray[0].ToString() == "2") st_s_or_R = "보냄";
+                else if (jsonArray[0].ToString() == "3") st_s_or_R = "받음";
+
+                if (packet_name == "") packet_name = "없음";
+
+                format_text = DateTime.Now.ToString() + " " + packet_name + " " + st_s_or_R;
+                test_csms_buffer.Add(format_text);
+
+                if (frmTest_CSMS != null)
+                {
+                    frmTest_CSMS.input_text(format_text, true);
+                }
             }
-
-            if (jsonArray[0].ToString() == "2") st_s_or_R = "보냄";
-            else if(jsonArray[0].ToString() == "3") st_s_or_R = "받음";
-
-            if (packet_name == "") packet_name = "없음";
-
-            format_text = DateTime.Now.ToString() + " " + packet_name + " "+ st_s_or_R;
-            test_csms_buffer.Add(format_text);
-
-            if (frmTest_CSMS != null)
+            catch (Exception ex) 
             {
-                frmTest_CSMS.input_text(format_text, true);
+                Console.WriteLine(ex.ToString());
+
+                format_text = DateTime.Now.ToString() + " 패킷변환오류";
+                test_csms_buffer.Add(format_text);
+
+                if (frmTest_CSMS != null)
+                {
+                    frmTest_CSMS.input_text(format_text, true);
+                }
             }
-        }       
+        }
+
+        public frmDoorClosePopup frmDoorClosePopup;
 
         public class MasterSend
         {

@@ -74,6 +74,7 @@
             this.set_Current = new System.Windows.Forms.Button();
             this.put_Battery_curent = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cb_discharging = new System.Windows.Forms.CheckBox();
             this.Slot_Temp = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lb_battery_arrive = new System.Windows.Forms.Label();
@@ -82,7 +83,7 @@
             this.FET_Temp = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.manual_on = new System.Windows.Forms.Button();
-            this.cb_discharging = new System.Windows.Forms.CheckBox();
+            this.cb_Slot_num = new System.Windows.Forms.ComboBox();
             this.gb_Slot.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -237,7 +238,7 @@
             // 
             this.label9.BackColor = System.Drawing.Color.White;
             this.label9.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label9.Location = new System.Drawing.Point(14, 220);
+            this.label9.Location = new System.Drawing.Point(6, 22);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(93, 43);
             this.label9.TabIndex = 20;
@@ -248,7 +249,7 @@
             // 
             this.label10.BackColor = System.Drawing.Color.White;
             this.label10.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label10.Location = new System.Drawing.Point(348, 322);
+            this.label10.Location = new System.Drawing.Point(328, 118);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(36, 37);
             this.label10.TabIndex = 24;
@@ -259,7 +260,7 @@
             // 
             this.label11.BackColor = System.Drawing.Color.White;
             this.label11.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label11.Location = new System.Drawing.Point(230, 322);
+            this.label11.Location = new System.Drawing.Point(210, 118);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(36, 37);
             this.label11.TabIndex = 23;
@@ -270,7 +271,7 @@
             // 
             this.Battery_get_Wattage.BackColor = System.Drawing.Color.White;
             this.Battery_get_Wattage.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Battery_get_Wattage.Location = new System.Drawing.Point(272, 322);
+            this.Battery_get_Wattage.Location = new System.Drawing.Point(252, 118);
             this.Battery_get_Wattage.Name = "Battery_get_Wattage";
             this.Battery_get_Wattage.Size = new System.Drawing.Size(70, 37);
             this.Battery_get_Wattage.TabIndex = 22;
@@ -281,7 +282,7 @@
             // 
             this.Battery_get_Voltage.BackColor = System.Drawing.Color.White;
             this.Battery_get_Voltage.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Battery_get_Voltage.Location = new System.Drawing.Point(154, 322);
+            this.Battery_get_Voltage.Location = new System.Drawing.Point(137, 118);
             this.Battery_get_Voltage.Name = "Battery_get_Voltage";
             this.Battery_get_Voltage.Size = new System.Drawing.Size(70, 37);
             this.Battery_get_Voltage.TabIndex = 21;
@@ -292,7 +293,7 @@
             // 
             this.Process_State.BackColor = System.Drawing.Color.White;
             this.Process_State.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Process_State.Location = new System.Drawing.Point(110, 273);
+            this.Process_State.Location = new System.Drawing.Point(83, 75);
             this.Process_State.Name = "Process_State";
             this.Process_State.Size = new System.Drawing.Size(203, 37);
             this.Process_State.TabIndex = 25;
@@ -303,7 +304,7 @@
             // 
             this.label15.BackColor = System.Drawing.Color.White;
             this.label15.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label15.Location = new System.Drawing.Point(483, 226);
+            this.label15.Location = new System.Drawing.Point(474, 28);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(92, 37);
             this.label15.TabIndex = 26;
@@ -314,7 +315,7 @@
             // 
             this.Power_Pack_State.BackColor = System.Drawing.Color.White;
             this.Power_Pack_State.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Power_Pack_State.Location = new System.Drawing.Point(594, 226);
+            this.Power_Pack_State.Location = new System.Drawing.Point(571, 28);
             this.Power_Pack_State.Name = "Power_Pack_State";
             this.Power_Pack_State.Size = new System.Drawing.Size(119, 37);
             this.Power_Pack_State.TabIndex = 27;
@@ -338,7 +339,7 @@
             // 
             this.Bettery_Type.BackColor = System.Drawing.Color.White;
             this.Bettery_Type.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Bettery_Type.Location = new System.Drawing.Point(23, 273);
+            this.Bettery_Type.Location = new System.Drawing.Point(6, 75);
             this.Bettery_Type.Name = "Bettery_Type";
             this.Bettery_Type.Size = new System.Drawing.Size(71, 37);
             this.Bettery_Type.TabIndex = 29;
@@ -349,7 +350,7 @@
             // 
             this.label18.BackColor = System.Drawing.Color.White;
             this.label18.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label18.Location = new System.Drawing.Point(113, 226);
+            this.label18.Location = new System.Drawing.Point(105, 25);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(70, 37);
             this.label18.TabIndex = 30;
@@ -360,7 +361,7 @@
             // 
             this.SOC_percent.BackColor = System.Drawing.Color.White;
             this.SOC_percent.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.SOC_percent.Location = new System.Drawing.Point(189, 226);
+            this.SOC_percent.Location = new System.Drawing.Point(181, 25);
             this.SOC_percent.Name = "SOC_percent";
             this.SOC_percent.Size = new System.Drawing.Size(88, 37);
             this.SOC_percent.TabIndex = 31;
@@ -371,7 +372,7 @@
             // 
             this.label20.BackColor = System.Drawing.Color.White;
             this.label20.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label20.Location = new System.Drawing.Point(677, 273);
+            this.label20.Location = new System.Drawing.Point(647, 75);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(36, 37);
             this.label20.TabIndex = 35;
@@ -382,7 +383,7 @@
             // 
             this.label21.BackColor = System.Drawing.Color.White;
             this.label21.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label21.Location = new System.Drawing.Point(559, 273);
+            this.label21.Location = new System.Drawing.Point(530, 75);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(36, 37);
             this.label21.TabIndex = 34;
@@ -393,7 +394,7 @@
             // 
             this.Power_Pack_Wattage.BackColor = System.Drawing.Color.White;
             this.Power_Pack_Wattage.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Power_Pack_Wattage.Location = new System.Drawing.Point(601, 273);
+            this.Power_Pack_Wattage.Location = new System.Drawing.Point(571, 75);
             this.Power_Pack_Wattage.Name = "Power_Pack_Wattage";
             this.Power_Pack_Wattage.Size = new System.Drawing.Size(70, 37);
             this.Power_Pack_Wattage.TabIndex = 33;
@@ -404,7 +405,7 @@
             // 
             this.Power_Pack_outvoltage.BackColor = System.Drawing.Color.White;
             this.Power_Pack_outvoltage.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Power_Pack_outvoltage.Location = new System.Drawing.Point(483, 273);
+            this.Power_Pack_outvoltage.Location = new System.Drawing.Point(457, 75);
             this.Power_Pack_outvoltage.Name = "Power_Pack_outvoltage";
             this.Power_Pack_outvoltage.Size = new System.Drawing.Size(70, 37);
             this.Power_Pack_outvoltage.TabIndex = 32;
@@ -415,7 +416,7 @@
             // 
             this.label24.BackColor = System.Drawing.Color.White;
             this.label24.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label24.Location = new System.Drawing.Point(348, 376);
+            this.label24.Location = new System.Drawing.Point(331, 164);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(36, 37);
             this.label24.TabIndex = 39;
@@ -426,7 +427,7 @@
             // 
             this.label25.BackColor = System.Drawing.Color.White;
             this.label25.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label25.Location = new System.Drawing.Point(230, 376);
+            this.label25.Location = new System.Drawing.Point(213, 164);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(36, 37);
             this.label25.TabIndex = 38;
@@ -437,7 +438,7 @@
             // 
             this.Battery_Current_Wattage.BackColor = System.Drawing.Color.White;
             this.Battery_Current_Wattage.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Battery_Current_Wattage.Location = new System.Drawing.Point(272, 376);
+            this.Battery_Current_Wattage.Location = new System.Drawing.Point(255, 164);
             this.Battery_Current_Wattage.Name = "Battery_Current_Wattage";
             this.Battery_Current_Wattage.Size = new System.Drawing.Size(70, 37);
             this.Battery_Current_Wattage.TabIndex = 37;
@@ -448,7 +449,7 @@
             // 
             this.Battery_Current_Voltage.BackColor = System.Drawing.Color.White;
             this.Battery_Current_Voltage.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Battery_Current_Voltage.Location = new System.Drawing.Point(154, 376);
+            this.Battery_Current_Voltage.Location = new System.Drawing.Point(137, 164);
             this.Battery_Current_Voltage.Name = "Battery_Current_Voltage";
             this.Battery_Current_Voltage.Size = new System.Drawing.Size(70, 37);
             this.Battery_Current_Voltage.TabIndex = 36;
@@ -459,7 +460,7 @@
             // 
             this.label28.BackColor = System.Drawing.Color.White;
             this.label28.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label28.Location = new System.Drawing.Point(23, 322);
+            this.label28.Location = new System.Drawing.Point(6, 118);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(125, 37);
             this.label28.TabIndex = 40;
@@ -470,7 +471,7 @@
             // 
             this.label29.BackColor = System.Drawing.Color.White;
             this.label29.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label29.Location = new System.Drawing.Point(23, 376);
+            this.label29.Location = new System.Drawing.Point(6, 164);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(125, 37);
             this.label29.TabIndex = 41;
@@ -481,7 +482,7 @@
             // 
             this.label30.BackColor = System.Drawing.Color.White;
             this.label30.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label30.Location = new System.Drawing.Point(23, 429);
+            this.label30.Location = new System.Drawing.Point(11, 242);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(125, 37);
             this.label30.TabIndex = 42;
@@ -503,7 +504,7 @@
             // 
             this.SOH_percent.BackColor = System.Drawing.Color.White;
             this.SOH_percent.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.SOH_percent.Location = new System.Drawing.Point(359, 226);
+            this.SOH_percent.Location = new System.Drawing.Point(351, 25);
             this.SOH_percent.Name = "SOH_percent";
             this.SOH_percent.Size = new System.Drawing.Size(88, 37);
             this.SOH_percent.TabIndex = 47;
@@ -514,7 +515,7 @@
             // 
             this.label35.BackColor = System.Drawing.Color.White;
             this.label35.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label35.Location = new System.Drawing.Point(283, 226);
+            this.label35.Location = new System.Drawing.Point(275, 25);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(70, 37);
             this.label35.TabIndex = 46;
@@ -542,7 +543,7 @@
             this.gb_Slot.Controls.Add(this.LED_BLUE_Button);
             this.gb_Slot.Controls.Add(this.DOOR_OPEN_Button);
             this.gb_Slot.Controls.Add(this.DOOR_CLOSE_Button);
-            this.gb_Slot.Location = new System.Drawing.Point(12, 12);
+            this.gb_Slot.Location = new System.Drawing.Point(12, 49);
             this.gb_Slot.Name = "gb_Slot";
             this.gb_Slot.Size = new System.Drawing.Size(723, 168);
             this.gb_Slot.TabIndex = 48;
@@ -619,7 +620,22 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label20);
+            this.groupBox2.Controls.Add(this.label30);
+            this.groupBox2.Controls.Add(this.Power_Pack_Wattage);
+            this.groupBox2.Controls.Add(this.label21);
+            this.groupBox2.Controls.Add(this.SOH_percent);
+            this.groupBox2.Controls.Add(this.label24);
+            this.groupBox2.Controls.Add(this.Power_Pack_outvoltage);
+            this.groupBox2.Controls.Add(this.label29);
+            this.groupBox2.Controls.Add(this.Power_Pack_State);
+            this.groupBox2.Controls.Add(this.Battery_Current_Wattage);
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Controls.Add(this.label25);
             this.groupBox2.Controls.Add(this.cb_discharging);
+            this.groupBox2.Controls.Add(this.label28);
+            this.groupBox2.Controls.Add(this.Battery_Current_Voltage);
+            this.groupBox2.Controls.Add(this.label35);
             this.groupBox2.Controls.Add(this.Slot_Temp);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.lb_battery_arrive);
@@ -628,14 +644,34 @@
             this.groupBox2.Controls.Add(this.Battery_Highest_temp);
             this.groupBox2.Controls.Add(this.FET_Temp);
             this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.Bettery_Type);
+            this.groupBox2.Controls.Add(this.Battery_get_Wattage);
+            this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.manual_on);
+            this.groupBox2.Controls.Add(this.Process_State);
+            this.groupBox2.Controls.Add(this.Battery_get_Voltage);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label18);
+            this.groupBox2.Controls.Add(this.SOC_percent);
             this.groupBox2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 187);
+            this.groupBox2.Location = new System.Drawing.Point(12, 223);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(723, 309);
             this.groupBox2.TabIndex = 49;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "배터리";
+            // 
+            // cb_discharging
+            // 
+            this.cb_discharging.AutoSize = true;
+            this.cb_discharging.Location = new System.Drawing.Point(565, 135);
+            this.cb_discharging.Name = "cb_discharging";
+            this.cb_discharging.Size = new System.Drawing.Size(58, 20);
+            this.cb_discharging.TabIndex = 53;
+            this.cb_discharging.Text = "방전";
+            this.cb_discharging.UseVisualStyleBackColor = true;
+            this.cb_discharging.CheckedChanged += new System.EventHandler(this.cb_discharging_CheckedChanged);
             // 
             // Slot_Temp
             // 
@@ -663,7 +699,7 @@
             // 
             this.lb_battery_arrive.BackColor = System.Drawing.Color.White;
             this.lb_battery_arrive.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lb_battery_arrive.Location = new System.Drawing.Point(318, 86);
+            this.lb_battery_arrive.Location = new System.Drawing.Point(292, 75);
             this.lb_battery_arrive.Name = "lb_battery_arrive";
             this.lb_battery_arrive.Size = new System.Drawing.Size(88, 37);
             this.lb_battery_arrive.TabIndex = 50;
@@ -724,46 +760,21 @@
             this.manual_on.UseVisualStyleBackColor = true;
             this.manual_on.Click += new System.EventHandler(this.manual_on_Click);
             // 
-            // cb_discharging
+            // cb_Slot_num
             // 
-            this.cb_discharging.AutoSize = true;
-            this.cb_discharging.Location = new System.Drawing.Point(565, 135);
-            this.cb_discharging.Name = "cb_discharging";
-            this.cb_discharging.Size = new System.Drawing.Size(58, 20);
-            this.cb_discharging.TabIndex = 53;
-            this.cb_discharging.Text = "방전";
-            this.cb_discharging.UseVisualStyleBackColor = true;
-            this.cb_discharging.CheckedChanged += new System.EventHandler(this.cb_discharging_CheckedChanged);
+            this.cb_Slot_num.FormattingEnabled = true;
+            this.cb_Slot_num.Location = new System.Drawing.Point(13, 13);
+            this.cb_Slot_num.Name = "cb_Slot_num";
+            this.cb_Slot_num.Size = new System.Drawing.Size(121, 20);
+            this.cb_Slot_num.TabIndex = 50;
+            this.cb_Slot_num.SelectedIndexChanged += new System.EventHandler(this.cb_Slot_num_SelectedIndexChanged);
             // 
             // frmSubManual
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(743, 508);
-            this.Controls.Add(this.SOH_percent);
-            this.Controls.Add(this.label35);
-            this.Controls.Add(this.label30);
-            this.Controls.Add(this.label29);
-            this.Controls.Add(this.label28);
-            this.Controls.Add(this.label24);
-            this.Controls.Add(this.label25);
-            this.Controls.Add(this.Battery_Current_Wattage);
-            this.Controls.Add(this.Battery_Current_Voltage);
-            this.Controls.Add(this.label20);
-            this.Controls.Add(this.label21);
-            this.Controls.Add(this.Power_Pack_Wattage);
-            this.Controls.Add(this.Power_Pack_outvoltage);
-            this.Controls.Add(this.SOC_percent);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.Bettery_Type);
-            this.Controls.Add(this.Power_Pack_State);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.Process_State);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.Battery_get_Wattage);
-            this.Controls.Add(this.Battery_get_Voltage);
-            this.Controls.Add(this.label9);
+            this.ClientSize = new System.Drawing.Size(753, 553);
+            this.Controls.Add(this.cb_Slot_num);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.gb_Slot);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -834,5 +845,6 @@
         private System.Windows.Forms.Label Slot_Temp;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox cb_discharging;
+        private System.Windows.Forms.ComboBox cb_Slot_num;
     }
 }

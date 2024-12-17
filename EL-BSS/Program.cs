@@ -78,6 +78,7 @@ namespace EL_BSS
 
             // 예외를 로깅하거나 사용자에게 알림
             MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            CsUtil.WriteLog(errorMessage, "ERROR");
 
             // 필요한 경우 애플리케이션 종료
             Application.Exit();

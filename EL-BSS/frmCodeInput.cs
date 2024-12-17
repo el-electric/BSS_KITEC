@@ -14,6 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static EL_BSS.Model;
 using EL_DC_Charger.ocpp.ver16.packet.cp2csms;
 using EL_BSS.Cycle;
+using System.Threading;
 
 namespace EL_BSS
 {
@@ -70,7 +71,7 @@ namespace EL_BSS
                     string response = await Model.getInstance().oCPP_Comm_SendMgr.sendOCPP_CP_Req_Authorize(identificationCode , securityCode);
                     btn_enter.Enabled = true;
 
-                    if (response == null)
+                    if (response == null || response == "TIMEOUT")
                     {
                         lbl_sub_status.Text = "서버 응답 없음";
                         return;
@@ -126,6 +127,57 @@ namespace EL_BSS
         public void UpdateForm(string data)
         {
             throw new NotImplementedException();
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            int[] retur = new int[2] { 1, 2 };
+            int[] retri = new int[2] { 3, 4 };
+            string res = await Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_DataTransfer_battery_exchange(retur, retri);
+
+            switch (res)
+            {
+                case "00000":
+                    frmFrame.deleMenuClick(5, "배터리 인증 성공");
+                    // JumpStep(CsDefine.CYC_MAIN + 7);
+                    break;
+                case "11101":
+                    frmFrame.deleMenuClick(5, "배터리를 찾을 수 없습니다.");
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                    frmFrame.deleMenuClick(0);
+                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                    break;
+                case "11102":
+                    frmFrame.deleMenuClick(5, "배터리 세트를 찾을 수 없습니다.");
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                    frmFrame.deleMenuClick(0);
+                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                    break;
+                case "10002":
+                    frmFrame.deleMenuClick(5, "이용자가 없습니다.");
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                    frmFrame.deleMenuClick(0);
+                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                    break;
+                case "12102":
+                    frmFrame.deleMenuClick(5, "스테이션이 존재하지 않습니다.");
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                    frmFrame.deleMenuClick(0);
+                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                    break;
+                default:
+                    frmFrame.deleMenuClick(5, "없는 애러코드");
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[0] - 1].doorOpen = true;
+                    Model.getInstance().list_SlaveSend[getInstance().Lent_slot[1] - 1].doorOpen = true;
+                    frmFrame.deleMenuClick(0);
+                    CsDefine.Cyc_Rail[CsDefine.CYC_RUN] = CsDefine.CYC_INIT;
+                    break;
+            }
+
         }
     }
 }
