@@ -149,7 +149,7 @@ namespace EL_BSS
             voltymos_qr.Options.Margin = 0;
             voltymos_qr.Options.Width = 110;
             voltymos_qr.Options.Height = 110;
-            string qr_vos = "https://www.naver.com/";
+            string qr_vos = "https://www.kitech.re.kr/main/gate.htm";
             if (qr_vos != "")
                 img_qr_voltimos.Source = ConvertBitmapToBitmapImage(voltymos_qr.Write(qr_vos));
 
@@ -484,6 +484,13 @@ namespace EL_BSS
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
+
+        }
+
+        private void img_qr_voltimos_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            frmTest_CSMS frmTest_CSMS = new frmTest_CSMS();
+            frmTest_CSMS.ShowDialog();
 
         }
     }
