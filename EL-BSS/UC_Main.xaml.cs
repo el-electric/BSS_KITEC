@@ -76,8 +76,8 @@ namespace EL_BSS
             Loaded += UC_Main_Loaded;
 
 #if DEBUG
-                        btn_test.Visibility = Visibility.Visible;
-                        panel_version.Visibility = Visibility.Visible;
+            btn_test.Visibility = Visibility.Visible;
+            panel_version.Visibility = Visibility.Visible;
 #endif
 
             /*Version version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -143,7 +143,7 @@ namespace EL_BSS
             if (qr_data != "")
                 img_qr.Source = ConvertBitmapToBitmapImage(barcodeWriter.Write(qr_data));
 
-            
+
             ZXing.BarcodeWriter voltymos_qr = new ZXing.BarcodeWriter();
             voltymos_qr.Format = ZXing.BarcodeFormat.QR_CODE;
             voltymos_qr.Options.Margin = 0;
@@ -156,8 +156,8 @@ namespace EL_BSS
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             string versionString = $"{version.Major}.{version.Minor}.{version.Build}";
 
-            sw_version.Text = "SW Ver : " +versionString;
-            fw_version.Text = "FW Ver : "+Model.getInstance().list_MasterRecv[0].FW_ver;
+            sw_version.Text = "SW Ver : " + versionString;
+            fw_version.Text = "FW Ver : " + Model.getInstance().list_MasterRecv[0].FW_ver;
         }
         private void Image_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -216,7 +216,7 @@ namespace EL_BSS
                         images[i].Width = 60;
                         images[i].Margin = new Thickness(25, 25, 0, 0);*/
                     }
-                    else if (Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
+                    else if (!Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
                         if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
                         {
@@ -224,7 +224,7 @@ namespace EL_BSS
                         }
                         else
                         {
-                            images[i].Source = null;
+                            images[i].Source = CreateTransparentImage();
                         }
 
 
@@ -243,7 +243,7 @@ namespace EL_BSS
                         {
                             images[i].Source = cachedDoorOpen_Error;
                         }
-                        else 
+                        else
                         {
                             images[i].Source = cachedDoorOpen;
                         }
@@ -359,8 +359,6 @@ namespace EL_BSS
                     Canvas.SetLeft(color_bar6, 402.5);
                     Canvas.SetLeft(color_bar7, 402.5);
                     Canvas.SetLeft(color_bar8, 402.5);
-
-
 
                 }
             }));
@@ -485,6 +483,25 @@ namespace EL_BSS
         {
 
 
+        }
+        private BitmapImage CreateTransparentImage()
+        {
+            var transparentBitmap = new System.Drawing.Bitmap(1, 1);
+            transparentBitmap.SetPixel(0, 0, System.Drawing.Color.Transparent);
+
+            using (var ms = new System.IO.MemoryStream())
+            {
+                transparentBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                ms.Position = 0;
+
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = ms;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+
+                return bitmapImage;
+            }
         }
     }
 }
