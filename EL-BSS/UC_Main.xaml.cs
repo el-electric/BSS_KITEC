@@ -216,7 +216,7 @@ namespace EL_BSS
                         images[i].Width = 60;
                         images[i].Margin = new Thickness(25, 25, 0, 0);*/
                     }
-                    else if (!Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
+                    else if (Model.getInstance().list_SlaveRecv[i].BatterArrive && !Model.getInstance().list_SlaveRecv[i].isDoor)
                     {
                         if (Model.getInstance().list_SlaveRecv[i].Error_Occured)
                         {
