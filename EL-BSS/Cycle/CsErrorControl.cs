@@ -2,6 +2,7 @@
 using Microsoft.Win32.TaskScheduler;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Net.Configuration;
 using System.Reflection;
@@ -9,6 +10,7 @@ using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using static EL_BSS.Model;
 using static System.Windows.Forms.AxHost;
 
@@ -88,6 +90,7 @@ namespace EL_BSS.Cycle
             {
                 for (int m = 0; m < 2; m++)
                 {
+                    set_Error_LED(true, (Model.getInstance().list_MasterRecv[0].Error_Occured && Model.getInstance().list_SlaveRecv[1].Error_Occured));
                     if (!model.list_MasterRecv[m].Error_Occured)
                     {
                         if (model.list_MasterRecv[m].vibrationWarning)
@@ -147,6 +150,8 @@ namespace EL_BSS.Cycle
 
                 for (int s = 0; s < 8; s++)
                 {
+                    set_Error_LED(false, Model.getInstance().list_SlaveRecv[s].Error_Occured,s);
+
                     if (model.Battery_Error_Code[s][Battery_Error.Low_Voltage] != model.list_SlaveRecv[s].rowVoltage) { Is_Slot_Error(s, Battery_Error.Low_Voltage, model.list_SlaveRecv[s].rowVoltage); }
                     if (model.Battery_Error_Code[s][Battery_Error.Over_Voltage] != model.list_SlaveRecv[s].highVoltage) { Is_Slot_Error(s, Battery_Error.Over_Voltage, model.list_SlaveRecv[s].highVoltage); }
                     if (model.Battery_Error_Code[s][Battery_Error.Pack_Low_Voltage] != model.list_SlaveRecv[s].packLowVoltage) { Is_Slot_Error(s, Battery_Error.Pack_Low_Voltage, model.list_SlaveRecv[s].packLowVoltage); }
@@ -203,7 +208,7 @@ namespace EL_BSS.Cycle
                     {
                         Is_Slot_Error(s, Battery_Error.Power_Pack_Error, true);
                     }
-                    else if(model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].PowerPackStatus)
+                    else if (model.Battery_Error_Code[s][Battery_Error.Power_Pack_Error] && model.list_SlaveRecv[s].PowerPackStatus)
                     {
                         Is_Slot_Error(s, Battery_Error.Power_Pack_Error, false);
                     }
@@ -212,7 +217,7 @@ namespace EL_BSS.Cycle
                     {
                         Is_Slot_Error(s, Battery_Error.Slot_Temperature_Error, true);
                     }
-                    else if(model.Battery_Error_Code[s][Battery_Error.Slot_Temperature_Error] && (model.list_SlaveRecv[s].FET_Temper <= 40 && model.list_SlaveRecv[s].Battery_Slot_Temp <= 40))
+                    else if (model.Battery_Error_Code[s][Battery_Error.Slot_Temperature_Error] && (model.list_SlaveRecv[s].FET_Temper <= 40 && model.list_SlaveRecv[s].Battery_Slot_Temp <= 40))
                     {
                         Is_Slot_Error(s, Battery_Error.Slot_Temperature_Error, false);
                     }
@@ -248,23 +253,26 @@ namespace EL_BSS.Cycle
         {
             if (slot is int slot_num)
             {
-                Model.getInstance().Battery_Error_Code[slot_num][errorName] = state;
-                Model.getInstance().list_SlaveRecv[slot_num].Error_Occured = state;
-                Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(slot_num, errorName, state);
-
-                int Slot = slot_num + 1;
-                string state_to_string = "";
-
-                if (state) state_to_string = "발생";
-                else state_to_string = "종료";
-
-                string format_text = DateTime.Now.ToString() + " " + Slot + "번" + " " + errorName.ToString() + " " + state_to_string;
-
-                Model.getInstance().test_error_buffer.Add(format_text);
-
-                if (Model.getInstance().frmTest_CSMS != null)
+                if ((Model.getInstance().list_SlaveRecv[slot_num].WAKEUP_Signal && Model.getInstance().list_SlaveRecv[slot_num].Check_BatteryVoltage_Type != -1  && state) || !state)
                 {
-                    Model.getInstance().frmTest_CSMS.input_text(format_text , false);
+                    Model.getInstance().Battery_Error_Code[slot_num][errorName] = state;
+                    Model.getInstance().list_SlaveRecv[slot_num].Error_Occured = state;
+                    Model.getInstance().oCPP_Comm_SendMgr.Send_OCPP_CP_Req_AddInfoErrorEvent(slot_num, errorName, state);
+
+                    int Slot = slot_num + 1;
+                    string state_to_string = "";
+
+                    if (state) state_to_string = "발생";
+                    else state_to_string = "종료";
+
+                    string format_text = DateTime.Now.ToString() + " " + Slot + "번" + " " + errorName.ToString() + " " + state_to_string;
+
+                    Model.getInstance().test_error_buffer.Add(format_text);
+
+                    if (Model.getInstance().frmTest_CSMS != null)
+                    {
+                        Model.getInstance().frmTest_CSMS.input_text(format_text, false);
+                    }
                 }
             }
             else if (slot is int[] idarray)
@@ -311,6 +319,23 @@ namespace EL_BSS.Cycle
                 return true;
             }
             return false;
+        }
+
+        public void set_Error_LED(bool is_master, bool is_on  , int slot = 0)
+        {
+            if (is_master)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    Model.getInstance().list_SlaveSend[i].hmiManual = is_on;
+                    Model.getInstance().list_SlaveSend[i].LED_Red = is_on;
+                }
+            }
+            else
+            {
+                Model.getInstance().list_SlaveSend[slot].hmiManual = is_on;
+                Model.getInstance().list_SlaveSend[slot].LED_Red = is_on;
+            }
         }
     }
 }

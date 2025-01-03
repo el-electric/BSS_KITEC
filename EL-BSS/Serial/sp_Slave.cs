@@ -228,8 +228,13 @@ namespace EL_BSS.Serial
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryCurrentWattage = EL_Manager_Conversion.getInt_2Byte_with_minus(packet[27], packet[28]);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage = EL_Manager_Conversion.getInt_2Byte(packet[29], packet[30]);
 
-            if (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage == 0)
+            if ((Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) == 0)
             {
+                Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = 0;
+            }
+            else if ((Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) > 90 || (Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) < 40) // 규격에 맞지 않은 전압시
+            {
+                Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = -1;
             }
             else if ((Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestVoltage / 10) > 65)
             {
@@ -239,6 +244,8 @@ namespace EL_BSS.Serial
             {
                 Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type = 48;
             }
+
+
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryRequestWattage = EL_Manager_Conversion.getInt_2Byte(packet[31], packet[32]);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryMaxTemper = (EL_Manager_Conversion.getInt_2Byte(packet[33], packet[34]) - 40);
             Model.getInstance().list_SlaveRecv[idx - 1].BatteryMinTemper = (EL_Manager_Conversion.getInt_2Byte(packet[35], packet[36]) - 40);
@@ -381,7 +388,7 @@ namespace EL_BSS.Serial
 
             }
 
-            if (Model.getInstance().Send_bootnotification)
+            if (Model.getInstance().Send_bootnotification && Model.getInstance().list_SlaveRecv[idx - 1].Check_BatteryVoltage_Type != -1)
             {
                 if (Model.getInstance().Check_statusnotification[idx - 1] == null)
                 {

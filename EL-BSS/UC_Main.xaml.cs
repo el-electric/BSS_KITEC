@@ -280,7 +280,14 @@ namespace EL_BSS
                             borders[i].Background = blueBrush;
 
                         panels[i].Visibility = Visibility.Visible;
-                        socs[i].Text = " " + soc + "%" + " - " + Model.getInstance().list_SlaveRecv[i].Check_BatteryVoltage_Type.ToString() + "V" + " ";
+
+                        string vtype = "";
+
+                        if (Model.getInstance().list_SlaveRecv[i].Check_BatteryVoltage_Type == -1) vtype = "알수없음";
+                        else vtype = Model.getInstance().list_SlaveRecv[i].Check_BatteryVoltage_Type.ToString();
+
+
+                        socs[i].Text = " " + soc + "%" + " - " + vtype + "V" + " ";
                     }
 
                     else
@@ -503,6 +510,11 @@ namespace EL_BSS
 
                 return bitmapImage;
             }
+        }
+
+        private void img_qr_voltimos_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
