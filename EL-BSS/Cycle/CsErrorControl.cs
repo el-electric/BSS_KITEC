@@ -323,18 +323,21 @@ namespace EL_BSS.Cycle
 
         public void set_Error_LED(bool is_master, bool is_on  , int slot = 0)
         {
-            if (is_master)
+            if (!Model.getInstance().is_manual_mode)
             {
-                for (int i = 0; i < 8; i++)
+                if (is_master)
                 {
-                    Model.getInstance().list_SlaveSend[i].hmiManual = is_on;
-                    Model.getInstance().list_SlaveSend[i].LED_Red = is_on;
+                    for (int i = 0; i < 8; i++)
+                    {
+                        Model.getInstance().list_SlaveSend[i].hmiManual = is_on;
+                        Model.getInstance().list_SlaveSend[i].LED_Red = is_on;
+                    }
                 }
-            }
-            else
-            {
-                Model.getInstance().list_SlaveSend[slot].hmiManual = is_on;
-                Model.getInstance().list_SlaveSend[slot].LED_Red = is_on;
+                else
+                {
+                    Model.getInstance().list_SlaveSend[slot].hmiManual = is_on;
+                    Model.getInstance().list_SlaveSend[slot].LED_Red = is_on;
+                }
             }
         }
     }

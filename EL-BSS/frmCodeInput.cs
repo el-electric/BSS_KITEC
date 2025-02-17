@@ -125,6 +125,7 @@ namespace EL_BSS
 
         private void drakeUIButtonIcon1_Click_1(object sender, EventArgs e)
         {
+            Model.getInstance().is_manual_mode = false;
             frmFrame.deleMenuClick(0);
         }
 

@@ -192,6 +192,8 @@ namespace EL_BSS
 
         private void button9_Click(object sender, EventArgs e) // 출력(배터리 연동 없음)
         {
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].request_Voltage = 1000;
+            Model.getInstance().list_SlaveSend[mSLot_Number - 1].request_Wattage = 100;
             Model.getInstance().list_SlaveSend[mSLot_Number - 1].BatteryOutput = false;
             Model.getInstance().list_SlaveSend[mSLot_Number - 1].Output = true;
         }

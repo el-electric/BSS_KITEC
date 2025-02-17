@@ -114,6 +114,14 @@ namespace EL_BSS
 
 
             showNotiForm("Attempt to connect to server");
+
+            CsUtil.dir_Log_Delete("CSMS");
+            CsUtil.dir_Log_Delete("PACKET_ERROR");
+            CsUtil.dir_Log_Delete("WSS");
+            CsUtil.dir_Log_Delete("Log");
+            CsUtil.dir_Log_Delete("ERROR");
+            CsUtil.dir_Log_Delete("MASTER");
+            CsUtil.dir_Log_Delete("SLAVE");
         }
 
         private async void Timer_Tick(object sender, EventArgs e)

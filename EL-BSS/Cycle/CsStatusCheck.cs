@@ -60,11 +60,11 @@ namespace EL_BSS.Cycle
                 case CsDefine.CYC_MAIN + 3:
                     if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == 48)  // 배터리의 종류에 따라 전류값을 변경 , 전압값은 변경불가
                     {
-                        Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 15;
+                        Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 150;
                     }
                     else if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == 72)
                     {
-                        Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 10;
+                        Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 100;
                     }
 
                     Model.getInstance().list_SlaveSend[slotId - 1].BatteryOutput = true;  // 충전 명령

@@ -175,7 +175,7 @@ namespace BatteryChangeCharger.OCPP
             // 메시지에서 UId 추출 및 멤버 변수에 대입
             string currentRequestId = JsonConvert.DeserializeObject<JArray>(message)?[1]?.ToString();
 
-            Console.WriteLine("Message SEND : " + message);
+            Logger.d("☆Send☆ OCPP CP->CSMS Call => " + message);
             var tcs = new TaskCompletionSource<string>();
             responseTasks[currentRequestId] = tcs;
 
@@ -194,6 +194,8 @@ namespace BatteryChangeCharger.OCPP
                 else
                 {
                     string response = await tcs.Task;
+
+                    Console.WriteLine("Message RECEIVE : " + message);
                     return response;
                 }
             }

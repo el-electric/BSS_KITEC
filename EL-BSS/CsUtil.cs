@@ -157,6 +157,46 @@ namespace EL_BSS
             }
         }
 
+        public static void dir_Log_Delete(string FolderName)
+        {
+            string folderDir = Application.StartupPath + "\\" + FolderName + "\\";
+            try
+            {
+                int deleteMonth = 1;
+                DirectoryInfo di = new DirectoryInfo(folderDir);
+                if (di.Exists)
+                {
+
+                    DirectoryInfo[] dirInfo = di.GetDirectories();
+
+                    string lDate = DateTime.Today.AddMonths(-deleteMonth).ToString("yyyyMM");
+
+                    foreach (DirectoryInfo dir in dirInfo)
+                    {
+
+                        if (lDate.CompareTo(dir.Name) >= 0)
+
+                        {
+
+                            // 폴더 속성이 읽기, 쓰기 설정에 따라 삭제가 안될 수 있음
+
+                            // 때문에 미리 속성 Normal로 설정
+
+                            dir.Attributes = FileAttributes.Normal;
+
+                            dir.Delete(true);
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            catch (Exception) { }
+        }
+
         static byte[] CCITT_Tab_H = {
         0x00,(byte) 0xC1,(byte) 0x81,0x40,0x01,(byte) 0xC0,(byte) 0x80,0x41,0x01,(byte) 0xC0,(byte) 0x80,0x41,0x00,(byte) 0xC1,(byte) 0x81,
         0x40,0x01,(byte) 0xC0,(byte) 0x80,0x41,0x00,(byte) 0xC1,(byte)0x81,0x40,0x00,(byte)0xC1,(byte)0x81,0x40,0x01,(byte) 0xC0,

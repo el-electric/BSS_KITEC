@@ -216,22 +216,22 @@ namespace EL_BSS.Cycle
             {
                 if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == 48)
                 {
-                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 7;
+                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 70;
                 }
                 else if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == 72)
                 {
-                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 5;
+                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 50;
                 }
             }
             else
             {
                 if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == (int)enumData.Type48)
                 {
-                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 15;
+                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 150;
                 }
                 else if (Model.getInstance().list_SlaveRecv[slotId - 1].Check_BatteryVoltage_Type == (int)enumData.Type72)
                 {
-                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 10;
+                    Model.getInstance().list_SlaveSend[slotId - 1].request_Wattage = 100;
                 }
             }
         }
