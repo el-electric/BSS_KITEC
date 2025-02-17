@@ -139,7 +139,9 @@ namespace EL_BSS
             barcodeWriter.Options.Width = 180;
             barcodeWriter.Options.Height = 180;
             //string qr_data = CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\Config.ini", "CSMS", "chargeBoxSerialNumber");
-            string qr_data = "https://voltymos.com/%ED%94%84%EB%A6%AC%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98/BSSStation01";
+            //string qr_data = "https://voltymos.com/%ED%94%84%EB%A6%AC%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98/BSSStation01";
+
+            string qr_data = "https://voltymos.com/%ED%94%84%EB%A6%AC%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8A%A4%ED%85%8C%EC%9D%B4%EC%85%98/" + CsUtil.IniReadValue(System.Windows.Forms.Application.StartupPath + @"\Config.ini", "CSMS", "chargeBoxSerialNumber");
             if (qr_data != "")
                 img_qr.Source = ConvertBitmapToBitmapImage(barcodeWriter.Write(qr_data));
 
@@ -392,7 +394,8 @@ namespace EL_BSS
 
         private void btn_stop_Click(object sender, RoutedEventArgs e)
         {
-            frmFrame.deleMenuClick(3);
+            Model.getInstance().is_manual_mode = false;
+            frmFrame.deleMenuClick(3,"station_start");
 
             Keyboard.ClearFocus();
 

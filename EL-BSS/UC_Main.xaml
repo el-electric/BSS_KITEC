@@ -127,7 +127,7 @@
             </Button>
 
             <Border x:Name="Border_Voltimos" CornerRadius="10" Width="130" Height="130" BorderThickness="3"  Background="White" Margin="0,30,0,0" BorderBrush="#262d39" >
-                <Image Width="120" Height="120" x:Name="img_qr_voltimos" MouseRightButtonUp="img_qr_voltimos_MouseRightButtonUp"/>
+                <Image Width="120" Height="120" x:Name="img_qr_voltimos"/>
                 <Border.Effect>
                     <DropShadowEffect Color="Gray" Opacity="0.5" BlurRadius="10" Direction="320" ShadowDepth="2"/>
                 </Border.Effect>

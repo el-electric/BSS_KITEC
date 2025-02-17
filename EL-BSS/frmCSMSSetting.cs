@@ -69,7 +69,7 @@ namespace EL_BSS
             tb_stationAddressDetail.Text = Model.getInstance().stationAddressDetail;
             tb_stationAddressConvenient.Text = Model.getInstance().stationAddressConvenient;
             tb_Manager.Text = Model.getInstance().Manager;
-            tb_CSMS_ADDRESS.Text = CsUtil.IniReadValue(Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://192.168.0.90:8181");
+            tb_CSMS_ADDRESS.Text = CsUtil.IniReadValue(Application.StartupPath + @"\web_socet_url.ini", "web_socet_url", "url", "ws://58.72.4.187:8910/websocket");
         }
 
 

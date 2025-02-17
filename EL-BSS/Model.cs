@@ -122,9 +122,9 @@ namespace EL_BSS
         public string Slave_PortName = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "COMPORT", "SLAVE", "COM2");
 
         public string chargeBoxSerialNumber = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargeBoxSerialNumber.ToString(), "");
-        public string chargePointModel = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointModel.ToString(), "");
+        public string chargePointModel = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointModel.ToString(), "ELBSS");
         public string chargePointSerialNumber = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointSerialNumber.ToString(), "");
-        public string chargePointVendor = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointVendor.ToString(), "");
+        public string chargePointVendor = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.chargePointVendor.ToString(), "ELELECTRIC");
         public string iccid = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.iccid.ToString(), "");
         public string imsi = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.imsi.ToString(), "");
         public string stationAddressDetail = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationAddressDetail.ToString(), "");
@@ -132,7 +132,7 @@ namespace EL_BSS
         public string Manager = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.Manager.ToString(), "");
         public string stationLocationLat = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationLocationLat.ToString(), "");
         public string stationLocationLong = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.stationLocationLong.ToString(), "");
-        public string maker = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.maker.ToString(), "");
+        public string maker = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.maker.ToString(), "ELELECTRIC");
         public string makeDate = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.makeDate.ToString(), "");
         public string runDate = CsUtil.IniReadValue(Application.StartupPath + @"\Config.ini", "CSMS", enumData.runDate.ToString(), "");
 
@@ -183,6 +183,8 @@ namespace EL_BSS
         public int test_uid_length = 0;
 
         public bool is_station_isSequence = false;
+
+        public bool is_manual_mode = false;
 
         public void set_test_csms_buffer(string value)
         {
@@ -236,7 +238,7 @@ namespace EL_BSS
                     frmTest_CSMS.input_text(format_text, true);
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
 
@@ -997,6 +999,97 @@ namespace EL_BSS
             Charger_Humidity,  //과습
             Charger_UpperTemper, // 스테이션 고온
         }
+
+
+        public Dictionary<string, Dictionary<string, string>> Language_Translation = new Dictionary<string, Dictionary<string, string>>
+        {
+            { "en" , new Dictionary<string, string>  //영어
+                {
+                ////////////////////Example//////////////////////
+                    { "welcome" , "welcome"},
+
+                ////////////////////Loading//////////////////////
+                    {"Authorizing", "Now Connecting..."},
+
+                ////////////////////bottom bard//////////////////////
+                    {"Authorize" , "User Verification"},
+                    {"return_battery", "Battery Return"},
+                    {"certifi_battery", "Battery_Certification"},
+                    {"retreive_battery", "Battery Rental"},
+                    {"using_complete", "Use Complete" },
+
+                ////////////////////Code Authorize//////////////////////
+                    {"insert_security_code" ,"Enter Security Code"},
+                    {"insert_4_identification_code" ,"Enter the identification code shown in the app"},
+                    {"insert_4_SecurityCode" ,"Enter the Security code shown in the app"},
+                    {"send_identification_code" ,"Send Authentication Code"},
+                    {"server_no_response" ,"No Server Response"},
+                    {"identification_success" ,"Verification Successful"},
+                    {"identification_fail" ,"Verification Failed"},
+
+                ////////////////////Logic//////////////////////
+                    {"take_Battery_close_door","문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요." },
+                    {"no_usable_slot_go_next_station","사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요." },
+                    {"communication_battery","배터리 통신중 입니다." },
+                    {"put_battery_close_door", "슬롯의 배터리를 넣고 문을 닫아주세요" },
+                    {"put_battery_recconect", "배터리를 다시 장착해주세요." },
+                    {"return_Complete","반납이 완료되었습니다." },
+                    {"take_battery_opened_slot","문이 열린 슬롯의 배터리를 가져가 주세요" },
+                    {"thanks_goodbye","감사합니다. 안녕히가세요." },
+                    {"remove_battery_close_door" , "배터리를 뺴고 문을 닫아주세요." },
+                    {"battery_Verification_complete", "배터리 인증 성공" },
+                    {"find_no_battery","배터리를 찾을 수 없습니다." },
+                    {"no_user","이용자가 없습니다." },
+                    {"not_exist_station", "스테이션이 존재하지 않습니다." },
+                    {"not_exist_errorcode","없는 에러코드" },
+                    {"incorrect_batteryid_ask_customer_service_center" , "배터리의 ID가 일치하지 않습니다. \n고객센터에 문의해주세요"}
+                }
+
+            }
+            ,
+            { "kr", new Dictionary<string, string> // 한국어
+                {
+                ////////////////////Example//////////////////////
+                    { "welcome" , "안녕하세요"},
+
+                ////////////////////Loading //////////////////////
+                    {"Authorizing", "인증 중 입니다..."},
+
+                ////////////////////bottom bard//////////////////////
+                    {"Authorize" , "사용자 인증"},
+                    {"return_battery", "배터리 반납"},
+                    {"certifi_battery", "배터리 인증"},
+                    {"retreive_battery", "배터리 대여"},
+                    {"using_complete", "사용 완료" },
+
+                ////////////////////bottom bard//////////////////////
+                    {"insert_security_code" ,"보안 코드 입력"},
+                    {"insert_4_identification_code" ,"앱에 표시된 4자리 식별코드를 입력하세요."},
+                    {"insert_4_SecurityCode" ,"앱에 표시된 4자리 보안코드를 입력하세요."},
+                    {"send_identification_code" ,"인증코드 전송"},
+                    {"server_no_response" ,"서버 응답 없음"},
+                    {"identification_success" ,"인증 성공"},
+                    {"identification_fail" ,"인증 실패"},
+
+                ////////////////////Logic//////////////////////
+                    {"take_Battery_close_door","문이 열린 슬롯의 배터리를 넣고 문을 닫아주세요." },
+                    {"no_usable_slot_go_next_station","사용 가능한 슬롯이 없습니다.\n다른 스테이션을 이용해주세요." },
+                    {"communication_battery","배터리 통신중 입니다." },
+                    {"put_battery_close_door", "슬롯의 배터리를 넣고 문을 닫아주세요" },
+                    {"put_battery_recconect", "배터리를 다시 장착해주세요." },
+                    {"return_Complete","반납이 완료되었습니다." },
+                    {"take_battery_opened_slot","문이 열린 슬롯의 배터리를 가져가 주세요" },
+                    {"thanks_goodbye","감사합니다. 안녕히가세요." },
+                    {"remove_battery_close_door" , "배터리를 뺴고 문을 닫아주세요." },
+                    {"battery_Verification_complete", "배터리 인증 성공" },
+                    {"find_no_battery","배터리를 찾을 수 없습니다." },
+                    {"no_user","이용자가 없습니다." },
+                    {"not_exist_station", "스테이션이 존재하지 않습니다." },
+                    {"not_exist_errorcode","없는 에러코드" },
+                    {"incorrect_batteryid_ask_customer_service_center" , "배터리의 ID가 일치하지 않습니다. \n고객센터에 문의해주세요"}
+                }
+            }
+        };
 
 
 

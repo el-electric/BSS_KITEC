@@ -220,6 +220,7 @@
             this.tb_chargePointModel.Name = "tb_chargePointModel";
             this.tb_chargePointModel.Size = new System.Drawing.Size(163, 67);
             this.tb_chargePointModel.TabIndex = 11;
+            this.tb_chargePointModel.Text = "ELBSS";
             // 
             // drakeUILabel10
             // 

@@ -95,17 +95,17 @@ namespace EL_BSS.Cycle
                     {
                         if (model.list_MasterRecv[m].vibrationWarning)
                         {
-                            model.frmFrame.GetfrmMain().show_p("진동으로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
+                            model.frmFrame.GetfrmMain().show_p("Unable to use due to vibration.\nPlease contact the administrator");
                             is_station_error(m, Station_Error.vibrationWarning, true);
                         }
                         else if (model.list_MasterRecv[m].floodingWarning)
                         {
-                            model.frmFrame.GetfrmMain().show_p("침수로 인해서 사용이 불가합니다.\n관리자에게 문의해주세요.");
+                            model.frmFrame.GetfrmMain().show_p("Unable to use due to flooding.\nPlease contact the administrator.");
                             is_station_error(m, Station_Error.floodingWarning, true);
                         }
                         else if (model.list_MasterRecv[m].Charger_UpperTemper > 70)
                         {
-                            model.frmFrame.GetfrmMain().show_p("스테이션 고온으로 사용이 불가합니다.\n관리자에게 문의해주세요.");
+                            model.frmFrame.GetfrmMain().show_p("Station high temperature not available.\nPlease contact the administrator.");
                             is_station_error(m, Station_Error.Charger_UpperTemper, true);
                         }
                     }
@@ -152,7 +152,7 @@ namespace EL_BSS.Cycle
                 {
                     set_Error_LED(false, Model.getInstance().list_SlaveRecv[s].Error_Occured,s);
 
-                    if (model.Battery_Error_Code[s][Battery_Error.Low_Voltage] != model.list_SlaveRecv[s].rowVoltage) { Is_Slot_Error(s, Battery_Error.Low_Voltage, model.list_SlaveRecv[s].rowVoltage); }
+                    //if (model.Battery_Error_Code[s][Battery_Error.Low_Voltage] != model.list_SlaveRecv[s].rowVoltage) { Is_Slot_Error(s, Battery_Error.Low_Voltage, model.list_SlaveRecv[s].rowVoltage); }
                     if (model.Battery_Error_Code[s][Battery_Error.Over_Voltage] != model.list_SlaveRecv[s].highVoltage) { Is_Slot_Error(s, Battery_Error.Over_Voltage, model.list_SlaveRecv[s].highVoltage); }
                     if (model.Battery_Error_Code[s][Battery_Error.Pack_Low_Voltage] != model.list_SlaveRecv[s].packLowVoltage) { Is_Slot_Error(s, Battery_Error.Pack_Low_Voltage, model.list_SlaveRecv[s].packLowVoltage); }
                     if (model.Battery_Error_Code[s][Battery_Error.Pack_High_Voltage] != model.list_SlaveRecv[s].packHighVoltage) { Is_Slot_Error(s, Battery_Error.Pack_High_Voltage, model.list_SlaveRecv[s].packHighVoltage); }
@@ -167,7 +167,7 @@ namespace EL_BSS.Cycle
                     if (model.Battery_Error_Code[s][Battery_Error.FET_Low_Temperature] != model.list_SlaveRecv[s].FET_LowTemp) { Is_Slot_Error(s, Battery_Error.FET_Low_Temperature, model.list_SlaveRecv[s].FET_LowTemp); }
                     if (model.Battery_Error_Code[s][Battery_Error.FET_High_Temperature] != model.list_SlaveRecv[s].FET_HighTemp) { Is_Slot_Error(s, Battery_Error.FET_High_Temperature, model.list_SlaveRecv[s].FET_HighTemp); }
 
-                    if (model.Battery_Error_Code[s][Battery_Error.Low_Voltage_Protection] != model.list_SlaveRecv[s].lowVoltageProtection) { Is_Slot_Error(s, Battery_Error.Low_Voltage_Protection, model.list_SlaveRecv[s].lowVoltageProtection); }
+                    //if (model.Battery_Error_Code[s][Battery_Error.Low_Voltage_Protection] != model.list_SlaveRecv[s].lowVoltageProtection) { Is_Slot_Error(s, Battery_Error.Low_Voltage_Protection, model.list_SlaveRecv[s].lowVoltageProtection); }
                     if (model.Battery_Error_Code[s][Battery_Error.High_Voltage_Protection] != model.list_SlaveRecv[s].highVoltageProtection) { Is_Slot_Error(s, Battery_Error.High_Voltage_Protection, model.list_SlaveRecv[s].highVoltageProtection); }
                     if (model.Battery_Error_Code[s][Battery_Error.Pack_Low_Voltage_Protection] != model.list_SlaveRecv[s].packLowVoltageProtection) { Is_Slot_Error(s, Battery_Error.Pack_Low_Voltage_Protection, model.list_SlaveRecv[s].packLowVoltageProtection); }
                     if (model.Battery_Error_Code[s][Battery_Error.Pack_High_Voltage_Protection] != model.list_SlaveRecv[s].packHighVoltageProtection) { Is_Slot_Error(s, Battery_Error.Pack_High_Voltage_Protection, model.list_SlaveRecv[s].packHighVoltageProtection); }

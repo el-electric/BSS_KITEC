@@ -372,7 +372,9 @@ namespace EL_BSS
 
         private void lbl_time_DoubleClick(object sender, EventArgs e)
         {
-            frmFrame.deleMenuClick(1);
+            //frmFrame.deleMenuClick(1);
+            Model.getInstance().is_manual_mode = true;
+            frmFrame.deleMenuClick(3);
         }
 
 

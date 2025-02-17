@@ -81,7 +81,7 @@
             this.lbl_main_status.Name = "lbl_main_status";
             this.lbl_main_status.Size = new System.Drawing.Size(1018, 138);
             this.lbl_main_status.TabIndex = 1;
-            this.lbl_main_status.Text = "보안 코드 입력";
+            this.lbl_main_status.Text = "Enter Security Code";
             this.lbl_main_status.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // lbl_sub_status
@@ -94,7 +94,7 @@
             this.lbl_sub_status.Name = "lbl_sub_status";
             this.lbl_sub_status.Size = new System.Drawing.Size(1018, 138);
             this.lbl_sub_status.TabIndex = 2;
-            this.lbl_sub_status.Text = "앱에 표시된 6자리 코드를 입력하세요";
+            this.lbl_sub_status.Text = "Enter the identification code shown in the app";
             this.lbl_sub_status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tb_intput

@@ -489,7 +489,7 @@
     <None Include="Resources\voltymoslogo.png" />
     <Resource Include="Resources\bssStation_change2.png" />
     <Resource Include="Resources\bssStation_change.png" />
-    <Resource Include="Resources\doorOpen_danger.png" />
+    <EmbeddedResource Include="Resources\doorOpen_danger.png" />
     <None Include="Resources\bss_illust_usingwarning.png" />
     <Resource Include="Resources\dooropen_batteryin_error.png" />
     <None Include="Resources\doorclose_batteryout_error.png" />

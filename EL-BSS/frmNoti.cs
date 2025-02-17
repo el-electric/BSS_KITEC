@@ -37,11 +37,11 @@ namespace EL_BSS
 
             if (data == "Attempt to connect to server")
             {
-                lb_Title.Text = "접속중 입니다..";
+                lb_Title.Text = "Connecting..";
             }
             else
             {
-                lb_Title.Text = "인증중 입니다..";
+                lb_Title.Text = "Authenticating..";
             }
         }
 
